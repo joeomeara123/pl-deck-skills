@@ -36,7 +36,19 @@ No boxes. Cards are open text blocks separated by dashed lines. In grids, vertic
 
 ## SVG Diagrams
 
-**This is the most common source of visual bugs. Follow these rules exactly.**
+**Diagrams are the most impactful visual element on a slide. A bad diagram is worse than no diagram. Follow these rules exactly.**
+
+### Design Principles (read BEFORE drawing any diagram)
+
+1. **One idea per diagram.** If you need to explain the diagram, it's too complex. Split it or simplify.
+2. **Visual hierarchy through size.** The central concept should be the largest element. Supporting nodes should be noticeably smaller. Never make all nodes the same size.
+3. **Whitespace is structure.** 40px minimum between nodes. 20px padding inside the viewBox edges. Cramped diagrams look amateur.
+4. **Before/after beats abstract.** When showing a transformation (silos to unified, chaos to order), physically separate the two states with space or a divider. The reader should see the contrast instantly.
+5. **Direction tells the story.** Top-to-bottom = hierarchy/layers. Left-to-right = process/flow. Center-outward = hub-spoke/influence. Pick one and commit.
+6. **Connectors are minimal.** Dashed lines at `rgba(0,0,255,0.15)` with subtle arrows. Never more connectors than nodes. If it looks like spaghetti, remove lines until it doesn't.
+7. **Labels inside nodes, not floating.** Text should be anchored to something. Floating labels create visual noise.
+8. **Use color to encode meaning, not decoration.** Blue = confirmed/positive. Red = problem/silo. Salmon = needs attention. Grey = unconfirmed. One color per meaning, max 3 colors per diagram.
+9. **Ask: would a bulleted list work better?** If yes, use a bulleted list. Diagrams earn their place by showing relationships that text cannot.
 
 ### Mandatory SVG Setup
 

@@ -101,11 +101,14 @@ Establishes slide containers, backgrounds (hero gradient for title, grid+glow fo
 **Invoke `Skill(pl-deck-components)`**
 Builds cards, SVG diagrams (with proper circles and arrow markers), draw-on icons, tables, metrics, step numbers, blockquotes, and dividers.
 
-### Step 3: Animation
+### Step 3: Diagram Quality Pass
+Review every SVG diagram against the diagram quality rules in `pl-deck-components`. Each diagram must tell a clear visual story that a reader grasps in under 5 seconds. Run the Diagram Quality Checklist (below) on every diagram before proceeding.
+
+### Step 4: Animation
 **Invoke `Skill(pl-deck-animate)`**
 Adds GSAP timeline choreography, slot machine number count-ups, icon draw-on animations, and transition locking.
 
-### Step 4: Imagery (if needed)
+### Step 5: Imagery (if needed)
 **Invoke `Skill(deck-imagery)`**
 Generates AI imagery with the brand's frosted-glass pixelation and ASCII overlay treatment.
 
@@ -135,6 +138,18 @@ After generating every slide, verify against this checklist. Do not skip.
 - [ ] Labels monospace, uppercase, blue at 35% opacity.
 - [ ] Quotes have salmon left border.
 - [ ] Badges are plain colored text (no backgrounds).
+
+### Diagram Quality (run on EVERY SVG diagram)
+- [ ] **5-second test**: Can a reader understand the main point in 5 seconds?
+- [ ] **One clear story**: Diagram communicates exactly one idea. If it needs explanation, simplify.
+- [ ] **Visual hierarchy**: The most important element is visually dominant (larger, bolder, or more contrast). Secondary elements recede.
+- [ ] **Varied node sizes**: Nodes are NOT all the same size. Important nodes are larger. Minor nodes are smaller. Size = importance.
+- [ ] **Breathing room**: At least 40px between nodes. Nothing cramped or overlapping.
+- [ ] **Clear flow direction**: Reader's eye follows an obvious path (top-to-bottom, left-to-right, or center-outward).
+- [ ] **Labels are readable**: All text at least 9px. Critical labels at 11px+. No text inside tiny circles.
+- [ ] **Connectors are purposeful**: Every line connects two things that need connecting. No decorative spaghetti.
+- [ ] **Before/after or problem/solution structure**: Diagrams showing transformation should have a clear visual divide between the old state and new state.
+- [ ] **Not a bulleted list in disguise**: If the diagram could be replaced by 3 bullet points with no loss of understanding, it should be bullet points instead.
 
 ### Animation (HTML decks)
 - [ ] Elements initially hidden (`opacity: 0`).
