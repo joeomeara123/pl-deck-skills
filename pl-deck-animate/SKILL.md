@@ -250,7 +250,7 @@ function initPrismPixels() {
       ctx.clearRect(0, 0, w, h);
 
       const cols = Math.ceil(w / BS), rows = Math.ceil(h / BS);
-      const fadeRadius = 0.18, maxAlpha = 0.45;
+      const fadeRadius = 0.24, maxAlpha = 0.7;
       const diagonal = Math.sqrt(w * w + h * h);
       const maxDist = diagonal * fadeRadius;
 

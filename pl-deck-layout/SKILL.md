@@ -181,7 +181,7 @@ Content slides use `#fafafa` background with three layered effects in the bottom
   <div class="slide-bg-prism"></div>
   <canvas class="prism-pixels"></canvas>
   <div class="slide-grain"><svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#slide-grain-f)"/></svg></div>
-  <canvas id="corner-N" class="corner-canvas"></canvas>
+  <img src="logo-white.png" class="slide-logo" alt="">
   <div class="content">
     <!-- slide content here -->
   </div>
@@ -189,6 +189,29 @@ Content slides use `#fafafa` background with three layered effects in the bottom
 ```
 
 The `.content` div sits above backgrounds at `position: relative; z-index: 1; max-width: 960px; width: 100%;`.
+
+### Slide Logo Watermark
+
+Small white logo in the bottom-right corner of every content slide, sitting within the pixel overlay area:
+
+```css
+.slide-logo {
+  position: absolute;
+  bottom: 28px;
+  right: 32px;
+  width: 20px;
+  height: auto;
+  opacity: 0.8;
+  z-index: 2;
+  pointer-events: none;
+}
+```
+
+```html
+<img src="logo-white.png" class="slide-logo" alt="">
+```
+
+Add this element to every content slide, after the grain div.
 
 ## Logo Placement
 
@@ -288,27 +311,6 @@ document.addEventListener('keydown', (e) => {
 .slide { display: none; }
 .slide.active { display: flex; }
 ```
-
-## Pixel Corner Accent (Content Slides)
-
-All content slides get an animated pixel corner accent. Alternating corners: `top-right` on odd slides, `bottom-left` on even.
-
-**Canvas positioning:**
-```css
-.corner-canvas {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-```
-
-For the full animated Canvas 2D implementation, read `pixel-corner.md`. Key rules:
-- ONE color at a time (all blocks same color, cycling through 5 brand colors over 45s)
-- Uniform opacity (alpha from distance falloff only)
-- Subtle shimmer (multiplicative, never reveals invisible blocks)
-- 20px blocks (finer grain than hero's 45px)
-- Logo watermark: `logo-white.png`, 26px wide, 2 blocks inward from corner origin
 
 ## Responsive
 
