@@ -22,12 +22,13 @@ No boxes. Cards are open text blocks separated by dashed lines. In grids, vertic
 }
 .card:last-child { border-bottom: none; }
 
-/* Grid layout: vertical dividers between columns */
+/* Grid layout: vertical dividers between columns, generous padding both sides */
 .card-grid .card {
   border-bottom: none;
   border-right: 1px dashed rgba(0,0,0,0.08);
-  padding: 0 24px 0 0;
+  padding: 0 28px;
 }
+.card-grid .card:first-child { padding-left: 0; }
 .card-grid .card:last-child { border-right: none; padding-right: 0; }
 ```
 
