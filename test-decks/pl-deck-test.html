@@ -20,24 +20,23 @@ html, body { width: 100%; height: 100%; overflow: hidden; font-family: Inter, -a
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background: radial-gradient(
-    ellipse at -5% -5%,
-    transparent 0%,
-    transparent 78%,
-    rgba(255, 255, 255, 0) 80%,
-    #ffffff 82%,
-    #e0f2fe 85%,
-    #93c5fd 89%,
-    #60a5fa 94%,
-    #00008b 98%,
-    #00008b 100%
-  );
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='blur' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeGaussianBlur stdDeviation='4' /%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23blur)'%3E%3Cpath d='M 30 100 Q 65 100, 100 5 L 100 100 L 30 100 Z' fill='%23ffffff' opacity='0.7'/%3E%3Cpath d='M 30 100 Q 78 100, 100 30 L 100 100 L 30 100 Z' fill='%23e0f2fe'/%3E%3Cpath d='M 30 100 Q 88 100, 100 55 L 100 100 L 30 100 Z' fill='%2393c5fd'/%3E%3Cpath d='M 30 100 Q 95 100, 100 75 L 100 100 L 30 100 Z' fill='%2360a5fa'/%3E%3Cpath d='M 30 100 Q 100 100, 100 90 L 100 100 L 30 100 Z' fill='%2300008b'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 100% 100%;
 }
 .slide-grain {
   position: absolute; inset: 0; pointer-events: none; z-index: 1;
   opacity: 0.25; mix-blend-mode: multiply;
 }
 .slide-grain svg { width: 100%; height: 100%; }
+.prism-pixels {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: overlay;
+}
 .corner-canvas { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
 .content { position: relative; z-index: 1; max-width: 1100px; width: 100%; }
 
@@ -192,6 +191,7 @@ blockquote { border-left: 2px solid #FFA07A; padding-left: 16px; font-weight: 30
      ══════════════════════════════════════════ -->
 <div class="slide" id="slide-1">
   <div class="slide-bg-prism"></div>
+  <canvas class="prism-pixels"></canvas>
   <div class="slide-grain"><svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#slide-grain-f)"/></svg></div>
   <canvas id="corner-1" class="corner-canvas"></canvas>
   <div class="content">
@@ -238,6 +238,7 @@ blockquote { border-left: 2px solid #FFA07A; padding-left: 16px; font-weight: 30
      ══════════════════════════════════════════ -->
 <div class="slide" id="slide-2">
   <div class="slide-bg-prism"></div>
+  <canvas class="prism-pixels"></canvas>
   <div class="slide-grain"><svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#slide-grain-f)"/></svg></div>
   <canvas id="corner-2" class="corner-canvas"></canvas>
   <div class="content">
@@ -300,6 +301,7 @@ blockquote { border-left: 2px solid #FFA07A; padding-left: 16px; font-weight: 30
      ══════════════════════════════════════════ -->
 <div class="slide" id="slide-3">
   <div class="slide-bg-prism"></div>
+  <canvas class="prism-pixels"></canvas>
   <div class="slide-grain"><svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#slide-grain-f)"/></svg></div>
   <canvas id="corner-3" class="corner-canvas"></canvas>
   <div class="content">
@@ -328,6 +330,7 @@ blockquote { border-left: 2px solid #FFA07A; padding-left: 16px; font-weight: 30
      ══════════════════════════════════════════ -->
 <div class="slide" id="slide-4">
   <div class="slide-bg-prism"></div>
+  <canvas class="prism-pixels"></canvas>
   <div class="slide-grain"><svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#slide-grain-f)"/></svg></div>
   <canvas id="corner-4" class="corner-canvas"></canvas>
   <div class="content">
@@ -366,6 +369,7 @@ blockquote { border-left: 2px solid #FFA07A; padding-left: 16px; font-weight: 30
      ══════════════════════════════════════════ -->
 <div class="slide" id="slide-5">
   <div class="slide-bg-prism"></div>
+  <canvas class="prism-pixels"></canvas>
   <div class="slide-grain"><svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#slide-grain-f)"/></svg></div>
   <canvas id="corner-5" class="corner-canvas"></canvas>
   <div class="content">
@@ -424,6 +428,7 @@ blockquote { border-left: 2px solid #FFA07A; padding-left: 16px; font-weight: 30
      ══════════════════════════════════════════ -->
 <div class="slide" id="slide-6">
   <div class="slide-bg-prism"></div>
+  <canvas class="prism-pixels"></canvas>
   <div class="slide-grain"><svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#slide-grain-f)"/></svg></div>
   <canvas id="corner-6" class="corner-canvas"></canvas>
   <div class="content">
@@ -487,6 +492,7 @@ blockquote { border-left: 2px solid #FFA07A; padding-left: 16px; font-weight: 30
      ══════════════════════════════════════════ -->
 <div class="slide" id="slide-7">
   <div class="slide-bg-prism"></div>
+  <canvas class="prism-pixels"></canvas>
   <div class="slide-grain"><svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#slide-grain-f)"/></svg></div>
   <canvas id="corner-7" class="corner-canvas"></canvas>
   <div class="content">
@@ -511,6 +517,7 @@ blockquote { border-left: 2px solid #FFA07A; padding-left: 16px; font-weight: 30
      ══════════════════════════════════════════ -->
 <div class="slide" id="slide-8">
   <div class="slide-bg-prism"></div>
+  <canvas class="prism-pixels"></canvas>
   <div class="slide-grain"><svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#slide-grain-f)"/></svg></div>
   <canvas id="corner-8" class="corner-canvas"></canvas>
   <div class="content">
@@ -568,6 +575,7 @@ blockquote { border-left: 2px solid #FFA07A; padding-left: 16px; font-weight: 30
      ══════════════════════════════════════════ -->
 <div class="slide" id="slide-9">
   <div class="slide-bg-prism"></div>
+  <canvas class="prism-pixels"></canvas>
   <div class="slide-grain"><svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#slide-grain-f)"/></svg></div>
   <canvas id="corner-9" class="corner-canvas"></canvas>
   <div class="content">
@@ -593,6 +601,7 @@ blockquote { border-left: 2px solid #FFA07A; padding-left: 16px; font-weight: 30
      ══════════════════════════════════════════ -->
 <div class="slide" id="slide-10">
   <div class="slide-bg-prism"></div>
+  <canvas class="prism-pixels"></canvas>
   <div class="slide-grain"><svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#slide-grain-f)"/></svg></div>
   <canvas id="corner-10" class="corner-canvas"></canvas>
   <div class="content">
@@ -638,6 +647,7 @@ blockquote { border-left: 2px solid #FFA07A; padding-left: 16px; font-weight: 30
      ══════════════════════════════════════════ -->
 <div class="slide" id="slide-11">
   <div class="slide-bg-prism"></div>
+  <canvas class="prism-pixels"></canvas>
   <div class="slide-grain"><svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#slide-grain-f)"/></svg></div>
   <canvas id="corner-11" class="corner-canvas"></canvas>
   <div class="content">
@@ -728,6 +738,7 @@ blockquote { border-left: 2px solid #FFA07A; padding-left: 16px; font-weight: 30
      ══════════════════════════════════════════ -->
 <div class="slide" id="slide-12">
   <div class="slide-bg-prism"></div>
+  <canvas class="prism-pixels"></canvas>
   <div class="slide-grain"><svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#slide-grain-f)"/></svg></div>
   <canvas id="corner-12" class="corner-canvas"></canvas>
   <div class="content">
@@ -808,6 +819,7 @@ blockquote { border-left: 2px solid #FFA07A; padding-left: 16px; font-weight: 30
      ══════════════════════════════════════════ -->
 <div class="slide" id="slide-13">
   <div class="slide-bg-prism"></div>
+  <canvas class="prism-pixels"></canvas>
   <div class="slide-grain"><svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#slide-grain-f)"/></svg></div>
   <canvas id="corner-13" class="corner-canvas"></canvas>
   <div class="content">
@@ -853,6 +865,7 @@ blockquote { border-left: 2px solid #FFA07A; padding-left: 16px; font-weight: 30
      ══════════════════════════════════════════ -->
 <div class="slide" id="slide-14">
   <div class="slide-bg-prism"></div>
+  <canvas class="prism-pixels"></canvas>
   <div class="slide-grain"><svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#slide-grain-f)"/></svg></div>
   <canvas id="corner-14" class="corner-canvas"></canvas>
   <div class="content">
@@ -1098,8 +1111,94 @@ document.addEventListener('keydown',(e)=>{
 // ═══════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════
+// Prism pixel overlay — frosted glass blocks like the hero gradient
+function initPrismPixels() {
+  const BS = 40;
+  const CHARS = '0123456789@#$%&*+=?<>{}[]/\\|LABS';
+  const seed = (x, y) => { const h = Math.sin(x * 127.1 + y * 311.7) * 43758.5453123; return h - Math.floor(h); };
+  const smoothstep = (e0, e1, x) => { const t = Math.max(0, Math.min(1, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); };
+  const pixelColors = [
+    [0, 0, 139],       // dark blue
+    [255, 160, 122],   // orange/salmon
+    [185, 233, 121],   // green
+    [64, 224, 208],    // light blue/turquoise
+    [219, 112, 180],   // pink
+  ];
+  function getCycleColor(time) {
+    const totalCycle = 12; // full cycle in 12 seconds (3s per color)
+    const p = (time % totalCycle) / totalCycle;
+    const idx = Math.floor(p * pixelColors.length);
+    const t = smoothstep(0, 1, (p * pixelColors.length) - idx);
+    const c1 = pixelColors[idx % pixelColors.length];
+    const c2 = pixelColors[(idx + 1) % pixelColors.length];
+    return c1.map((v, i) => Math.round(v + (c2[i] - v) * t));
+  }
+
+  document.querySelectorAll('.prism-pixels').forEach(canvas => {
+    const ctx = canvas.getContext('2d');
+    const startTime = performance.now() / 1000;
+    let w = 0, h = 0;
+
+    function resize() {
+      const d = devicePixelRatio || 1;
+      w = canvas.parentElement.clientWidth;
+      h = canvas.parentElement.clientHeight;
+      canvas.width = w * d; canvas.height = h * d;
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx.setTransform(d, 0, 0, d, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function render() {
+      const pw = canvas.parentElement.clientWidth;
+      const ph = canvas.parentElement.clientHeight;
+      if (pw > 0 && ph > 0 && (pw !== w || ph !== h)) { resize(); }
+      if (w === 0 || h === 0) { requestAnimationFrame(render); return; }
+
+      const time = performance.now() / 1000 - startTime;
+      const [r, g, b] = getCycleColor(time);
+      ctx.clearRect(0, 0, w, h);
+
+      const cols = Math.ceil(w / BS), rows = Math.ceil(h / BS);
+      const fadeRadius = 0.18, maxAlpha = 0.45;
+      const diagonal = Math.sqrt(w * w + h * h);
+      const maxDist = diagonal * fadeRadius;
+
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const cx = (col + 0.5) * BS, cy = (row + 0.5) * BS;
+          const dist = Math.sqrt((w - cx) ** 2 + (h - cy) ** 2);
+          const t = dist / maxDist;
+          if (t >= 1.2) continue;
+
+          let blockAlpha;
+          if (t <= 1.0) { blockAlpha = smoothstep(1, 0, t) * maxAlpha; }
+          else { blockAlpha = (1.2 - t) * 0.15 * maxAlpha; }
+          blockAlpha *= (0.85 + seed(col + 700, row + 700) * 0.15);
+          if (blockAlpha < 0.02) continue;
+
+          ctx.fillStyle = `rgba(${r},${g},${b},${blockAlpha})`;
+          ctx.fillRect(col * BS, row * BS, BS, BS);
+
+          if (blockAlpha > 0.08 && seed(col, row) < 0.25) {
+            const ch = CHARS[Math.floor(seed(col + 100, row + 100) * CHARS.length)];
+            ctx.fillStyle = `rgba(${r},${g},${b},${blockAlpha * 0.4})`;
+            ctx.font = '500 ' + (BS * 0.4) + 'px "Inter", sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText(ch, cx, cy);
+          }
+        }
+      }
+      requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
+  });
+}
+
 initHeroGL();
 initAsciiOverlay();
+initPrismPixels();
 // Grain handled by SVG feTurbulence in HTML
 for(let i=1;i<slides.length;i++){initAnimatedCorner('corner-'+i,i%2===1?'top-right':'bottom-left');}
 setTimeout(()=>animateSlideIn(slides[0]),300);

@@ -121,9 +121,12 @@ For the full WebGL shader code, ASCII overlay code, and pixel corner code, read 
 - `ascii-overlay.md` — ASCII character overlay canvas
 - `pixel-corner.md` — Animated pixel corner accent for content slides
 
-### Content Slides: Prism Gradient + Grain
+### Content Slides: Prism Gradient + Grain + Pixel Overlay
 
-Content slides use `#fafafa` background with a prism gradient in the bottom-right corner and SVG grain texture:
+Content slides use `#fafafa` background with three layered effects in the bottom-right corner:
+1. **Prism gradient** — SVG bezier curves creating a light-dispersion fan
+2. **Pixel overlay** — Canvas 2D color-cycling pixel blocks with `mix-blend-mode: overlay`
+3. **Grain texture** — SVG feTurbulence with `mix-blend-mode: multiply`
 
 ```css
 .slide:not(#slide-0) {
@@ -132,24 +135,25 @@ Content slides use `#fafafa` background with a prism gradient in the bottom-righ
   inset: 0;
 }
 
-/* Prism gradient — concave arc hugging bottom-right corner */
+/* Prism gradient — SVG bezier curves fanning from bottom-center to bottom-right */
 .slide-bg-prism {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background: radial-gradient(
-    ellipse at -5% -5%,
-    transparent 0%,
-    transparent 78%,
-    rgba(255, 255, 255, 0) 80%,
-    #ffffff 82%,
-    #e0f2fe 85%,
-    #93c5fd 89%,
-    #60a5fa 94%,
-    #00008b 98%,
-    #00008b 100%
-  );
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='blur' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeGaussianBlur stdDeviation='4' /%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23blur)'%3E%3Cpath d='M 30 100 Q 65 100, 100 5 L 100 100 L 30 100 Z' fill='%23ffffff' opacity='0.7'/%3E%3Cpath d='M 30 100 Q 78 100, 100 30 L 100 100 L 30 100 Z' fill='%23e0f2fe'/%3E%3Cpath d='M 30 100 Q 88 100, 100 55 L 100 100 L 30 100 Z' fill='%2393c5fd'/%3E%3Cpath d='M 30 100 Q 95 100, 100 75 L 100 100 L 30 100 Z' fill='%2360a5fa'/%3E%3Cpath d='M 30 100 Q 100 100, 100 90 L 100 100 L 30 100 Z' fill='%2300008b'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 100% 100%;
+}
+
+/* Pixel overlay — color-cycling blocks blended into the prism */
+.prism-pixels {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: overlay;
 }
 
 /* Grain texture overlay */
@@ -175,6 +179,7 @@ Content slides use `#fafafa` background with a prism gradient in the bottom-righ
 ```html
 <div class="slide" id="slide-N">
   <div class="slide-bg-prism"></div>
+  <canvas class="prism-pixels"></canvas>
   <div class="slide-grain"><svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#slide-grain-f)"/></svg></div>
   <canvas id="corner-N" class="corner-canvas"></canvas>
   <div class="content">

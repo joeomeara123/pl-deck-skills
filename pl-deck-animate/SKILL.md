@@ -196,6 +196,96 @@ function resetSlide(el) {
 }
 ```
 
+## Prism Pixel Overlay (copy-paste)
+
+Color-cycling pixel blocks overlaid on the prism gradient in the bottom-right corner. Uses `mix-blend-mode: overlay` to merge with the gradient.
+
+```javascript
+function initPrismPixels() {
+  const BS = 40;
+  const CHARS = '0123456789@#$%&*+=?<>{}[]/\\|LABS';
+  const seed = (x, y) => { const h = Math.sin(x * 127.1 + y * 311.7) * 43758.5453123; return h - Math.floor(h); };
+  const smoothstep = (e0, e1, x) => { const t = Math.max(0, Math.min(1, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); };
+  const pixelColors = [
+    [0, 0, 139],       // dark blue
+    [255, 160, 122],   // orange/salmon
+    [185, 233, 121],   // green
+    [64, 224, 208],    // light blue/turquoise
+    [219, 112, 180],   // pink
+  ];
+  function getCycleColor(time) {
+    const totalCycle = 12;
+    const p = (time % totalCycle) / totalCycle;
+    const idx = Math.floor(p * pixelColors.length);
+    const t = smoothstep(0, 1, (p * pixelColors.length) - idx);
+    const c1 = pixelColors[idx % pixelColors.length];
+    const c2 = pixelColors[(idx + 1) % pixelColors.length];
+    return c1.map((v, i) => Math.round(v + (c2[i] - v) * t));
+  }
+
+  document.querySelectorAll('.prism-pixels').forEach(canvas => {
+    const ctx = canvas.getContext('2d');
+    const startTime = performance.now() / 1000;
+    let w = 0, h = 0;
+
+    function resize() {
+      const d = devicePixelRatio || 1;
+      w = canvas.parentElement.clientWidth;
+      h = canvas.parentElement.clientHeight;
+      canvas.width = w * d; canvas.height = h * d;
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx.setTransform(d, 0, 0, d, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function render() {
+      const pw = canvas.parentElement.clientWidth;
+      const ph = canvas.parentElement.clientHeight;
+      if (pw > 0 && ph > 0 && (pw !== w || ph !== h)) { resize(); }
+      if (w === 0 || h === 0) { requestAnimationFrame(render); return; }
+
+      const time = performance.now() / 1000 - startTime;
+      const [r, g, b] = getCycleColor(time);
+      ctx.clearRect(0, 0, w, h);
+
+      const cols = Math.ceil(w / BS), rows = Math.ceil(h / BS);
+      const fadeRadius = 0.18, maxAlpha = 0.45;
+      const diagonal = Math.sqrt(w * w + h * h);
+      const maxDist = diagonal * fadeRadius;
+
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const cx = (col + 0.5) * BS, cy = (row + 0.5) * BS;
+          const dist = Math.sqrt((w - cx) ** 2 + (h - cy) ** 2);
+          const t = dist / maxDist;
+          if (t >= 1.2) continue;
+
+          let blockAlpha;
+          if (t <= 1.0) { blockAlpha = smoothstep(1, 0, t) * maxAlpha; }
+          else { blockAlpha = (1.2 - t) * 0.15 * maxAlpha; }
+          blockAlpha *= (0.85 + seed(col + 700, row + 700) * 0.15);
+          if (blockAlpha < 0.02) continue;
+
+          ctx.fillStyle = `rgba(${r},${g},${b},${blockAlpha})`;
+          ctx.fillRect(col * BS, row * BS, BS, BS);
+
+          if (blockAlpha > 0.08 && seed(col, row) < 0.25) {
+            const ch = CHARS[Math.floor(seed(col + 100, row + 100) * CHARS.length)];
+            ctx.fillStyle = `rgba(${r},${g},${b},${blockAlpha * 0.4})`;
+            ctx.font = '500 ' + (BS * 0.4) + 'px "Inter", sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText(ch, cx, cy);
+          }
+        }
+      }
+      requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
+  });
+}
+```
+
 ## Trigger Points
 
 ```javascript
@@ -204,6 +294,9 @@ setTimeout(() => {
   slides[0].classList.add('active');
   animateSlideIn(slides[0]);
 }, 300);
+
+// Initialize prism pixel overlay
+initPrismPixels();
 
 // In goToSlide — called after setting .active class
 // (see Animation Lock section above)
