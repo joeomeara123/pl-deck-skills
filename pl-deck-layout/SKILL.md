@@ -160,6 +160,8 @@ Content slides use `#fafafa` background with three layered effects in the bottom
 .slide-grain {
   position: absolute; inset: 0; pointer-events: none; z-index: 1;
   opacity: 0.25; mix-blend-mode: multiply;
+  -webkit-mask-image: radial-gradient(ellipse at 100% 100%, black 0%, transparent 50%);
+  mask-image: radial-gradient(ellipse at 100% 100%, black 0%, transparent 50%);
 }
 .slide-grain svg { width: 100%; height: 100%; }
 ```
