@@ -65,13 +65,13 @@ Load from Google Fonts: `Inter:wght@300;400;500;600;700`
 
 | Element | Size | Weight | Notes |
 |---------|------|--------|-------|
-| Section heading | clamp(1.8rem, 3.5vw, 2.8rem) | 300 | Light, clean. line-height 1.2, letter-spacing -0.01em |
-| Card title | 14px | 600 | |
-| Body / subtitle | 1rem | 300 | line-height 1.75, max-width 600px, color #94a3b8 |
-| Labels | 10px | 600 | UPPERCASE, letter-spacing 0.12em, monospace |
-| CTA text | 10px | 600 | UPPERCASE, letter-spacing 0.1em |
+| Section heading | clamp(1.4rem, 2.8vw, 2.2rem) | 300 | Light, clean. line-height 1.2, letter-spacing -0.01em |
+| Card title | 12.5px | 600 | |
+| Body / subtitle | 0.88rem | 300 | line-height 1.7, max-width 520px, color #94a3b8 |
+| Labels | 9px | 600 | UPPERCASE, letter-spacing 0.12em, monospace |
+| CTA text | 9px | 600 | UPPERCASE, letter-spacing 0.1em |
 
-**Rules:** Headings use Inter weight 300 for clean minimalism. Keywords within headings use weight 600 + brand blue. Body text weight 300 in muted slate (#94a3b8). All labels/CTAs UPPERCASE with wide tracking. Section labels in blue at 35% opacity, monospace. Generous spacing between sections (28px+ margins). Less is more. Each slide should feel like it has room to breathe.
+**Rules:** Headings use Inter weight 300 for clean minimalism. Keywords within headings use weight 600 + brand blue. Body text weight 300 in muted slate (#94a3b8). All labels/CTAs UPPERCASE with wide tracking. Section labels in blue at 35% opacity, monospace. Less is more. Keep everything compact and small; each slide should feel like it has generous room to breathe. Content max-width 960px.
 
 ## Copy Rules
 

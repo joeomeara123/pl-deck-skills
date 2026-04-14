@@ -15,8 +15,8 @@ Clean, minimal cards. No decorative additions by default. Let whitespace do the 
 .card {
   background: rgba(0,0,0,0.012);
   border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 14px;
-  padding: 28px 24px;
+  border-radius: 12px;
+  padding: 22px 20px;
   position: relative;
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
@@ -238,8 +238,8 @@ el.querySelectorAll('.icon-draw path, .icon-draw line, .icon-draw circle').forEa
   border-bottom: 1px dashed rgba(0,0,0,0.08);
 }
 .data-table td {
-  font-size: 13px;
-  padding: 10px 12px;
+  font-size: 11.5px;
+  padding: 8px 12px;
   color: #1a1a1a;
   border-bottom: 1px dashed rgba(0,0,0,0.06);
 }
@@ -249,19 +249,19 @@ el.querySelectorAll('.icon-draw path, .icon-draw line, .icon-draw circle').forEa
 
 ```css
 .highlight-number {
-  font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 28px;
-  font-weight: 700;
+  font-family: Inter, sans-serif;
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  font-weight: 300;
   color: #0000FF;
 }
 .stat-label {
   font-family: 'SF Mono', monospace;
-  font-size: 10px;
-  font-weight: 600;
+  font-size: 9px;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: rgba(0,0,255,0.45);
-  margin-top: 4px;
+  color: rgba(0,0,0,0.35);
+  margin-top: 6px;
 }
 ```
 
@@ -271,14 +271,14 @@ ALL step numbers use the SAME color. Never alternate colors per step.
 
 ```css
 .step-num {
-  width: 32px;
-  height: 32px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 700;
   background: rgba(0,0,255,0.08);
   color: #0000FF;

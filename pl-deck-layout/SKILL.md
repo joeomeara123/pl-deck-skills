@@ -43,7 +43,7 @@ Establishes the HTML structure, background treatments, logo placement, and navig
   align-items: flex-start;
   justify-content: flex-start;
   text-align: left;
-  padding: 80px 80px 60px;
+  padding: 72px 100px 56px;
   overflow: hidden;
 }
 ```
@@ -188,7 +188,7 @@ Content slides use `#fafafa` background with three layered effects in the bottom
 </div>
 ```
 
-The `.content` div sits above backgrounds at `position: relative; z-index: 1;`.
+The `.content` div sits above backgrounds at `position: relative; z-index: 1; max-width: 960px; width: 100%;`.
 
 ## Logo Placement
 
@@ -200,10 +200,10 @@ The `.content` div sits above backgrounds at `position: relative; z-index: 1;`.
 ```css
 .company-badge {
   position: fixed;
-  top: 20px;
+  top: 18px;
   left: 24px;
   font-weight: 600;
-  font-size: 0.82rem;
+  font-size: 0.75rem;
   color: #555;
   letter-spacing: 0.5px;
   z-index: 100;
@@ -314,7 +314,7 @@ For the full animated Canvas 2D implementation, read `pixel-corner.md`. Key rule
 
 ```css
 @media (max-width: 1000px) {
-  .slide { padding: 48px 32px; }
+  .slide { padding: 40px 28px; }
   .nav-dots { display: none; }
 }
 ```
