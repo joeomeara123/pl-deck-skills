@@ -117,23 +117,24 @@ After generating every slide, verify against this checklist. Do not skip.
 
 ### Visual Quality
 - [ ] No more than 2 colors in slide content (blue + one accent). No rainbow.
-- [ ] Step numbers ALL the same color (blue) and size.
+- [ ] Step numbers ALL the same color (blue), plain text (no circles/backgrounds).
 - [ ] No em dashes in any text.
+- [ ] **No boxes.** No card backgrounds, solid borders, or border-radius. Use dashed lines only.
 - [ ] Diagrams have fewer elements than limits (see pl-deck-components).
 - [ ] All SVG text at least 8px.
-- [ ] White space is generous. Nothing cramped.
+- [ ] White space is generous. Nothing cramped. Less is more.
 
 ### Layout
-- [ ] Content centered (not bunched to top-left).
-- [ ] Padding at least 80px top/bottom, 72px sides.
-- [ ] Cards and grids evenly spaced.
+- [ ] Content left-aligned, top-down flow.
+- [ ] Padding: 72px top, 100px sides, 56px bottom. Content max-width 960px.
+- [ ] Card grids use vertical dashed line dividers between columns.
 - [ ] Footer pinned to bottom.
 
 ### Brand Compliance
 - [ ] Icons use `stroke: #0000FF`, not multi-color, not emoji.
-- [ ] Corner brackets blue `#0000FF`.
-- [ ] Labels monospace, uppercase, blue at 45% opacity.
+- [ ] Labels monospace, uppercase, blue at 35% opacity.
 - [ ] Quotes have salmon left border.
+- [ ] Badges are plain colored text (no backgrounds).
 
 ### Animation (HTML decks)
 - [ ] Elements initially hidden (`opacity: 0`).

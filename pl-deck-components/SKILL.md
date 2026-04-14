@@ -9,24 +9,29 @@ Visual components for Progression Labs deck slides. Every component follows the 
 
 ## Cards
 
-Clean, minimal cards. No decorative additions by default. Let whitespace do the work.
+No boxes. Cards are open text blocks separated by dashed lines. In grids, vertical dashed lines divide columns.
 
 ```css
 .card {
-  background: rgba(0,0,0,0.012);
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 12px;
-  padding: 22px 20px;
+  background: none;
+  border: none;
+  border-bottom: 1px dashed rgba(0,0,0,0.08);
+  padding: 0 0 20px;
   position: relative;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  text-align: left;
 }
-.card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(0,0,0,0.12);
+.card:last-child { border-bottom: none; }
+
+/* Grid layout: vertical dividers between columns */
+.card-grid .card {
+  border-bottom: none;
+  border-right: 1px dashed rgba(0,0,0,0.08);
+  padding: 0 24px 0 0;
 }
+.card-grid .card:last-child { border-right: none; padding-right: 0; }
 ```
 
-**No corner brackets by default.** The clean border is enough. Only add corner brackets on special emphasis cards (e.g., a single featured card on a slide). Less decoration = more luxury.
+**NEVER add backgrounds, solid borders, border-radius, or hover effects to cards.** Use dashed lines only. Less decoration = more luxury.
 
 ## SVG Diagrams
 
@@ -267,23 +272,22 @@ el.querySelectorAll('.icon-draw path, .icon-draw line, .icon-draw circle').forEa
 
 ## Step Numbers
 
-ALL step numbers use the SAME color. Never alternate colors per step.
+Plain large numbers, no circles or backgrounds. ALL step numbers use the SAME color.
 
 ```css
 .step-num {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 11px;
-  font-weight: 700;
-  background: rgba(0,0,255,0.08);
+  font-family: Inter, sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
   color: #0000FF;
   flex-shrink: 0;
+  line-height: 1;
 }
+.step {
+  border-bottom: 1px dashed rgba(0,0,0,0.08);
+  padding-bottom: 16px;
+}
+.step:last-child { border-bottom: none; padding-bottom: 0; }
 ```
 
 ## Blockquotes
@@ -324,10 +328,12 @@ blockquote {
 
 ## Status Badges
 
+No backgrounds or boxes. Plain colored text in monospace.
+
 ```css
-.badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
-.badge-dead { background: rgba(220,38,38,0.1); color: #dc2626; }
-.badge-decay { background: rgba(255,160,122,0.15); color: #e67e22; }
-.badge-strong { background: rgba(22,163,74,0.1); color: #16a34a; }
-.badge-new { background: rgba(0,0,255,0.08); color: #0000FF; }
+.badge { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; padding: 0; text-transform: uppercase; letter-spacing: 0.5px; }
+.badge-dead { color: #dc2626; }
+.badge-decay { color: #e67e22; }
+.badge-strong { color: #16a34a; }
+.badge-new { color: #0000FF; }
 ```
