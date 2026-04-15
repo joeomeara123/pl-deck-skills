@@ -99,16 +99,20 @@ Establishes slide containers, backgrounds (hero gradient for title, grid+glow fo
 
 ### Step 2: Components
 **Invoke `Skill(pl-deck-components)`**
-Builds cards, SVG diagrams (with proper circles and arrow markers), draw-on icons, tables, metrics, step numbers, blockquotes, and dividers.
+Builds cards, SVG diagrams (with proper circles and arrow markers), tables, metrics, step numbers, blockquotes, and dividers. Does NOT place icons (that happens in Step 3).
 
-### Step 3: Diagram Quality Pass
+### Step 3: Icons
+**Invoke `Skill(pl-deck-icons)`**
+Reads slide content (headings and body text), matches concepts to geometric abstract icons from the curated library using semantic tags, and places gradient+wireframe icons in cards and sections. Icons use the `.icon-draw` class for GSAP integration.
+
+### Step 4: Diagram Quality Pass
 Review every SVG diagram against the diagram quality rules in `pl-deck-components`. Each diagram must tell a clear visual story that a reader grasps in under 5 seconds. Run the Diagram Quality Checklist (below) on every diagram before proceeding.
 
-### Step 4: Animation
+### Step 5: Animation
 **Invoke `Skill(pl-deck-animate)`**
-Adds GSAP timeline choreography, slot machine number count-ups, icon draw-on animations, and transition locking.
+Adds GSAP timeline choreography, slot machine number count-ups, icon draw-on animations (wireframe strokes + gradient fade-in), and transition locking.
 
-### Step 5: Imagery (if needed)
+### Step 6: Imagery (if needed)
 **Invoke `Skill(deck-imagery)`**
 Generates AI imagery with the brand's frosted-glass pixelation and ASCII overlay treatment.
 
@@ -134,7 +138,9 @@ After generating every slide, verify against this checklist. Do not skip.
 - [ ] Footer pinned to bottom.
 
 ### Brand Compliance
-- [ ] Icons use `stroke: #0000FF`, not multi-color, not emoji.
+- [ ] Icons are from the `pl-deck-icons` library (not improvised). Geometric/abstract, not literal pictograms.
+- [ ] Icon wireframe strokes use `stroke: #0000FF`. Gradient fills are subtle (8-15% opacity).
+- [ ] No icon repeated on consecutive slides.
 - [ ] Labels monospace, uppercase, blue at 35% opacity.
 - [ ] Quotes have salmon left border.
 - [ ] Badges are plain colored text (no backgrounds).

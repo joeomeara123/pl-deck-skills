@@ -157,11 +157,18 @@ function animateSlideIn(el) {
     });
   }
 
-  // Draw-on icons
+  // Draw-on icons (wireframe strokes)
   el.querySelectorAll('.icon-draw path, .icon-draw line, .icon-draw circle').forEach((path, i) => {
+    if (path.classList.contains('icon-gradient')) return; // skip gradient blobs
     const len = path.getTotalLength ? path.getTotalLength() : 200;
     gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
     tl.to(path, { strokeDashoffset: 0, duration: 0.8, ease: 'power2.out' }, 0.2 + i * 0.15);
+  });
+
+  // Fade in icon gradient blobs alongside wireframe draw-on
+  el.querySelectorAll('.icon-gradient').forEach(grad => {
+    gsap.set(grad, { opacity: 0 });
+    tl.to(grad, { opacity: 1, duration: 0.6, ease: 'power2.out' }, 0.2);
   });
 
   // CTA buttons (last)

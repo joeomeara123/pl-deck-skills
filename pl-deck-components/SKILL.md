@@ -162,15 +162,16 @@ For copy-paste SVG templates of common diagram types (flowchart, hub-spoke, arch
 
 ## Draw-On SVG Icons
 
-Inline SVG icons with a "draw-on" stroke animation. Icons draw in blue using stroke-dasharray/dashoffset.
+For the full icon library with 28 geometric abstract icons (gradient fill + wireframe overlay), semantic tags, and animation types, invoke `Skill(pl-deck-icons)` as Step 3 in the deck pipeline.
 
 **Rules:**
-- Color: `stroke: #0000FF` only. No multi-color icons.
-- Style: `fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round`
-- Size: 24-48px viewBox, max 3 path elements per icon
-- NEVER use emojis. NEVER use icon fonts. Always inline SVG.
+- NEVER improvise icon paths. Always use icons from `pl-deck-icons` library.
+- Wireframe layer: `stroke: #0000FF`, `stroke-width: 1.5`, `fill: none`
+- Gradient layer: soft translucent brand gradients at 8-15% opacity
+- Size: 48x48 viewBox, rendered at 28-40px via width/height attributes
+- NEVER use emojis. NEVER use icon fonts. Always inline SVG from the library.
 
-**CSS animation (copy-paste):**
+**CSS animation (still needed in every deck):**
 ```css
 .icon-draw path, .icon-draw line, .icon-draw circle, .icon-draw rect {
   stroke: #0000FF;
@@ -182,50 +183,16 @@ Inline SVG icons with a "draw-on" stroke animation. Icons draw in blue using str
   stroke-dashoffset: 200;
   animation: iconDrawOn 0.8s ease-out forwards;
 }
+.icon-gradient {
+  opacity: 0;
+  animation: iconGradientIn 0.6s ease-out forwards;
+}
 @keyframes iconDrawOn {
   to { stroke-dashoffset: 0; }
 }
-```
-
-**Stagger multiple icons:**
-```css
-.icon-draw:nth-child(1) path { animation-delay: 0.1s; }
-.icon-draw:nth-child(2) path { animation-delay: 0.3s; }
-.icon-draw:nth-child(3) path { animation-delay: 0.5s; }
-.icon-draw:nth-child(4) path { animation-delay: 0.7s; }
-```
-
-**Common icon examples:**
-
-Checkmark:
-```html
-<svg class="icon-draw" viewBox="0 0 24 24" width="32" height="32">
-  <path d="M20 6L9 17l-5-5"/>
-</svg>
-```
-
-Lightning bolt:
-```html
-<svg class="icon-draw" viewBox="0 0 24 24" width="32" height="32">
-  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-</svg>
-```
-
-Chart/bars:
-```html
-<svg class="icon-draw" viewBox="0 0 24 24" width="32" height="32">
-  <line x1="6" y1="20" x2="6" y2="10"/>
-  <line x1="12" y1="20" x2="12" y2="4"/>
-  <line x1="18" y1="20" x2="18" y2="14"/>
-</svg>
-```
-
-Globe:
-```html
-<svg class="icon-draw" viewBox="0 0 24 24" width="32" height="32">
-  <circle cx="12" cy="12" r="10"/>
-  <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-</svg>
+@keyframes iconGradientIn {
+  to { opacity: 1; }
+}
 ```
 
 **GSAP integration (for timeline coordination):**
