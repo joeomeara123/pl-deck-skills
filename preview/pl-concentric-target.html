@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>concentric-target — Inward Radar v1</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: Inter, -apple-system, sans-serif;
+    background: #fafafa;
+    color: #1a1a1a;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    padding: 80px;
+  }
+  h1 { font-size: 1.4rem; font-weight: 300; letter-spacing: -0.01em; }
+  h1 span { font-weight: 600; color: #0000FF; }
+  .subtitle {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 10px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.12em; color: rgba(0,0,255,0.45);
+  }
+  .icon-card {
+    display: flex; flex-direction: column; align-items: center; gap: 20px;
+  }
+  .icon-card svg { width: 160px; height: 160px; }
+  .icon-name {
+    font-size: 13px; font-weight: 500; color: #1a1a1a;
+  }
+  .icon-tags {
+    font-size: 10px; font-weight: 400; color: #94a3b8;
+  }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  INWARD RADAR — Rings spawn outer, absorb inward   */
+  /* ═══════════════════════════════════════════════════ */
+
+  /* Static entry: outer ring + center dot draw on once */
+  .icon-inward-radar .static-ring {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: drawOn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  .icon-inward-radar .center-dot {
+    transform-origin: center;
+    transform-box: fill-box;
+    transform: scale(0);
+    animation: dotPop 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards 0.3s;
+  }
+  .icon-inward-radar .icon-gradient {
+    opacity: 0;
+    animation: gradientIn 0.4s ease-out forwards;
+  }
+
+  /* Continuous ripple rings: spawn outer, shrink inward, absorb into center */
+  .icon-inward-radar .ripple-ring {
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: rippleInward 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+  .icon-inward-radar .ripple-ring.ring-1 { animation-delay: 0s; }
+  .icon-inward-radar .ripple-ring.ring-2 { animation-delay: 1.5s; }
+
+  @keyframes drawOn { to { stroke-dashoffset: 0; } }
+  @keyframes gradientIn { to { opacity: 1; } }
+  @keyframes dotPop { to { transform: scale(1); } }
+  @keyframes rippleInward {
+    0% { transform: scale(1); opacity: 0; }
+    15% { opacity: 1; }
+    85% { transform: scale(0.15); opacity: 0.8; }
+    100% { transform: scale(0.1); opacity: 0; }
+  }
+
+  /* Replay button */
+  .replay-btn {
+    position: fixed; bottom: 32px; right: 32px;
+    background: #0000FF; color: white; border: none;
+    padding: 12px 24px; font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 10px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 1px; cursor: pointer; border-radius: 4px;
+  }
+  .replay-btn:hover { background: #00008B; }
+</style>
+</head>
+<body>
+
+<div class="subtitle">Strategy / Alignment / v1</div>
+<h1>concentric-target — <span>inward radar</span></h1>
+
+<div class="icon-card">
+  <svg class="icon-inward-radar" viewBox="0 0 48 48">
+    <defs>
+      <!-- Vertical stroke gradient: royal blue (top) → mid grey (bottom) -->
+      <linearGradient id="stroke-grad" x1="24" y1="0" x2="24" y2="48" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#0000FF"/>
+        <stop offset="100%" stop-color="#888888"/>
+      </linearGradient>
+      <!-- Background blob -->
+      <radialGradient id="bg-grad" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#0000FF" stop-opacity="0.08"/>
+        <stop offset="100%" stop-color="#0000FF" stop-opacity="0.02"/>
+      </radialGradient>
+    </defs>
+
+    <!-- Subtle background blob -->
+    <circle class="icon-gradient" cx="24" cy="24" r="22" fill="url(#bg-grad)"/>
+
+    <!-- Outer static ring (draws on once) -->
+    <circle class="static-ring" cx="24" cy="24" r="20"
+            stroke="url(#stroke-grad)" stroke-width="1.5" fill="none"/>
+
+    <!-- Ripple ring 1 (continuous inward) -->
+    <circle class="ripple-ring ring-1" cx="24" cy="24" r="20"
+            stroke="url(#stroke-grad)" stroke-width="1.5" fill="none"/>
+
+    <!-- Ripple ring 2 (staggered 1.5s) -->
+    <circle class="ripple-ring ring-2" cx="24" cy="24" r="20"
+            stroke="url(#stroke-grad)" stroke-width="1.5" fill="none"/>
+
+    <!-- Solid center dot (pops in after rings) -->
+    <circle class="center-dot" cx="24" cy="24" r="3"
+            fill="url(#stroke-grad)"/>
+  </svg>
+  <div class="icon-name">concentric-target</div>
+  <div class="icon-tags">goals · KPIs · alignment · listening</div>
+</div>
+
+<button class="replay-btn" onclick="replay()">Replay</button>
+
+<script>
+function replay() {
+  const svg = document.querySelector('.icon-inward-radar');
+  const clone = svg.cloneNode(true);
+  svg.parentNode.replaceChild(clone, svg);
+}
+</script>
+
+</body>
+</html>

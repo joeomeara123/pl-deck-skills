@@ -16,11 +16,26 @@ Invoke after `pl-deck-components` (Step 2) and before `pl-deck-animate` (Step 4)
 Every icon has two visual layers:
 
 1. **Gradient blob** (background): A soft radial or linear gradient fill at 8-15% opacity using muted brand tones. Applied to a circle, ellipse, or organic shape. Class: `icon-gradient`
-2. **Wireframe overlay** (foreground): Thin geometric strokes. `stroke: #0000FF`, `stroke-width: 1.5`, `fill: none`, `stroke-linecap: round`, `stroke-linejoin: round`
+2. **Wireframe overlay** (foreground): Thin geometric strokes using the **brand stroke gradient** (see below). `stroke-width: 1.5`, `fill: none`, `stroke-linecap: round`, `stroke-linejoin: round`
 
-Optional: Small dots at key vertices (`fill: #0000FF`, `r: 1.5`) for the constellation/node effect.
+### Brand Stroke Gradient (v3 standard)
 
-**NEVER improvise icon SVG paths. ALWAYS copy from `icon-library.md` verbatim.**
+All new and upgraded icons use a vertical linear gradient on strokes and filled accents:
+
+```xml
+<linearGradient id="stroke-grad" x1="24" y1="0" x2="24" y2="48" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="#0000FF"/>  <!-- Royal Blue (top) -->
+  <stop offset="100%" stop-color="#888888"/> <!-- Mid grey (bottom) -->
+</linearGradient>
+```
+
+Apply with `stroke="url(#stroke-grad)"` on strokes and `fill="url(#stroke-grad)"` on filled dots/vertices. Use a unique id suffix per icon (e.g. `stroke-grad-target`, `stroke-grad-prism`) to avoid gradient id collisions when multiple icons appear on one slide.
+
+**Flat `stroke: #0000FF`** remains acceptable for legacy icons until they are upgraded category-by-category.
+
+Optional: Small dots at key vertices (`fill="url(#stroke-grad-...)"`, `r: 1.5`) for the constellation/node effect.
+
+**ALWAYS copy icon SVG paths from `icon-library.md` verbatim.** Do not improvise paths.
 
 ## Selection Algorithm
 

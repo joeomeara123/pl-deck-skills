@@ -326,41 +326,40 @@
   }
 
   /* ═══════════════════════════════════════════════════ */
-  /*  RADAR-TARGET — Inward listening ripple             */
-  /*  Rings shrink inward (listening, not broadcasting)  */
-  /*  Center dot: delayed pop then stays solid           */
+  /*  INWARD RADAR — Premium ripple with stroke gradient */
+  /*  Rings spawn outer, shrink into center              */
+  /*  Stroke gradient: #0000FF (top) → #888888 (bottom)  */
   /* ═══════════════════════════════════════════════════ */
-  .icon-radar-target .radar-ring {
+  .icon-inward-radar .static-ring {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: drawOn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  .icon-inward-radar .center-dot {
+    transform-origin: center;
+    transform-box: fill-box;
+    transform: scale(0);
+    animation: dotPop 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards 0.3s;
+  }
+  .icon-inward-radar .icon-gradient {
+    opacity: 0;
+    animation: gradientIn 0.4s ease-out forwards !important;
     stroke-dasharray: none !important;
     stroke-dashoffset: 0 !important;
+  }
+  .icon-inward-radar .ripple-ring {
     transform-origin: center;
     transform-box: fill-box;
     animation: rippleInward 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
-  .icon-radar-target .radar-r1 { animation-delay: 0s; }
-  .icon-radar-target .radar-r2 { animation-delay: 0.8s; }
-  .icon-radar-target .radar-r3 { animation-delay: 1.6s; }
-  .icon-radar-target .radar-center {
-    opacity: 0;
-    stroke-dasharray: none !important;
-    stroke-dashoffset: 0 !important;
-    transform-origin: center;
-    transform-box: fill-box;
-    animation: radarCenterPop 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards 2s;
-  }
-  .icon-radar-target .icon-gradient {
-    animation: pbGlow 3s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate 0.8s both !important;
-    stroke-dasharray: none !important;
-    stroke-dashoffset: 0 !important;
-  }
+  .icon-inward-radar .ripple-ring.ring-1 { animation-delay: 0s; }
+  .icon-inward-radar .ripple-ring.ring-2 { animation-delay: 1.5s; }
+  @keyframes dotPop { to { transform: scale(1); } }
   @keyframes rippleInward {
-    0% { transform: scale(1.8); opacity: 0; }
-    20% { opacity: 1; }
-    100% { transform: scale(0.3); opacity: 0; }
-  }
-  @keyframes radarCenterPop {
-    from { transform: scale(1.5); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    0% { transform: scale(1); opacity: 0; }
+    15% { opacity: 1; }
+    85% { transform: scale(0.15); opacity: 0.8; }
+    100% { transform: scale(0.1); opacity: 0; }
   }
 
   /* ═══════════════════════════════════════════════════ */
@@ -457,19 +456,28 @@
   <div class="category-label">Strategy and Alignment</div>
   <div class="grid">
 
-    <!-- concentric-target: radar/listening physics -->
+    <!-- concentric-target: inward radar with brand stroke gradient -->
     <div class="icon-card">
-      <svg class="icon-draw icon-radar-target" viewBox="0 0 48 48">
-        <defs><radialGradient id="g-target" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#0000FF" stop-opacity="0.08"/><stop offset="100%" stop-color="#40E0D0" stop-opacity="0.05"/></radialGradient></defs>
-        <circle class="icon-gradient" cx="24" cy="24" r="20" fill="url(#g-target)"/>
-        <circle class="radar-ring radar-r1" cx="24" cy="24" r="18" stroke="#0000FF" stroke-width="1.5" fill="none"/>
-        <circle class="radar-ring radar-r2" cx="24" cy="24" r="11" stroke="#0000FF" stroke-width="1.5" fill="none"/>
-        <circle class="radar-ring radar-r3" cx="24" cy="24" r="4" stroke="#0000FF" stroke-width="1.5" fill="none"/>
-        <circle class="radar-center" cx="24" cy="24" r="1.5" fill="#0000FF"/>
+      <svg class="icon-inward-radar" viewBox="0 0 48 48">
+        <defs>
+          <linearGradient id="stroke-grad-target" x1="24" y1="0" x2="24" y2="48" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#0000FF"/>
+            <stop offset="100%" stop-color="#888888"/>
+          </linearGradient>
+          <radialGradient id="bg-grad-target" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#0000FF" stop-opacity="0.08"/>
+            <stop offset="100%" stop-color="#0000FF" stop-opacity="0.02"/>
+          </radialGradient>
+        </defs>
+        <circle class="icon-gradient" cx="24" cy="24" r="22" fill="url(#bg-grad-target)"/>
+        <circle class="static-ring" cx="24" cy="24" r="20" stroke="url(#stroke-grad-target)" stroke-width="1.5" fill="none"/>
+        <circle class="ripple-ring ring-1" cx="24" cy="24" r="20" stroke="url(#stroke-grad-target)" stroke-width="1.5" fill="none"/>
+        <circle class="ripple-ring ring-2" cx="24" cy="24" r="20" stroke="url(#stroke-grad-target)" stroke-width="1.5" fill="none"/>
+        <circle class="center-dot" cx="24" cy="24" r="3" fill="url(#stroke-grad-target)"/>
       </svg>
       <div class="icon-name">concentric-target</div>
-      <div class="icon-tags">discovery, alignment, KPIs, listening</div>
-      <div class="icon-anim-type">radar-target</div>
+      <div class="icon-tags">goals, KPIs, alignment, discovery</div>
+      <div class="icon-anim-type">inward-radar</div>
     </div>
 
   </div>

@@ -140,23 +140,54 @@ Each icon pairs two muted brand tones. The gradient blob sits behind the wirefra
 
 ### concentric-target
 **Primary:** focus
-**Tags:** goals, target, alignment, priority, objective, kpi, metrics, okr | precise, centered
-**Animation:** draw-on
+**Tags:** goals, target, alignment, priority, objective, kpi, metrics, okr, discovery, listening | precise, centered
+**Animation:** inward-radar (premium: outer ring static, two ripple rings spawn outer and shrink into center, 3s pendulum loop with 1.5s stagger)
+**Stroke:** Uses the premium stroke gradient `#0000FF` (top) → `#888888` (bottom)
 
 ```html
-<svg class="icon-draw" viewBox="0 0 48 48" width="32" height="32">
+<svg class="icon-inward-radar" viewBox="0 0 48 48" width="32" height="32">
   <defs>
-    <radialGradient id="grad-target" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="rgb(0,0,255)" stop-opacity="0.08"/>
-      <stop offset="100%" stop-color="rgb(64,224,208)" stop-opacity="0.05"/>
+    <linearGradient id="stroke-grad-target" x1="24" y1="0" x2="24" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0000FF"/>
+      <stop offset="100%" stop-color="#888888"/>
+    </linearGradient>
+    <radialGradient id="bg-grad-target" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0000FF" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#0000FF" stop-opacity="0.02"/>
     </radialGradient>
   </defs>
-  <circle class="icon-gradient" cx="24" cy="24" r="20" fill="url(#grad-target)"/>
-  <circle cx="24" cy="24" r="18" stroke="#0000FF" stroke-width="1.5" fill="none"/>
-  <circle cx="24" cy="24" r="11" stroke="#0000FF" stroke-width="1.5" fill="none"/>
-  <circle cx="24" cy="24" r="4" stroke="#0000FF" stroke-width="1.5" fill="none"/>
-  <circle cx="24" cy="24" r="1.5" fill="#0000FF"/>
+  <circle class="icon-gradient" cx="24" cy="24" r="22" fill="url(#bg-grad-target)"/>
+  <circle class="static-ring" cx="24" cy="24" r="20" stroke="url(#stroke-grad-target)" stroke-width="1.5" fill="none"/>
+  <circle class="ripple-ring ring-1" cx="24" cy="24" r="20" stroke="url(#stroke-grad-target)" stroke-width="1.5" fill="none"/>
+  <circle class="ripple-ring ring-2" cx="24" cy="24" r="20" stroke="url(#stroke-grad-target)" stroke-width="1.5" fill="none"/>
+  <circle class="center-dot" cx="24" cy="24" r="3" fill="url(#stroke-grad-target)"/>
 </svg>
+```
+
+**Required CSS** (add to deck's `<style>`):
+```css
+.icon-inward-radar .static-ring {
+  stroke-dasharray: 200; stroke-dashoffset: 200;
+  animation: drawOn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.icon-inward-radar .center-dot {
+  transform-origin: center; transform-box: fill-box; transform: scale(0);
+  animation: dotPop 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards 0.3s;
+}
+.icon-inward-radar .ripple-ring {
+  transform-origin: center; transform-box: fill-box;
+  animation: rippleInward 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.icon-inward-radar .ripple-ring.ring-1 { animation-delay: 0s; }
+.icon-inward-radar .ripple-ring.ring-2 { animation-delay: 1.5s; }
+@keyframes drawOn { to { stroke-dashoffset: 0; } }
+@keyframes dotPop { to { transform: scale(1); } }
+@keyframes rippleInward {
+  0% { transform: scale(1); opacity: 0; }
+  15% { opacity: 1; }
+  85% { transform: scale(0.15); opacity: 0.8; }
+  100% { transform: scale(0.1); opacity: 0; }
+}
 ```
 
 ---
