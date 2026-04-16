@@ -20,6 +20,69 @@ Each icon pairs two muted brand tones. The gradient blob sits behind the wirefra
 
 ## Category 1: AI and Intelligence
 
+### agent-swarm
+**Primary:** agents
+**Tags:** ai-agents, autonomous, multi-agent, swarm, orchestration, agentic, automation, agentic-ai, intelligence, collaborative | dynamic, orbital
+**Animation:** agent-orbit (6 dots orbit 9 overlapping circles at 3 different speeds and 2 directions, staggered with negative delays so all agents spawn mid-orbit — continuous linear motion, never syncs)
+**Stroke:** Vertical gradient `#0000FF` (top) → `#1a1a1a` (bottom), thin stroke-width="0.75"
+**Geometry:** 3×3 grid of overlapping circles (spacing 12, radius 8) forming vesica-piscis petal intersections
+
+```html
+<svg class="icon-agent-swarm" viewBox="0 0 48 48" width="32" height="32">
+  <defs>
+    <linearGradient id="stroke-grad-swarm" x1="24" y1="0" x2="24" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0000FF"/>
+      <stop offset="100%" stop-color="#1a1a1a"/>
+    </linearGradient>
+  </defs>
+  <g class="icon-inner">
+    <!-- 9 overlapping tracks -->
+    <g stroke="url(#stroke-grad-swarm)" stroke-width="0.75" fill="none">
+      <circle cx="12" cy="12" r="8"/>
+      <circle cx="24" cy="12" r="8"/>
+      <circle cx="36" cy="12" r="8"/>
+      <circle cx="12" cy="24" r="8"/>
+      <circle cx="24" cy="24" r="8"/>
+      <circle cx="36" cy="24" r="8"/>
+      <circle cx="12" cy="36" r="8"/>
+      <circle cx="24" cy="36" r="8"/>
+      <circle cx="36" cy="36" r="8"/>
+    </g>
+    <!-- 6 autonomous agents -->
+    <g class="agent-orbit" style="transform-origin: 12px 12px; animation-delay: -2.1s;">
+      <circle cx="12" cy="4" r="1.5" fill="url(#stroke-grad-swarm)"/>
+    </g>
+    <g class="agent-orbit-rev" style="transform-origin: 36px 12px; animation-delay: -0.8s;">
+      <circle cx="36" cy="4" r="1.5" fill="url(#stroke-grad-swarm)"/>
+    </g>
+    <g class="agent-orbit" style="transform-origin: 12px 24px; animation-delay: -3.5s;">
+      <circle cx="12" cy="16" r="1.5" fill="url(#stroke-grad-swarm)"/>
+    </g>
+    <g class="agent-orbit-fast" style="transform-origin: 24px 24px; animation-delay: -1.2s;">
+      <circle cx="24" cy="16" r="1.5" fill="url(#stroke-grad-swarm)"/>
+    </g>
+    <g class="agent-orbit" style="transform-origin: 36px 24px; animation-delay: -4.2s;">
+      <circle cx="36" cy="16" r="1.5" fill="url(#stroke-grad-swarm)"/>
+    </g>
+    <g class="agent-orbit-rev" style="transform-origin: 24px 36px; animation-delay: -2.7s;">
+      <circle cx="24" cy="28" r="1.5" fill="url(#stroke-grad-swarm)"/>
+    </g>
+  </g>
+</svg>
+```
+
+**Required CSS:**
+```css
+.agent-orbit      { animation: agentSpin    6s linear infinite; }
+.agent-orbit-rev  { animation: agentSpinRev 7s linear infinite; }
+.agent-orbit-fast { animation: agentSpin    4s linear infinite; }
+
+@keyframes agentSpin    { from { transform: rotate(0deg);   } to { transform: rotate(360deg); } }
+@keyframes agentSpinRev { from { transform: rotate(360deg); } to { transform: rotate(0deg);   } }
+```
+
+---
+
 ### neural-constellation
 **Primary:** intelligence
 **Tags:** ai, machine-learning, neural-network, deep-learning, algorithms, model | technical, analytical
