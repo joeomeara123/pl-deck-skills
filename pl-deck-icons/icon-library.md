@@ -781,6 +781,76 @@ Each icon pairs two muted brand tones. The gradient blob sits behind the wirefra
 
 ## Category 8: General Abstract
 
+### globe-spin
+**Primary:** global
+**Tags:** global, international, reach, remote, worldwide, multi-region, network, connectivity, 24-7, enterprise, world | rotating, premium
+**Animation:** meridian-spin (4 meridian ellipses oscillate via scaleX between 1 and -1, passing through 0.02 at edge-on. Staggered -2s each to create continuous rotation illusion over 8s cycle)
+**Stroke:** Vertical gradient `#1a1a1a` (top-left) → `#0000FF` (bottom-right), stroke-width="1" (thinner than default for premium look)
+
+```html
+<svg class="icon-globe-spin" viewBox="0 0 48 48" width="32" height="32">
+  <defs>
+    <linearGradient id="stroke-grad-globe" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#0000FF"/>
+    </linearGradient>
+    <radialGradient id="bg-grad-globe" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0000FF" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#0000FF" stop-opacity="0.02"/>
+    </radialGradient>
+  </defs>
+  <circle class="icon-gradient" cx="24" cy="24" r="22" fill="url(#bg-grad-globe)"/>
+  <circle cx="24" cy="24" r="20" stroke="url(#stroke-grad-globe)" stroke-width="1" fill="none"/>
+  <line x1="4" y1="24" x2="44" y2="24" stroke="url(#stroke-grad-globe)" stroke-width="1" stroke-dasharray="2 3" opacity="0.4"/>
+  <ellipse class="meridian m-1" cx="24" cy="24" rx="14" ry="20" stroke="url(#stroke-grad-globe)" stroke-width="1" fill="none"/>
+  <ellipse class="meridian m-2" cx="24" cy="24" rx="14" ry="20" stroke="url(#stroke-grad-globe)" stroke-width="1" fill="none"/>
+  <ellipse class="meridian m-3" cx="24" cy="24" rx="14" ry="20" stroke="url(#stroke-grad-globe)" stroke-width="1" fill="none"/>
+  <ellipse class="meridian m-4" cx="24" cy="24" rx="14" ry="20" stroke="url(#stroke-grad-globe)" stroke-width="1" fill="none"/>
+  <circle cx="24" cy="4" r="0.8" fill="url(#stroke-grad-globe)"/>
+  <circle cx="24" cy="44" r="0.8" fill="url(#stroke-grad-globe)"/>
+</svg>
+```
+
+**Required CSS:**
+```css
+.icon-globe-spin .meridian {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: meridianSpin 8s linear infinite;
+}
+.icon-globe-spin .m-1 { animation-delay: 0s; }
+.icon-globe-spin .m-2 { animation-delay: -2s; }
+.icon-globe-spin .m-3 { animation-delay: -4s; }
+.icon-globe-spin .m-4 { animation-delay: -6s; }
+.icon-globe-spin .icon-gradient {
+  opacity: 0;
+  animation: gradientIn 0.4s ease-out forwards;
+}
+/* Cosine-sampled keyframes match real rotation physics */
+@keyframes meridianSpin {
+  0%    { transform: scaleX(1); }
+  6.25% { transform: scaleX(0.924); }
+  12.5% { transform: scaleX(0.707); }
+  18.75%{ transform: scaleX(0.383); }
+  25%   { transform: scaleX(0.02); }
+  31.25%{ transform: scaleX(-0.383); }
+  37.5% { transform: scaleX(-0.707); }
+  43.75%{ transform: scaleX(-0.924); }
+  50%   { transform: scaleX(-1); }
+  56.25%{ transform: scaleX(-0.924); }
+  62.5% { transform: scaleX(-0.707); }
+  68.75%{ transform: scaleX(-0.383); }
+  75%   { transform: scaleX(0.02); }
+  81.25%{ transform: scaleX(0.383); }
+  87.5% { transform: scaleX(0.707); }
+  93.75%{ transform: scaleX(0.924); }
+  100%  { transform: scaleX(1); }
+}
+@keyframes gradientIn { to { opacity: 1; } }
+```
+
+---
+
 ### wireframe-globe
 **Primary:** global
 **Tags:** global, international, world, market, expand, reach, geographic, enterprise | broad, expansive
