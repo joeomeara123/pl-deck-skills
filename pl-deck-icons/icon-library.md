@@ -201,6 +201,110 @@ Each icon pairs two muted brand tones. The gradient blob sits behind the wirefra
 
 ## Category 2: Strategy and Vision
 
+### bouncing-stack
+**Primary:** role
+**Tags:** role, identity, definition, layers, priorities, defining, discovery, step-one, bounce | playful, kinetic
+**Animation:** bounce-stack (3 ellipses rest flat at cy=130, then spring up at staggered heights — top 60px, mid 30px, bot 0px — using cubic-bezier(0.25, 1, 0.5, 1) for springy bounce. 2s loop with 25-75% rest phase.)
+**Ported from:** PL website Find Your Fit step 1
+**Stroke:** Vertical gradient `#0000FF` (top) → `#1a1a1a` (bottom)
+
+```html
+<svg class="bouncing-stack" viewBox="0 0 200 200" width="120" height="120">
+  <defs>
+    <linearGradient id="stack-grad" gradientUnits="userSpaceOnUse" x1="100" y1="70" x2="100" y2="144">
+      <stop offset="0%" stop-color="#0000FF"/>
+      <stop offset="100%" stop-color="#1a1a1a"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="100" cy="130" rx="45" ry="14" class="stack stack-bot"/>
+  <ellipse cx="100" cy="130" rx="45" ry="14" class="stack stack-mid"/>
+  <ellipse cx="100" cy="130" rx="45" ry="14" class="stack stack-top"/>
+</svg>
+```
+
+**Required CSS:**
+```css
+.bouncing-stack { overflow: visible; }
+.bouncing-stack .stack {
+  fill: none;
+  stroke: url(#stack-grad);
+  stroke-width: 3.5px;
+}
+.bouncing-stack .stack-top { animation: bounceTop 2s cubic-bezier(0.25, 1, 0.5, 1) infinite; }
+.bouncing-stack .stack-mid { animation: bounceMid 2s cubic-bezier(0.25, 1, 0.5, 1) infinite; }
+.bouncing-stack .stack-bot { animation: bounceBot 2s cubic-bezier(0.25, 1, 0.5, 1) infinite; }
+
+@keyframes bounceTop {
+  0%, 25%, 75%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-60px); }
+}
+@keyframes bounceMid {
+  0%, 25%, 75%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
+}
+@keyframes bounceBot {
+  0%, 25%, 75%, 100% { transform: translateY(0); }
+  50% { transform: translateY(0px); }
+}
+```
+
+---
+
+### spreading-rings
+**Primary:** scope
+**Tags:** scope, reach, expansion, scale, spread, step-two, rings, discovery, scanning | dynamic, expanding
+**Animation:** rings-slide (4 concentric circles start at center, then slide horizontally: outer rings travel ±40px, inner rings travel ±14px. 3s ease-in-out loop with rest phases at 0-15% and 85-100%.)
+**Ported from:** PL website Find Your Fit step 2
+**Stroke:** Vertical gradient `#0000FF` (top) → `#1a1a1a` (bottom)
+
+```html
+<svg class="spreading-rings" viewBox="0 0 200 200" width="120" height="120">
+  <defs>
+    <linearGradient id="rings-grad" gradientUnits="userSpaceOnUse" x1="100" y1="68" x2="100" y2="132">
+      <stop offset="0%" stop-color="#0000FF"/>
+      <stop offset="100%" stop-color="#1a1a1a"/>
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="32" class="ring ring-1"/>
+  <circle cx="100" cy="100" r="32" class="ring ring-2"/>
+  <circle cx="100" cy="100" r="32" class="ring ring-3"/>
+  <circle cx="100" cy="100" r="32" class="ring ring-4"/>
+</svg>
+```
+
+**Required CSS:**
+```css
+.spreading-rings { overflow: visible; }
+.spreading-rings .ring {
+  fill: none;
+  stroke: url(#rings-grad);
+  stroke-width: 3.5px;
+}
+.spreading-rings .ring-1 { animation: slideLeftOuter 3s ease-in-out infinite; }
+.spreading-rings .ring-2 { animation: slideLeftInner 3s ease-in-out infinite; }
+.spreading-rings .ring-3 { animation: slideRightInner 3s ease-in-out infinite; }
+.spreading-rings .ring-4 { animation: slideRightOuter 3s ease-in-out infinite; }
+
+@keyframes slideLeftOuter {
+  0%, 15%, 85%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-40px); }
+}
+@keyframes slideLeftInner {
+  0%, 15%, 85%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-14px); }
+}
+@keyframes slideRightInner {
+  0%, 15%, 85%, 100% { transform: translateX(0); }
+  50% { transform: translateX(14px); }
+}
+@keyframes slideRightOuter {
+  0%, 15%, 85%, 100% { transform: translateX(0); }
+  50% { transform: translateX(40px); }
+}
+```
+
+---
+
 ### concentric-target
 **Primary:** focus
 **Tags:** goals, target, alignment, priority, objective, kpi, metrics, okr, discovery, listening | precise, centered
@@ -420,6 +524,91 @@ Each icon pairs two muted brand tones. The gradient blob sits behind the wirefra
 ---
 
 ## Category 4: Connection and Integration
+
+### venn-diagram
+**Primary:** fit
+**Tags:** venn, overlap, fit, synergy, alignment, match, intersection, multi-factor, triple-overlap | harmonious, analytical
+**Animation:** venn-draw (staggered stroke-dashoffset: left circle draws at 2% delay, right at 6%, bottom at 10%. Center fills in at 42%. Everything holds until 75%, fades at 88%, rests, then restarts. 4s cycle.)
+**Ported from:** PL website Find Your Fit step 3 (result)
+**Stroke:** Vertical gradient `#0000FF` (top) → `#1a1a1a` (bottom)
+
+```html
+<svg class="venn-diagram" viewBox="0 0 200 200" width="120" height="120">
+  <defs>
+    <clipPath id="clip-left"><circle cx="80" cy="85" r="38"/></clipPath>
+    <clipPath id="clip-right"><circle cx="120" cy="85" r="38"/></clipPath>
+    <linearGradient id="venn-grad" gradientUnits="userSpaceOnUse" x1="100" y1="47" x2="100" y2="160">
+      <stop offset="0%" stop-color="#0000FF"/>
+      <stop offset="100%" stop-color="#1a1a1a"/>
+    </linearGradient>
+  </defs>
+  <circle cx="80" cy="85" r="38" class="venn circle-left"/>
+  <circle cx="120" cy="85" r="38" class="venn circle-right"/>
+  <circle cx="100" cy="122" r="38" class="venn circle-bottom"/>
+  <g clip-path="url(#clip-left)">
+    <g clip-path="url(#clip-right)">
+      <circle cx="100" cy="122" r="38" class="venn-center"/>
+    </g>
+  </g>
+</svg>
+```
+
+**Required CSS:**
+```css
+.venn-diagram { overflow: visible; }
+.venn-diagram .venn {
+  fill: none;
+  stroke: url(#venn-grad);
+  stroke-width: 3.5px;
+  stroke-dasharray: 239;
+  stroke-dashoffset: 239;
+}
+.venn-diagram .circle-left {
+  transform-origin: 80px 85px;
+  transform: rotate(-90deg);
+  animation: drawLeft 4s ease-in-out infinite;
+}
+.venn-diagram .circle-right {
+  transform-origin: 120px 85px;
+  transform: rotate(-90deg);
+  animation: drawRight 4s ease-in-out infinite;
+}
+.venn-diagram .circle-bottom {
+  transform-origin: 100px 122px;
+  transform: rotate(90deg);
+  animation: drawBottom 4s ease-in-out infinite;
+}
+.venn-diagram .venn-center {
+  fill: url(#venn-grad);
+  opacity: 0;
+  animation: fillCenter 4s ease-in-out infinite;
+}
+@keyframes drawLeft {
+  0%, 2%    { stroke-dashoffset: 239; opacity: 0; }
+  4%        { opacity: 1; }
+  25%, 75%  { stroke-dashoffset: 0; opacity: 1; }
+  88%, 100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes drawRight {
+  0%, 6%    { stroke-dashoffset: 239; opacity: 0; }
+  8%        { opacity: 1; }
+  29%, 75%  { stroke-dashoffset: 0; opacity: 1; }
+  88%, 100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes drawBottom {
+  0%, 10%   { stroke-dashoffset: 239; opacity: 0; }
+  12%       { opacity: 1; }
+  33%, 75%  { stroke-dashoffset: 0; opacity: 1; }
+  88%, 100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes fillCenter {
+  0%, 42%   { opacity: 0; }
+  52%, 75%  { opacity: 1; }
+  88%, 100% { opacity: 0; }
+}
+```
+
+---
 
 ### venn-overlap
 **Primary:** synergy

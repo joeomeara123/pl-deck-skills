@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find Your Fit — 3 Animated Icons</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: Inter, -apple-system, sans-serif;
+    background: #fafafa;
+    color: #1a1a1a;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    padding: 60px;
+  }
+  h1 { font-size: 1.4rem; font-weight: 300; }
+  h1 span { font-weight: 600; color: #0000FF; }
+  .subtitle {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 10px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.12em; color: rgba(0,0,255,0.45); margin-bottom: -24px;
+  }
+  .grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 40px; max-width: 900px;
+  }
+  .icon-card {
+    display: flex; flex-direction: column; align-items: center; gap: 20px;
+    padding: 32px 16px; border-bottom: 1px dashed rgba(0,0,0,0.08);
+  }
+  .icon-card svg { width: 160px; height: 160px; overflow: visible; }
+  .icon-name { font-size: 13px; font-weight: 500; color: #1a1a1a; }
+  .icon-tags { font-size: 10px; font-weight: 400; color: #94a3b8; text-align: center; line-height: 1.5; }
+
+  /* =====================================================
+     SHARED BRAND GRADIENT STOP — blue top → dark bottom
+     ===================================================== */
+  .stop-accent { stop-color: #0000FF; }
+  .stop-dark { stop-color: #1a1a1a; }
+
+  /* =====================================================
+     1. BOUNCING STACK (ported from StepIcons)
+     ===================================================== */
+  .bouncing-stack .stack {
+    fill: none;
+    stroke: url(#stack-grad);
+    stroke-width: 3.5px;
+  }
+  .bouncing-stack .stack-top { animation: bounceTop 2s cubic-bezier(0.25, 1, 0.5, 1) infinite; }
+  .bouncing-stack .stack-mid { animation: bounceMid 2s cubic-bezier(0.25, 1, 0.5, 1) infinite; }
+  .bouncing-stack .stack-bot { animation: bounceBot 2s cubic-bezier(0.25, 1, 0.5, 1) infinite; }
+
+  @keyframes bounceTop {
+    0%, 25%, 75%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-60px); }
+  }
+  @keyframes bounceMid {
+    0%, 25%, 75%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-30px); }
+  }
+  @keyframes bounceBot {
+    0%, 25%, 75%, 100% { transform: translateY(0); }
+    50% { transform: translateY(0px); }
+  }
+
+  /* =====================================================
+     2. SPREADING RINGS (ported from StepIcons)
+     ===================================================== */
+  .spreading-rings .ring {
+    fill: none;
+    stroke: url(#rings-grad);
+    stroke-width: 3.5px;
+  }
+  .spreading-rings .ring-1 { animation: slideLeftOuter 3s ease-in-out infinite; }
+  .spreading-rings .ring-2 { animation: slideLeftInner 3s ease-in-out infinite; }
+  .spreading-rings .ring-3 { animation: slideRightInner 3s ease-in-out infinite; }
+  .spreading-rings .ring-4 { animation: slideRightOuter 3s ease-in-out infinite; }
+
+  @keyframes slideLeftOuter {
+    0%, 15%, 85%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-40px); }
+  }
+  @keyframes slideLeftInner {
+    0%, 15%, 85%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-14px); }
+  }
+  @keyframes slideRightInner {
+    0%, 15%, 85%, 100% { transform: translateX(0); }
+    50% { transform: translateX(14px); }
+  }
+  @keyframes slideRightOuter {
+    0%, 15%, 85%, 100% { transform: translateX(0); }
+    50% { transform: translateX(40px); }
+  }
+
+  /* =====================================================
+     3. VENN DIAGRAM (ported from StepIcons)
+     ===================================================== */
+  .venn-diagram .venn {
+    fill: none;
+    stroke: url(#venn-grad);
+    stroke-width: 3.5px;
+    stroke-dasharray: 239;
+    stroke-dashoffset: 239;
+  }
+
+  .venn-diagram .circle-left {
+    transform-origin: 80px 85px;
+    transform: rotate(-90deg);
+    animation: drawLeft 4s ease-in-out infinite;
+  }
+  .venn-diagram .circle-right {
+    transform-origin: 120px 85px;
+    transform: rotate(-90deg);
+    animation: drawRight 4s ease-in-out infinite;
+  }
+  .venn-diagram .circle-bottom {
+    transform-origin: 100px 122px;
+    transform: rotate(90deg);
+    animation: drawBottom 4s ease-in-out infinite;
+  }
+
+  .venn-diagram .venn-center {
+    fill: url(#venn-grad);
+    opacity: 0;
+    animation: fillCenter 4s ease-in-out infinite;
+  }
+
+  @keyframes drawLeft {
+    0%, 2%    { stroke-dashoffset: 239; opacity: 0; }
+    4%        { opacity: 1; }
+    25%, 75%  { stroke-dashoffset: 0; opacity: 1; }
+    88%, 100% { stroke-dashoffset: 0; opacity: 0; }
+  }
+  @keyframes drawRight {
+    0%, 6%    { stroke-dashoffset: 239; opacity: 0; }
+    8%        { opacity: 1; }
+    29%, 75%  { stroke-dashoffset: 0; opacity: 1; }
+    88%, 100% { stroke-dashoffset: 0; opacity: 0; }
+  }
+  @keyframes drawBottom {
+    0%, 10%   { stroke-dashoffset: 239; opacity: 0; }
+    12%       { opacity: 1; }
+    33%, 75%  { stroke-dashoffset: 0; opacity: 1; }
+    88%, 100% { stroke-dashoffset: 0; opacity: 0; }
+  }
+  @keyframes fillCenter {
+    0%, 42%   { opacity: 0; }
+    52%, 75%  { opacity: 1; }
+    88%, 100% { opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="subtitle">Ported from progressionlabs.com / Find Your Fit</div>
+<h1>3 Animated <span>Step Icons</span></h1>
+
+<div class="grid">
+
+  <!-- 1. BOUNCING STACK -->
+  <div class="icon-card">
+    <svg class="bouncing-stack" viewBox="0 0 200 200">
+      <defs>
+        <linearGradient id="stack-grad" gradientUnits="userSpaceOnUse" x1="100" y1="70" x2="100" y2="144">
+          <stop offset="0%" class="stop-accent"/>
+          <stop offset="100%" class="stop-dark"/>
+        </linearGradient>
+      </defs>
+      <ellipse cx="100" cy="130" rx="45" ry="14" class="stack stack-bot"/>
+      <ellipse cx="100" cy="130" rx="45" ry="14" class="stack stack-mid"/>
+      <ellipse cx="100" cy="130" rx="45" ry="14" class="stack stack-top"/>
+    </svg>
+    <div class="icon-name">bouncing-stack</div>
+    <div class="icon-tags">Step 1 · bounce-stack<br>role · identity · define</div>
+  </div>
+
+  <!-- 2. SPREADING RINGS -->
+  <div class="icon-card">
+    <svg class="spreading-rings" viewBox="0 0 200 200">
+      <defs>
+        <linearGradient id="rings-grad" gradientUnits="userSpaceOnUse" x1="100" y1="68" x2="100" y2="132">
+          <stop offset="0%" class="stop-accent"/>
+          <stop offset="100%" class="stop-dark"/>
+        </linearGradient>
+      </defs>
+      <circle cx="100" cy="100" r="32" class="ring ring-1"/>
+      <circle cx="100" cy="100" r="32" class="ring ring-2"/>
+      <circle cx="100" cy="100" r="32" class="ring ring-3"/>
+      <circle cx="100" cy="100" r="32" class="ring ring-4"/>
+    </svg>
+    <div class="icon-name">spreading-rings</div>
+    <div class="icon-tags">Step 2 · rings-slide<br>scope · reach · scale</div>
+  </div>
+
+  <!-- 3. VENN DIAGRAM -->
+  <div class="icon-card">
+    <svg class="venn-diagram" viewBox="0 0 200 200">
+      <defs>
+        <clipPath id="clip-left">
+          <circle cx="80" cy="85" r="38"/>
+        </clipPath>
+        <clipPath id="clip-right">
+          <circle cx="120" cy="85" r="38"/>
+        </clipPath>
+        <linearGradient id="venn-grad" gradientUnits="userSpaceOnUse" x1="100" y1="47" x2="100" y2="160">
+          <stop offset="0%" class="stop-accent"/>
+          <stop offset="100%" class="stop-dark"/>
+        </linearGradient>
+      </defs>
+      <circle cx="80" cy="85" r="38" class="venn circle-left"/>
+      <circle cx="120" cy="85" r="38" class="venn circle-right"/>
+      <circle cx="100" cy="122" r="38" class="venn circle-bottom"/>
+      <g clip-path="url(#clip-left)">
+        <g clip-path="url(#clip-right)">
+          <circle cx="100" cy="122" r="38" class="venn-center"/>
+        </g>
+      </g>
+    </svg>
+    <div class="icon-name">venn-diagram</div>
+    <div class="icon-tags">Result · triple-overlap<br>fit · synergy · alignment</div>
+  </div>
+
+</div>
+
+</body>
+</html>
