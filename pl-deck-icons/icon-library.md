@@ -556,6 +556,113 @@ Each icon pairs two muted brand tones. The gradient blob sits behind the wirefra
 
 ## Category 6: Security and Trust
 
+### fingerprint-scan
+**Primary:** biometric
+**Tags:** security, identity, authentication, biometric, fingerprint, thumbprint, touch-id, login, verify, trust, privacy | premium, biometric
+**Animation:** biometric-trace (Apple Touch ID style: static ghost layer + animating trace layer. Each ridge draws on, holds briefly, then erases along same path. Staggered center-outward in a 3.5s loop)
+**Stroke:** Vertical gradient `#1a1a1a` (top-left) → `#0000FF` (bottom-right)
+**Geometry:** 17 authentic fingerprint ridges ported from Lottie reference, scaled non-uniformly (x=0.132, y=0.172) for proper elongated thumbprint aspect ratio
+
+```html
+<svg class="icon-biometric-trace" viewBox="0 0 48 48" width="32" height="32">
+  <defs>
+    <linearGradient id="stroke-grad-fingerprint" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#0000FF"/>
+    </linearGradient>
+  </defs>
+  <g class="icon-inner">
+    <ellipse class="icon-gradient" cx="24" cy="24" rx="16" ry="22" fill="url(#stroke-grad-fingerprint)" opacity="0.1"/>
+
+    <!-- STATIC GHOST LAYER -->
+    <g stroke="url(#stroke-grad-fingerprint)" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.15">
+      <path d="M 23.0 43.14 C 23.0 43.14 22.03 46.35 22.03 46.35"/>
+      <path d="M 24.14 23.91 C 24.14 23.91 24.69 26.6 24.69 31.99 C 24.69 36.61 23.9 39.26 23.9 39.26"/>
+      <path d="M 27.24 35.23 C 27.24 35.23 27.27 38.55 25.09 46.35"/>
+      <path d="M 19.13 45.22 C 19.13 45.22 21.75 38.54 21.75 32.6 C 21.75 26.67 21.29 25.55 21.24 24.33 C 21.2 23.22 21.42 20.88 23.42 20.19 C 25.43 19.5 26.57 21.52 26.9 22.71 C 27.55 25.07 27.49 31.35 27.49 31.35"/>
+      <path d="M 21.96 16.95 C 21.96 16.95 22.56 16.49 24.06 16.49 C 25.48 16.49 27.18 17.19 28.39 19.22 C 29.42 20.95 30.26 22.93 30.26 33.07 C 30.26 39.25 28.39 45.3 28.39 45.3"/>
+      <path d="M 16.62 43.95 C 16.62 43.95 18.64 39.49 18.93 33.79 C 19.17 29.28 18.42 26.54 18.42 24.4 C 18.42 20.56 19.76 19.14 19.76 19.14"/>
+      <path d="M 32.04 20.32 C 32.04 20.32 33.05 23.19 33.05 32.02 C 33.05 39.07 31.84 43.71 31.84 43.71"/>
+      <path d="M 15.98 33.66 C 15.98 33.66 16.15 31.86 16.08 29.63 C 16.01 27.39 15.57 26.36 15.57 23.69 C 15.57 21.03 16.63 16.41 19.95 14.19 C 26.51 9.82 30.84 17.02 30.84 17.02"/>
+      <path d="M 14.03 41.97 C 14.03 41.97 15.16 39.3 15.49 37.37"/>
+      <path d="M 35.43 40.44 C 35.32 40.44 37.58 25.74 34.2 16.82 C 32.6 12.58 29.66 11.08 29.63 11.03"/>
+      <path d="M 38.79 30.75 C 38.79 30.75 38.84 32.38 38.66 35.35"/>
+      <path d="M 26.84 9.59 C 26.84 9.59 20.71 6.97 15.73 13.76 C 12.81 17.76 12.85 21.86 12.82 24.08 C 12.79 26.31 13.28 28.63 13.28 30.78 C 13.28 35.92 11.83 39.43 11.83 39.43"/>
+      <path d="M 18.59 6.75 C 18.59 6.75 25.22 2.74 32.15 8.66 C 38.29 13.91 38.55 25.13 38.55 25.13 C 38.55 25.13 38.65 26.81 38.65 26.81"/>
+      <path d="M 9.79 36.34 C 9.79 36.34 10.72 34.27 10.45 31.18 C 10.19 28.08 9.93 27.18 9.93 24.53 C 9.93 21.89 9.93 14.32 15.9 8.86"/>
+      <path d="M 41.16 23.34 C 41.16 23.34 40.93 14.2 36.25 8.22 C 31.66 2.37 26.78 2.01 26.78 2.01"/>
+      <path d="M 23.84 1.67 C 23.84 1.67 19.25 1.63 15.09 4.98 C 10.93 8.33 8.79 14.22 8.79 14.22"/>
+      <path d="M 7.53 17.67 C 7.53 17.67 6.84 20.17 6.84 24.0 C 6.84 27.82 7.76 30.96 7.76 30.96"/>
+    </g>
+
+    <!-- ANIMATED TRACE LAYER -->
+    <g stroke="url(#stroke-grad-fingerprint)" stroke-width="1.5" fill="none" stroke-linecap="round">
+      <g class="fp-1">
+        <path d="M 24.14 23.91 C 24.14 23.91 24.69 26.6 24.69 31.99 C 24.69 36.61 23.9 39.26 23.9 39.26" pathLength="100"/>
+      </g>
+      <g class="fp-2">
+        <path d="M 19.13 45.22 C 19.13 45.22 21.75 38.54 21.75 32.6 C 21.75 26.67 21.29 25.55 21.24 24.33 C 21.2 23.22 21.42 20.88 23.42 20.19 C 25.43 19.5 26.57 21.52 26.9 22.71 C 27.55 25.07 27.49 31.35 27.49 31.35" pathLength="100"/>
+      </g>
+      <g class="fp-3">
+        <path d="M 27.24 35.23 C 27.24 35.23 27.27 38.55 25.09 46.35" pathLength="100"/>
+        <path d="M 21.96 16.95 C 21.96 16.95 22.56 16.49 24.06 16.49 C 25.48 16.49 27.18 17.19 28.39 19.22 C 29.42 20.95 30.26 22.93 30.26 33.07 C 30.26 39.25 28.39 45.3 28.39 45.3" pathLength="100"/>
+        <path d="M 16.62 43.95 C 16.62 43.95 18.64 39.49 18.93 33.79 C 19.17 29.28 18.42 26.54 18.42 24.4 C 18.42 20.56 19.76 19.14 19.76 19.14" pathLength="100"/>
+        <path d="M 32.04 20.32 C 32.04 20.32 33.05 23.19 33.05 32.02 C 33.05 39.07 31.84 43.71 31.84 43.71" pathLength="100"/>
+        <path d="M 23.0 43.14 C 23.0 43.14 22.03 46.35 22.03 46.35" pathLength="100"/>
+      </g>
+      <g class="fp-4">
+        <path d="M 15.98 33.66 C 15.98 33.66 16.15 31.86 16.08 29.63 C 16.01 27.39 15.57 26.36 15.57 23.69 C 15.57 21.03 16.63 16.41 19.95 14.19 C 26.51 9.82 30.84 17.02 30.84 17.02" pathLength="100"/>
+        <path d="M 14.03 41.97 C 14.03 41.97 15.16 39.3 15.49 37.37" pathLength="100"/>
+        <path d="M 35.43 40.44 C 35.32 40.44 37.58 25.74 34.2 16.82 C 32.6 12.58 29.66 11.08 29.63 11.03" pathLength="100"/>
+        <path d="M 38.79 30.75 C 38.79 30.75 38.84 32.38 38.66 35.35" pathLength="100"/>
+      </g>
+      <g class="fp-5">
+        <path d="M 26.84 9.59 C 26.84 9.59 20.71 6.97 15.73 13.76 C 12.81 17.76 12.85 21.86 12.82 24.08 C 12.79 26.31 13.28 28.63 13.28 30.78 C 13.28 35.92 11.83 39.43 11.83 39.43" pathLength="100"/>
+        <path d="M 18.59 6.75 C 18.59 6.75 25.22 2.74 32.15 8.66 C 38.29 13.91 38.55 25.13 38.55 25.13 C 38.55 25.13 38.65 26.81 38.65 26.81" pathLength="100"/>
+        <path d="M 9.79 36.34 C 9.79 36.34 10.72 34.27 10.45 31.18 C 10.19 28.08 9.93 27.18 9.93 24.53 C 9.93 21.89 9.93 14.32 15.9 8.86" pathLength="100"/>
+        <path d="M 41.16 23.34 C 41.16 23.34 40.93 14.2 36.25 8.22 C 31.66 2.37 26.78 2.01 26.78 2.01" pathLength="100"/>
+        <path d="M 23.84 1.67 C 23.84 1.67 19.25 1.63 15.09 4.98 C 10.93 8.33 8.79 14.22 8.79 14.22" pathLength="100"/>
+        <path d="M 7.53 17.67 C 7.53 17.67 6.84 20.17 6.84 24.0 C 6.84 27.82 7.76 30.96 7.76 30.96" pathLength="100"/>
+      </g>
+    </g>
+  </g>
+</svg>
+```
+
+**Required CSS:**
+```css
+.icon-biometric-trace .fp-1 path,
+.icon-biometric-trace .fp-2 path,
+.icon-biometric-trace .fp-3 path,
+.icon-biometric-trace .fp-4 path,
+.icon-biometric-trace .fp-5 path {
+  stroke-dasharray: 100 200;
+  stroke-dashoffset: 105;
+  animation: traceAndErase 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.icon-biometric-trace .fp-1 path { animation-delay: 0s; }
+.icon-biometric-trace .fp-2 path { animation-delay: 0.15s; }
+.icon-biometric-trace .fp-3 path { animation-delay: 0.3s; }
+.icon-biometric-trace .fp-4 path { animation-delay: 0.45s; }
+.icon-biometric-trace .fp-5 path { animation-delay: 0.6s; }
+.icon-biometric-trace .icon-gradient {
+  opacity: 0;
+  animation: gradientIn 0.4s ease-out forwards !important;
+  stroke-dasharray: none !important;
+  stroke-dashoffset: 0 !important;
+}
+@keyframes traceAndErase {
+  0% { stroke-dashoffset: 105; opacity: 0; }
+  15% { opacity: 1; stroke-dashoffset: 60; }
+  40%, 60% { stroke-dashoffset: 0; opacity: 1; }
+  85% { opacity: 1; stroke-dashoffset: -60; }
+  100% { stroke-dashoffset: -105; opacity: 0; }
+}
+@keyframes gradientIn { to { opacity: 0.1; } }
+```
+
+---
+
 ### shield-check
 **Primary:** protection
 **Tags:** security, compliance, trust, safe, protect, governance, risk, audit | solid, reliable
