@@ -93,6 +93,12 @@ Load from Google Fonts: `Inter:wght@300;400;500;600;700`
 
 Execute these skills in order. Each skill handles one domain.
 
+### Step 0: Assets
+Copy logo files into the deck output directory before writing any HTML:
+```bash
+cp ~/.claude/skills/assets/logo-white.png ~/.claude/skills/assets/logo-black.png <deck-directory>/
+```
+
 ### Step 1: Layout and Structure
 **Invoke `Skill(pl-deck-layout)`**
 Establishes slide containers, backgrounds (hero gradient for title, grid+glow for content), centering, logo placement, navigation, and pixel corner accents.
@@ -115,6 +121,69 @@ Adds GSAP timeline choreography, slot machine number count-ups, icon draw-on ani
 ### Step 6: Imagery (if needed)
 **Invoke `Skill(deck-imagery)`**
 Generates AI imagery with the brand's frosted-glass pixelation and ASCII overlay treatment.
+
+---
+
+## Slide Templates
+
+Use these blueprints to structure slide content. Pick the template that matches the deck type, then adapt the copy to the specific topic.
+
+### Capabilities Deck (5-7 slides)
+
+| Slide | Type | Heading Pattern | Components |
+|-------|------|----------------|------------|
+| 0 | Hero | (logo only) | WebGL gradient, ASCII overlay |
+| 1 | Statement | "What We [Verb]" | Label, heading, body text, 3-column card grid |
+| 2 | Evidence | "[Topic] First" or "How We [Verb]" | Label, heading, body, steps with icons |
+| 3 | Metrics | "Measurable [Noun]" | Label, heading, body, stat grid with slot-machine numbers |
+| 4 | CTA | "Start [Verb]ing" | Label, heading, body, CTA button |
+
+### Case Study Deck (6-8 slides)
+
+| Slide | Type | Heading Pattern | Components |
+|-------|------|----------------|------------|
+| 0 | Hero | (logo only) | WebGL gradient, ASCII overlay |
+| 1 | Context | "The Challenge" | Label, heading, body, blockquote from client |
+| 2 | Diagnosis | "What We Found" | Label, heading, diagram (before state) |
+| 3 | Approach | "Our Approach" | Label, heading, steps with icons |
+| 4 | Solution | "What We Built" | Label, heading, diagram (after state), imagery |
+| 5 | Results | "The Impact" | Label, heading, stat grid with slot-machine numbers |
+| 6 | CTA | "Your Turn" | Label, heading, body, CTA button |
+
+### Proposal Deck (5-6 slides)
+
+| Slide | Type | Heading Pattern | Components |
+|-------|------|----------------|------------|
+| 0 | Hero | (logo only) | WebGL gradient, ASCII overlay |
+| 1 | Understanding | "Your [Problem]" | Label, heading, body, blockquote |
+| 2 | Approach | "How We Solve This" | Label, heading, steps or diagram |
+| 3 | Timeline | "The Roadmap" | Label, heading, timeline diagram or phased steps |
+| 4 | Investment | "Pricing" or "The Investment" | Label, heading, table or stat grid |
+| 5 | CTA | "Next Steps" | Label, heading, body, CTA button |
+
+### Slide Type Reference
+
+**Statement slides:** One clear idea. Heading + body + supporting component (cards, steps, or diagram). Max 3 cards or 4 steps per slide.
+
+**Evidence slides:** Back up a claim. Steps with icons, or a before/after diagram. The fingerprint icon works well for security; agent-swarm for AI capabilities; globe-spin for reach/scale.
+
+**Metrics slides:** 3 stat columns with slot-machine count-up numbers. Each stat: one `.highlight-number` + one `.stat-label`. Keep labels under 5 words.
+
+**CTA slides:** Short heading, 1-2 sentences of body, single CTA button. Pair with rocket-ascent or concentric-target icon.
+
+### Copy Patterns
+
+**Headings:** "[Adjective] [Noun]" or "[Verb] [Object]". One keyword in `<strong>` for blue emphasis. Under 10 words.
+- Good: "Measurable **Results**", "Start **Building**", "Security **First**"
+- Bad: "How We Help Companies Integrate AI Into Their Workflows"
+
+**Body text:** One specific claim per paragraph. No filler. Max 2 sentences.
+- Good: "Our clients see 73% reduction in manual processing within 90 days of deployment."
+- Bad: "We help companies achieve better results through innovative AI solutions."
+
+**Stat labels:** ALL CAPS monospace. Action-oriented.
+- Good: "REDUCTION IN MANUAL PROCESSING"
+- Bad: "Percentage decrease"
 
 ---
 

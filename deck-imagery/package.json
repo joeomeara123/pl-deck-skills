@@ -1,0 +1,16 @@
+{
+  "name": "deck-imagery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "process-deck-image.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.97"
+  }
+}

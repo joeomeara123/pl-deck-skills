@@ -296,9 +296,9 @@ function initPrismPixels() {
 ## Trigger Points
 
 ```javascript
-// On page load — animate the first slide after a brief delay
+// Slide 0 MUST have class="slide active" in HTML (WebGL needs non-zero canvas dimensions).
+// On page load, just trigger the entrance animation:
 setTimeout(() => {
-  slides[0].classList.add('active');
   animateSlideIn(slides[0]);
 }, 300);
 

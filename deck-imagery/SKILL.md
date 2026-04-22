@@ -1,6 +1,6 @@
 ---
 name: deck-imagery
-description: Add AI-generated imagery to Progression Labs decks. Generates B&W photographs via Nano Banana, applies the brand's signature frosted-glass pixelation + glowing ASCII overlay, and places them in slides with a configurable split layout. Invoke after building a deck with the progression-labs-brand skill.
+description: Add AI-generated imagery to Progression Labs decks. Generates B&W photographs via Nano Banana, applies the brand's signature frosted-glass pixelation + glowing ASCII overlay, and places them in slides with a configurable split layout. Invoke after building a deck with the pl-deck skill.
 ---
 
 # Deck Imagery — AI-Generated ASCII Gradient Visuals
@@ -9,7 +9,7 @@ Adds high-quality branded imagery to Progression Labs presentation decks. Each i
 
 ## When to Use
 
-Invoke this skill AFTER a deck has been built with the `progression-labs-brand` skill. The user will specify which slides should have imagery.
+Invoke this skill AFTER a deck has been built with the `pl-deck` skill. The user will specify which slides should have imagery.
 
 ## Workflow
 

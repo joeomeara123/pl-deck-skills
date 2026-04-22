@@ -32,6 +32,16 @@ Establishes the HTML structure, background treatments, logo placement, and navig
 </html>
 ```
 
+## Assets Setup (MANDATORY first step)
+
+Before writing any HTML, copy the logo files into the deck's output directory:
+
+```bash
+cp ~/.claude/skills/assets/logo-white.png ~/.claude/skills/assets/logo-black.png <deck-directory>/
+```
+
+These files are required by the hero slide, content slide watermarks, and the pixel corner canvas. Without them, the deck renders with broken image references.
+
 ## Slide Container (MANDATORY for every slide)
 
 ```css
@@ -72,7 +82,8 @@ The title slide uses the brand's signature 4-layer canvas stack. This is the onl
 4. **Content** — logo centered on top (z-index 3)
 
 **Title slide layout:**
-- Hero gradient canvas stack (z-index 1)
+- CSS fallback gradient on `#slide-0` (visible if WebGL fails)
+- Hero gradient canvas stack (z-index 1, covers the CSS fallback when WebGL works)
 - White `logo-white.png` centered, 64px wide, `drop-shadow(0 0 20px rgba(255,255,255,0.2))` (z-index 3)
 - **Logo only on title slide** — no title text, no subtitle, no wordmark
 - Footer: monospace meta in `rgba(255,255,255,0.25)` (optional)
@@ -80,11 +91,12 @@ The title slide uses the brand's signature 4-layer canvas stack. This is the onl
 
 **HTML structure:**
 ```html
-<div class="slide" id="slide-0">
+<!-- CRITICAL: slide-0 MUST have class="slide active" so WebGL canvas has non-zero
+     dimensions at init time. Without this, the shader fails silently on Safari. -->
+<div class="slide active" id="slide-0">
   <div class="hero-layers">
     <canvas id="heroGL"></canvas>
     <canvas id="heroAscii"></canvas>
-    <canvas id="heroGrain"></canvas>
   </div>
   <div class="hero-content">
     <img src="logo-white.png" alt="Progression Labs" class="hero-logo">
@@ -94,6 +106,11 @@ The title slide uses the brand's signature 4-layer canvas stack. This is the onl
 
 **Hero CSS:**
 ```css
+/* CSS fallback gradient — visible if WebGL fails, covered by canvas when it works */
+#slide-0 {
+  background: linear-gradient(to top, #020008 0%, #0a0028 30%, #1a0040 60%, #2a1050 80%, #1a0830 100%);
+}
+
 .hero-layers { position: absolute; inset: 0; z-index: 1; }
 .hero-layers canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 #heroAscii { pointer-events: none; }

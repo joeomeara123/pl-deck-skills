@@ -121,8 +121,9 @@ void main() {
 ```javascript
 function initHeroGL() {
   const canvas = document.getElementById('heroGL');
+  if (!canvas) return;
   const gl = canvas.getContext('webgl');
-  if (!gl) return;
+  if (!gl) { console.warn('WebGL not supported — CSS fallback gradient active'); return; }
 
   // CRITICAL: Track CSS pixel dimensions separately from canvas pixel dimensions.
   // The shader's blockPx=45.0 operates in CSS pixels, so uResolution must receive
@@ -141,19 +142,28 @@ function initHeroGL() {
   resize();
   window.addEventListener('resize', resize);
 
-  // Compile shaders (vertex + fragment from above)
+  // Compile shaders with error handling
   function compile(type, src) {
     const s = gl.createShader(type);
     gl.shaderSource(s, src);
     gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+      console.error('Shader compile error:', gl.getShaderInfoLog(s));
+      return null;
+    }
     return s;
   }
   const vs = compile(gl.VERTEX_SHADER, VERTEX_SRC);
   const fs = compile(gl.FRAGMENT_SHADER, FRAGMENT_SRC);
+  if (!vs || !fs) { console.warn('Shader compilation failed — CSS fallback gradient active'); return; }
   const prog = gl.createProgram();
   gl.attachShader(prog, vs);
   gl.attachShader(prog, fs);
   gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+    console.error('Program link error:', gl.getProgramInfoLog(prog));
+    return;
+  }
   gl.useProgram(prog);
 
   // Fullscreen quad

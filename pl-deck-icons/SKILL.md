@@ -5,7 +5,7 @@ description: Select and place geometric abstract icons in Progression Labs HTML 
 
 # PL Deck Icons
 
-Select and place icons from the curated library of 28 geometric abstract icons. Each icon combines a soft gradient fill with thin wireframe strokes for a premium, editorial feel.
+Select and place icons from the curated library of 7 premium animated icons. Each icon has a unique, hand-crafted animation (orbital, bounce, ripple, trace, spin) and combines a soft gradient fill with thin wireframe strokes for a premium, editorial feel.
 
 ## When to Use
 
@@ -25,7 +25,7 @@ All new and upgraded icons use a vertical linear gradient on strokes and filled 
 ```xml
 <linearGradient id="stroke-grad" x1="24" y1="0" x2="24" y2="48" gradientUnits="userSpaceOnUse">
   <stop offset="0%" stop-color="#0000FF"/>  <!-- Royal Blue (top) -->
-  <stop offset="100%" stop-color="#888888"/> <!-- Mid grey (bottom) -->
+  <stop offset="100%" stop-color="#1a1a1a"/> <!-- Charcoal (bottom) -->
 </linearGradient>
 ```
 
@@ -47,7 +47,7 @@ For each slide that needs an icon:
 4. Match against **primary concept** (exact match = 3 points)
 5. Select the highest-scoring icon
 6. **Tiebreaker:** Prefer the less-recently-used icon to avoid repetition
-7. **No match (score = 0):** Use a general-purpose icon: `concentric-target`, `starburst-spark`, or `radial-sunburst`
+7. **No match (score = 0):** Use `concentric-target` (most versatile general-purpose icon)
 8. **NEVER repeat the same icon on consecutive slides**
 
 ## Placement Rules
@@ -89,45 +89,6 @@ The existing `pl-deck-animate` system handles icons automatically:
 
 No additional animation setup is needed. Icons animate when their slide transitions in.
 
-## Optional Animation Extensions
-
-Some icons specify animation types beyond draw-on. Add these CSS keyframes to the deck's `<style>` block only when needed:
-
-**Pulse** (gentle scale throb after draw-on):
-```css
-.icon-pulse .icon-gradient {
-  animation: iconPulse 2.5s ease-in-out infinite;
-  animation-delay: 1s;
-}
-@keyframes iconPulse {
-  0%, 100% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.06); opacity: 1; }
-}
-```
-
-**Orbit** (slow rotation on specific sub-elements):
-```css
-.icon-orbit .orbit-path {
-  animation: iconOrbit 8s linear infinite;
-  transform-origin: center;
-}
-@keyframes iconOrbit {
-  to { transform: rotate(360deg); }
-}
-```
-
-**Breathe** (gentle opacity cycle):
-```css
-.icon-breathe .icon-gradient {
-  animation: iconBreathe 3s ease-in-out infinite;
-  animation-delay: 1s;
-}
-@keyframes iconBreathe {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
-```
-
 ## Icon Library Reference
 
-For the full catalogue of 28 icons with SVG code, semantic tags, and animation types, read [icon-library.md](icon-library.md).
+For the full catalogue of 7 premium icons with SVG code, semantic tags, and animation types, read [icon-library.md](icon-library.md).

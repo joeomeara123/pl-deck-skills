@@ -162,7 +162,7 @@ For copy-paste SVG templates of common diagram types (flowchart, hub-spoke, arch
 
 ## Draw-On SVG Icons
 
-For the full icon library with 28 geometric abstract icons (gradient fill + wireframe overlay), semantic tags, and animation types, invoke `Skill(pl-deck-icons)` as Step 3 in the deck pipeline.
+For the full icon library with 7 premium animated icons (gradient fill + wireframe overlay), semantic tags, and animation types, invoke `Skill(pl-deck-icons)` as Step 3 in the deck pipeline.
 
 **Rules:**
 - NEVER improvise icon paths. Always use icons from `pl-deck-icons` library.
