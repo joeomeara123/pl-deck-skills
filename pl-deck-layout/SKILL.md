@@ -77,9 +77,8 @@ The title slide uses the brand's signature 4-layer canvas stack. This is the onl
 
 **Architecture:**
 1. **WebGL gradient** — animated 5-color cycling with diagonal shimmer pixel reveal
-2. **ASCII overlay** (Canvas 2D) — characters inside pixel blocks, 20% fill, with block background rectangles (1px gap between blocks)
-3. **Film grain** (SVG feTurbulence) — `mix-blend-mode: overlay`, 3% opacity, NOT a canvas
-4. **Content** — logo centered on top (z-index 3)
+2. **Film grain** (SVG feTurbulence) — `mix-blend-mode: overlay`, 3% opacity, NOT a canvas
+3. **Content** — logo centered on top (z-index 3)
 
 **Title slide layout:**
 - CSS fallback gradient on `#slide-0` (visible if WebGL fails)
@@ -96,7 +95,6 @@ The title slide uses the brand's signature 4-layer canvas stack. This is the onl
 <div class="slide active" id="slide-0">
   <div class="hero-layers">
     <canvas id="heroGL"></canvas>
-    <canvas id="heroAscii"></canvas>
   </div>
   <div class="hero-content">
     <img src="logo-white.png" alt="Progression Labs" class="hero-logo">
@@ -133,9 +131,8 @@ The title slide uses the brand's signature 4-layer canvas stack. This is the onl
 </div>
 ```
 
-For the full WebGL shader code, ASCII overlay code, and pixel corner code, read these supporting files:
+For the full WebGL shader code and pixel corner code, read these supporting files:
 - `hero-shader.md` — WebGL vertex/fragment shader (copy-paste)
-- `ascii-overlay.md` — ASCII character overlay canvas
 - `pixel-corner.md` — Animated pixel corner accent for content slides
 
 ### Content Slides: Prism Gradient + Grain + Pixel Overlay
