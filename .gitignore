@@ -1,0 +1,4 @@
+.playwright-mcp/
+slide-*.png
+test-decks/*/screenshots/
+.DS_Store
