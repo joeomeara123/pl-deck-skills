@@ -1,156 +1,184 @@
-# Animated Pixel Corner Accent
+# Prism Corner Pixel Renderer
 
-Canvas 2D animated corner accent for content slides. One color at a time, cycling through all 5 brand colors over 45 seconds.
+Canvas 2D renderer for the chunky pixel texture inside the `.slide-bg-prism` gradient. Sits ABOVE the CSS radial gradient and underneath the slide grain. Renders the same 32px blocks as the hero shader, color-matched to the gradient, with a deep `cornerFade²` falloff so the pixels dissipate gradually into the smooth halo.
 
-## Key Rules
+## Design Intent
 
-- **ONE color at a time** — all blocks the same color at any moment. NEVER mix two colors simultaneously.
-- **Uniform opacity** — alpha from distance falloff only. No per-block brightness variation beyond the staircase smoothstep.
-- **Subtle shimmer** — diagonal band brightens existing blocks by 15% max. Multiplicative (`blockAlpha * (1 + shimmer)`). Must NOT reveal invisible blocks.
-- **20px blocks** — finer grain than the hero's 45px.
-- **Alternating corners** — `top-right` on odd slides, `bottom-left` on even.
+The prism corner is a **quiet hint of pixel texture inside a soft blue gradient that fades into the slide**. There is no defined curve outline, no hard edge, no clip path. The chunky pixel pattern is barely-there decoration in the corner — visible enough to telegraph the brand's pixel motif, but never strong enough to compete with the slide content.
+
+## Visual Rules
+
+- **No bounding shape.** The pixel area is defined purely by the fade curve. The boundary is wherever alpha reaches zero.
+- **Color-match the CSS gradient.** Pixel ramp goes from navy at the corner to white at `d=1`, matching the rgba stops in `.slide-bg-prism`. They read as the same gradient becoming chunky.
+- **Deep fade.** `cornerFade²` falloff — pixels are full strength only in the deepest corner area, fading rapidly as `d` increases.
+- **Subtle base alpha.** 0.32 base — pixels are persistent but quiet.
+- **Quiet shimmer.** A 0.25 Gaussian shimmer band sweeps diagonally, brightening cells as it passes — same math as the hero shader, but at lower amplitude.
+- **Sparse ASCII.** Characters only render where `fadeCurve > 0.35` and on ~18% of cells. Color contrasts with each cell's luminance.
 
 ## Parameters
 
-| Param | Default | Description |
-|-------|---------|-------------|
-| `blockSize` | `20` | Pixel block size in px |
-| `fadeRadius` | `0.15` | 0-1, fraction of diagonal |
-| `maxAlpha` | `0.88` | Peak alpha near corner origin |
-| `asciiDensity` | `0.4` | Fraction of blocks with ASCII character |
-| `asciiAlpha` | `blockAlpha * 0.6` | Character opacity |
-| `shimmerSpeed` | `0.12` | Diagonal sweep speed |
-| `shimmerBoost` | `0.15` | Max multiplicative brightness lift |
+| Param | Value | Notes |
+|-------|-------|-------|
+| `BS` (block size) | `32` | Matches the hero shader's `blockPx = 32.0` |
+| `EXTENT_X` | `0.60` | Horizontal radius (fraction of slide width) |
+| `EXTENT_Y` | `0.80` | Vertical radius (fraction of slide height) |
+| Base alpha | `0.32` | Persistent pixel visibility |
+| Shimmer amplitude | `0.25` | Additional brightness as shimmer sweeps |
+| ASCII fill chance | `0.18` | Sparse characters |
+| ASCII font | `500 ~13px Inter` | Same family as the hero ASCII overlay |
 
-## Logo Watermark
+The CSS radial-gradient in `.slide-bg-prism` must use the same `EXTENT_X` / `EXTENT_Y` percentages so the pixel renderer and the gradient share the same ellipse axes.
 
-- `logo-white.png`, 26px wide, aspect ratio 110/138
-- Position: 2 block widths inward from corner origin
-- Full opacity, no effects, drawn AFTER all blocks each frame
+## Color Ramp
 
-## Implementation (copy-paste)
+```js
+function rampColor(t) {
+  // t = 0 at corner, t = 1 at the curve's outer edge
+  const stops = [
+    [0.00, [0, 0, 139]],     // navy
+    [0.22, [37, 99, 235]],   // blue-600
+    [0.42, [96, 165, 250]],  // blue-400
+    [0.62, [147, 197, 253]], // blue-300
+    [0.82, [219, 234, 254]], // blue-100
+    [1.00, [255, 255, 255]], // white
+  ];
+  for (let i = 0; i < stops.length - 1; i++) {
+    if (t <= stops[i + 1][0]) {
+      const u = (t - stops[i][0]) / (stops[i + 1][0] - stops[i][0]);
+      const a = stops[i][1], b = stops[i + 1][1];
+      return [a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u, a[2] + (b[2] - a[2]) * u];
+    }
+  }
+  return stops[stops.length - 1][1];
+}
+```
+
+## Renderer (copy-paste)
 
 ```javascript
-function initAnimatedCorner(canvasId, cornerOrigin) {
-  const canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const BLOCK_SIZE = 20;
+function initPrismPixels() {
+  const BS = 32;
   const CHARS = '0123456789@#$%&*+=?<>{}[]/\\|LABS';
-  const logoImg = new Image(); logoImg.src = 'logo-white.png';
-  const startTime = performance.now() / 1000;
-
-  let oxScreen, oyScreen;
-  switch (cornerOrigin) {
-    case 'top-right': oxScreen = 1.0; oyScreen = 0.0; break;
-    case 'bottom-left': oxScreen = 0.0; oyScreen = 1.0; break;
-    case 'top-left': oxScreen = 0.0; oyScreen = 0.0; break;
-    case 'bottom-right': oxScreen = 1.0; oyScreen = 1.0; break;
-  }
-
   const seed = (x, y) => { const h = Math.sin(x * 127.1 + y * 311.7) * 43758.5453123; return h - Math.floor(h); };
   const smoothstep = (e0, e1, x) => { const t = Math.max(0, Math.min(1, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); };
 
-  const brandColors = [
-    [186, 85, 211], [255, 160, 122], [185, 233, 121], [64, 224, 208], [0, 0, 255],
-  ];
-  const cycle = [[0,0,4,1],[4,1,2,2],[2,2,0,3],[0,3,1,1],[1,1,4,3],[4,3,4,4],[4,4,0,2],[0,2,3,3],[3,3,0,0]];
-
-  function getCycleColor(time) {
-    const progress = ((time % 45) / 45);
-    const seg = progress * 9;
-    const idx = Math.floor(seg);
-    const t = smoothstep(0, 1, seg - idx);
-    const s = cycle[Math.min(idx, 8)];
-    const fA = brandColors[s[0]], fB = brandColors[s[1]], tA = brandColors[s[2]], tB = brandColors[s[3]];
-    const pA = fA.map((v, i) => v + (tA[i] - v) * t);
-    const pB = fB.map((v, i) => v + (tB[i] - v) * t);
-    return pA.map((v, i) => Math.round((v + pB[i]) / 2));
+  function rampColor(t) {
+    const stops = [
+      [0.00, [0, 0, 139]],
+      [0.22, [37, 99, 235]],
+      [0.42, [96, 165, 250]],
+      [0.62, [147, 197, 253]],
+      [0.82, [219, 234, 254]],
+      [1.00, [255, 255, 255]],
+    ];
+    for (let i = 0; i < stops.length - 1; i++) {
+      if (t <= stops[i + 1][0]) {
+        const u = (t - stops[i][0]) / (stops[i + 1][0] - stops[i][0]);
+        const a = stops[i][1], b = stops[i + 1][1];
+        return [a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u, a[2] + (b[2] - a[2]) * u];
+      }
+    }
+    return stops[stops.length - 1][1];
   }
 
-  let width = 0, height = 0;
-  function resize() {
-    const dpr = window.devicePixelRatio || 1;
-    width = canvas.parentElement.clientWidth; height = canvas.parentElement.clientHeight;
-    canvas.width = width * dpr; canvas.height = height * dpr;
-    canvas.style.width = width + 'px'; canvas.style.height = height + 'px';
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-  resize();
-  window.addEventListener('resize', resize);
+  // Must match the .slide-bg-prism CSS radial-gradient size
+  const EXTENT_X = 0.60;
+  const EXTENT_Y = 0.80;
 
-  function render() {
-    const time = performance.now() / 1000 - startTime;
-    const [r, g, b] = getCycleColor(time);
-    ctx.clearRect(0, 0, width, height);
+  document.querySelectorAll('.prism-pixels').forEach(canvas => {
+    const ctx = canvas.getContext('2d');
+    const startTime = performance.now() / 1000;
+    let w = 0, h = 0;
+    function resize() {
+      const d = devicePixelRatio || 1;
+      w = canvas.parentElement.clientWidth;
+      h = canvas.parentElement.clientHeight;
+      canvas.width = w * d; canvas.height = h * d;
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx.setTransform(d, 0, 0, d, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
 
-    const cols = Math.ceil(width / BLOCK_SIZE), rows = Math.ceil(height / BLOCK_SIZE);
-    const fadeRadius = 0.15, maxAlpha = 0.88;
-    const oxPx = oxScreen * width, oyPx = oyScreen * height;
-    const diagonal = Math.sqrt(width * width + height * height);
-    const maxDist = diagonal * fadeRadius;
-    const shimmerPos = (time * 0.12) % 1.0;
+    function render() {
+      const pw = canvas.parentElement.clientWidth;
+      const ph = canvas.parentElement.clientHeight;
+      if (pw > 0 && ph > 0 && (pw !== w || ph !== h)) resize();
+      if (w === 0 || h === 0) { requestAnimationFrame(render); return; }
+      const time = performance.now() / 1000 - startTime;
+      ctx.clearRect(0, 0, w, h);
 
-    for (let row = 0; row < rows; row++) {
-      for (let col = 0; col < cols; col++) {
-        const cx = (col + 0.5) * BLOCK_SIZE, cy = (row + 0.5) * BLOCK_SIZE;
-        const dist = Math.sqrt((cx - oxPx) ** 2 + (cy - oyPx) ** 2);
-        const t = dist / maxDist;
-        if (t >= 1.2) continue;
+      const cols = Math.ceil(w / BS), rows = Math.ceil(h / BS);
+      const shimmerPos = (time * 0.25) % 1.0;
 
-        let blockAlpha;
-        if (t <= 1.0) { blockAlpha = smoothstep(1, 0, t) * maxAlpha; }
-        else { blockAlpha = (1.2 - t) * 0.15 * maxAlpha; }
-        blockAlpha *= (0.85 + seed(col + 700, row + 700) * 0.15);
-        if (blockAlpha < 0.02) continue;
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const cx = (col + 0.5) * BS, cy = (row + 0.5) * BS;
+          const nx = cx / w, ny = cy / h;
+          const dx = (1 - nx) / EXTENT_X;
+          const dy = (1 - ny) / EXTENT_Y;
+          const d = Math.sqrt(dx * dx + dy * dy);
+          if (d > 1.0) continue;
 
-        const nx = cx / width, ny = cy / height;
-        const diag = (nx + 1.0 - ny) * 0.5;
-        let shimmerDist = Math.abs(diag - shimmerPos);
-        shimmerDist = Math.min(shimmerDist, 1.0 - shimmerDist);
-        const shimmerMask = Math.exp(-shimmerDist * shimmerDist * 200) * 0.15;
-        const finalAlpha = blockAlpha * (1.0 + shimmerMask);
+          // Deep cornerFade² — pixels die out gradually inside the gradient
+          const cornerFade = smoothstep(1.0, 0.0, d);
+          const fadeCurve = cornerFade * cornerFade;
+          if (fadeCurve < 0.02) continue;
 
-        ctx.fillStyle = `rgba(${r},${g},${b},${finalAlpha})`;
-        ctx.fillRect(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+          // Per-column y-offset mis-sample (matches hero shader)
+          const colOffset = seed(col, 0) * 0.06;
+          const sampleNy = ny + colOffset;
+          const sdx = (1 - nx) / EXTENT_X;
+          const sdy = (1 - sampleNy) / EXTENT_Y;
+          const sampleD = Math.min(1, Math.sqrt(sdx * sdx + sdy * sdy));
+          const [r, g, b] = rampColor(sampleD);
 
-        if (blockAlpha > 0.06 && seed(col, row) < 0.4) {
-          const ch = CHARS[Math.floor(seed(col + 100, row + 100) * CHARS.length)];
-          ctx.fillStyle = `rgba(${r},${g},${b},${blockAlpha * 0.6})`;
-          ctx.font = '500 ' + (BLOCK_SIZE * 0.45) + 'px "Inter", sans-serif';
-          ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-          ctx.fillText(ch, cx, cy);
+          // Quiet diagonal shimmer
+          const diag = (nx + 1.0 - ny) * 0.5;
+          let shimmerDist = Math.abs(diag - shimmerPos);
+          shimmerDist = Math.min(shimmerDist, 1.0 - shimmerDist);
+          const shimmerMask = Math.exp(-shimmerDist * shimmerDist * 120.0) * 0.25;
+
+          const alpha = (0.32 + shimmerMask * 0.25) * fadeCurve;
+          ctx.fillStyle = `rgba(${Math.round(r)},${Math.round(g)},${Math.round(b)},${alpha})`;
+          ctx.fillRect(col * BS, row * BS, BS + 1, BS + 1);
+
+          // Sparse ASCII characters in the dense core
+          if (fadeCurve > 0.35 && seed(col, row) < 0.18) {
+            const ch = CHARS[Math.floor(seed(col + 100, row + 100) * CHARS.length)];
+            const luma = 0.299 * r + 0.587 * g + 0.114 * b;
+            const cc = luma > 170 ? '20,30,90' : '255,255,255';
+            const charAlpha = (0.22 + shimmerMask * 0.25) * fadeCurve;
+            ctx.fillStyle = `rgba(${cc},${charAlpha})`;
+            ctx.font = '500 ' + (BS * 0.4) + 'px "Inter", sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText(ch, cx, cy);
+          }
         }
       }
-    }
-
-    if (logoImg.complete && logoImg.naturalWidth > 0) {
-      const logoSize = 26, pad = BLOCK_SIZE * 2;
-      let lx, ly;
-      switch (cornerOrigin) {
-        case 'top-right': lx = width - pad; ly = pad; break;
-        case 'bottom-left': lx = pad; ly = height - pad; break;
-        case 'top-left': lx = pad; ly = pad; break;
-        case 'bottom-right': lx = width - pad; ly = height - pad; break;
-      }
-      ctx.drawImage(logoImg, lx - logoSize/2, ly - logoSize/2, logoSize, logoSize * (110/138));
+      requestAnimationFrame(render);
     }
     requestAnimationFrame(render);
-  }
-  requestAnimationFrame(render);
+  });
 }
 ```
 
 ## Initialization
 
+Call once after slides are in the DOM:
+
 ```javascript
-// At page load, after slides are rendered:
-const totalSlides = document.querySelectorAll('.slide').length;
-for (let i = 1; i < totalSlides; i++) {
-  initAnimatedCorner('corner-' + i, i % 2 === 1 ? 'top-right' : 'bottom-left');
-}
+initPrismPixels();
 ```
 
-## Positioning (CRITICAL)
+The function targets every `.prism-pixels` canvas across all slides. No per-corner setup needed.
 
-The canvas must NOT set `slideEl.style.position = 'relative'`. The canvas uses `position: absolute; inset: 0; pointer-events: none` so it layers behind content without blocking clicks. The slide itself uses `position: absolute; inset: 0`.
+## Tuning Knobs
+
+| If the effect feels... | Try |
+|------------------------|-----|
+| Too dominant / loud | Lower base alpha (0.32 → 0.22) and/or tighten extents |
+| Invisible | Bump base alpha (0.32 → 0.45) — but be wary of looking "stuck-on" |
+| Too constrained | Bump `EXTENT_X` and `EXTENT_Y` (also update CSS gradient) |
+| Pixels read as a hard shape | Increase the fade exponent (use `cornerFade ** 3` instead of `cornerFade²`) |
+| Shimmer too distracting | Drop shimmer amplitude (`0.25 → 0.15`) or remove it entirely |

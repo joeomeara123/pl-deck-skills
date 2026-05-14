@@ -102,45 +102,69 @@ The title slide uses the brand's signature 4-layer canvas stack. This is the onl
 </div>
 ```
 
+**Hero HTML:**
+```html
+<!-- CRITICAL: slide-0 MUST have class="slide active" so WebGL canvas has non-zero
+     dimensions at init time. Without this, the shader fails silently on Safari. -->
+<div class="slide active" id="slide-0">
+  <div class="hero-layers">
+    <canvas id="heroGL"></canvas>
+    <canvas id="heroAscii" class="hero-ascii"></canvas>
+    <div class="hero-grain" aria-hidden="true"></div>
+  </div>
+  <div class="hero-content">
+    <img src="logo-white.png" alt="Progression Labs" class="hero-logo">
+  </div>
+</div>
+```
+
 **Hero CSS:**
 ```css
-/* CSS fallback gradient — visible if WebGL fails, covered by canvas when it works */
+/* CSS fallback — pure near-black, visible only if WebGL fails entirely */
 #slide-0 {
-  background: linear-gradient(to top, #020008 0%, #0a0028 30%, #1a0040 60%, #2a1050 80%, #1a0830 100%);
+  background: #010101;
+  align-items: center; justify-content: center; text-align: center;
 }
 
-.hero-layers { position: absolute; inset: 0; z-index: 1; }
-.hero-layers canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-#heroAscii { pointer-events: none; }
+.hero-layers { position: absolute; inset: 0; z-index: 1; overflow: hidden; }
+.hero-layers canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+/* Strong grain scoped inside the hero frame — matches the website's 0.4 opacity */
+.hero-grain {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  opacity: 0.4; mix-blend-mode: overlay;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") repeat;
+}
+
+/* ASCII canvas — grid-locked to the WebGL 32px blocks, mix-blend overlay, soft glow */
+.hero-ascii {
+  position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  mix-blend-mode: overlay;
+  filter: drop-shadow(0 0 4px rgba(255,255,255,0.4));
+}
+
 .hero-content {
-  position: relative; z-index: 3;
+  position: relative; z-index: 4;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   height: 100%;
 }
 .hero-logo { width: 64px; height: auto; filter: drop-shadow(0 0 20px rgba(255,255,255,0.2)); }
-/* Grain: SVG feTurbulence overlay, NOT a canvas */
-.noise-overlay { position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: 0.03; mix-blend-mode: overlay; }
-.noise-overlay svg { width: 100%; height: 100%; }
 ```
 
-**Grain HTML (place at top of body, outside slides):**
-```html
-<div class="noise-overlay" aria-hidden="true">
-  <svg><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#grain)"/></svg>
-</div>
-```
+The grain lives inside the hero frame (scoped, opacity 0.4). Do NOT use a fixed-position page-level grain — it dilutes the effect and conflicts with content slides.
 
-For the full WebGL shader code and pixel corner code, read these supporting files:
-- `hero-shader.md` — WebGL vertex/fragment shader (copy-paste)
-- `pixel-corner.md` — Animated pixel corner accent for content slides
+For the full WebGL shader code (vertex + fragment + JS init + ASCII overlay), read:
+- `hero-shader.md` — copy-paste shader + the matching `initHeroAscii()` JS
 
-### Content Slides: Prism Gradient + Grain + Pixel Overlay
+### Content Slides: Soft Blue Gradient + Pixel Texture + Grain
 
-Content slides use `#fafafa` background with three layered effects in the bottom-right corner:
-1. **Prism gradient** — SVG bezier curves creating a light-dispersion fan
-2. **Pixel overlay** — Canvas 2D color-cycling pixel blocks with `mix-blend-mode: overlay`
-3. **Grain texture** — SVG feTurbulence with `mix-blend-mode: multiply`
+Content slides use `#fafafa` background with a quiet blue corner treatment anchored at the bottom-right. The design intent is **slick, subtle, soft** — no hard edges, no defined curve outline, no rainbow pixel cycle. The blue is just a hint that fades deep into the slide; the chunky pixels are barely-there texture inside it.
+
+Three layered effects, anchored bottom-right:
+1. **`.slide-bg-prism`** — CSS radial-gradient ellipse, navy at the corner, fading through blues to fully transparent.
+2. **`.prism-pixels`** — Canvas 2D rendering 32px chunky blocks colored from the same blue ramp, mis-sampled per-column and deep-faded with corner distance so they're a faint texture, not a defined shape. A quiet diagonal shimmer brightens cells as it sweeps.
+3. **`.slide-grain`** — SVG feTurbulence with `mix-blend-mode: multiply`, masked to the bottom-right.
 
 ```css
 .slide:not(#slide-0) {
@@ -149,28 +173,28 @@ Content slides use `#fafafa` background with three layered effects in the bottom
   inset: 0;
 }
 
-/* Prism gradient — SVG bezier curves fanning from bottom-center to bottom-right */
+/* Soft blue gradient anchored at bottom-right. Fades to fully transparent
+   — no clip, no hard edge, just a natural radial dissipation. */
 .slide-bg-prism {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='blur' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeGaussianBlur stdDeviation='4' /%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23blur)'%3E%3Cpath d='M 30 100 Q 65 100, 100 5 L 100 100 L 30 100 Z' fill='%23ffffff' opacity='0.7'/%3E%3Cpath d='M 30 100 Q 78 100, 100 30 L 100 100 L 30 100 Z' fill='%23e0f2fe'/%3E%3Cpath d='M 30 100 Q 88 100, 100 55 L 100 100 L 30 100 Z' fill='%2393c5fd'/%3E%3Cpath d='M 30 100 Q 95 100, 100 75 L 100 100 L 30 100 Z' fill='%2360a5fa'/%3E%3Cpath d='M 30 100 Q 100 100, 100 90 L 100 100 L 30 100 Z' fill='%2300008b'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 100% 100%;
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 100% 100%,
+      rgba(0,0,139,0.42) 0%,
+      rgba(37,99,235,0.30) 15%,
+      rgba(96,165,250,0.20) 32%,
+      rgba(147,197,253,0.12) 52%,
+      rgba(191,219,254,0.05) 75%,
+      rgba(255,255,255,0) 100%);
 }
 
-/* Pixel overlay — color-cycling blocks blended into the prism */
+/* Chunky 32px pixel grid, colored from the same blue ramp.
+   Deep cornerFade² falloff so pixels dissipate gradually into the gradient. */
 .prism-pixels {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  mix-blend-mode: overlay;
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0;
 }
 
-/* Grain texture overlay */
+/* Grain texture, masked to the bottom-right corner */
 .slide-grain {
   position: absolute; inset: 0; pointer-events: none; z-index: 1;
   opacity: 0.25; mix-blend-mode: multiply;
@@ -205,6 +229,16 @@ Content slides use `#fafafa` background with three layered effects in the bottom
 ```
 
 The `.content` div sits above backgrounds at `position: relative; z-index: 1; max-width: 960px; width: 100%;`.
+
+**Anti-patterns to avoid** (each was tried and rejected during the redesign):
+- SVG-image prism with hard color bands — felt synthetic, looked like a stuck-on layer
+- Rainbow color-cycling pixel canvas — too playful, doesn't match the editorial brand
+- Clip-path or content-page cutout in a curve shape — the visible curve edge looks pasted-on regardless of how much you feather it
+- Strong-alpha pixels right up to a defined boundary — the cut between pixels and white reads as artificial
+
+The natural radial fade is the entire visual; the chunky pixels are a quiet texture inside it, not a defined shape.
+
+For the pixel renderer (`initPrismPixels`), see `pl-deck-animate`.
 
 ### Slide Logo Watermark
 
