@@ -205,34 +205,18 @@ function resetSlide(el) {
 
 ## Prism Pixel Overlay (copy-paste)
 
-Color-cycling pixel blocks overlaid on the prism gradient in the bottom-right corner. Uses `mix-blend-mode: overlay` to merge with the gradient.
+Static dark-blue pixel blocks overlaid on the prism gradient in the bottom-right corner. Uses `mix-blend-mode: overlay` to merge with the gradient. The color is fixed at `rgb(0, 0, 139)`, which combines with the prism's blue layers to produce the brand's signature mid-blue corner. Do not reintroduce the multi-color cycle without explicit approval.
 
 ```javascript
 function initPrismPixels() {
   const BS = 40;
   const CHARS = '0123456789@#$%&*+=?<>{}[]/\\|LABS';
+  const PIXEL_COLOR = [0, 0, 139]; // static dark blue, mixes with prism to give the brand corner
   const seed = (x, y) => { const h = Math.sin(x * 127.1 + y * 311.7) * 43758.5453123; return h - Math.floor(h); };
   const smoothstep = (e0, e1, x) => { const t = Math.max(0, Math.min(1, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); };
-  const pixelColors = [
-    [0, 0, 139],       // dark blue
-    [255, 160, 122],   // orange/salmon
-    [185, 233, 121],   // green
-    [64, 224, 208],    // light blue/turquoise
-    [219, 112, 180],   // pink
-  ];
-  function getCycleColor(time) {
-    const totalCycle = 12;
-    const p = (time % totalCycle) / totalCycle;
-    const idx = Math.floor(p * pixelColors.length);
-    const t = smoothstep(0, 1, (p * pixelColors.length) - idx);
-    const c1 = pixelColors[idx % pixelColors.length];
-    const c2 = pixelColors[(idx + 1) % pixelColors.length];
-    return c1.map((v, i) => Math.round(v + (c2[i] - v) * t));
-  }
 
   document.querySelectorAll('.prism-pixels').forEach(canvas => {
     const ctx = canvas.getContext('2d');
-    const startTime = performance.now() / 1000;
     let w = 0, h = 0;
 
     function resize() {
@@ -252,8 +236,7 @@ function initPrismPixels() {
       if (pw > 0 && ph > 0 && (pw !== w || ph !== h)) { resize(); }
       if (w === 0 || h === 0) { requestAnimationFrame(render); return; }
 
-      const time = performance.now() / 1000 - startTime;
-      const [r, g, b] = getCycleColor(time);
+      const [r, g, b] = PIXEL_COLOR;
       ctx.clearRect(0, 0, w, h);
 
       const cols = Math.ceil(w / BS), rows = Math.ceil(h / BS);
