@@ -1,0 +1,9 @@
+{
+  "name": "eagle-corner-experiment",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.97"
+  }
+}
