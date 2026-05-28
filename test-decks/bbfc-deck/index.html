@@ -1901,29 +1901,6 @@ function animateSlideIn(el) {
   const stats = el.querySelectorAll('.content .stat-item');
   if (stats.length) tl.to(stats, { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 }, 0.3);
 
-  const nums = el.querySelectorAll('.content .highlight-number');
-  if (nums.length) {
-    tl.to(nums, { opacity: 1, scale: 1, duration: 0.6, stagger: 0.1 }, 0.3);
-    nums.forEach((numEl, i) => {
-      const raw = numEl.textContent.trim();
-      const prefix = raw.match(/^[^0-9]*/)?.[0] || '';
-      const suffix = raw.match(/[^0-9.]*$/)?.[0] || '';
-      const numStr = raw.replace(/[^0-9.]/g, '');
-      const target = parseFloat(numStr);
-      if (isNaN(target)) return;
-      const hasDecimal = numStr.includes('.');
-      const decimals = hasDecimal ? numStr.split('.')[1].length : 0;
-      const obj = { val: 0 };
-      tl.to(obj, {
-        val: target, duration: 1.2, ease: 'power2.out',
-        onUpdate() {
-          let display = hasDecimal ? obj.val.toFixed(decimals) : Math.round(obj.val).toString();
-          numEl.textContent = prefix + display + suffix;
-        }
-      }, 0.3 + i * 0.08);
-    });
-  }
-
   const cta = el.querySelectorAll('.content .cta-btn');
   if (cta.length) tl.to(cta, { opacity: 1, y: 0, duration: 0.5 }, '-=0.2');
 
