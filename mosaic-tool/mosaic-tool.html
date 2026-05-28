@@ -679,7 +679,65 @@ function scheduleRender() {
   requestAnimationFrame(() => {
     pending = false;
     render();
+    saveStateToStorage();
   });
+}
+
+// ─── Persistence ───
+// Auto-save every setting (everything except the loaded image) so the
+// look survives page refreshes and new image uploads. Reset clears the
+// saved state and restores hardcoded defaults.
+const STORAGE_KEY = 'mosaic-tool-state-v1';
+
+function saveStateToStorage() {
+  try {
+    const { image, ...rest } = state;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(rest));
+  } catch (_) { /* private browsing / quota — ignore */ }
+}
+
+function clearSavedState() {
+  try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+}
+
+function loadStateFromStorage() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+    const parsed = JSON.parse(raw);
+    // Overlay onto state; any keys absent from old saves keep their DEFAULTS.
+    Object.assign(state, parsed);
+    return true;
+  } catch (_) { return false; }
+}
+
+// Push every state value into its matching DOM control. Called after
+// localStorage restore and from Reset.
+function syncDomFromState() {
+  for (const key of Object.keys(DEFAULTS)) {
+    const el = $(key);
+    if (!el) continue;
+    if (el.tagName === 'INPUT' || el.tagName === 'SELECT') {
+      if (el.type === 'range' || el.type === 'color' || el.tagName === 'SELECT') {
+        el.value = state[key];
+      }
+    }
+    const valEl = $(key + '-val');
+    if (valEl && typeof state[key] === 'number') {
+      valEl.textContent = (key === 'cellSize' || key === 'threshold' || key === 'brushSize')
+        ? String(Math.round(state[key]))
+        : state[key].toFixed(2);
+    }
+  }
+  document.querySelectorAll('[data-corner]').forEach(b => {
+    b.classList.toggle('active', b.dataset.corner === state.corner);
+  });
+  $('corner-group').style.display = state.maskMode === 'corner' ? '' : 'none';
+  $('brush-group').style.display  = state.maskMode === 'brush'  ? '' : 'none';
+  $('canvas').style.cursor = state.maskMode === 'brush' ? 'none' : 'default';
+  $('brushErase').textContent = `Erase: ${state.brushErase ? 'on' : 'off'}`;
+  $('brushErase').classList.toggle('active', state.brushErase);
+  updateGradientPreview();
 }
 
 // ─── Wiring ───
@@ -970,6 +1028,7 @@ preview.addEventListener('drop', e => {
 });
 
 $('reset').addEventListener('click', () => {
+  clearSavedState();
   Object.assign(state, DEFAULTS);
   for (const id of ['radius', 'cellSize', 'threshold', 'grain', 'duotoneStrength', 'mosaicSat', 'anchorReach', 'silhouetteGlow', 'lightenK', 'navyCap', 'charAlpha', 'charSize', 'bgStrength', 'brushSize', 'brushHardness']) {
     $(id).value = DEFAULTS[id];
@@ -1010,6 +1069,13 @@ $('save').addEventListener('click', () => {
     URL.revokeObjectURL(url);
   }, 'image/png');
 });
+
+// ─── Initial restore ───
+// Pull last saved settings (if any) into state + sync to the DOM. No
+// render here — happens automatically when an image is loaded.
+if (loadStateFromStorage()) {
+  syncDomFromState();
+}
 </script>
 </body>
 </html>
