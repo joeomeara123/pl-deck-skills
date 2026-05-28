@@ -36,6 +36,25 @@
     height: 100%;
   }
   .hero-logo { width: 64px; height: auto; filter: drop-shadow(0 0 20px rgba(255,255,255,0.2)); opacity: 0; }
+  .hero-title {
+    font-family: Inter, sans-serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: white;
+    margin-top: 32px;
+    max-width: 720px;
+    text-align: center;
+    opacity: 0;
+  }
+  .hero-subtitle {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.6);
+    margin-top: 24px;
+    opacity: 0;
+  }
 
   .noise-overlay {
     position: fixed; inset: 0; z-index: 2; pointer-events: none;
@@ -110,6 +129,27 @@
     margin: 0 0 24px;
     transform-origin: left; transform: scaleX(0);
     opacity: 0.6;
+  }
+  .agenda-list {
+    list-style: none;
+    margin-top: 32px;
+    max-width: 640px;
+  }
+  .agenda-list li {
+    display: flex; align-items: center; gap: 24px;
+    font-family: Inter, sans-serif;
+    font-size: 1.1rem; font-weight: 300;
+    color: #1a1a1a;
+    padding: 18px 0;
+    border-bottom: 1px dashed rgba(0,0,0,0.08);
+    opacity: 0; transform: translateY(8px);
+  }
+  .agenda-num {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 12px; font-weight: 600;
+    color: #0000FF;
+    letter-spacing: 0.1em;
+    min-width: 40px;
   }
 
   /* ── Cards (no boxes; dashed dividers) ── */
@@ -497,7 +537,9 @@
       <canvas id="heroGL"></canvas>
     </div>
     <div class="hero-content">
-      <img src="logo-white.png" alt="Progression Labs" class="hero-logo">
+      <img src="logo-white.png" class="hero-logo" alt="Progression Labs">
+      <h1 class="hero-title">British Board of Film Classification</h1>
+      <p class="hero-subtitle">A draft report</p>
     </div>
   </div>
 
@@ -506,7 +548,17 @@
   <div class="slide slide-content" id="slide-1">
     <canvas class="corner-canvas" id="corner-1"></canvas>
     <div class="content">
-      <!-- slide 1 content -->
+      <div class="label">Agenda</div>
+      <h2 class="heading">What we'll <strong>cover</strong></h2>
+      <div class="divider"></div>
+      <ol class="agenda-list">
+        <li><span class="agenda-num">01</span> Context</li>
+        <li><span class="agenda-num">02</span> Our approach</li>
+        <li><span class="agenda-num">03</span> Initial goals</li>
+        <li><span class="agenda-num">04</span> Our findings</li>
+        <li><span class="agenda-num">05</span> Moving forward</li>
+        <li><span class="agenda-num">06</span> Appendix: best practices and things to avoid</li>
+      </ol>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1143,7 +1195,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 function resetSlide(el) {
-  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col';
+  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li';
   el.querySelectorAll(selectors).forEach(child => {
     gsap.set(child, { clearProps: 'all' });
     child.style.opacity = '0';
@@ -1221,6 +1273,15 @@ function animateSlideIn(el) {
 
   const logo = el.querySelectorAll('.hero-content .hero-logo');
   if (logo.length) tl.to(logo, { opacity: 1, scale: 1, duration: 0.8 }, 0);
+
+  const heroTitle = el.querySelectorAll('.hero-content .hero-title');
+  if (heroTitle.length) tl.to(heroTitle, { opacity: 1, duration: 0.7 }, 0.3);
+
+  const heroSubtitle = el.querySelectorAll('.hero-content .hero-subtitle');
+  if (heroSubtitle.length) tl.to(heroSubtitle, { opacity: 1, duration: 0.5 }, 0.6);
+
+  const agendaItems = el.querySelectorAll('.content .agenda-list li');
+  if (agendaItems.length) tl.to(agendaItems, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 }, 0.5);
 }
 
 /* ────────────────── Corner canvas prism (content slides) ────────────────── */
