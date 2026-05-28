@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>British Board of Film Classification - A draft report</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; font-family: Inter, -apple-system, sans-serif; background: #fafafa; color: #1a1a1a; -webkit-font-smoothing: antialiased; }
+
+  /* ── Slide containers ── */
+  .slide {
+    position: absolute; inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start; justify-content: flex-start;
+    text-align: left;
+    padding: 72px 100px 56px;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; }
+
+  /* ── Hero (centered override) ── */
+  #slide-0 {
+    align-items: center; justify-content: center; text-align: center;
+    background: linear-gradient(to top, #020008 0%, #0a0028 30%, #1a0040 60%, #2a1050 80%, #1a0830 100%);
+  }
+  .hero-layers { position: absolute; inset: 0; z-index: 1; }
+  .hero-layers canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero-content {
+    position: relative; z-index: 3;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    height: 100%;
+  }
+  .hero-logo { width: 64px; height: auto; filter: drop-shadow(0 0 20px rgba(255,255,255,0.2)); opacity: 0; }
+
+  .noise-overlay {
+    position: fixed; inset: 0; z-index: 2; pointer-events: none;
+    opacity: 0.03; mix-blend-mode: overlay;
+  }
+  .noise-overlay svg { width: 100%; height: 100%; }
+
+  /* ── Content slide backgrounds ── */
+  .slide:not(#slide-0) { background: #fafafa; }
+  .slide-bg-prism {
+    position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='blur' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeGaussianBlur stdDeviation='4' /%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23blur)'%3E%3Cpath d='M 30 100 Q 65 100, 100 5 L 100 100 L 30 100 Z' fill='%23ffffff' opacity='0.7'/%3E%3Cpath d='M 30 100 Q 78 100, 100 30 L 100 100 L 30 100 Z' fill='%23e0f2fe'/%3E%3Cpath d='M 30 100 Q 88 100, 100 55 L 100 100 L 30 100 Z' fill='%2393c5fd'/%3E%3Cpath d='M 30 100 Q 95 100, 100 75 L 100 100 L 30 100 Z' fill='%2360a5fa'/%3E%3Cpath d='M 30 100 Q 100 100, 100 90 L 100 100 L 30 100 Z' fill='%2300008b'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 100% 100%;
+  }
+  .prism-pixels {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; z-index: 0;
+    mix-blend-mode: overlay;
+  }
+  .slide-grain {
+    position: absolute; inset: 0; pointer-events: none; z-index: 1;
+    opacity: 0.25; mix-blend-mode: multiply;
+    -webkit-mask-image: radial-gradient(ellipse at 100% 100%, black 0%, transparent 50%);
+    mask-image: radial-gradient(ellipse at 100% 100%, black 0%, transparent 50%);
+  }
+  .slide-grain svg { width: 100%; height: 100%; }
+  .slide-logo {
+    position: absolute; bottom: 28px; right: 32px;
+    width: 20px; height: auto; opacity: 0.8;
+    z-index: 2; pointer-events: none;
+  }
+  .content {
+    position: relative; z-index: 1;
+    max-width: 960px; width: 100%;
+    display: flex; flex-direction: column;
+    flex: 1; min-height: 0;
+  }
+
+  /* ── Typography ── */
+  .label {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 9px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: rgba(0,0,255,0.45);
+    margin-bottom: 22px;
+    transform: translateY(12px); opacity: 0;
+  }
+  .heading {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin-bottom: 18px;
+    transform: translateY(20px); opacity: 0;
+    max-width: 720px;
+  }
+  .heading strong { font-weight: 600; color: #0000FF; }
+  .body-text {
+    font-family: Inter, sans-serif;
+    font-size: 0.95rem; font-weight: 300;
+    line-height: 1.7;
+    color: #555;
+    max-width: 520px;
+    margin: 0 0 32px;
+    transform: translateY(14px); opacity: 0;
+  }
+  .divider {
+    width: 40px; height: 1.5px;
+    background: #0000FF;
+    margin: 0 0 24px;
+    transform-origin: left; transform: scaleX(0);
+    opacity: 0.6;
+  }
+
+  /* ── Cards (no boxes; dashed dividers) ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 12px;
+    width: 100%;
+  }
+  .card {
+    background: none; border: none;
+    border-right: 1px dashed rgba(0,0,0,0.08);
+    padding: 0 28px;
+    text-align: left;
+    transform: translateY(30px); opacity: 0;
+  }
+  .card:first-child { padding-left: 0; }
+  .card:last-child { border-right: none; padding-right: 0; }
+  .card-icon { margin-bottom: 16px; }
+  .card-title {
+    font-size: 12.5px; font-weight: 600;
+    margin-bottom: 8px; letter-spacing: -0.005em;
+  }
+  .card-body {
+    font-size: 0.85rem;
+    font-weight: 300;
+    line-height: 1.65;
+    color: #666;
+  }
+
+  /* ── Steps (plain numbers, no circles) ── */
+  .step-row { display: flex; flex-direction: column; gap: 0; margin-top: 8px; width: 100%; max-width: 720px; }
+  .step {
+    display: flex; gap: 24px; align-items: flex-start;
+    padding: 18px 0;
+    border-bottom: 1px dashed rgba(0,0,0,0.08);
+    transform: translateY(30px); opacity: 0;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: Inter, sans-serif;
+    font-size: 1.4rem; font-weight: 600;
+    color: #0000FF;
+    flex-shrink: 0; line-height: 1;
+    width: 36px;
+  }
+  .step-icon { flex-shrink: 0; width: 28px; }
+  .step-content { flex: 1; }
+  .step-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .step-desc { font-size: 12.5px; line-height: 1.65; color: #666; font-weight: 300; }
+
+  /* ── Stats ── */
+  .stat-row {
+    display: flex; justify-content: flex-start;
+    gap: 0; margin-top: 16px; width: 100%;
+    max-width: 720px;
+  }
+  .stat-item {
+    flex: 1; padding: 0 24px;
+    border-right: 1px dashed rgba(0,0,0,0.08);
+    transform: translateY(16px); opacity: 0;
+  }
+  .stat-item:first-child { padding-left: 0; }
+  .stat-item:last-child { border-right: none; }
+  .highlight-number {
+    font-family: Inter, sans-serif;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    font-weight: 300; color: #0000FF;
+    line-height: 1.05;
+    opacity: 0;
+  }
+  .stat-label {
+    font-family: 'SF Mono', monospace;
+    font-size: 9px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: rgba(0,0,0,0.35);
+    margin-top: 8px; max-width: 160px;
+    line-height: 1.4;
+  }
+
+  /* ── CTA ── */
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'SF Mono', monospace;
+    font-size: 9px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: #fafafa; background: #0000FF;
+    padding: 14px 22px;
+    border: none; cursor: pointer;
+    text-decoration: none;
+    transform: translateY(12px); opacity: 0;
+    transition: transform 0.25s ease, background 0.25s ease;
+  }
+  .cta-btn:hover { background: #1a1a1a; transform: translateY(-2px); }
+  .cta-arrow { font-family: Inter, sans-serif; font-weight: 400; }
+
+  /* ── Solution card with bullets ── */
+  .solution-lead {
+    font-family: Inter, sans-serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: #444;
+    line-height: 1.55;
+    margin: 4px 0 12px;
+  }
+  .solution-bullets { list-style: none; padding: 0; margin: 0; }
+  .solution-bullets li {
+    font-family: Inter, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 300;
+    color: #555;
+    padding: 7px 0;
+    border-top: 1px dashed rgba(0,0,0,0.06);
+    line-height: 1.4;
+  }
+  .solution-bullets li:first-child { border-top: 1px dashed rgba(0,0,0,0.08); }
+
+  /* ── Playbook diagram + outcomes ── */
+  .playbook-diagram {
+    width: 100%; max-width: 800px; margin-top: 8px;
+    transform: translateY(20px); opacity: 0;
+  }
+  .outcomes-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0; margin-top: 24px;
+    width: 100%; max-width: 800px;
+  }
+  .outcomes-col {
+    padding: 0 18px;
+    border-right: 1px dashed rgba(0,0,0,0.08);
+    transform: translateY(16px); opacity: 0;
+  }
+  .outcomes-col:first-child { padding-left: 0; }
+  .outcomes-col:last-child { border-right: none; padding-right: 0; }
+  .outcomes-col h4 {
+    font-family: 'SF Mono', monospace;
+    font-size: 9px; font-weight: 600;
+    color: rgba(0,0,255,0.45);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    margin-bottom: 12px;
+  }
+  .outcomes-col ul { list-style: none; padding: 0; margin: 0; }
+  .outcomes-col li {
+    font-family: Inter, sans-serif;
+    font-size: 0.78rem; font-weight: 300;
+    color: #555;
+    padding: 5px 0; line-height: 1.45;
+  }
+
+  /* ── Mission icon block ── */
+  .mission-icon-wrap {
+    margin-top: 16px;
+    transform: translateY(20px); opacity: 0;
+  }
+
+  /* ── Footer ── */
+  .footer-meta {
+    margin-top: auto;
+    font-family: 'SF Mono', monospace;
+    font-size: 8px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    color: rgba(0,0,0,0.25);
+    padding-top: 18px;
+    border-top: 1px dashed rgba(0,0,0,0.06);
+    width: 100%; max-width: 960px;
+    display: flex; justify-content: space-between;
+    position: relative; z-index: 1;
+  }
+
+  /* ── Icons (default draw-on) ── */
+  .icon-draw path, .icon-draw line, .icon-draw circle, .icon-draw rect, .icon-draw ellipse, .icon-draw polygon {
+    stroke-linecap: round; stroke-linejoin: round;
+  }
+  .icon-gradient { opacity: 0; }
+
+  /* ── Icon: agent-swarm ── */
+  .agent-orbit      { animation: agentSpin    6s linear infinite; }
+  .agent-orbit-rev  { animation: agentSpinRev 7s linear infinite; }
+  .agent-orbit-fast { animation: agentSpin    4s linear infinite; }
+  @keyframes agentSpin    { from { transform: rotate(0deg);   } to { transform: rotate(360deg); } }
+  @keyframes agentSpinRev { from { transform: rotate(360deg); } to { transform: rotate(0deg);   } }
+
+  /* ── Icon: bouncing-stack (scaled small) ── */
+  .bouncing-stack { overflow: visible; }
+  .bouncing-stack .stack { fill: none; stroke: url(#stack-grad); stroke-width: 3.5px; }
+  .bouncing-stack .stack-top { animation: bounceTop 2s cubic-bezier(0.25, 1, 0.5, 1) infinite; }
+  .bouncing-stack .stack-mid { animation: bounceMid 2s cubic-bezier(0.25, 1, 0.5, 1) infinite; }
+  @keyframes bounceTop { 0%,25%,75%,100% { transform: translateY(0); } 50% { transform: translateY(-60px); } }
+  @keyframes bounceMid { 0%,25%,75%,100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+
+  /* ── Icon: spreading-rings ── */
+  .spreading-rings { overflow: visible; }
+  .spreading-rings .ring { fill: none; stroke: url(#rings-grad); stroke-width: 3.5px; }
+  .spreading-rings .ring-1 { animation: slideLeftOuter 3s ease-in-out infinite; }
+  .spreading-rings .ring-2 { animation: slideLeftInner 3s ease-in-out infinite; }
+  .spreading-rings .ring-3 { animation: slideRightInner 3s ease-in-out infinite; }
+  .spreading-rings .ring-4 { animation: slideRightOuter 3s ease-in-out infinite; }
+  @keyframes slideLeftOuter  { 0%,15%,85%,100% { transform: translateX(0); } 50% { transform: translateX(-40px); } }
+  @keyframes slideLeftInner  { 0%,15%,85%,100% { transform: translateX(0); } 50% { transform: translateX(-14px); } }
+  @keyframes slideRightInner { 0%,15%,85%,100% { transform: translateX(0); } 50% { transform: translateX(14px); } }
+  @keyframes slideRightOuter { 0%,15%,85%,100% { transform: translateX(0); } 50% { transform: translateX(40px); } }
+
+  /* ── Icon: venn-diagram ── */
+  .venn-diagram { overflow: visible; }
+  .venn-diagram .venn { fill: none; stroke: url(#venn-grad); stroke-width: 3.5px; stroke-dasharray: 239; stroke-dashoffset: 239; }
+  .venn-diagram .circle-left   { transform-origin: 80px 85px;  transform: rotate(-90deg); animation: drawLeft   4s ease-in-out infinite; }
+  .venn-diagram .circle-right  { transform-origin: 120px 85px; transform: rotate(-90deg); animation: drawRight  4s ease-in-out infinite; }
+  .venn-diagram .circle-bottom { transform-origin: 100px 122px;transform: rotate(90deg);  animation: drawBottom 4s ease-in-out infinite; }
+  .venn-diagram .venn-center { fill: url(#venn-grad); opacity: 0; animation: fillCenter 4s ease-in-out infinite; }
+  @keyframes drawLeft   { 0%,2%  { stroke-dashoffset: 239; opacity: 0; } 4%  { opacity: 1; } 25%,75% { stroke-dashoffset: 0; opacity: 1; } 88%,100% { stroke-dashoffset: 0; opacity: 0; } }
+  @keyframes drawRight  { 0%,6%  { stroke-dashoffset: 239; opacity: 0; } 8%  { opacity: 1; } 29%,75% { stroke-dashoffset: 0; opacity: 1; } 88%,100% { stroke-dashoffset: 0; opacity: 0; } }
+  @keyframes drawBottom { 0%,10% { stroke-dashoffset: 239; opacity: 0; } 12% { opacity: 1; } 33%,75% { stroke-dashoffset: 0; opacity: 1; } 88%,100% { stroke-dashoffset: 0; opacity: 0; } }
+  @keyframes fillCenter { 0%,42% { opacity: 0; } 52%,75% { opacity: 1; } 88%,100% { opacity: 0; } }
+
+  /* ── Icon: concentric-target (inward radar) ── */
+  .icon-inward-radar .static-ring {
+    stroke-dasharray: 200; stroke-dashoffset: 200;
+    animation: drawOnRadar 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  .icon-inward-radar .center-dot {
+    transform-origin: center; transform-box: fill-box; transform: scale(0);
+    animation: dotPop 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards 0.3s;
+  }
+  .icon-inward-radar .ripple-ring {
+    transform-origin: center; transform-box: fill-box;
+    animation: rippleInward 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+  .icon-inward-radar .ripple-ring.ring-1 { animation-delay: 0s; }
+  .icon-inward-radar .ripple-ring.ring-2 { animation-delay: 1.5s; }
+  @keyframes drawOnRadar { to { stroke-dashoffset: 0; } }
+  @keyframes dotPop { to { transform: scale(1); } }
+  @keyframes rippleInward {
+    0% { transform: scale(1); opacity: 0; }
+    15% { opacity: 1; }
+    85% { transform: scale(0.15); opacity: 0.8; }
+    100% { transform: scale(0.1); opacity: 0; }
+  }
+
+  /* ── Icon: globe-spin ── */
+  .icon-globe-spin .meridian {
+    transform-origin: center; transform-box: fill-box;
+    animation: meridianSpin 8s linear infinite;
+  }
+  .icon-globe-spin .m-1 { animation-delay: 0s; }
+  .icon-globe-spin .m-2 { animation-delay: -2s; }
+  .icon-globe-spin .m-3 { animation-delay: -4s; }
+  .icon-globe-spin .m-4 { animation-delay: -6s; }
+  .icon-globe-spin .icon-gradient { opacity: 0; animation: gradientIn 0.4s ease-out forwards; }
+  @keyframes meridianSpin {
+    0%   { transform: scaleX(1); }   6.25%{ transform: scaleX(0.924); } 12.5%{ transform: scaleX(0.707); } 18.75%{ transform: scaleX(0.383); }
+    25%  { transform: scaleX(0.02); } 31.25%{ transform: scaleX(-0.383); } 37.5%{ transform: scaleX(-0.707); } 43.75%{ transform: scaleX(-0.924); }
+    50%  { transform: scaleX(-1); }  56.25%{ transform: scaleX(-0.924); } 62.5%{ transform: scaleX(-0.707); } 68.75%{ transform: scaleX(-0.383); }
+    75%  { transform: scaleX(0.02); } 81.25%{ transform: scaleX(0.383); } 87.5%{ transform: scaleX(0.707); } 93.75%{ transform: scaleX(0.924); }
+    100% { transform: scaleX(1); }
+  }
+  @keyframes gradientIn { to { opacity: 1; } }
+
+  /* ── Icon: fingerprint ── */
+  .icon-biometric-trace .fp-1 path,
+  .icon-biometric-trace .fp-2 path,
+  .icon-biometric-trace .fp-3 path,
+  .icon-biometric-trace .fp-4 path,
+  .icon-biometric-trace .fp-5 path {
+    stroke-dasharray: 100 200;
+    stroke-dashoffset: 105;
+    animation: traceAndErase 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+  .icon-biometric-trace .fp-1 path { animation-delay: 0s; }
+  .icon-biometric-trace .fp-2 path { animation-delay: 0.15s; }
+  .icon-biometric-trace .fp-3 path { animation-delay: 0.3s; }
+  .icon-biometric-trace .fp-4 path { animation-delay: 0.45s; }
+  .icon-biometric-trace .fp-5 path { animation-delay: 0.6s; }
+  @keyframes traceAndErase {
+    0%  { stroke-dashoffset: 105; opacity: 0; }
+    15% { opacity: 1; stroke-dashoffset: 60; }
+    40%,60% { stroke-dashoffset: 0; opacity: 1; }
+    85% { opacity: 1; stroke-dashoffset: -60; }
+    100%{ stroke-dashoffset: -105; opacity: 0; }
+  }
+
+  /* ── Nav dots ── */
+  .nav-dots {
+    position: fixed; right: 24px; top: 50%;
+    transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 10px;
+    z-index: 100;
+  }
+  .nav-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: rgba(0,0,0,0.12);
+    cursor: pointer; transition: all 0.3s ease;
+    border: none; padding: 0;
+  }
+  .nav-dot.active {
+    background: #0000FF;
+    box-shadow: 0 0 10px rgba(0,0,255,0.3);
+    transform: scale(1.3);
+  }
+
+  @media (max-width: 1000px) {
+    .slide { padding: 40px 28px; }
+    .nav-dots { display: none; }
+    .card-grid { grid-template-columns: 1fr; }
+    .card { border-right: none; border-bottom: 1px dashed rgba(0,0,0,0.08); padding: 20px 0; }
+    .card:last-child { border-bottom: none; }
+  }
+
+  /* ── Corner canvas (prism accent on content slides) ── */
+  .corner-canvas {
+    position: absolute; bottom: 0; right: 0;
+    width: 40%; height: 50%;
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ── Slide footer ── */
+  .slide-footer {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 8px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    color: rgba(0,0,0,0.2);
+    z-index: 2; pointer-events: none;
+  }
+
+  /* ── Split-layout section divider slides ── */
+  .slide-split { flex-direction: row; padding: 0; align-items: stretch; }
+  .slide-split .slide-text {
+    flex: 0 0 calc(var(--split, 40) * 1%);
+    display: flex; flex-direction: column;
+    align-items: flex-start; justify-content: center;
+    padding: 80px 64px; position: relative;
+    background: #fafafa;
+  }
+  .slide-split .slide-image {
+    flex: 1; background: #0a0a1a; position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .slide-split .slide-image > img:not(.image-logo) {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block; min-height: 0;
+  }
+  .slide-split .slide-image .image-logo {
+    position: absolute; bottom: 24px; right: 24px;
+    width: 26px; height: auto; opacity: 1;
+  }
+  .slide-split .section-number {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 11px; font-weight: 600;
+    color: rgba(0,0,255,0.45);
+    text-transform: uppercase; letter-spacing: 0.16em;
+    margin-bottom: 16px;
+  }
+  .slide-split .section-heading {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    max-width: 380px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Shared SVG grain filter -->
+<svg style="position:absolute;width:0;height:0" aria-hidden="true">
+  <defs>
+    <filter id="slide-grain-f">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- Hero noise overlay -->
+<div class="noise-overlay" aria-hidden="true">
+  <svg><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#grain)"/></svg>
+</div>
+
+<div class="deck">
+
+  <!-- ─────────────── SLIDE 0: HERO ─────────────── -->
+  <div class="slide active" id="slide-0">
+    <div class="hero-layers">
+      <canvas id="heroGL"></canvas>
+    </div>
+    <div class="hero-content">
+      <img src="logo-white.png" alt="Progression Labs" class="hero-logo">
+    </div>
+  </div>
+
+  <!-- ─────────────── SLIDES 1-39: PLACEHOLDERS ─────────────── -->
+  <!-- Slide 1 -->
+  <div class="slide slide-content" id="slide-1">
+    <canvas class="corner-canvas" id="corner-1"></canvas>
+    <div class="content">
+      <!-- slide 1 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 2 (section divider) -->
+  <div class="slide slide-content slide-split" id="slide-2" style="--split: 40">
+    <div class="slide-text">
+      <!-- divider text content (filled by Task 5) -->
+      <div class="slide-footer">PROGRESSION LABS</div>
+    </div>
+    <div class="slide-image">
+      <!-- image (set by Task 5) -->
+    </div>
+  </div>
+
+  <!-- Slide 3 -->
+  <div class="slide slide-content" id="slide-3">
+    <canvas class="corner-canvas" id="corner-3"></canvas>
+    <div class="content">
+      <!-- slide 3 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 4 -->
+  <div class="slide slide-content" id="slide-4">
+    <canvas class="corner-canvas" id="corner-4"></canvas>
+    <div class="content">
+      <!-- slide 4 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 5 (section divider) -->
+  <div class="slide slide-content slide-split" id="slide-5" style="--split: 40">
+    <div class="slide-text">
+      <!-- divider text content (filled by Task 5) -->
+      <div class="slide-footer">PROGRESSION LABS</div>
+    </div>
+    <div class="slide-image">
+      <!-- image (set by Task 5) -->
+    </div>
+  </div>
+
+  <!-- Slide 6 -->
+  <div class="slide slide-content" id="slide-6">
+    <canvas class="corner-canvas" id="corner-6"></canvas>
+    <div class="content">
+      <!-- slide 6 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 7 (section divider) -->
+  <div class="slide slide-content slide-split" id="slide-7" style="--split: 40">
+    <div class="slide-text">
+      <!-- divider text content (filled by Task 5) -->
+      <div class="slide-footer">PROGRESSION LABS</div>
+    </div>
+    <div class="slide-image">
+      <!-- image (set by Task 5) -->
+    </div>
+  </div>
+
+  <!-- Slide 8 -->
+  <div class="slide slide-content" id="slide-8">
+    <canvas class="corner-canvas" id="corner-8"></canvas>
+    <div class="content">
+      <!-- slide 8 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 9 (section divider) -->
+  <div class="slide slide-content slide-split" id="slide-9" style="--split: 40">
+    <div class="slide-text">
+      <!-- divider text content (filled by Task 5) -->
+      <div class="slide-footer">PROGRESSION LABS</div>
+    </div>
+    <div class="slide-image">
+      <!-- image (set by Task 5) -->
+    </div>
+  </div>
+
+  <!-- Slide 10 -->
+  <div class="slide slide-content" id="slide-10">
+    <canvas class="corner-canvas" id="corner-10"></canvas>
+    <div class="content">
+      <!-- slide 10 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 11 -->
+  <div class="slide slide-content" id="slide-11">
+    <canvas class="corner-canvas" id="corner-11"></canvas>
+    <div class="content">
+      <!-- slide 11 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 12 -->
+  <div class="slide slide-content" id="slide-12">
+    <canvas class="corner-canvas" id="corner-12"></canvas>
+    <div class="content">
+      <!-- slide 12 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 13 -->
+  <div class="slide slide-content" id="slide-13">
+    <canvas class="corner-canvas" id="corner-13"></canvas>
+    <div class="content">
+      <!-- slide 13 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 14 -->
+  <div class="slide slide-content" id="slide-14">
+    <canvas class="corner-canvas" id="corner-14"></canvas>
+    <div class="content">
+      <!-- slide 14 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 15 -->
+  <div class="slide slide-content" id="slide-15">
+    <canvas class="corner-canvas" id="corner-15"></canvas>
+    <div class="content">
+      <!-- slide 15 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 16 -->
+  <div class="slide slide-content" id="slide-16">
+    <canvas class="corner-canvas" id="corner-16"></canvas>
+    <div class="content">
+      <!-- slide 16 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 17 -->
+  <div class="slide slide-content" id="slide-17">
+    <canvas class="corner-canvas" id="corner-17"></canvas>
+    <div class="content">
+      <!-- slide 17 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 18 -->
+  <div class="slide slide-content" id="slide-18">
+    <canvas class="corner-canvas" id="corner-18"></canvas>
+    <div class="content">
+      <!-- slide 18 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 19 (section divider) -->
+  <div class="slide slide-content slide-split" id="slide-19" style="--split: 40">
+    <div class="slide-text">
+      <!-- divider text content (filled by Task 5) -->
+      <div class="slide-footer">PROGRESSION LABS</div>
+    </div>
+    <div class="slide-image">
+      <!-- image (set by Task 5) -->
+    </div>
+  </div>
+
+  <!-- Slide 20 -->
+  <div class="slide slide-content" id="slide-20">
+    <canvas class="corner-canvas" id="corner-20"></canvas>
+    <div class="content">
+      <!-- slide 20 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 21 -->
+  <div class="slide slide-content" id="slide-21">
+    <canvas class="corner-canvas" id="corner-21"></canvas>
+    <div class="content">
+      <!-- slide 21 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 22 -->
+  <div class="slide slide-content" id="slide-22">
+    <canvas class="corner-canvas" id="corner-22"></canvas>
+    <div class="content">
+      <!-- slide 22 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 23 -->
+  <div class="slide slide-content" id="slide-23">
+    <canvas class="corner-canvas" id="corner-23"></canvas>
+    <div class="content">
+      <!-- slide 23 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 24 (section divider) -->
+  <div class="slide slide-content slide-split" id="slide-24" style="--split: 40">
+    <div class="slide-text">
+      <!-- divider text content (filled by Task 5) -->
+      <div class="slide-footer">PROGRESSION LABS</div>
+    </div>
+    <div class="slide-image">
+      <!-- image (set by Task 5) -->
+    </div>
+  </div>
+
+  <!-- Slide 25 -->
+  <div class="slide slide-content" id="slide-25">
+    <canvas class="corner-canvas" id="corner-25"></canvas>
+    <div class="content">
+      <!-- slide 25 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 26 -->
+  <div class="slide slide-content" id="slide-26">
+    <canvas class="corner-canvas" id="corner-26"></canvas>
+    <div class="content">
+      <!-- slide 26 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 27 -->
+  <div class="slide slide-content" id="slide-27">
+    <canvas class="corner-canvas" id="corner-27"></canvas>
+    <div class="content">
+      <!-- slide 27 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 28 -->
+  <div class="slide slide-content" id="slide-28">
+    <canvas class="corner-canvas" id="corner-28"></canvas>
+    <div class="content">
+      <!-- slide 28 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 29 -->
+  <div class="slide slide-content" id="slide-29">
+    <canvas class="corner-canvas" id="corner-29"></canvas>
+    <div class="content">
+      <!-- slide 29 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 30 -->
+  <div class="slide slide-content" id="slide-30">
+    <canvas class="corner-canvas" id="corner-30"></canvas>
+    <div class="content">
+      <!-- slide 30 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 31 -->
+  <div class="slide slide-content" id="slide-31">
+    <canvas class="corner-canvas" id="corner-31"></canvas>
+    <div class="content">
+      <!-- slide 31 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 32 -->
+  <div class="slide slide-content" id="slide-32">
+    <canvas class="corner-canvas" id="corner-32"></canvas>
+    <div class="content">
+      <!-- slide 32 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 33 -->
+  <div class="slide slide-content" id="slide-33">
+    <canvas class="corner-canvas" id="corner-33"></canvas>
+    <div class="content">
+      <!-- slide 33 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 34 -->
+  <div class="slide slide-content" id="slide-34">
+    <canvas class="corner-canvas" id="corner-34"></canvas>
+    <div class="content">
+      <!-- slide 34 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 35 -->
+  <div class="slide slide-content" id="slide-35">
+    <canvas class="corner-canvas" id="corner-35"></canvas>
+    <div class="content">
+      <!-- slide 35 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 36 -->
+  <div class="slide slide-content" id="slide-36">
+    <canvas class="corner-canvas" id="corner-36"></canvas>
+    <div class="content">
+      <!-- slide 36 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 37 -->
+  <div class="slide slide-content" id="slide-37">
+    <canvas class="corner-canvas" id="corner-37"></canvas>
+    <div class="content">
+      <!-- slide 37 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 38 -->
+  <div class="slide slide-content" id="slide-38">
+    <canvas class="corner-canvas" id="corner-38"></canvas>
+    <div class="content">
+      <!-- slide 38 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 39 -->
+  <div class="slide slide-content" id="slide-39">
+    <canvas class="corner-canvas" id="corner-39"></canvas>
+    <div class="content">
+      <!-- slide 39 content -->
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- ─────────────── (end of slides 1-39 placeholders) ─────────────── -->
+
+</div>
+
+<nav class="nav-dots"></nav>
+
+<script>
+/* ────────────────── Hero WebGL gradient ────────────────── */
+const VERTEX_SRC = `
+attribute vec2 position;
+varying vec2 vUv;
+void main() {
+  vUv = position * 0.5 + 0.5;
+  gl_Position = vec4(position, 0.0, 1.0);
+}`;
+
+const FRAGMENT_SRC = `
+precision highp float;
+uniform float uTime;
+uniform vec2 uResolution;
+varying vec2 vUv;
+
+float ssmooth(float t) { return t * t * (3.0 - 2.0 * t); }
+float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
+
+float vnoise(vec2 p) {
+  vec2 i = floor(p); vec2 f = fract(p);
+  f = f * f * (3.0 - 2.0 * f);
+  float a = hash(i); float b = hash(i + vec2(1.0, 0.0));
+  float c = hash(i + vec2(0.0, 1.0)); float d = hash(i + vec2(1.0, 1.0));
+  return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+}
+
+vec3 computeGradient(vec2 uv, float time, vec3 peakA, vec3 peakB) {
+  float gp = uv.y;
+  float n1 = vnoise(uv * 1.8 + vec2(time * 0.10, time * 0.07));
+  float n2 = vnoise(uv * 3.5 + vec2(-time * 0.08, time * 0.12));
+  float n3 = vnoise(uv * 6.0 + vec2(time * 0.15, -time * 0.06));
+  float swirl = n1 * 0.5 + n2 * 0.3 + n3 * 0.2;
+  float verticalBias = smoothstep(0.05, 0.95, gp);
+  float colorMix = clamp(verticalBias + (swirl - 0.5) * 1.0, 0.0, 1.0);
+  vec3 peak = mix(peakA, peakB, colorMix);
+  float wave = (vnoise(uv * 2.0 + vec2(time * 0.06, -time * 0.04)) - 0.5) * 0.06;
+  float protection = smoothstep(0.0, 0.25, gp);
+  gp = clamp(gp + wave * protection, 0.0, 1.0);
+  vec3 deep = peak * 0.06; vec3 mid = peak * 0.35;
+  vec3 wash = mix(peak, vec3(1.0), 0.5);
+  float t1 = smoothstep(0.00, 0.10, gp); float t2 = smoothstep(0.06, 0.24, gp);
+  float t3 = smoothstep(0.15, 0.55, gp); float t4 = smoothstep(0.45, 0.85, gp);
+  float t5 = smoothstep(0.75, 1.00, gp);
+  vec3 color = mix(vec3(0.004), deep, t1);
+  color = mix(color, mid, t2); color = mix(color, peak, t3);
+  color = mix(color, wash, t4); color = mix(color, vec3(1.0), t5);
+  return color;
+}
+
+vec3 getGradientColor(vec2 uv) {
+  vec3 cO = vec3(0.729, 0.333, 0.827);
+  vec3 cS = vec3(1.000, 0.627, 0.478);
+  vec3 cG = vec3(0.725, 0.914, 0.475);
+  vec3 cT = vec3(0.251, 0.878, 0.816);
+  vec3 cB = vec3(0.000, 0.000, 1.000);
+  float progress = mod(uTime, 45.0) / 45.0;
+  float seg = progress * 9.0;
+  int idx = int(floor(seg));
+  float t = ssmooth(seg - floor(seg));
+  vec3 fA, fB, tA, tB;
+  if (idx == 0)      { fA = cO; fB = cO; tA = cB; tB = cS; }
+  else if (idx == 1) { fA = cB; fB = cS; tA = cG; tB = cG; }
+  else if (idx == 2) { fA = cG; fB = cG; tA = cO; tB = cT; }
+  else if (idx == 3) { fA = cO; fB = cT; tA = cS; tB = cS; }
+  else if (idx == 4) { fA = cS; fB = cS; tA = cB; tB = cT; }
+  else if (idx == 5) { fA = cB; fB = cT; tA = cB; tB = cB; }
+  else if (idx == 6) { fA = cB; fB = cB; tA = cO; tB = cG; }
+  else if (idx == 7) { fA = cO; fB = cG; tA = cT; tB = cT; }
+  else               { fA = cT; fB = cT; tA = cO; tB = cO; }
+  vec3 peakA = mix(fA, tA, t); vec3 peakB = mix(fB, tB, t);
+  return computeGradient(uv, uTime, peakA, peakB);
+}
+
+void main() {
+  vec3 smoothColor = getGradientColor(vUv);
+  float blockPx = 45.0;
+  vec2 grid = uResolution / blockPx;
+  vec2 cellId = floor(vUv * grid);
+  vec2 pixelUv = cellId / grid;
+  float colOffset = hash(vec2(cellId.x, 0.0)) * 0.035;
+  pixelUv.y += colOffset;
+  vec3 pixelColor = getGradientColor(pixelUv);
+  float diag = (vUv.x + 1.0 - vUv.y) * 0.5;
+  float shimmerPos = fract(uTime * 0.25);
+  float shimmerDist = abs(diag - shimmerPos);
+  shimmerDist = min(shimmerDist, 1.0 - shimmerDist);
+  float shimmerMask = exp(-shimmerDist * shimmerDist * 120.0) * 0.6;
+  vec3 finalColor = mix(smoothColor, pixelColor, shimmerMask);
+  gl_FragColor = vec4(finalColor, 1.0);
+}`;
+
+function initHeroGL() {
+  const canvas = document.getElementById('heroGL');
+  if (!canvas) return;
+  const gl = canvas.getContext('webgl');
+  if (!gl) { console.warn('WebGL not supported'); return; }
+
+  let cssW = 0, cssH = 0;
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio, 2);
+    cssW = canvas.offsetWidth;
+    cssH = canvas.offsetHeight;
+    canvas.width = cssW * dpr;
+    canvas.height = cssH * dpr;
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function compile(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+      console.error('Shader compile error:', gl.getShaderInfoLog(s));
+      return null;
+    }
+    return s;
+  }
+  const vs = compile(gl.VERTEX_SHADER, VERTEX_SRC);
+  const fs = compile(gl.FRAGMENT_SHADER, FRAGMENT_SRC);
+  if (!vs || !fs) return;
+  const prog = gl.createProgram();
+  gl.attachShader(prog, vs);
+  gl.attachShader(prog, fs);
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+    console.error('Program link error:', gl.getProgramInfoLog(prog));
+    return;
+  }
+  gl.useProgram(prog);
+
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, -1,1, 1,-1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+
+  const uTime = gl.getUniformLocation(prog, 'uTime');
+  const uRes = gl.getUniformLocation(prog, 'uResolution');
+  const start = performance.now();
+
+  function render() {
+    const t = (performance.now() - start) / 1000;
+    gl.uniform1f(uTime, t);
+    gl.uniform2f(uRes, cssW, cssH);
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+    requestAnimationFrame(render);
+  }
+  requestAnimationFrame(render);
+}
+
+/* ────────────────── Prism pixel overlay ────────────────── */
+function initPrismPixels() {
+  const BS = 40;
+  const CHARS = '0123456789@#$%&*+=?<>{}[]/\\|LABS';
+  const seed = (x, y) => { const h = Math.sin(x * 127.1 + y * 311.7) * 43758.5453123; return h - Math.floor(h); };
+  const smoothstep = (e0, e1, x) => { const t = Math.max(0, Math.min(1, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); };
+  const pixelColors = [
+    [0, 0, 139], [255, 160, 122], [185, 233, 121], [64, 224, 208], [219, 112, 180],
+  ];
+  function getCycleColor(time) {
+    const totalCycle = 12;
+    const p = (time % totalCycle) / totalCycle;
+    const idx = Math.floor(p * pixelColors.length);
+    const t = smoothstep(0, 1, (p * pixelColors.length) - idx);
+    const c1 = pixelColors[idx % pixelColors.length];
+    const c2 = pixelColors[(idx + 1) % pixelColors.length];
+    return c1.map((v, i) => Math.round(v + (c2[i] - v) * t));
+  }
+
+  document.querySelectorAll('.prism-pixels').forEach(canvas => {
+    const ctx = canvas.getContext('2d');
+    const startTime = performance.now() / 1000;
+    let w = 0, h = 0;
+
+    function resize() {
+      const d = devicePixelRatio || 1;
+      w = canvas.parentElement.clientWidth;
+      h = canvas.parentElement.clientHeight;
+      canvas.width = w * d; canvas.height = h * d;
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx.setTransform(d, 0, 0, d, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function render() {
+      const pw = canvas.parentElement.clientWidth;
+      const ph = canvas.parentElement.clientHeight;
+      if (pw > 0 && ph > 0 && (pw !== w || ph !== h)) { resize(); }
+      if (w === 0 || h === 0) { requestAnimationFrame(render); return; }
+
+      const [r, g, b] = [0, 0, 139];
+      ctx.clearRect(0, 0, w, h);
+
+      const cols = Math.ceil(w / BS), rows = Math.ceil(h / BS);
+      const fadeRadius = 0.24, maxAlpha = 0.7;
+      const diagonal = Math.sqrt(w * w + h * h);
+      const maxDist = diagonal * fadeRadius;
+
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const cx = (col + 0.5) * BS, cy = (row + 0.5) * BS;
+          const dist = Math.sqrt((w - cx) ** 2 + (h - cy) ** 2);
+          const t = dist / maxDist;
+          if (t >= 1.2) continue;
+
+          let blockAlpha;
+          if (t <= 1.0) { blockAlpha = smoothstep(1, 0, t) * maxAlpha; }
+          else { blockAlpha = (1.2 - t) * 0.15 * maxAlpha; }
+          blockAlpha *= (0.85 + seed(col + 700, row + 700) * 0.15);
+          if (blockAlpha < 0.02) continue;
+
+          ctx.fillStyle = `rgba(${r},${g},${b},${blockAlpha})`;
+          ctx.fillRect(col * BS, row * BS, BS, BS);
+
+          if (blockAlpha > 0.08 && seed(col, row) < 0.25) {
+            const ch = CHARS[Math.floor(seed(col + 100, row + 100) * CHARS.length)];
+            ctx.fillStyle = `rgba(${r},${g},${b},${blockAlpha * 0.4})`;
+            ctx.font = '500 ' + (BS * 0.4) + 'px "Inter", sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText(ch, cx, cy);
+          }
+        }
+      }
+      requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
+  });
+}
+
+/* ────────────────── Navigation + animation ────────────────── */
+let currentSlide = 0;
+let isAnimating = false;
+const slides = document.querySelectorAll('.slide');
+const dotsContainer = document.querySelector('.nav-dots');
+
+slides.forEach((_, i) => {
+  const dot = document.createElement('button');
+  dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+  dot.addEventListener('click', () => goToSlide(i));
+  dotsContainer.appendChild(dot);
+});
+const dots = document.querySelectorAll('.nav-dot');
+
+function goToSlide(idx) {
+  if (isAnimating || idx < 0 || idx >= slides.length || idx === currentSlide) return;
+  isAnimating = true;
+  resetSlide(slides[idx]);
+  slides[currentSlide].classList.remove('active');
+  slides[idx].classList.add('active');
+  dots[currentSlide].classList.remove('active');
+  dots[idx].classList.add('active');
+  currentSlide = idx;
+  animateSlideIn(slides[idx]);
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+    e.preventDefault();
+    goToSlide(currentSlide + 1);
+  }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    goToSlide(currentSlide - 1);
+  }
+});
+
+function resetSlide(el) {
+  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col';
+  el.querySelectorAll(selectors).forEach(child => {
+    gsap.set(child, { clearProps: 'all' });
+    child.style.opacity = '0';
+  });
+  el.querySelectorAll('.divider').forEach(d => {
+    gsap.set(d, { clearProps: 'all' });
+    d.style.transform = 'scaleX(0)';
+  });
+}
+
+function animateSlideIn(el) {
+  const tl = gsap.timeline({
+    defaults: { ease: 'power3.out' },
+    onComplete: () => { isAnimating = false; }
+  });
+
+  const labels = el.querySelectorAll('.content .label');
+  if (labels.length) tl.to(labels, { opacity: 1, y: 0, duration: 0.4 }, 0);
+
+  const dividers = el.querySelectorAll('.content .divider');
+  if (dividers.length) tl.to(dividers, { scaleX: 1, duration: 0.5 }, 0.08);
+
+  const headings = el.querySelectorAll('.content .heading');
+  if (headings.length) tl.to(headings, { opacity: 1, y: 0, duration: 0.6 }, 0.12);
+
+  const bodyText = el.querySelectorAll('.content .body-text');
+  if (bodyText.length) tl.to(bodyText, { opacity: 1, y: 0, duration: 0.5 }, 0.2);
+
+  const cards = el.querySelectorAll('.content .card');
+  if (cards.length) tl.to(cards, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 }, 0.3);
+
+  const steps = el.querySelectorAll('.content .step');
+  if (steps.length) tl.to(steps, { opacity: 1, y: 0, duration: 0.6, stagger: 0.12 }, 0.3);
+
+  const stats = el.querySelectorAll('.content .stat-item');
+  if (stats.length) tl.to(stats, { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 }, 0.3);
+
+  const nums = el.querySelectorAll('.content .highlight-number');
+  if (nums.length) {
+    tl.to(nums, { opacity: 1, scale: 1, duration: 0.6, stagger: 0.1 }, 0.3);
+    nums.forEach((numEl, i) => {
+      const raw = numEl.textContent.trim();
+      const prefix = raw.match(/^[^0-9]*/)?.[0] || '';
+      const suffix = raw.match(/[^0-9.]*$/)?.[0] || '';
+      const numStr = raw.replace(/[^0-9.]/g, '');
+      const target = parseFloat(numStr);
+      if (isNaN(target)) return;
+      const hasDecimal = numStr.includes('.');
+      const decimals = hasDecimal ? numStr.split('.')[1].length : 0;
+      const obj = { val: 0 };
+      tl.to(obj, {
+        val: target, duration: 1.2, ease: 'power2.out',
+        onUpdate() {
+          let display = hasDecimal ? obj.val.toFixed(decimals) : Math.round(obj.val).toString();
+          numEl.textContent = prefix + display + suffix;
+        }
+      }, 0.3 + i * 0.08);
+    });
+  }
+
+  const cta = el.querySelectorAll('.content .cta-btn');
+  if (cta.length) tl.to(cta, { opacity: 1, y: 0, duration: 0.5 }, '-=0.2');
+
+  const ctaSide = el.querySelectorAll('.content .cta-side');
+  if (ctaSide.length) tl.to(ctaSide, { opacity: 1, y: 0, duration: 0.6 }, '-=0.3');
+
+  const missionIcon = el.querySelectorAll('.content .mission-icon-wrap');
+  if (missionIcon.length) tl.to(missionIcon, { opacity: 1, y: 0, duration: 0.7 }, 0.4);
+
+  const playbookDiagram = el.querySelectorAll('.content .playbook-diagram');
+  if (playbookDiagram.length) tl.to(playbookDiagram, { opacity: 1, y: 0, duration: 0.7 }, 0.3);
+
+  const outcomesCols = el.querySelectorAll('.content .outcomes-col');
+  if (outcomesCols.length) tl.to(outcomesCols, { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 }, 0.55);
+
+  const logo = el.querySelectorAll('.hero-content .hero-logo');
+  if (logo.length) tl.to(logo, { opacity: 1, scale: 1, duration: 0.8 }, 0);
+}
+
+/* ────────────────── Corner canvas prism (content slides) ────────────────── */
+function initCornerCanvases() {
+  const BS = 40;
+  const CHARS = '0123456789@#$%&*+=?<>{}[]/\\|LABS';
+  const seed = (x, y) => { const h = Math.sin(x * 127.1 + y * 311.7) * 43758.5453123; return h - Math.floor(h); };
+  const smoothstep = (e0, e1, x) => { const t = Math.max(0, Math.min(1, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); };
+  const r = 0, g = 0, b = 139;
+
+  document.querySelectorAll('.corner-canvas').forEach(canvas => {
+    const ctx = canvas.getContext('2d');
+    let w = 0, h = 0;
+
+    function resize() {
+      const d = devicePixelRatio || 1;
+      const parent = canvas.parentElement;
+      w = parent.clientWidth * 0.4;
+      h = parent.clientHeight * 0.5;
+      canvas.width = w * d; canvas.height = h * d;
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx.setTransform(d, 0, 0, d, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function drawOnce() {
+      if (w === 0 || h === 0) return;
+      ctx.clearRect(0, 0, w, h);
+      const cols = Math.ceil(w / BS), rows = Math.ceil(h / BS);
+      const fadeRadius = 0.55, maxAlpha = 0.65;
+      const diagonal = Math.sqrt(w * w + h * h);
+      const maxDist = diagonal * fadeRadius;
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const cx = (col + 0.5) * BS, cy = (row + 0.5) * BS;
+          const dist = Math.sqrt((w - cx) ** 2 + (h - cy) ** 2);
+          const t = dist / maxDist;
+          if (t >= 1.2) continue;
+          let blockAlpha;
+          if (t <= 1.0) { blockAlpha = smoothstep(1, 0, t) * maxAlpha; }
+          else { blockAlpha = (1.2 - t) * 0.15 * maxAlpha; }
+          blockAlpha *= (0.85 + seed(col + 700, row + 700) * 0.15);
+          if (blockAlpha < 0.02) continue;
+          ctx.fillStyle = `rgba(${r},${g},${b},${blockAlpha})`;
+          ctx.fillRect(col * BS, row * BS, BS, BS);
+          if (blockAlpha > 0.08 && seed(col, row) < 0.25) {
+            const ch = CHARS[Math.floor(seed(col + 100, row + 100) * CHARS.length)];
+            ctx.fillStyle = `rgba(${r},${g},${b},${blockAlpha * 0.4})`;
+            ctx.font = '500 ' + (BS * 0.4) + 'px "Inter", sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText(ch, cx, cy);
+          }
+        }
+      }
+    }
+    drawOnce();
+    window.addEventListener('resize', drawOnce);
+  });
+}
+
+/* ────────────────── Boot ────────────────── */
+window.addEventListener('load', () => {
+  initHeroGL();
+  initPrismPixels();
+  initCornerCanvases();
+  setTimeout(() => { animateSlideIn(slides[0]); }, 200);
+});
+</script>
+</body>
+</html>
