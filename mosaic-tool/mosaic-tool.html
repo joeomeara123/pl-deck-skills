@@ -250,8 +250,9 @@
       <div class="row" style="margin-top:14px"><label for="anchorReach">Anchor reach</label><span class="val" id="anchorReach-val">1.80</span></div>
       <input type="range" id="anchorReach" min="1" max="3.5" step="0.05" value="1.80">
 
-      <div class="row" style="margin-top:8px"><label for="lightenK">Frost (lighten K)</label><span class="val" id="lightenK-val">0.55</span></div>
-      <input type="range" id="lightenK" min="0" max="1" step="0.01" value="0.55">
+      <div class="row" style="margin-top:8px"><label for="lightenK">Frost / silhouette</label><span class="val" id="lightenK-val">0.30</span></div>
+      <input type="range" id="lightenK" min="0" max="1" step="0.01" value="0.30">
+      <p style="color: var(--muted); font-size: 11px; margin: 4px 0 6px;">Low = strong photo silhouette through the colored blocks. High = flatter, more uniform.</p>
 
       <div class="row"><label for="navyCap">Mosaic gradient depth</label><span class="val" id="navyCap-val">0.70</span></div>
       <input type="range" id="navyCap" min="0" max="1" step="0.01" value="0.70">
@@ -327,7 +328,9 @@ const DEFAULTS = {
   // >1 extends the anchor zone deeper into the mosaic before transitioning.
   anchorReach: 1.8,
   asciiColor: '#0943a0',
-  lightenK: 0.55,
+  // Doubles as silhouette floor. Low = strong photo silhouette through
+  // the colored blocks; high = flatter, more uniform gradient.
+  lightenK: 0.30,
   navyCap: 0.70,
   charAlpha: 0.75,
   charSize: 0.45,
@@ -566,14 +569,21 @@ function render() {
       const lg = ag + (255 - ag) * k;
       const lb = ab + (255 - ab) * k;
 
+      // Photo luminance (ITU-R BT.709) and a "lit" factor that lifts the
+      // floor so dark subject pixels still register some color. Higher
+      // `k` = flatter, more uniform blocks. Lower `k` = strong silhouette.
+      const lum = (0.2126 * ar + 0.7152 * ag + 0.0722 * ab) / 255;
+      const lit = k + (1 - k) * lum;
+
       // Photo-driven gradient: frosted underlying tone → edge color
       const photoR = lr * (1 - gradT) + TR * gradT;
       const photoG = lg * (1 - gradT) + TG * gradT;
       const photoB = lb * (1 - gradT) + TB * gradT;
-      // Explicit two-color gradient: anchor color → edge color
-      const expR = FR + (TR - FR) * gradT;
-      const expG = FG + (TG - FG) * gradT;
-      const expB = FB + (TB - FB) * gradT;
+      // Explicit two-color gradient (anchor → edge) modulated by photo
+      // luminance so the subject's silhouette stays visible through the mosaic
+      const expR = (FR + (TR - FR) * gradT) * lit;
+      const expG = (FG + (TG - FG) * gradT) * lit;
+      const expB = (FB + (TB - FB) * gradT) * lit;
       // Saturation mixes between photo-driven (0) and explicit (1)
       const fr = Math.round(photoR * (1 - SAT) + expR * SAT);
       const fg = Math.round(photoG * (1 - SAT) + expG * SAT);
