@@ -525,6 +525,37 @@
   .diagram { width: 100%; max-width: 960px; height: auto; margin-top: 16px; opacity: 0; transform: translateY(8px); }
   .diagram text { font-feature-settings: "tnum" 1; }
 
+  /* ── Slide 20: full-bleed blue ── */
+  .slide-bg-blue { background: #0000FF !important; }
+  .slide-bg-blue::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top right, rgba(255,255,255,0.08), transparent 60%);
+    pointer-events: none;
+  }
+
+  /* ── Slide 21: paths table ── */
+  .paths-table { width: 100%; max-width: 960px; margin-top: 16px; border-collapse: collapse; font-size: 0.85rem; opacity: 0; transform: translateY(8px); }
+  .paths-table thead th { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(0,0,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; padding: 12px 14px; text-align: left; border-bottom: 1px dashed rgba(0,0,0,0.12); }
+  .paths-table tbody td { padding: 16px 14px; color: #555; font-weight: 300; line-height: 1.55; border-bottom: 1px dashed rgba(0,0,0,0.06); vertical-align: top; }
+  .paths-table tbody td:first-child { color: #1a1a1a; font-weight: 400; }
+  .paths-table tbody td strong { font-family: 'SF Mono', monospace; font-size: 11px; color: #0000FF; margin-right: 6px; }
+
+  /* ── Slide 22: three-bullet + blockquote ── */
+  .three-bullet { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 24px; max-width: 920px; opacity: 0; transform: translateY(8px); }
+  .three-bullet .bullet { padding: 0 24px; border-right: 1px dashed rgba(0,0,0,0.08); }
+  .three-bullet .bullet:first-child { padding-left: 0; }
+  .three-bullet .bullet:last-child { border-right: none; padding-right: 0; }
+  .three-bullet .bullet-num { font-family: 'SF Mono', monospace; font-size: 11px; font-weight: 600; color: #0000FF; letter-spacing: 0.1em; margin-bottom: 12px; }
+  .three-bullet h3 { font-size: 0.95rem; font-weight: 500; color: #1a1a1a; margin-bottom: 8px; }
+  .three-bullet p { font-size: 0.85rem; font-weight: 300; line-height: 1.6; color: #555; }
+  .pl-quote { margin-top: 32px; padding-left: 16px; border-left: 2px solid #FFA07A; font-size: 1rem; font-weight: 400; color: #1a1a1a; max-width: 720px; opacity: 0; transform: translateY(8px); }
+
+  /* ── Slide 23: exec summary ── */
+  .exec-summary { columns: 2; column-gap: 48px; max-width: 920px; margin-top: 16px; opacity: 0; transform: translateY(8px); }
+  .exec-summary p { font-size: 0.88rem; font-weight: 300; line-height: 1.7; color: #555; margin-bottom: 14px; break-inside: avoid; }
+
   /* ── Corner canvas (prism accent on content slides) ── */
   .corner-canvas {
     position: absolute; bottom: 0; right: 0;
@@ -1075,19 +1106,51 @@
   </div>
 
   <!-- Slide 20 -->
-  <div class="slide slide-content" id="slide-20">
+  <div class="slide slide-content slide-bg-blue" id="slide-20">
     <canvas class="corner-canvas" id="corner-20"></canvas>
     <div class="content">
-      <!-- slide 20 content -->
+      <div class="label" style="color: rgba(255,255,255,0.55);">Moving forward</div>
+      <h2 class="heading" style="color: white;">Initial <strong style="color: #FFA07A;">focus</strong></h2>
+      <p class="body-text" style="color: rgba(255,255,255,0.75);"><!-- FILL: pivot rationale paragraph --></p>
     </div>
-    <div class="slide-footer">PROGRESSION LABS</div>
+    <div class="slide-footer" style="color: rgba(255,255,255,0.6);">PROGRESSION LABS</div>
   </div>
 
   <!-- Slide 21 -->
   <div class="slide slide-content" id="slide-21">
     <canvas class="corner-canvas" id="corner-21"></canvas>
     <div class="content">
-      <!-- slide 21 content -->
+      <div class="label">Moving forward</div>
+      <h2 class="heading">Three paths <strong>forward</strong></h2>
+      <div class="divider"></div>
+      <table class="paths-table">
+        <thead>
+          <tr><th>Option</th><th>Viability</th><th>Time to recover</th><th>Cost to complete</th><th>Recommendation</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1</strong> <!-- FILL: option 1 name --></td>
+            <td><!-- FILL --></td>
+            <td><!-- FILL --></td>
+            <td><!-- FILL --></td>
+            <td><!-- FILL --></td>
+          </tr>
+          <tr>
+            <td><strong>2</strong> <!-- FILL: option 2 name --></td>
+            <td><!-- FILL --></td>
+            <td><!-- FILL --></td>
+            <td><!-- FILL --></td>
+            <td><!-- FILL --></td>
+          </tr>
+          <tr>
+            <td><strong>3</strong> <!-- FILL: option 3 name --></td>
+            <td><!-- FILL --></td>
+            <td><!-- FILL --></td>
+            <td><!-- FILL --></td>
+            <td><!-- FILL --></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1096,7 +1159,27 @@
   <div class="slide slide-content" id="slide-22">
     <canvas class="corner-canvas" id="corner-22"></canvas>
     <div class="content">
-      <!-- slide 22 content -->
+      <div class="label">Moving forward</div>
+      <h2 class="heading">Foundational <strong>issues</strong></h2>
+      <div class="divider"></div>
+      <div class="three-bullet">
+        <div class="bullet">
+          <div class="bullet-num">01</div>
+          <h3>Scope</h3>
+          <p><!-- FILL --></p>
+        </div>
+        <div class="bullet">
+          <div class="bullet-num">02</div>
+          <h3>Ownership</h3>
+          <p><!-- FILL --></p>
+        </div>
+        <div class="bullet">
+          <div class="bullet-num">03</div>
+          <h3>Success definition</h3>
+          <p><!-- FILL --></p>
+        </div>
+      </div>
+      <blockquote class="pl-quote"><!-- FILL: emphasised closing line --></blockquote>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1105,7 +1188,14 @@
   <div class="slide slide-content" id="slide-23">
     <canvas class="corner-canvas" id="corner-23"></canvas>
     <div class="content">
-      <!-- slide 23 content -->
+      <div class="label">Moving forward</div>
+      <h2 class="heading">Executive <strong>summary</strong></h2>
+      <div class="divider"></div>
+      <div class="exec-summary">
+        <p><!-- FILL: paragraph 1 of executive summary --></p>
+        <p><!-- FILL: paragraph 2 --></p>
+        <p><!-- FILL: paragraph 3 --></p>
+      </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1536,7 +1626,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 function resetSlide(el) {
-  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .diagram';
+  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary';
   el.querySelectorAll(selectors).forEach(child => {
     gsap.set(child, { clearProps: 'all' });
     child.style.opacity = '0';
@@ -1673,6 +1763,18 @@ function animateSlideIn(el) {
 
   const diagrams = el.querySelectorAll('.content .diagram');
   if (diagrams.length) tl.to(diagrams, { opacity: 1, y: 0, duration: 0.7 }, 0.3);
+
+  const pathsTable = el.querySelectorAll('.content .paths-table');
+  if (pathsTable.length) tl.to(pathsTable, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const threeBullet = el.querySelectorAll('.content .three-bullet');
+  if (threeBullet.length) tl.to(threeBullet, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const plQuote = el.querySelectorAll('.content .pl-quote');
+  if (plQuote.length) tl.to(plQuote, { opacity: 1, y: 0, duration: 0.5 }, 0.5);
+
+  const execSummary = el.querySelectorAll('.content .exec-summary');
+  if (execSummary.length) tl.to(execSummary, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
 }
 
 /* ────────────────── Corner canvas prism (content slides) ────────────────── */
