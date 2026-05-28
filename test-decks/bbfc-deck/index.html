@@ -172,6 +172,23 @@
   .two-col-body .col-title { font-size: 12.5px; font-weight: 600; color: #1a1a1a; margin-bottom: 12px; letter-spacing: 0.02em; }
   .two-col-body p { font-size: 0.88rem; font-weight: 300; line-height: 1.7; color: #555; }
 
+  /* ── Section header bar (slide 4 context/key-questions blocks) ── */
+  .section-bar {
+    font-size: 11px; font-weight: 700;
+    color: #fff; background: #0000FF;
+    padding: 6px 12px;
+    margin-bottom: 10px;
+    letter-spacing: 0.01em;
+  }
+  .section-block { margin-bottom: 20px; }
+  .section-block ul { list-style: disc; padding-left: 18px; }
+  .section-block ul li {
+    font-size: 0.82rem; font-weight: 300;
+    line-height: 1.6; color: #444;
+    padding: 3px 0;
+  }
+  .section-block ul li strong { font-weight: 600; color: #1a1a1a; }
+
   /* ── Approach grid (slide 6) ── */
   .approach-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 48px; margin-top: 24px; max-width: 920px; opacity: 0; transform: translateY(8px); }
   .approach-text .lead { font-size: 0.95rem; font-weight: 300; line-height: 1.6; color: #1a1a1a; margin-bottom: 16px; }
@@ -692,7 +709,7 @@
     <div class="hero-content">
       <img src="logo-white.png" class="hero-logo" alt="Progression Labs">
       <h1 class="hero-title">British Board of Film Classification</h1>
-      <p class="hero-subtitle">A draft report</p>
+      <p class="hero-subtitle">AI audit report &nbsp;&middot;&nbsp; Palindrom 2026</p>
     </div>
   </div>
 
@@ -701,8 +718,8 @@
   <div class="slide slide-content" id="slide-1">
     <canvas class="corner-canvas" id="corner-1"></canvas>
     <div class="content">
-      <div class="label">Agenda</div>
-      <h2 class="heading">What we'll <strong>cover</strong></h2>
+      <div class="label">Table of contents</div>
+      <h2 class="heading"><strong>Agenda</strong></h2>
       <div class="divider"></div>
       <ol class="agenda-list">
         <li><span class="agenda-num">01</span> Context</li>
@@ -710,7 +727,7 @@
         <li><span class="agenda-num">03</span> Initial goals</li>
         <li><span class="agenda-num">04</span> Our findings</li>
         <li><span class="agenda-num">05</span> Moving forward</li>
-        <li><span class="agenda-num">06</span> Appendix: best practices and things to avoid</li>
+        <li><span class="agenda-num">06</span> Appendix: Best practices and things to avoid</li>
       </ol>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
@@ -740,15 +757,15 @@
       <div class="partners-row">
         <figure class="partner">
           <img src="img/partner-1.png" alt="">
-          <figcaption><!-- FILL: partner 1 name --></figcaption>
+          <figcaption>Vincent Lordier</figcaption>
         </figure>
         <figure class="partner">
           <img src="img/partner-2.png" alt="">
-          <figcaption><!-- FILL: partner 2 name --></figcaption>
+          <figcaption>Jonathan Duffy</figcaption>
         </figure>
         <figure class="partner">
           <img src="img/partner-3.png" alt="">
-          <figcaption><!-- FILL: partner 3 name --></figcaption>
+          <figcaption>Gabor Soter</figcaption>
         </figure>
       </div>
 
@@ -759,11 +776,11 @@
         </div>
         <div class="stat">
           <div class="highlight-number" data-target="25" data-suffix="+">0</div>
-          <div class="stat-label">Companies in highly complex industries</div>
+          <div class="stat-label">AI products</div>
         </div>
         <div class="stat">
           <div class="highlight-number" data-target="10" data-suffix="+">0</div>
-          <div class="stat-label">Industries</div>
+          <div class="stat-label">Companies in high complexity industries</div>
         </div>
         <div class="stat">
           <div class="highlight-number" data-target="18">0</div>
@@ -783,12 +800,43 @@
       <div class="divider"></div>
       <div class="two-col-body">
         <div class="col">
-          <h3 class="col-title"><!-- FILL: column 1 sub-heading --></h3>
-          <p><!-- FILL: column 1 body paragraph --></p>
+          <div class="section-block">
+            <div class="section-bar">Context</div>
+            <ul>
+              <li>The BBFC (British Board of Film Classification) invested significantly in two AI products: CLEARD (automated international age ratings from metadata) and MIRA (AI-driven content tagging and feature extraction).</li>
+              <li>The combined vision was an end-to-end, AI-assisted classification pipeline capable of supporting multiple territories with minimal human intervention.</li>
+              <li>Despite significant investment, commercial and governance outcomes remain unclear, and the technology has not reached its original goals.</li>
+              <li><strong>Continuing without a reset risks further spend without resolution.</strong></li>
+            </ul>
+          </div>
+          <div class="section-block">
+            <div class="section-bar">Key questions (the focus of our investigation)</div>
+            <ul>
+              <li><strong>Q1: What is the status of the project?</strong> What has actually been delivered? Is the product roadmap still viable?</li>
+              <li><strong>Q2: Why did the project didn't meet expectations?</strong> Why did the project end up where it is instead of reaching its original goals? How does the project score across the Commercial, Product, Technology and Data &amp; AI dimensions?</li>
+              <li><strong>Q3: What's next?</strong> Should the board stop, continue or pivot the project? What does a realistic path forward look like?</li>
+            </ul>
+          </div>
         </div>
         <div class="col">
-          <h3 class="col-title"><!-- FILL: column 2 sub-heading --></h3>
-          <p><!-- FILL: column 2 body paragraph --></p>
+          <div class="section-block">
+            <div class="section-bar">Palindrom's investigation</div>
+            <ul>
+              <li>Palindrom was engaged to conduct an independent investigation to uncover the practical blockers to the project's goals.</li>
+              <li>We conducted 26 interviews with technical, product, commercial stakeholders, and domain experts over 20 business days.</li>
+              <li>We regularly shared our findings with David Austin during our weekly meetings on Friday.</li>
+            </ul>
+          </div>
+          <div class="section-block">
+            <div class="section-bar">What this presentation is not trying to answer</div>
+            <ul>
+              <li>It is <strong>not a market research report</strong>: market validation was out of scope.</li>
+              <li>It is <strong>not a technical architecture review</strong>: while technical patterns were inspected, the focus is on strategic and organisational blockers, not detailed system redesign.</li>
+              <li>It does <strong>not make the decision for BBFC</strong>: it provides the objective information and framing needed for the Board to make an informed decision on stop/continue/pivot.</li>
+              <li>It does <strong>not define what the final product should be</strong>: multiple interpretations of the product still coexist; the report highlights this ambiguity rather than resolving it.</li>
+              <li>It is <strong>not a business plan or commercial strategy</strong>.</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
