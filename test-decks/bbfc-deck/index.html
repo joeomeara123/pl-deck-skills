@@ -591,6 +591,15 @@
   .dash-list li { font-size: 0.85rem; font-weight: 300; color: #555; padding: 6px 0 6px 16px; position: relative; line-height: 1.55; }
   .dash-list li::before { content: "-"; position: absolute; left: 0; color: #0000FF; }
 
+  /* ── Slide 39: Tesla example ── */
+  .tesla-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 16px; max-width: 960px; opacity: 0; transform: translateY(8px); }
+  .tesla-text .lead { font-size: 0.95rem; font-weight: 400; color: #1a1a1a; line-height: 1.55; margin-bottom: 16px; }
+  .tesla-steps { list-style: none; counter-reset: ts; padding-left: 0; }
+  .tesla-steps li { counter-increment: ts; font-size: 0.85rem; font-weight: 300; color: #555; padding: 8px 0 8px 30px; position: relative; line-height: 1.55; border-bottom: 1px dashed rgba(0,0,0,0.06); }
+  .tesla-steps li::before { content: counter(ts, decimal-leading-zero); position: absolute; left: 0; color: #0000FF; font-family: 'SF Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; }
+  .tesla-image { border: 1px dashed rgba(0,0,0,0.12); display: flex; align-items: center; justify-content: center; min-height: 240px; }
+  .tesla-placeholder span { font-family: 'SF Mono', monospace; font-size: 9px; color: rgba(0,0,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; }
+
   /* ── Corner canvas (prism accent on content slides) ── */
   .corner-canvas {
     position: absolute; bottom: 0; right: 0;
@@ -1510,10 +1519,13 @@
   </div>
 
   <!-- Slide 37 -->
-  <div class="slide slide-content" id="slide-37">
+  <div class="slide slide-content sub-divider" id="slide-37">
     <canvas class="corner-canvas" id="corner-37"></canvas>
     <div class="content">
-      <!-- slide 37 content -->
+      <div class="label">Appendix</div>
+      <h2 class="heading"><strong>Risk</strong></h2>
+      <div class="divider"></div>
+      <p class="body-text">Best practices and things to avoid.</p>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1522,7 +1534,21 @@
   <div class="slide slide-content" id="slide-38">
     <canvas class="corner-canvas" id="corner-38"></canvas>
     <div class="content">
-      <!-- slide 38 content -->
+      <div class="label">Risk</div>
+      <h2 class="heading"><strong>Human-in-the-loop</strong></h2>
+      <div class="divider"></div>
+      <table class="patterns-table">
+        <thead>
+          <tr><th>Best practice</th><th>Anti-pattern</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><!-- FILL --></td><td><!-- FILL --></td></tr>
+          <tr><td><!-- FILL --></td><td><!-- FILL --></td></tr>
+          <tr><td><!-- FILL --></td><td><!-- FILL --></td></tr>
+          <tr><td><!-- FILL --></td><td><!-- FILL --></td></tr>
+          <tr><td><!-- FILL --></td><td><!-- FILL --></td></tr>
+        </tbody>
+      </table>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1531,7 +1557,24 @@
   <div class="slide slide-content" id="slide-39">
     <canvas class="corner-canvas" id="corner-39"></canvas>
     <div class="content">
-      <!-- slide 39 content -->
+      <div class="label">Risk</div>
+      <h2 class="heading">Tesla <strong>example</strong></h2>
+      <div class="divider"></div>
+      <div class="tesla-grid">
+        <div class="tesla-text">
+          <p class="lead"><!-- FILL: 1-2 sentence summary of the Tesla autonomous-driving cautionary example --></p>
+          <ol class="tesla-steps">
+            <li><!-- FILL: step 1 --></li>
+            <li><!-- FILL: step 2 --></li>
+            <li><!-- FILL: step 3 --></li>
+          </ol>
+        </div>
+        <div class="tesla-image">
+          <div class="tesla-placeholder">
+            <span>Tesla image (to add)</span>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1814,7 +1857,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 function resetSlide(el) {
-  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary, .canvas-grid, .patterns-table, .team-compare, .roles-table, .dash-list';
+  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary, .canvas-grid, .patterns-table, .team-compare, .roles-table, .dash-list, .tesla-grid';
   el.querySelectorAll(selectors).forEach(child => {
     gsap.set(child, { clearProps: 'all' });
     child.style.opacity = '0';
@@ -1969,6 +2012,9 @@ function animateSlideIn(el) {
 
   const patternsTable = el.querySelectorAll('.content .patterns-table');
   if (patternsTable.length) tl.to(patternsTable, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const teslaGrid = el.querySelectorAll('.content .tesla-grid');
+  if (teslaGrid.length) tl.to(teslaGrid, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
 
   const teamCompare = el.querySelectorAll('.content .team-compare');
   if (teamCompare.length) tl.to(teamCompare, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
