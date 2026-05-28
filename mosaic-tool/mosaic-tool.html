@@ -247,6 +247,14 @@
       <div id="gradient-preview" title="Live preview: this is what the mosaic blocks will run through (anchor on the left → edge on the right)" style="height: 24px; border-radius: 4px; border: 1px solid var(--line); margin: 10px 0 4px; background: linear-gradient(to right, #ffffff, #0943a0);"></div>
       <p style="color: var(--muted); font-size: 11px; margin: 0;">↑ live preview of the anchor → edge gradient</p>
 
+      <div class="row" style="margin-top:14px"><label for="subjectColor">Silhouette color (dark areas)</label></div>
+      <input type="color" id="subjectColor" value="#000000">
+      <p style="color: var(--muted); font-size: 11px; margin: 4px 0 6px;">Photo's dark pixels lean toward this color. Black = traditional silhouette. Bright color = "LED" glow effect on the subject.</p>
+
+      <div class="row" style="margin-top:8px"><label for="silhouetteGlow">Silhouette glow</label><span class="val" id="silhouetteGlow-val">0.00</span></div>
+      <input type="range" id="silhouetteGlow" min="0" max="1" step="0.01" value="0">
+      <p style="color: var(--muted); font-size: 11px; margin: 4px 0 6px;">How strongly the silhouette color glows through, independent of Frost. Bump this up to keep your flat gradient AND make objects show in the silhouette color.</p>
+
       <div class="row" style="margin-top:14px"><label for="anchorReach">Anchor reach</label><span class="val" id="anchorReach-val">1.80</span></div>
       <input type="range" id="anchorReach" min="1" max="3.5" step="0.05" value="1.80">
 
@@ -324,6 +332,15 @@ const DEFAULTS = {
   mosaicSat: 1,
   mosaicAnchorColor: '#ffffff',
   mosaicEdgeColor: '#0943a0',
+  // What dark photo pixels lean toward in the mosaic blocks. Defaults to
+  // black so the existing "darker silhouette" look is preserved out of
+  // the box; pick a bright color for an LED-style subject glow.
+  subjectColor: '#000000',
+  // Independent silhouette strength. When > 0, the subject color blends
+  // into dark photo areas regardless of how high Frost is set — useful
+  // for keeping a flat gradient look AND showing the subject silhouette
+  // in a contrasting color (LED light effect).
+  silhouetteGlow: 0,
   // Exponent on (1 - mask_alpha). 1 = linear (anchor only at corner).
   // >1 extends the anchor zone deeper into the mosaic before transitioning.
   anchorReach: 1.8,
@@ -540,6 +557,7 @@ function render() {
 
   const [FR, FG, FB] = hexToRgb(state.mosaicAnchorColor);
   const [TR, TG, TB] = hexToRgb(state.mosaicEdgeColor);
+  const [SUBJ_R, SUBJ_G, SUBJ_B] = hexToRgb(state.subjectColor);
   const SAT = state.mosaicSat;
   const THRESHOLD = state.threshold;
 
@@ -579,11 +597,22 @@ function render() {
       const photoR = lr * (1 - gradT) + TR * gradT;
       const photoG = lg * (1 - gradT) + TG * gradT;
       const photoB = lb * (1 - gradT) + TB * gradT;
-      // Explicit two-color gradient (anchor → edge) modulated by photo
-      // luminance so the subject's silhouette stays visible through the mosaic
-      const expR = (FR + (TR - FR) * gradT) * lit;
-      const expG = (FG + (TG - FG) * gradT) * lit;
-      const expB = (FB + (TB - FB) * gradT) * lit;
+      // Explicit two-color gradient (anchor → edge). Frost-driven `lit`
+      // gives the existing "darker silhouette" behavior.
+      const gR = FR + (TR - FR) * gradT;
+      const gG = FG + (TG - FG) * gradT;
+      const gB = FB + (TB - FB) * gradT;
+      const baseR = SUBJ_R * (1 - lit) + gR * lit;
+      const baseG = SUBJ_G * (1 - lit) + gG * lit;
+      const baseB = SUBJ_B * (1 - lit) + gB * lit;
+      // Independent silhouette overlay: where the photo is dark and
+      // `silhouetteGlow` > 0, paint the silhouette color over the gradient
+      // block regardless of Frost. This lets the user keep a flat,
+      // un-dimmed gradient AND still see the subject in their chosen color.
+      const sil = state.silhouetteGlow * (1 - lum);
+      const expR = baseR * (1 - sil) + SUBJ_R * sil;
+      const expG = baseG * (1 - sil) + SUBJ_G * sil;
+      const expB = baseB * (1 - sil) + SUBJ_B * sil;
       // Saturation mixes between photo-driven (0) and explicit (1)
       const fr = Math.round(photoR * (1 - SAT) + expR * SAT);
       const fg = Math.round(photoG * (1 - SAT) + expG * SAT);
@@ -657,6 +686,7 @@ bindSlider('grain', 'grain', v => v.toFixed(2));
 bindSlider('duotoneStrength', 'duotoneStrength', v => v.toFixed(2));
 bindSlider('mosaicSat', 'mosaicSat', v => v.toFixed(2));
 bindSlider('anchorReach', 'anchorReach', v => v.toFixed(2));
+bindSlider('silhouetteGlow', 'silhouetteGlow', v => v.toFixed(2));
 
 $('duotoneShadow').addEventListener('input', e => {
   state.duotoneShadow = e.target.value;
@@ -686,6 +716,13 @@ function bindMosaicColor(id, key) {
 }
 bindMosaicColor('mosaicAnchorColor', 'mosaicAnchorColor');
 bindMosaicColor('mosaicEdgeColor',   'mosaicEdgeColor');
+
+function bindPlainColor(id, key) {
+  const handler = e => { state[key] = e.target.value; scheduleRender(); };
+  $(id).addEventListener('input', handler);
+  $(id).addEventListener('change', handler);
+}
+bindPlainColor('subjectColor', 'subjectColor');
 
 $('asciiColor').addEventListener('input', e => {
   state.asciiColor = e.target.value;
@@ -870,7 +907,7 @@ preview.addEventListener('drop', e => {
 
 $('reset').addEventListener('click', () => {
   Object.assign(state, DEFAULTS);
-  for (const id of ['radius', 'cellSize', 'threshold', 'grain', 'duotoneStrength', 'mosaicSat', 'anchorReach', 'lightenK', 'navyCap', 'charAlpha', 'charSize', 'bgStrength', 'brushSize', 'brushHardness']) {
+  for (const id of ['radius', 'cellSize', 'threshold', 'grain', 'duotoneStrength', 'mosaicSat', 'anchorReach', 'silhouetteGlow', 'lightenK', 'navyCap', 'charAlpha', 'charSize', 'bgStrength', 'brushSize', 'brushHardness']) {
     $(id).value = DEFAULTS[id];
     $(id + '-val').textContent = (id === 'cellSize' || id === 'threshold' || id === 'brushSize')
       ? Math.round(DEFAULTS[id]) : DEFAULTS[id].toFixed(2);
@@ -879,6 +916,7 @@ $('reset').addEventListener('click', () => {
   $('duotoneHighlight').value = DEFAULTS.duotoneHighlight;
   $('mosaicAnchorColor').value = DEFAULTS.mosaicAnchorColor;
   $('mosaicEdgeColor').value = DEFAULTS.mosaicEdgeColor;
+  $('subjectColor').value = DEFAULTS.subjectColor;
   updateGradientPreview();
   $('asciiColor').value = DEFAULTS.asciiColor;
   $('bgDir').value = DEFAULTS.bgDir;
