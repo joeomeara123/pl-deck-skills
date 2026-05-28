@@ -742,17 +742,17 @@ bindMosaicColor('mosaicAnchorColor', 'mosaicAnchorColor');
 bindMosaicColor('mosaicEdgeColor',   'mosaicEdgeColor');
 
 // ─── Gradient presets ───
-// Sourced from progressionlabs.com hero gradients (HeroGradientGL.tsx)
-// plus the brand navy token from experiment.css.
+// progressionlabs.com only uses shades of blue + blue/orange combos in
+// practice. Curated: 3 blue-on-blue gradients + 3 blue/orange variants.
 const PRESETS = [
+  // Shades of blue
   { name: 'Navy → White',        from: '#0943a0', to: '#ffffff' },
-  { name: 'Orchid → Salmon',     from: '#ba55d3', to: '#ffa07a' },
+  { name: 'Navy → Sky',          from: '#0943a0', to: '#87ceeb' },
+  { name: 'Deep → Light Blue',   from: '#0a2356', to: '#b8d4f5' },
+  // Blue + orange variants
+  { name: 'Navy → Salmon',       from: '#0943a0', to: '#ffa07a' },
   { name: 'Blue → Salmon',       from: '#0000ff', to: '#ffa07a' },
-  { name: 'Turquoise → Orchid',  from: '#40e0d0', to: '#ba55d3' },
-  { name: 'Orchid → Turquoise',  from: '#ba55d3', to: '#40e0d0' },
-  { name: 'Ancient Gild',        from: '#b8ab38', to: '#e0d794' },
-  { name: 'Terracotta',          from: '#e2725b', to: '#ffdab9' },
-  { name: 'Retro Future',        from: '#ff00ff', to: '#ffff00' },
+  { name: 'Salmon → Navy',       from: '#ffa07a', to: '#0943a0' },
 ];
 
 function applyGradient(from, to) {
