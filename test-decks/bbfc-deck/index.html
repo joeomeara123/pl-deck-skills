@@ -503,6 +503,7 @@
     color: rgba(0,0,255,0.45);
     text-transform: uppercase; letter-spacing: 0.16em;
     margin-bottom: 16px;
+    opacity: 0; transform: translateY(12px);
   }
   .slide-split .section-heading {
     font-size: clamp(2rem, 4vw, 3.2rem);
@@ -510,6 +511,7 @@
     letter-spacing: -0.02em;
     line-height: 1.15;
     max-width: 380px;
+    opacity: 0; transform: translateY(20px);
   }
 </style>
 </head>
@@ -566,11 +568,13 @@
   <!-- Slide 2 (section divider) -->
   <div class="slide slide-content slide-split" id="slide-2" style="--split: 40">
     <div class="slide-text">
-      <!-- divider text content (filled by Task 5) -->
+      <div class="section-number">SECTION 01</div>
+      <h2 class="section-heading">Context</h2>
       <div class="slide-footer">PROGRESSION LABS</div>
     </div>
     <div class="slide-image">
-      <!-- image (set by Task 5) -->
+      <img src="img/section-1-context.png" alt="">
+      <img src="logo-white.png" class="image-logo" alt="">
     </div>
   </div>
 
@@ -595,11 +599,13 @@
   <!-- Slide 5 (section divider) -->
   <div class="slide slide-content slide-split" id="slide-5" style="--split: 40">
     <div class="slide-text">
-      <!-- divider text content (filled by Task 5) -->
+      <div class="section-number">SECTION 02</div>
+      <h2 class="section-heading">Our approach</h2>
       <div class="slide-footer">PROGRESSION LABS</div>
     </div>
     <div class="slide-image">
-      <!-- image (set by Task 5) -->
+      <img src="img/section-2-approach.png" alt="">
+      <img src="logo-white.png" class="image-logo" alt="">
     </div>
   </div>
 
@@ -615,11 +621,13 @@
   <!-- Slide 7 (section divider) -->
   <div class="slide slide-content slide-split" id="slide-7" style="--split: 40">
     <div class="slide-text">
-      <!-- divider text content (filled by Task 5) -->
+      <div class="section-number">SECTION 03</div>
+      <h2 class="section-heading">Initial goals</h2>
       <div class="slide-footer">PROGRESSION LABS</div>
     </div>
     <div class="slide-image">
-      <!-- image (set by Task 5) -->
+      <img src="img/section-3-goals.png" alt="">
+      <img src="logo-white.png" class="image-logo" alt="">
     </div>
   </div>
 
@@ -635,11 +643,13 @@
   <!-- Slide 9 (section divider) -->
   <div class="slide slide-content slide-split" id="slide-9" style="--split: 40">
     <div class="slide-text">
-      <!-- divider text content (filled by Task 5) -->
+      <div class="section-number">SECTION 04</div>
+      <h2 class="section-heading">Our findings</h2>
       <div class="slide-footer">PROGRESSION LABS</div>
     </div>
     <div class="slide-image">
-      <!-- image (set by Task 5) -->
+      <img src="img/section-4-findings.png" alt="">
+      <img src="logo-white.png" class="image-logo" alt="">
     </div>
   </div>
 
@@ -727,11 +737,13 @@
   <!-- Slide 19 (section divider) -->
   <div class="slide slide-content slide-split" id="slide-19" style="--split: 40">
     <div class="slide-text">
-      <!-- divider text content (filled by Task 5) -->
+      <div class="section-number">SECTION 05</div>
+      <h2 class="section-heading">Moving forward</h2>
       <div class="slide-footer">PROGRESSION LABS</div>
     </div>
     <div class="slide-image">
-      <!-- image (set by Task 5) -->
+      <img src="img/section-5-forward.png" alt="">
+      <img src="logo-white.png" class="image-logo" alt="">
     </div>
   </div>
 
@@ -774,11 +786,13 @@
   <!-- Slide 24 (section divider) -->
   <div class="slide slide-content slide-split" id="slide-24" style="--split: 40">
     <div class="slide-text">
-      <!-- divider text content (filled by Task 5) -->
+      <div class="section-number">SECTION 06</div>
+      <h2 class="section-heading">Appendix: best practices and things to avoid</h2>
       <div class="slide-footer">PROGRESSION LABS</div>
     </div>
     <div class="slide-image">
-      <!-- image (set by Task 5) -->
+      <img src="img/appendix-divider.png" alt="">
+      <img src="logo-white.png" class="image-logo" alt="">
     </div>
   </div>
 
@@ -1195,7 +1209,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 function resetSlide(el) {
-  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li';
+  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading';
   el.querySelectorAll(selectors).forEach(child => {
     gsap.set(child, { clearProps: 'all' });
     child.style.opacity = '0';
@@ -1220,6 +1234,12 @@ function animateSlideIn(el) {
 
   const headings = el.querySelectorAll('.content .heading');
   if (headings.length) tl.to(headings, { opacity: 1, y: 0, duration: 0.6 }, 0.12);
+
+  const sectionNums = el.querySelectorAll('.section-number');
+  if (sectionNums.length) tl.to(sectionNums, { opacity: 1, y: 0, duration: 0.4 }, 0);
+
+  const sectionHeadings = el.querySelectorAll('.section-heading');
+  if (sectionHeadings.length) tl.to(sectionHeadings, { opacity: 1, y: 0, duration: 0.6 }, 0.12);
 
   const bodyText = el.querySelectorAll('.content .body-text');
   if (bodyText.length) tl.to(bodyText, { opacity: 1, y: 0, duration: 0.5 }, 0.2);
