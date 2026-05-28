@@ -183,6 +183,16 @@
   .approach-meta dl dt:first-child { margin-top: 0; }
   .approach-meta dl dd { font-size: 0.85rem; font-weight: 400; color: #1a1a1a; margin-top: 4px; }
 
+  /* ── Quad grid (slide 8) ── */
+  .quad-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 0; margin-top: 24px; max-width: 920px; opacity: 0; transform: translateY(8px); }
+  .quad { padding: 20px 28px; border-bottom: 1px dashed rgba(0,0,0,0.08); border-right: 1px dashed rgba(0,0,0,0.08); }
+  .quad:nth-child(2n) { border-right: none; padding-right: 0; }
+  .quad:nth-child(n+3) { border-bottom: none; padding-bottom: 0; }
+  .quad:nth-child(2n+1) { padding-left: 0; }
+  .quad-label { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(0,0,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+  .quad ul { list-style: none; padding-left: 0; }
+  .quad li { font-size: 0.85rem; font-weight: 300; color: #555; line-height: 1.6; padding: 4px 0; }
+
   /* ── Cards (no boxes; dashed dividers) ── */
   .card-grid {
     display: grid;
@@ -734,7 +744,40 @@
   <div class="slide slide-content" id="slide-8">
     <canvas class="corner-canvas" id="corner-8"></canvas>
     <div class="content">
-      <!-- slide 8 content -->
+      <div class="label">Initial goals</div>
+      <h2 class="heading">Intended <strong>state</strong></h2>
+      <div class="divider"></div>
+      <div class="quad-grid">
+        <div class="quad">
+          <div class="quad-label">Use cases</div>
+          <ul>
+            <li><!-- FILL --></li>
+            <li><!-- FILL --></li>
+            <li><!-- FILL --></li>
+          </ul>
+        </div>
+        <div class="quad">
+          <div class="quad-label">Benefits</div>
+          <ul>
+            <li><!-- FILL --></li>
+            <li><!-- FILL --></li>
+          </ul>
+        </div>
+        <div class="quad">
+          <div class="quad-label">Capabilities</div>
+          <ul>
+            <li><!-- FILL --></li>
+            <li><!-- FILL --></li>
+          </ul>
+        </div>
+        <div class="quad">
+          <div class="quad-label">Risks</div>
+          <ul>
+            <li><!-- FILL --></li>
+            <li><!-- FILL --></li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1308,7 +1351,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 function resetSlide(el) {
-  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid';
+  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid';
   el.querySelectorAll(selectors).forEach(child => {
     gsap.set(child, { clearProps: 'all' });
     child.style.opacity = '0';
@@ -1430,6 +1473,9 @@ function animateSlideIn(el) {
 
   const approachGrid = el.querySelectorAll('.content .approach-grid');
   if (approachGrid.length) tl.to(approachGrid, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const quadGrid = el.querySelectorAll('.content .quad-grid');
+  if (quadGrid.length) tl.to(quadGrid, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
 }
 
 /* ────────────────── Corner canvas prism (content slides) ────────────────── */
