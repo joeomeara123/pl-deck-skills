@@ -571,6 +571,26 @@
   .patterns-table thead th:last-child { color: #dc2626; }
   .patterns-table tbody td { padding: 14px 16px; color: #555; font-weight: 300; line-height: 1.6; border-bottom: 1px dashed rgba(0,0,0,0.06); vertical-align: top; width: 50%; }
 
+  /* ── Slide 32: team compare ── */
+  .team-compare { margin-top: 16px; max-width: 960px; opacity: 0; transform: translateY(8px); }
+  .team-row { display: grid; grid-template-columns: 1fr 1.5fr 1.5fr; gap: 24px; padding: 14px 0; border-bottom: 1px dashed rgba(0,0,0,0.06); font-size: 0.85rem; color: #555; font-weight: 300; line-height: 1.55; }
+  .team-row.team-header { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(0,0,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 1px dashed rgba(0,0,0,0.12); }
+  .team-row > div:first-child { color: #1a1a1a; font-weight: 400; }
+
+  /* ── Slide 33: patterns-table--neutral (all headers blue) ── */
+  .patterns-table--neutral thead th { color: rgba(0,0,255,0.45) !important; }
+
+  /* ── Slide 34: roles table ── */
+  .roles-table { width: 100%; max-width: 960px; margin-top: 16px; border-collapse: collapse; font-size: 0.85rem; opacity: 0; transform: translateY(8px); }
+  .roles-table thead th { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(0,0,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; padding: 12px 16px; text-align: left; border-bottom: 1px dashed rgba(0,0,0,0.12); }
+  .roles-table tbody td { padding: 14px 16px; color: #555; font-weight: 300; line-height: 1.55; border-bottom: 1px dashed rgba(0,0,0,0.06); vertical-align: top; }
+  .roles-table tbody td:first-child { color: #1a1a1a; font-weight: 400; width: 200px; }
+
+  /* ── Slides 35-36: dash list ── */
+  .dash-list { list-style: none; padding-left: 0; }
+  .dash-list li { font-size: 0.85rem; font-weight: 300; color: #555; padding: 6px 0 6px 16px; position: relative; line-height: 1.55; }
+  .dash-list li::before { content: "-"; position: absolute; left: 0; color: #0000FF; }
+
   /* ── Corner canvas (prism accent on content slides) ── */
   .corner-canvas {
     position: absolute; bottom: 0; right: 0;
@@ -1377,10 +1397,13 @@
   </div>
 
   <!-- Slide 31 -->
-  <div class="slide slide-content" id="slide-31">
+  <div class="slide slide-content sub-divider" id="slide-31">
     <canvas class="corner-canvas" id="corner-31"></canvas>
     <div class="content">
-      <!-- slide 31 content -->
+      <div class="label">Appendix</div>
+      <h2 class="heading"><strong>Team</strong></h2>
+      <div class="divider"></div>
+      <p class="body-text">Best practices and things to avoid.</p>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1389,7 +1412,15 @@
   <div class="slide slide-content" id="slide-32">
     <canvas class="corner-canvas" id="corner-32"></canvas>
     <div class="content">
-      <!-- slide 32 content -->
+      <div class="label">Team</div>
+      <h2 class="heading">Smallest possible <strong>team</strong></h2>
+      <div class="divider"></div>
+      <div class="team-compare">
+        <div class="team-row team-header"><div>Stage</div><div>Right shape</div><div>Wrong shape</div></div>
+        <div class="team-row"><div><!-- FILL: stage 1 --></div><div><!-- FILL --></div><div><!-- FILL --></div></div>
+        <div class="team-row"><div><!-- FILL: stage 2 --></div><div><!-- FILL --></div><div><!-- FILL --></div></div>
+        <div class="team-row"><div><!-- FILL: stage 3 --></div><div><!-- FILL --></div><div><!-- FILL --></div></div>
+      </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1398,7 +1429,19 @@
   <div class="slide slide-content" id="slide-33">
     <canvas class="corner-canvas" id="corner-33"></canvas>
     <div class="content">
-      <!-- slide 33 content -->
+      <div class="label">Team</div>
+      <h2 class="heading">Compose, then <strong>hire</strong></h2>
+      <div class="divider"></div>
+      <table class="patterns-table patterns-table--neutral">
+        <thead>
+          <tr><th>Variation</th><th>Setup</th><th>Outcome</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>1</strong></td><td><!-- FILL --></td><td><!-- FILL --></td></tr>
+          <tr><td><strong>2</strong></td><td><!-- FILL --></td><td><!-- FILL --></td></tr>
+          <tr><td><strong>3</strong></td><td><!-- FILL --></td><td><!-- FILL --></td></tr>
+        </tbody>
+      </table>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1407,7 +1450,19 @@
   <div class="slide slide-content" id="slide-34">
     <canvas class="corner-canvas" id="corner-34"></canvas>
     <div class="content">
-      <!-- slide 34 content -->
+      <div class="label">Team</div>
+      <h2 class="heading">Roles and <strong>patterns</strong></h2>
+      <div class="divider"></div>
+      <table class="roles-table">
+        <thead>
+          <tr><th>Role</th><th>What they do</th><th>Watch for</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>CEO / Entrepreneur in residence</strong></td><td><!-- FILL --></td><td><!-- FILL --></td></tr>
+          <tr><td><strong>AI Product Manager</strong></td><td><!-- FILL --></td><td><!-- FILL --></td></tr>
+          <tr><td><strong>AI Tech Lead</strong></td><td><!-- FILL --></td><td><!-- FILL --></td></tr>
+        </tbody>
+      </table>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1416,7 +1471,23 @@
   <div class="slide slide-content" id="slide-35">
     <canvas class="corner-canvas" id="corner-35"></canvas>
     <div class="content">
-      <!-- slide 35 content -->
+      <div class="label">Team</div>
+      <h2 class="heading">Bring in <strong>expertise</strong></h2>
+      <div class="divider"></div>
+      <div class="two-col-body">
+        <div class="col">
+          <h3 class="col-title">Sourcing</h3>
+          <ul class="dash-list">
+            <li><!-- FILL --></li>
+            <li><!-- FILL --></li>
+            <li><!-- FILL --></li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3 class="col-title">Case study</h3>
+          <p><!-- FILL: third-party case study paragraph --></p>
+        </div>
+      </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1425,7 +1496,15 @@
   <div class="slide slide-content" id="slide-36">
     <canvas class="corner-canvas" id="corner-36"></canvas>
     <div class="content">
-      <!-- slide 36 content -->
+      <div class="label">Team</div>
+      <h2 class="heading">Prove before <strong>scaling</strong></h2>
+      <div class="divider"></div>
+      <ul class="dash-list" style="max-width: 720px; opacity: 0; transform: translateY(8px);">
+        <li><!-- FILL: bullet 1 --></li>
+        <li><!-- FILL: bullet 2 --></li>
+        <li><!-- FILL: bullet 3 --></li>
+        <li><!-- FILL: bullet 4 --></li>
+      </ul>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1735,7 +1814,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 function resetSlide(el) {
-  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary, .canvas-grid, .patterns-table';
+  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary, .canvas-grid, .patterns-table, .team-compare, .roles-table, .dash-list';
   el.querySelectorAll(selectors).forEach(child => {
     gsap.set(child, { clearProps: 'all' });
     child.style.opacity = '0';
@@ -1890,6 +1969,15 @@ function animateSlideIn(el) {
 
   const patternsTable = el.querySelectorAll('.content .patterns-table');
   if (patternsTable.length) tl.to(patternsTable, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const teamCompare = el.querySelectorAll('.content .team-compare');
+  if (teamCompare.length) tl.to(teamCompare, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const rolesTable = el.querySelectorAll('.content .roles-table');
+  if (rolesTable.length) tl.to(rolesTable, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const dashList = el.querySelectorAll('.content .dash-list');
+  if (dashList.length) tl.to(dashList, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
 }
 
 /* ────────────────── Corner canvas prism (content slides) ────────────────── */
