@@ -172,6 +172,17 @@
   .two-col-body .col-title { font-size: 12.5px; font-weight: 600; color: #1a1a1a; margin-bottom: 12px; letter-spacing: 0.02em; }
   .two-col-body p { font-size: 0.88rem; font-weight: 300; line-height: 1.7; color: #555; }
 
+  /* ── Approach grid (slide 6) ── */
+  .approach-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 48px; margin-top: 24px; max-width: 920px; opacity: 0; transform: translateY(8px); }
+  .approach-text .lead { font-size: 0.95rem; font-weight: 300; line-height: 1.6; color: #1a1a1a; margin-bottom: 16px; }
+  .approach-text ul { list-style: none; padding-left: 0; }
+  .approach-text li { font-size: 0.88rem; font-weight: 300; color: #555; padding: 8px 0 8px 18px; border-bottom: 1px dashed rgba(0,0,0,0.08); position: relative; }
+  .approach-text li::before { content: "-"; position: absolute; left: 0; color: #0000FF; }
+  .approach-meta { padding-left: 24px; border-left: 1px dashed rgba(0,0,0,0.08); }
+  .approach-meta dl dt { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(0,0,255,0.45); margin-top: 16px; }
+  .approach-meta dl dt:first-child { margin-top: 0; }
+  .approach-meta dl dd { font-size: 0.85rem; font-weight: 400; color: #1a1a1a; margin-top: 4px; }
+
   /* ── Cards (no boxes; dashed dividers) ── */
   .card-grid {
     display: grid;
@@ -681,7 +692,27 @@
   <div class="slide slide-content" id="slide-6">
     <canvas class="corner-canvas" id="corner-6"></canvas>
     <div class="content">
-      <!-- slide 6 content -->
+      <div class="label">Our approach</div>
+      <h2 class="heading">Our <strong>investigation</strong></h2>
+      <div class="divider"></div>
+      <div class="approach-grid">
+        <div class="approach-text">
+          <p class="lead"><!-- FILL: lead paragraph summarising scope --></p>
+          <ul>
+            <li><!-- FILL: bullet 1 --></li>
+            <li><!-- FILL: bullet 2 --></li>
+            <li><!-- FILL: bullet 3 --></li>
+          </ul>
+        </div>
+        <div class="approach-meta">
+          <dl>
+            <dt>Interviews</dt><dd><!-- FILL: # --></dd>
+            <dt>Documents reviewed</dt><dd><!-- FILL: # --></dd>
+            <dt>Scope</dt><dd><!-- FILL: scope summary --></dd>
+            <dt>Duration</dt><dd><!-- FILL: duration --></dd>
+          </dl>
+        </div>
+      </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1277,7 +1308,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 function resetSlide(el) {
-  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body';
+  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid';
   el.querySelectorAll(selectors).forEach(child => {
     gsap.set(child, { clearProps: 'all' });
     child.style.opacity = '0';
@@ -1396,6 +1427,9 @@ function animateSlideIn(el) {
 
   const twoColBody = el.querySelectorAll('.content .two-col-body');
   if (twoColBody.length) tl.to(twoColBody, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const approachGrid = el.querySelectorAll('.content .approach-grid');
+  if (approachGrid.length) tl.to(approachGrid, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
 }
 
 /* ────────────────── Corner canvas prism (content slides) ────────────────── */
