@@ -152,6 +152,26 @@
     min-width: 40px;
   }
 
+  /* ── Partners row (slide 3) ── */
+  .partners-row { display: flex; gap: 32px; margin: 24px 0 40px; }
+  .partner { display: flex; flex-direction: column; align-items: center; gap: 10px; opacity: 0; transform: translateY(8px); }
+  .partner img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; filter: grayscale(0.2); }
+  .partner figcaption { font-size: 11px; font-weight: 500; color: #555; letter-spacing: 0.02em; }
+
+  /* ── Stat grid (slide 3) ── */
+  #slide-3 .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 16px; max-width: none; }
+  .stat { padding: 16px 24px; border-right: 1px dashed rgba(0,0,0,0.08); }
+  .stat:last-child { border-right: none; }
+  .stat .highlight-number { font-size: 2.4rem; font-weight: 300; color: #0000FF; letter-spacing: -0.02em; opacity: 0; }
+  .stat .stat-label { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 9px; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 8px; max-width: 140px; opacity: 0; transform: translateY(4px); }
+
+  /* ── Two-column body (slides 4, 16, 27, 35) ── */
+  .two-col-body { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 24px; max-width: 900px; opacity: 0; transform: translateY(8px); }
+  .two-col-body .col { padding-right: 24px; border-right: 1px dashed rgba(0,0,0,0.08); }
+  .two-col-body .col:last-child { border-right: none; padding-right: 0; }
+  .two-col-body .col-title { font-size: 12.5px; font-weight: 600; color: #1a1a1a; margin-bottom: 12px; letter-spacing: 0.02em; }
+  .two-col-body p { font-size: 0.88rem; font-weight: 300; line-height: 1.7; color: #555; }
+
   /* ── Cards (no boxes; dashed dividers) ── */
   .card-grid {
     display: grid;
@@ -582,7 +602,43 @@
   <div class="slide slide-content" id="slide-3">
     <canvas class="corner-canvas" id="corner-3"></canvas>
     <div class="content">
-      <!-- slide 3 content -->
+      <div class="label">Context</div>
+      <h2 class="heading">Who we <strong>are</strong></h2>
+      <div class="divider"></div>
+
+      <div class="partners-row">
+        <figure class="partner">
+          <img src="img/partner-1.png" alt="">
+          <figcaption><!-- FILL: partner 1 name --></figcaption>
+        </figure>
+        <figure class="partner">
+          <img src="img/partner-2.png" alt="">
+          <figcaption><!-- FILL: partner 2 name --></figcaption>
+        </figure>
+        <figure class="partner">
+          <img src="img/partner-3.png" alt="">
+          <figcaption><!-- FILL: partner 3 name --></figcaption>
+        </figure>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat">
+          <div class="highlight-number" data-target="30" data-suffix="+">0</div>
+          <div class="stat-label">Years of total experience</div>
+        </div>
+        <div class="stat">
+          <div class="highlight-number" data-target="25" data-suffix="+">0</div>
+          <div class="stat-label">Companies in highly complex industries</div>
+        </div>
+        <div class="stat">
+          <div class="highlight-number" data-target="10" data-suffix="+">0</div>
+          <div class="stat-label">Industries</div>
+        </div>
+        <div class="stat">
+          <div class="highlight-number" data-target="18">0</div>
+          <div class="stat-label">Months average retention</div>
+        </div>
+      </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -591,7 +647,19 @@
   <div class="slide slide-content" id="slide-4">
     <canvas class="corner-canvas" id="corner-4"></canvas>
     <div class="content">
-      <!-- slide 4 content -->
+      <div class="label">Context</div>
+      <h2 class="heading">Why we are <strong>here</strong></h2>
+      <div class="divider"></div>
+      <div class="two-col-body">
+        <div class="col">
+          <h3 class="col-title"><!-- FILL: column 1 sub-heading --></h3>
+          <p><!-- FILL: column 1 body paragraph --></p>
+        </div>
+        <div class="col">
+          <h3 class="col-title"><!-- FILL: column 2 sub-heading --></h3>
+          <p><!-- FILL: column 2 body paragraph --></p>
+        </div>
+      </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1209,7 +1277,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 function resetSlide(el) {
-  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading';
+  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body';
   el.querySelectorAll(selectors).forEach(child => {
     gsap.set(child, { clearProps: 'all' });
     child.style.opacity = '0';
@@ -1302,6 +1370,32 @@ function animateSlideIn(el) {
 
   const agendaItems = el.querySelectorAll('.content .agenda-list li');
   if (agendaItems.length) tl.to(agendaItems, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 }, 0.5);
+
+  const partners = el.querySelectorAll('.content .partner');
+  if (partners.length) tl.to(partners, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }, 0.35);
+
+  const statBlocks = el.querySelectorAll('.content .stat');
+  if (statBlocks.length) {
+    // reveal the stat containers
+    tl.to(statBlocks, { opacity: 1, duration: 0.01 }, 0.55);
+    // animate the numbers inside each .stat
+    el.querySelectorAll('.content .stat .highlight-number').forEach((numEl, i) => {
+      tl.to(numEl, { opacity: 1, duration: 0.4 }, 0.55 + i * 0.08);
+      const target = parseInt(numEl.dataset.target, 10);
+      const suffix = numEl.dataset.suffix || '';
+      const obj = { val: 0 };
+      tl.to(obj, {
+        val: target, duration: 1.6, ease: 'power2.out',
+        onUpdate() { numEl.textContent = Math.floor(obj.val) + suffix; }
+      }, 0.55 + i * 0.08);
+    });
+    el.querySelectorAll('.content .stat .stat-label').forEach((lbl, i) => {
+      tl.to(lbl, { opacity: 1, y: 0, duration: 0.4 }, 0.7 + i * 0.08);
+    });
+  }
+
+  const twoColBody = el.querySelectorAll('.content .two-col-body');
+  if (twoColBody.length) tl.to(twoColBody, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
 }
 
 /* ────────────────── Corner canvas prism (content slides) ────────────────── */
