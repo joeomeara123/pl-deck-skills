@@ -521,6 +521,10 @@
   .score-table tbody td:first-child { font-family: 'SF Mono', monospace; font-size: 9px; color: rgba(0,0,255,0.6); width: 40px; }
   .score-table tbody td:last-child { color: #0000FF; font-weight: 500; text-align: right; width: 80px; }
 
+  /* ── Diagram SVG ── */
+  .diagram { width: 100%; max-width: 960px; height: auto; margin-top: 16px; opacity: 0; transform: translateY(8px); }
+  .diagram text { font-feature-settings: "tnum" 1; }
+
   /* ── Corner canvas (prism accent on content slides) ── */
   .corner-canvas {
     position: absolute; bottom: 0; right: 0;
@@ -850,7 +854,26 @@
   <div class="slide slide-content" id="slide-11">
     <canvas class="corner-canvas" id="corner-11"></canvas>
     <div class="content">
-      <!-- slide 11 content -->
+      <div class="label">Findings</div>
+      <h2 class="heading">Structural <strong>misalignment</strong></h2>
+      <div class="divider"></div>
+      <svg class="diagram" viewBox="0 0 920 360" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#0000FF"/>
+          </marker>
+        </defs>
+        <text x="40" y="40" font-family="SF Mono, monospace" font-size="9" font-weight="600" fill="rgba(0,0,255,0.45)" letter-spacing="1.5">BOARD / LEADERSHIP / COMMERCIAL</text>
+        <line x1="40" y1="60" x2="880" y2="60" stroke="#0000FF" stroke-width="1" stroke-dasharray="4 4" opacity="0.4"/>
+        <text x="40" y="140" font-family="SF Mono, monospace" font-size="9" font-weight="600" fill="rgba(0,0,255,0.45)" letter-spacing="1.5">PRODUCT</text>
+        <line x1="40" y1="160" x2="880" y2="160" stroke="#0000FF" stroke-width="1" stroke-dasharray="4 4" opacity="0.4"/>
+        <text x="40" y="240" font-family="SF Mono, monospace" font-size="9" font-weight="600" fill="rgba(0,0,255,0.45)" letter-spacing="1.5">TECHNOLOGY</text>
+        <line x1="40" y1="260" x2="880" y2="260" stroke="#0000FF" stroke-width="1" stroke-dasharray="4 4" opacity="0.4"/>
+        <text x="40" y="320" font-family="SF Mono, monospace" font-size="9" font-weight="600" fill="rgba(0,0,255,0.45)" letter-spacing="1.5">AI / ML</text>
+        <line x1="40" y1="340" x2="880" y2="340" stroke="#0000FF" stroke-width="1" stroke-dasharray="4 4" opacity="0.4"/>
+        <text x="500" y="100" font-family="Inter, sans-serif" font-size="11" fill="#0000FF" font-weight="500">FILL: misalignment note 1</text>
+        <text x="500" y="200" font-family="Inter, sans-serif" font-size="11" fill="#0000FF" font-weight="500">FILL: misalignment note 2</text>
+      </svg>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -859,7 +882,23 @@
   <div class="slide slide-content" id="slide-12">
     <canvas class="corner-canvas" id="corner-12"></canvas>
     <div class="content">
-      <!-- slide 12 content -->
+      <div class="label">Findings</div>
+      <h2 class="heading">Misaligned <strong>execution</strong></h2>
+      <div class="divider"></div>
+      <svg class="diagram" viewBox="0 0 920 340" preserveAspectRatio="xMidYMid meet">
+        <g font-family="SF Mono, monospace" font-size="9" font-weight="600" fill="rgba(0,0,255,0.45)" letter-spacing="1.5">
+          <text x="40" y="40">BOARD / LEADERSHIP</text>
+          <text x="40" y="120">PRODUCT</text>
+          <text x="40" y="200">TECHNOLOGY</text>
+          <text x="40" y="280">AI / ML</text>
+        </g>
+        <text x="300" y="44" font-family="Inter, sans-serif" font-size="13" fill="#1a1a1a" font-weight="400">FILL: leadership statement</text>
+        <text x="300" y="124" font-family="Inter, sans-serif" font-size="13" fill="#1a1a1a" font-weight="400">FILL: product framing</text>
+        <text x="300" y="204" font-family="Inter, sans-serif" font-size="13" fill="#1a1a1a" font-weight="400">FILL: technology constraint</text>
+        <text x="640" y="200" font-family="SF Mono, monospace" font-size="9" font-weight="600" fill="rgba(0,0,255,0.45)" letter-spacing="1.5">MULTI-LABEL CLASSIFICATION</text>
+        <circle cx="780" cy="270" r="32" fill="none" stroke="#0000FF" stroke-width="1.5"/>
+        <text x="780" y="275" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#0000FF" font-weight="500">AI</text>
+      </svg>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -868,7 +907,27 @@
   <div class="slide slide-content" id="slide-13">
     <canvas class="corner-canvas" id="corner-13"></canvas>
     <div class="content">
-      <!-- slide 13 content -->
+      <div class="label">Findings</div>
+      <h2 class="heading">Missing <strong>pushback</strong></h2>
+      <div class="divider"></div>
+      <svg class="diagram" viewBox="0 0 920 320" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <marker id="arrow-blue-3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#0000FF"/>
+          </marker>
+        </defs>
+        <g font-family="SF Mono, monospace" font-size="9" font-weight="600" fill="rgba(0,0,255,0.45)" letter-spacing="1.5">
+          <text x="60" y="40">CLAIM</text>
+          <text x="380" y="40">EXPECTED PUSHBACK</text>
+          <text x="700" y="40">OUTCOME</text>
+        </g>
+        <text x="60" y="100" font-family="Inter, sans-serif" font-size="13" fill="#1a1a1a">FILL: claim</text>
+        <line x1="60" y1="110" x2="350" y2="110" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-3)"/>
+        <text x="380" y="100" font-family="Inter, sans-serif" font-size="13" fill="#1a1a1a" font-style="italic">FILL: expected pushback</text>
+        <line x1="380" y1="110" x2="670" y2="110" stroke="#0000FF" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arrow-blue-3)"/>
+        <text x="700" y="100" font-family="Inter, sans-serif" font-size="13" fill="#1a1a1a">FILL: outcome</text>
+        <text x="430" y="170" font-family="Inter, sans-serif" font-size="11" fill="#dc2626" font-weight="500">^ Not observed in this engagement</text>
+      </svg>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -877,7 +936,26 @@
   <div class="slide slide-content" id="slide-14">
     <canvas class="corner-canvas" id="corner-14"></canvas>
     <div class="content">
-      <!-- slide 14 content -->
+      <div class="label">Findings</div>
+      <h2 class="heading">A hard <strong>problem</strong></h2>
+      <div class="divider"></div>
+      <svg class="diagram" viewBox="0 0 920 360" preserveAspectRatio="xMidYMid meet">
+        <g font-family="Inter, sans-serif" font-size="11" fill="#555">
+          <text x="40" y="60">FILL: row 1</text>
+          <rect x="200" y="48" width="120" height="14" fill="#0000FF" opacity="0.85"/>
+          <text x="40" y="100">FILL: row 2</text>
+          <rect x="200" y="88" width="240" height="14" fill="#0000FF" opacity="0.85"/>
+          <text x="40" y="140">FILL: row 3</text>
+          <rect x="200" y="128" width="80" height="14" fill="#0000FF" opacity="0.85"/>
+          <text x="40" y="180">FILL: row 4</text>
+          <rect x="200" y="168" width="320" height="14" fill="#0000FF" opacity="0.85"/>
+          <text x="40" y="220">FILL: row 5</text>
+          <rect x="200" y="208" width="180" height="14" fill="#0000FF" opacity="0.85"/>
+        </g>
+        <line x1="200" y1="260" x2="700" y2="260" stroke="rgba(0,0,0,0.2)" stroke-width="1"/>
+        <text x="200" y="280" font-family="SF Mono, monospace" font-size="9" fill="rgba(0,0,255,0.45)" letter-spacing="1">DIFFICULTY -&gt;</text>
+        <text x="380" y="320" font-family="Inter, sans-serif" font-size="11" fill="#0000FF" font-weight="500" text-anchor="middle">^ Current project sits around here</text>
+      </svg>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -929,7 +1007,28 @@
   <div class="slide slide-content" id="slide-17">
     <canvas class="corner-canvas" id="corner-17"></canvas>
     <div class="content">
-      <!-- slide 17 content -->
+      <div class="label">Findings</div>
+      <h2 class="heading">Scaled too <strong>early</strong></h2>
+      <div class="divider"></div>
+      <svg class="diagram" viewBox="0 0 920 280" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <marker id="arrow-blue-4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#0000FF"/>
+          </marker>
+        </defs>
+        <circle cx="160" cy="100" r="44" fill="none" stroke="#0000FF" stroke-width="2"/>
+        <text x="160" y="105" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#0000FF" font-weight="500">0 to 1</text>
+        <text x="160" y="170" text-anchor="middle" font-family="SF Mono, monospace" font-size="9" fill="rgba(0,0,255,0.45)" letter-spacing="1">FOUNDATIONAL</text>
+        <line x1="218" y1="100" x2="386" y2="100" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-4)"/>
+        <circle cx="480" cy="100" r="76" fill="none" stroke="#0000FF" stroke-width="2"/>
+        <text x="480" y="105" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" fill="#0000FF" font-weight="500">1 to 10</text>
+        <text x="480" y="195" text-anchor="middle" font-family="SF Mono, monospace" font-size="9" fill="rgba(0,0,255,0.45)" letter-spacing="1">SCALE</text>
+        <text x="640" y="60" font-family="SF Mono, monospace" font-size="9" font-weight="600" fill="rgba(0,0,255,0.45)" letter-spacing="1.5">WHY THIS MATTERS</text>
+        <line x1="640" y1="74" x2="880" y2="74" stroke="rgba(0,0,0,0.08)" stroke-dasharray="4 4"/>
+        <text x="640" y="100" font-family="Inter, sans-serif" font-size="11" fill="#555">FILL: implication 1</text>
+        <text x="640" y="124" font-family="Inter, sans-serif" font-size="11" fill="#555">FILL: implication 2</text>
+        <text x="640" y="148" font-family="Inter, sans-serif" font-size="11" fill="#555">FILL: implication 3</text>
+      </svg>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1437,7 +1536,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 function resetSlide(el) {
-  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table';
+  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .diagram';
   el.querySelectorAll(selectors).forEach(child => {
     gsap.set(child, { clearProps: 'all' });
     child.style.opacity = '0';
@@ -1571,6 +1670,9 @@ function animateSlideIn(el) {
 
   const scoreTable = el.querySelectorAll('.content .score-table');
   if (scoreTable.length) tl.to(scoreTable, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const diagrams = el.querySelectorAll('.content .diagram');
+  if (diagrams.length) tl.to(diagrams, { opacity: 1, y: 0, duration: 0.7 }, 0.3);
 }
 
 /* ────────────────── Corner canvas prism (content slides) ────────────────── */
