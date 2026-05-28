@@ -234,8 +234,9 @@
 
     <div class="group">
       <h2>Mosaic colors</h2>
-      <div class="row"><label for="mosaicSat">Color saturation</label><span class="val" id="mosaicSat-val">0.00</span></div>
-      <input type="range" id="mosaicSat" min="0" max="1" step="0.01" value="0">
+      <div class="row"><label for="mosaicSat">Use anchor + edge colors</label><span class="val" id="mosaicSat-val">1.00</span></div>
+      <input type="range" id="mosaicSat" min="0" max="1" step="0.01" value="1">
+      <p style="color: var(--muted); font-size: 11px; margin: 4px 0 6px;">1 = blocks use the pickers below. 0 = blocks pick up the photo's tones instead (ignores anchor/edge).</p>
 
       <div class="row" style="margin-top:8px"><label for="mosaicAnchorColor">Anchor color (corner end)</label></div>
       <input type="color" id="mosaicAnchorColor" value="#ffffff">
@@ -314,8 +315,9 @@ const DEFAULTS = {
   duotoneStrength: 0,
   duotoneShadow: '#0943a0',
   duotoneHighlight: '#ffffff',
-  // Two-color mosaic gradient with saturation mixing back to photo-driven
-  mosaicSat: 0,
+  // Two-color mosaic gradient with saturation mixing back to photo-driven.
+  // Default 1 = anchor/edge color pickers fully drive the mosaic.
+  mosaicSat: 1,
   mosaicAnchorColor: '#ffffff',
   mosaicEdgeColor: '#0943a0',
   // Exponent on (1 - mask_alpha). 1 = linear (anchor only at corner).
