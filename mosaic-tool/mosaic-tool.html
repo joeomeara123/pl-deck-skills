@@ -243,6 +243,9 @@
       <div class="row" style="margin-top:8px"><label for="mosaicEdgeColor">Edge color (dissolve end)</label></div>
       <input type="color" id="mosaicEdgeColor" value="#0943a0">
 
+      <div class="row" style="margin-top:14px"><label for="anchorReach">Anchor reach</label><span class="val" id="anchorReach-val">1.80</span></div>
+      <input type="range" id="anchorReach" min="1" max="3.5" step="0.05" value="1.80">
+
       <div class="row" style="margin-top:8px"><label for="lightenK">Frost (lighten K)</label><span class="val" id="lightenK-val">0.55</span></div>
       <input type="range" id="lightenK" min="0" max="1" step="0.01" value="0.55">
 
@@ -315,6 +318,9 @@ const DEFAULTS = {
   mosaicSat: 0,
   mosaicAnchorColor: '#ffffff',
   mosaicEdgeColor: '#0943a0',
+  // Exponent on (1 - mask_alpha). 1 = linear (anchor only at corner).
+  // >1 extends the anchor zone deeper into the mosaic before transitioning.
+  anchorReach: 1.8,
   asciiColor: '#0943a0',
   lightenK: 0.55,
   navyCap: 0.70,
@@ -543,7 +549,11 @@ function render() {
       const blockAlpha = Math.min(1, (maskV - THRESHOLD) / 96);
 
       const alpha = maskV / 255;
-      const gradT = Math.min(state.navyCap, 1 - alpha);
+      // Power curve on (1 - alpha): exponent > 1 keeps gradT smaller for
+      // a wider band of cells, which means the anchor color extends further
+      // before transitioning toward the edge color. At exp = 1 the gradient
+      // is linear (anchor visible only at the corner).
+      const gradT = Math.min(state.navyCap, Math.pow(1 - alpha, state.anchorReach));
 
       const [ar, ag, ab] = averageColor(imageData, cellX, cellY, CELL);
       const k = state.lightenK;
@@ -631,6 +641,7 @@ bindSlider('brushHardness', 'brushHardness', v => v.toFixed(2));
 bindSlider('grain', 'grain', v => v.toFixed(2));
 bindSlider('duotoneStrength', 'duotoneStrength', v => v.toFixed(2));
 bindSlider('mosaicSat', 'mosaicSat', v => v.toFixed(2));
+bindSlider('anchorReach', 'anchorReach', v => v.toFixed(2));
 
 $('duotoneShadow').addEventListener('input', e => {
   state.duotoneShadow = e.target.value;
@@ -835,7 +846,7 @@ preview.addEventListener('drop', e => {
 
 $('reset').addEventListener('click', () => {
   Object.assign(state, DEFAULTS);
-  for (const id of ['radius', 'cellSize', 'threshold', 'grain', 'duotoneStrength', 'mosaicSat', 'lightenK', 'navyCap', 'charAlpha', 'charSize', 'bgStrength', 'brushSize', 'brushHardness']) {
+  for (const id of ['radius', 'cellSize', 'threshold', 'grain', 'duotoneStrength', 'mosaicSat', 'anchorReach', 'lightenK', 'navyCap', 'charAlpha', 'charSize', 'bgStrength', 'brushSize', 'brushHardness']) {
     $(id).value = DEFAULTS[id];
     $(id + '-val').textContent = (id === 'cellSize' || id === 'threshold' || id === 'brushSize')
       ? Math.round(DEFAULTS[id]) : DEFAULTS[id].toFixed(2);
