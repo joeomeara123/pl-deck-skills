@@ -85,6 +85,26 @@
   .corner-grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
   }
+  .preset-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+    margin: 6px 0 2px;
+  }
+  .preset-grid button {
+    height: 32px; padding: 0 8px;
+    color: #fff; font-size: 10.5px; font-weight: 600;
+    letter-spacing: 0.02em;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.65), 0 1px 0 rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.12);
+    background-clip: padding-box;
+    overflow: hidden;
+  }
+  .preset-grid button:hover {
+    border-color: rgba(255, 255, 255, 0.45);
+    transform: translateY(-1px);
+  }
+  #invertGradient {
+    width: 100%; margin-top: 6px; font-size: 11px;
+  }
   button {
     background: transparent; color: var(--text);
     border: 1px solid var(--line); padding: 8px 10px; border-radius: 4px;
@@ -238,7 +258,11 @@
       <input type="range" id="mosaicSat" min="0" max="1" step="0.01" value="1">
       <p style="color: var(--muted); font-size: 11px; margin: 4px 0 6px;">1 = blocks use the pickers below. 0 = blocks pick up the photo's tones instead (ignores anchor/edge).</p>
 
-      <div class="row" style="margin-top:8px"><label for="mosaicAnchorColor">Anchor color (corner / inside)</label></div>
+      <div class="row" style="margin-top:10px"><label>Gradient presets <span style="color:var(--muted);font-weight:400">(from progressionlabs.com)</span></label></div>
+      <div class="preset-grid" id="preset-grid"></div>
+      <button id="invertGradient" title="Swap anchor and edge colors">⇄ Invert anchor ↔ edge</button>
+
+      <div class="row" style="margin-top:14px"><label for="mosaicAnchorColor">Anchor color (corner / inside)</label></div>
       <input type="color" id="mosaicAnchorColor" value="#ffffff">
 
       <div class="row" style="margin-top:8px"><label for="mosaicEdgeColor">Edge color (dissolve / outside)</label></div>
@@ -716,6 +740,46 @@ function bindMosaicColor(id, key) {
 }
 bindMosaicColor('mosaicAnchorColor', 'mosaicAnchorColor');
 bindMosaicColor('mosaicEdgeColor',   'mosaicEdgeColor');
+
+// ─── Gradient presets ───
+// Sourced from progressionlabs.com hero gradients (HeroGradientGL.tsx)
+// plus the brand navy token from experiment.css.
+const PRESETS = [
+  { name: 'Navy → White',        from: '#0943a0', to: '#ffffff' },
+  { name: 'Orchid → Salmon',     from: '#ba55d3', to: '#ffa07a' },
+  { name: 'Blue → Salmon',       from: '#0000ff', to: '#ffa07a' },
+  { name: 'Turquoise → Orchid',  from: '#40e0d0', to: '#ba55d3' },
+  { name: 'Orchid → Turquoise',  from: '#ba55d3', to: '#40e0d0' },
+  { name: 'Ancient Gild',        from: '#b8ab38', to: '#e0d794' },
+  { name: 'Terracotta',          from: '#e2725b', to: '#ffdab9' },
+  { name: 'Retro Future',        from: '#ff00ff', to: '#ffff00' },
+];
+
+function applyGradient(from, to) {
+  state.mosaicAnchorColor = from;
+  state.mosaicEdgeColor = to;
+  $('mosaicAnchorColor').value = from;
+  $('mosaicEdgeColor').value = to;
+  updateGradientPreview();
+  scheduleRender();
+}
+
+(function renderPresetGrid() {
+  const grid = $('preset-grid');
+  if (!grid) return;
+  for (const p of PRESETS) {
+    const btn = document.createElement('button');
+    btn.textContent = p.name;
+    btn.title = `${p.name}: ${p.from} → ${p.to}`;
+    btn.style.background = `linear-gradient(to right, ${p.from}, ${p.to})`;
+    btn.addEventListener('click', () => applyGradient(p.from, p.to));
+    grid.appendChild(btn);
+  }
+})();
+
+$('invertGradient').addEventListener('click', () => {
+  applyGradient(state.mosaicEdgeColor, state.mosaicAnchorColor);
+});
 
 function bindPlainColor(id, key) {
   const handler = e => { state[key] = e.target.value; scheduleRender(); };
