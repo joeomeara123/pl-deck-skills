@@ -556,6 +556,21 @@
   .exec-summary { columns: 2; column-gap: 48px; max-width: 920px; margin-top: 16px; opacity: 0; transform: translateY(8px); }
   .exec-summary p { font-size: 0.88rem; font-weight: 300; line-height: 1.7; color: #555; margin-bottom: 14px; break-inside: avoid; }
 
+  /* ── Slide 29: canvas grid ── */
+  .canvas-grid { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 16px; max-width: 960px; opacity: 0; transform: translateY(8px); }
+  .canvas-cell { padding: 14px 18px; border-right: 1px dashed rgba(0,0,0,0.08); border-bottom: 1px dashed rgba(0,0,0,0.08); min-height: 90px; }
+  .canvas-cell:nth-child(3n) { border-right: none; }
+  .canvas-cell:nth-last-child(-n+3) { border-bottom: none; }
+  .canvas-cell .cell-label { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(0,0,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+  .canvas-cell p { font-size: 0.75rem; font-weight: 300; line-height: 1.5; color: #555; }
+
+  /* ── Slide 30: patterns table ── */
+  .patterns-table { width: 100%; max-width: 960px; margin-top: 16px; border-collapse: collapse; font-size: 0.85rem; opacity: 0; transform: translateY(8px); }
+  .patterns-table thead th { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 12px 16px; text-align: left; border-bottom: 1px dashed rgba(0,0,0,0.12); }
+  .patterns-table thead th:first-child { color: #0000FF; }
+  .patterns-table thead th:last-child { color: #dc2626; }
+  .patterns-table tbody td { padding: 14px 16px; color: #555; font-weight: 300; line-height: 1.6; border-bottom: 1px dashed rgba(0,0,0,0.06); vertical-align: top; width: 50%; }
+
   /* ── Corner canvas (prism accent on content slides) ── */
   .corner-canvas {
     position: absolute; bottom: 0; right: 0;
@@ -571,6 +586,15 @@
     text-transform: uppercase; letter-spacing: 0.15em;
     color: rgba(0,0,0,0.2);
     z-index: 2; pointer-events: none;
+  }
+
+  /* ── Sub-divider slides ── */
+  .sub-divider .content {
+    justify-content: center;
+    flex: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    align-items: flex-start;
   }
 
   /* ── Split-layout section divider slides ── */
@@ -1214,10 +1238,13 @@
   </div>
 
   <!-- Slide 25 -->
-  <div class="slide slide-content" id="slide-25">
+  <div class="slide slide-content sub-divider" id="slide-25">
     <canvas class="corner-canvas" id="corner-25"></canvas>
     <div class="content">
-      <!-- slide 25 content -->
+      <div class="label">Appendix</div>
+      <h2 class="heading"><strong>Strategy</strong></h2>
+      <div class="divider"></div>
+      <p class="body-text">Best practices and things to avoid.</p>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1226,7 +1253,28 @@
   <div class="slide slide-content" id="slide-26">
     <canvas class="corner-canvas" id="corner-26"></canvas>
     <div class="content">
-      <!-- slide 26 content -->
+      <div class="label">Strategy</div>
+      <h2 class="heading">Things that <strong>don't scale</strong></h2>
+      <div class="divider"></div>
+      <svg class="diagram" viewBox="0 0 920 320" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <marker id="arrow-blue-5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#0000FF"/>
+          </marker>
+        </defs>
+        <g font-family="Inter, sans-serif" font-size="12" fill="#1a1a1a" font-weight="400" text-anchor="middle">
+          <circle cx="140" cy="120" r="48" fill="none" stroke="#0000FF" stroke-width="1.5"/>
+          <text x="140" y="125">Build a product</text>
+          <circle cx="380" cy="120" r="48" fill="none" stroke="#0000FF" stroke-width="1.5"/>
+          <text x="380" y="125">Get feedback</text>
+          <circle cx="620" cy="120" r="48" fill="none" stroke="#0000FF" stroke-width="1.5"/>
+          <text x="620" y="125">Sell the product</text>
+        </g>
+        <line x1="190" y1="120" x2="330" y2="120" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-5)"/>
+        <line x1="430" y1="120" x2="570" y2="120" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-5)"/>
+        <path d="M 620 168 Q 620 240, 380 240 Q 140 240, 140 168" fill="none" stroke="#0000FF" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arrow-blue-5)"/>
+        <text x="380" y="270" text-anchor="middle" font-family="SF Mono, monospace" font-size="9" fill="rgba(0,0,255,0.45)" letter-spacing="1.5">REPEAT</text>
+      </svg>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1235,7 +1283,19 @@
   <div class="slide slide-content" id="slide-27">
     <canvas class="corner-canvas" id="corner-27"></canvas>
     <div class="content">
-      <!-- slide 27 content -->
+      <div class="label">Strategy</div>
+      <h2 class="heading">Run into the <strong>spike</strong></h2>
+      <div class="divider"></div>
+      <div class="two-col-body">
+        <div class="col">
+          <h3 class="col-title">By definition</h3>
+          <p><!-- FILL: explanation of running into the spike --></p>
+        </div>
+        <div class="col">
+          <h3 class="col-title">In practice</h3>
+          <p><!-- FILL: how to apply this in team process --></p>
+        </div>
+      </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1244,7 +1304,30 @@
   <div class="slide slide-content" id="slide-28">
     <canvas class="corner-canvas" id="corner-28"></canvas>
     <div class="content">
-      <!-- slide 28 content -->
+      <div class="label">Strategy</div>
+      <h2 class="heading">Pre-agreed <strong>stop-loss</strong></h2>
+      <div class="divider"></div>
+      <svg class="diagram" viewBox="0 0 920 320" preserveAspectRatio="xMidYMid meet">
+        <g font-family="Inter, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">
+          <circle cx="120" cy="100" r="38" fill="none" stroke="#0000FF" stroke-width="1.5"/>
+          <text x="120" y="105">FILL: step 1</text>
+          <circle cx="280" cy="100" r="38" fill="none" stroke="#0000FF" stroke-width="1.5"/>
+          <text x="280" y="105">FILL: step 2</text>
+          <circle cx="440" cy="100" r="38" fill="none" stroke="#0000FF" stroke-width="1.5"/>
+          <text x="440" y="105">FILL: step 3</text>
+          <circle cx="600" cy="100" r="38" fill="none" stroke="#0000FF" stroke-width="1.5"/>
+          <text x="600" y="105">FILL: step 4</text>
+          <circle cx="760" cy="100" r="38" fill="none" stroke="#0000FF" stroke-width="1.5"/>
+          <text x="760" y="105">FILL: step 5</text>
+        </g>
+        <line x1="158" y1="100" x2="242" y2="100" stroke="#0000FF" stroke-width="1.5"/>
+        <line x1="318" y1="100" x2="402" y2="100" stroke="#0000FF" stroke-width="1.5"/>
+        <line x1="478" y1="100" x2="562" y2="100" stroke="#0000FF" stroke-width="1.5"/>
+        <line x1="638" y1="100" x2="722" y2="100" stroke="#0000FF" stroke-width="1.5"/>
+        <text x="40" y="220" font-family="SF Mono, monospace" font-size="9" font-weight="600" fill="rgba(0,0,255,0.45)" letter-spacing="1.5">ANALOGY: TRADING STOP-LOSS</text>
+        <line x1="40" y1="234" x2="880" y2="234" stroke="rgba(0,0,0,0.08)" stroke-dasharray="4 4"/>
+        <text x="40" y="260" font-family="Inter, sans-serif" font-size="11" fill="#555">FILL: analogy line</text>
+      </svg>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1253,7 +1336,20 @@
   <div class="slide slide-content" id="slide-29">
     <canvas class="corner-canvas" id="corner-29"></canvas>
     <div class="content">
-      <!-- slide 29 content -->
+      <div class="label">Strategy</div>
+      <h2 class="heading">AI business model <strong>canvas</strong></h2>
+      <div class="divider"></div>
+      <div class="canvas-grid">
+        <div class="canvas-cell"><div class="cell-label">Key partners</div><p><!-- FILL --></p></div>
+        <div class="canvas-cell"><div class="cell-label">Inputs</div><p><!-- FILL --></p></div>
+        <div class="canvas-cell"><div class="cell-label">Value proposition</div><p><!-- FILL --></p></div>
+        <div class="canvas-cell"><div class="cell-label">Skills</div><p><!-- FILL --></p></div>
+        <div class="canvas-cell"><div class="cell-label">Users and buyers</div><p><!-- FILL --></p></div>
+        <div class="canvas-cell"><div class="cell-label">Resource considerations</div><p><!-- FILL --></p></div>
+        <div class="canvas-cell"><div class="cell-label">Cost structure</div><p><!-- FILL --></p></div>
+        <div class="canvas-cell"><div class="cell-label">Revenue model</div><p><!-- FILL --></p></div>
+        <div class="canvas-cell"><div class="cell-label">Risk profile</div><p><!-- FILL --></p></div>
+      </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1262,7 +1358,20 @@
   <div class="slide slide-content" id="slide-30">
     <canvas class="corner-canvas" id="corner-30"></canvas>
     <div class="content">
-      <!-- slide 30 content -->
+      <div class="label">Strategy</div>
+      <h2 class="heading"><strong>Best practices</strong> and anti-patterns</h2>
+      <div class="divider"></div>
+      <table class="patterns-table">
+        <thead>
+          <tr><th>Best practice</th><th>Anti-pattern</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><!-- FILL --></td><td><!-- FILL --></td></tr>
+          <tr><td><!-- FILL --></td><td><!-- FILL --></td></tr>
+          <tr><td><!-- FILL --></td><td><!-- FILL --></td></tr>
+          <tr><td><!-- FILL --></td><td><!-- FILL --></td></tr>
+        </tbody>
+      </table>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1626,7 +1735,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 function resetSlide(el) {
-  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary';
+  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary, .canvas-grid, .patterns-table';
   el.querySelectorAll(selectors).forEach(child => {
     gsap.set(child, { clearProps: 'all' });
     child.style.opacity = '0';
@@ -1775,6 +1884,12 @@ function animateSlideIn(el) {
 
   const execSummary = el.querySelectorAll('.content .exec-summary');
   if (execSummary.length) tl.to(execSummary, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const canvasGrid = el.querySelectorAll('.content .canvas-grid');
+  if (canvasGrid.length) tl.to(canvasGrid, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const patternsTable = el.querySelectorAll('.content .patterns-table');
+  if (patternsTable.length) tl.to(patternsTable, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
 }
 
 /* ────────────────── Corner canvas prism (content slides) ────────────────── */
