@@ -238,11 +238,14 @@
       <input type="range" id="mosaicSat" min="0" max="1" step="0.01" value="1">
       <p style="color: var(--muted); font-size: 11px; margin: 4px 0 6px;">1 = blocks use the pickers below. 0 = blocks pick up the photo's tones instead (ignores anchor/edge).</p>
 
-      <div class="row" style="margin-top:8px"><label for="mosaicAnchorColor">Anchor color (corner end)</label></div>
+      <div class="row" style="margin-top:8px"><label for="mosaicAnchorColor">Anchor color (corner / inside)</label></div>
       <input type="color" id="mosaicAnchorColor" value="#ffffff">
 
-      <div class="row" style="margin-top:8px"><label for="mosaicEdgeColor">Edge color (dissolve end)</label></div>
+      <div class="row" style="margin-top:8px"><label for="mosaicEdgeColor">Edge color (dissolve / outside)</label></div>
       <input type="color" id="mosaicEdgeColor" value="#0943a0">
+
+      <div id="gradient-preview" title="Live preview: this is what the mosaic blocks will run through (anchor on the left → edge on the right)" style="height: 24px; border-radius: 4px; border: 1px solid var(--line); margin: 10px 0 4px; background: linear-gradient(to right, #ffffff, #0943a0);"></div>
+      <p style="color: var(--muted); font-size: 11px; margin: 0;">↑ live preview of the anchor → edge gradient</p>
 
       <div class="row" style="margin-top:14px"><label for="anchorReach">Anchor reach</label><span class="val" id="anchorReach-val">1.80</span></div>
       <input type="range" id="anchorReach" min="1" max="3.5" step="0.05" value="1.80">
@@ -655,15 +658,24 @@ $('duotoneHighlight').addEventListener('input', e => {
   scheduleRender();
 });
 
-$('mosaicAnchorColor').addEventListener('input', e => {
-  state.mosaicAnchorColor = e.target.value;
-  scheduleRender();
-});
+function updateGradientPreview() {
+  const el = $('gradient-preview');
+  if (el) el.style.background = `linear-gradient(to right, ${state.mosaicAnchorColor}, ${state.mosaicEdgeColor})`;
+}
 
-$('mosaicEdgeColor').addEventListener('input', e => {
-  state.mosaicEdgeColor = e.target.value;
-  scheduleRender();
-});
+// Listen to both `input` (drag) and `change` (confirm) — some browser
+// configurations only fire one of them for color pickers.
+function bindMosaicColor(id, key) {
+  const handler = e => {
+    state[key] = e.target.value;
+    updateGradientPreview();
+    scheduleRender();
+  };
+  $(id).addEventListener('input', handler);
+  $(id).addEventListener('change', handler);
+}
+bindMosaicColor('mosaicAnchorColor', 'mosaicAnchorColor');
+bindMosaicColor('mosaicEdgeColor',   'mosaicEdgeColor');
 
 $('asciiColor').addEventListener('input', e => {
   state.asciiColor = e.target.value;
@@ -857,6 +869,7 @@ $('reset').addEventListener('click', () => {
   $('duotoneHighlight').value = DEFAULTS.duotoneHighlight;
   $('mosaicAnchorColor').value = DEFAULTS.mosaicAnchorColor;
   $('mosaicEdgeColor').value = DEFAULTS.mosaicEdgeColor;
+  updateGradientPreview();
   $('asciiColor').value = DEFAULTS.asciiColor;
   $('bgDir').value = DEFAULTS.bgDir;
   $('maskMode').value = DEFAULTS.maskMode;
