@@ -100,10 +100,11 @@ These are hard minimums for all body prose in deck content. If a slide cannot fi
 
 | Property | Minimum |
 |---|---|
-| Body prose font-size | `0.92rem` (~14.7px) |
-| Body prose line-height | `1.6` |
+| Body prose font-size | `1rem` (16px) |
+| Body prose line-height | `1.65` |
 | Box internal padding | `22px` vertical, `28px` horizontal |
 | Max prose line length | `70ch` (~640px at body size) |
+| Table cell prose (exception) | `0.92rem` allowed inside multi-column tables (3+ cols) where 1rem would overflow |
 
 **Acceptable exceptions** (small text is allowed only for these uses):
 - Uppercase mono **labels** (`.label`, `.box-label`, `.cell-label`, column headers): 9px is fine because they are metadata, not prose

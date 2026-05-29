@@ -81,8 +81,9 @@ Load from Google Fonts: `Inter:wght@300;400;500;600;700`
 |---------|------|--------|-------|
 | Section heading | clamp(1.4rem, 2.8vw, 2.2rem) | 300 | Light, clean. line-height 1.2, letter-spacing -0.01em |
 | Card title | 13px | 600 | |
-| **Body prose (floor)** | **0.92rem (~14.7px)** | 300 | line-height ≥ 1.6, max line length ≤ 70ch. **Hard minimum** — do not shrink below this. |
-| Body emphasis / executive copy | 1rem | 400 | line-height 1.7 — use for executive-summary slides where the prose is the main content |
+| **Body prose (floor)** | **1rem (16px)** | 300 | line-height ≥ 1.65, max line length ≤ 70ch. **Hard minimum** — do not shrink below this. |
+| Body emphasis / executive copy | 1.05rem | 400 | line-height 1.7 — use for executive-summary slides where the prose is the main content |
+| Table cell prose (exception) | 0.92rem (~14.7px) | 300 | Only inside multi-column tables (3+ cols) where 1rem would overflow |
 | Labels | 9px | 600 | UPPERCASE, letter-spacing 0.12em, monospace. Exempt from the prose floor (labels are tokens, not prose). |
 | CTA text | 9px | 600 | UPPERCASE, letter-spacing 0.1em |
 
@@ -93,7 +94,20 @@ Load from Google Fonts: `Inter:wght@300;400;500;600;700`
 - **No em dashes.** They read as AI-generated. Use periods, semicolons, or restructure. If a parenthetical aside is needed, use actual parentheses or a comma pair.
 - Headings under 10 words.
 - Body text must be specific, not generic filler.
-- **If a slide does not fit comfortably with 0.92rem prose, trim content, not size.** Shrinking type below the floor is a brand violation. Cut bullets, simplify rows, or split across slides.
+- **If a slide does not fit comfortably with 1rem prose, trim content, not size.** Shrinking type below the floor is a brand violation. Cut bullets, simplify rows, or split across slides.
+
+## Slide Numbering
+
+Every content slide shows a small `NN / TT` indicator (current slide / total content slides) so it can be referenced quickly during a walkthrough.
+
+| Property | Value |
+|---|---|
+| Position | Top-right, 32px from top, 36px from right (standard slides). For split-layout dividers, top-left of the text half, 32px / 64px. |
+| Font | SF Mono, 10px, weight 600, letter-spacing 0.12em, uppercase |
+| Colour | `rgba(0,0,255,0.45)` (brand blue at 45% opacity, matching the section label) |
+| Format | Zero-padded: `01 / 39`, `04 / 39`, `39 / 39`. Hero (slide 0) does NOT show a number. |
+| Injection | Inject via a single JS function on page load; do not hand-add markup. |
+| Animation | Fade in at offset 0.05 of the slide-in timeline (just behind the label). |
 
 ## Logo
 
