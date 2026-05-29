@@ -80,18 +80,20 @@ Load from Google Fonts: `Inter:wght@300;400;500;600;700`
 | Element | Size | Weight | Notes |
 |---------|------|--------|-------|
 | Section heading | clamp(1.4rem, 2.8vw, 2.2rem) | 300 | Light, clean. line-height 1.2, letter-spacing -0.01em |
-| Card title | 12.5px | 600 | |
-| Body / subtitle | 0.88rem | 300 | line-height 1.7, max-width 520px, color #94a3b8 |
-| Labels | 9px | 600 | UPPERCASE, letter-spacing 0.12em, monospace |
+| Card title | 13px | 600 | |
+| **Body prose (floor)** | **0.92rem (~14.7px)** | 300 | line-height ≥ 1.6, max line length ≤ 70ch. **Hard minimum** — do not shrink below this. |
+| Body emphasis / executive copy | 1rem | 400 | line-height 1.7 — use for executive-summary slides where the prose is the main content |
+| Labels | 9px | 600 | UPPERCASE, letter-spacing 0.12em, monospace. Exempt from the prose floor (labels are tokens, not prose). |
 | CTA text | 9px | 600 | UPPERCASE, letter-spacing 0.1em |
 
-**Rules:** Headings use Inter weight 300 for clean minimalism. Keywords within headings use weight 600 + brand blue. Body text weight 300 in muted slate (#94a3b8). All labels/CTAs UPPERCASE with wide tracking. Section labels in blue at 35% opacity, monospace. Less is more. Keep everything compact and small; each slide should feel like it has generous room to breathe. Content max-width 960px.
+**Rules:** Headings use Inter weight 300 for clean minimalism. Keywords within headings use weight 600 + brand blue. Body text weight 300 in dark slate (#1a1a1a or #555). All labels/CTAs UPPERCASE with wide tracking. Section labels in blue at 35% opacity, monospace. Less is more. Generous room to breathe. Content max-width 960px.
 
 ## Copy Rules
 
 - **No em dashes.** They read as AI-generated. Use periods, semicolons, or restructure. If a parenthetical aside is needed, use actual parentheses or a comma pair.
 - Headings under 10 words.
 - Body text must be specific, not generic filler.
+- **If a slide does not fit comfortably with 0.92rem prose, trim content, not size.** Shrinking type below the floor is a brand violation. Cut bullets, simplify rows, or split across slides.
 
 ## Logo
 

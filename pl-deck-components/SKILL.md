@@ -90,9 +90,33 @@ Do not use boxes everywhere. Default is still open cards with dashed dividers. A
 - Border-radius range: 8–12px. Sharper than that reads as a hard rectangle; softer reads as a button.
 - Backgrounds always at very low opacity (4% tint) so the box reads as a quiet surface, not a coloured block.
 - Borders 1px solid at 20–25% opacity. Heavier borders compete with the content.
-- Padding 18–24px inside. Less feels cramped.
+- Padding minimum 22px vertical, 28px horizontal. Less feels cramped.
 - Never combine `.box-good` and `.box-bad` styles on the same element. Pick one.
 - Do not stack a box inside a box. If you need nested grouping, the outer container should be a `.box-neutral` and the inner should be unframed text.
+
+## Minimum Legibility Floor
+
+These are hard minimums for all body prose in deck content. If a slide cannot fit comfortably with these values, **trim content, not text size**. Shrinking type below the floor is a brand violation, not a workaround.
+
+| Property | Minimum |
+|---|---|
+| Body prose font-size | `0.92rem` (~14.7px) |
+| Body prose line-height | `1.6` |
+| Box internal padding | `22px` vertical, `28px` horizontal |
+| Max prose line length | `70ch` (~640px at body size) |
+
+**Acceptable exceptions** (small text is allowed only for these uses):
+- Uppercase mono **labels** (`.label`, `.box-label`, `.cell-label`, column headers): 9px is fine because they are metadata, not prose
+- Pill **tags** (`.tag-good`, `.tag-bad`): 9px because they are tokens, not prose
+- Slide-footer wordmark (`PROGRESSION LABS`): 9px
+
+**Never shrink:**
+- Body paragraphs (`<p>`)
+- List items inside boxes (`<li>`)
+- Table cell content
+- Diagram annotation text (use the 9-11px range from the SVG section instead)
+
+If a slide overflows with 0.92rem prose, cut content. Common trims: shorter bullet phrases, drop redundant sub-bullets, move detail to a follow-up slide, or simplify a row into a single sentence + a colored badge.
 
 ## SVG Diagrams
 
