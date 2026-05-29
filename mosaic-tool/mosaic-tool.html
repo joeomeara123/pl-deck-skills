@@ -198,6 +198,7 @@
       <select id="maskMode">
         <option value="corner" selected>Radial — from corner</option>
         <option value="brush">Custom brush (paint on canvas)</option>
+        <option value="whole">Whole image (rely on Subject isolation)</option>
       </select>
     </div>
 
@@ -573,6 +574,13 @@ function render() {
     ensureBrushCanvas(width, height);
     const bd = brushCtx.getImageData(0, 0, brushCanvas.width, brushCanvas.height);
     mask = { data: bd.data, width: brushCanvas.width, height: brushCanvas.height };
+  } else if (state.maskMode === 'whole') {
+    // Uniform "everything passes" mask — the Subject isolation filter
+    // becomes the only gate. Tiny 2x2 buffer is enough because the
+    // per-cell mask-sample lookup clamps to (maskWidth - 1).
+    const buf = new Uint8ClampedArray(2 * 2 * 4);
+    for (let i = 0; i < buf.length; i++) buf[i] = 255;
+    mask = { data: buf, width: 2, height: 2 };
   } else {
     mask = buildCornerMask(width, height, state.corner, state.radius);
   }
