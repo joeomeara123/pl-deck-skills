@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>British Board of Film Classification - A draft report</title>
+<title>British Board of Film Classification - AI audit report</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <style>
@@ -53,6 +53,15 @@
     text-transform: uppercase; letter-spacing: 0.2em;
     color: rgba(255,255,255,0.6);
     margin-top: 24px;
+    opacity: 0;
+  }
+  .hero-byline {
+    position: absolute; bottom: 32px; left: 48px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 9px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.35);
+    z-index: 3;
     opacity: 0;
   }
 
@@ -709,8 +718,9 @@
     <div class="hero-content">
       <img src="logo-white.png" class="hero-logo" alt="Progression Labs">
       <h1 class="hero-title">British Board of Film Classification</h1>
-      <p class="hero-subtitle">AI audit report &nbsp;&middot;&nbsp; Palindrom 2026</p>
+      <p class="hero-subtitle">AI audit report</p>
     </div>
+    <p class="hero-byline">Palindrom 2026</p>
   </div>
 
   <!-- ─────────────── SLIDES 1-39: PLACEHOLDERS ─────────────── -->
@@ -1995,6 +2005,9 @@ function animateSlideIn(el) {
 
   const heroSubtitle = el.querySelectorAll('.hero-content .hero-subtitle');
   if (heroSubtitle.length) tl.to(heroSubtitle, { opacity: 1, duration: 0.5 }, 0.6);
+
+  const heroByline = el.querySelectorAll('.hero-byline');
+  if (heroByline.length) tl.to(heroByline, { opacity: 1, duration: 0.5 }, 0.8);
 
   const agendaItems = el.querySelectorAll('.content .agenda-list li');
   if (agendaItems.length) tl.to(agendaItems, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 }, 0.5);
