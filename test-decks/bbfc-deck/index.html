@@ -1053,42 +1053,60 @@
       <svg class="diagram" viewBox="0 0 920 330" preserveAspectRatio="xMidYMid meet">
         <defs>
           <marker id="arrow-blue-11" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#0000FF"/>
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"/>
           </marker>
         </defs>
+
+        <!-- "Lack of alignment" left-side vertical brace + label -->
+        <line x1="8" y1="28" x2="8" y2="302" stroke="#dc2626" stroke-width="2"/>
+        <line x1="8" y1="28" x2="18" y2="28" stroke="#dc2626" stroke-width="1.5"/>
+        <line x1="8" y1="302" x2="18" y2="302" stroke="#dc2626" stroke-width="1.5"/>
+        <text x="-165" y="10" font-family="SF Mono, monospace" font-size="8" font-weight="700" fill="#dc2626" letter-spacing="1" transform="rotate(-90) translate(-30,0)" text-anchor="middle">LACK OF ALIGNMENT</text>
+
         <!-- Lane labels left column -->
-        <g font-family="SF Mono, monospace" font-size="8.5" font-weight="600" fill="rgba(0,0,255,0.5)" letter-spacing="1.2">
-          <text x="14" y="56">BOARD /</text>
-          <text x="14" y="68">LEADERSHIP /</text>
-          <text x="14" y="80">COMMERCIAL</text>
-          <text x="14" y="150">PRODUCT,</text>
-          <text x="14" y="162">COMMERCIAL</text>
-          <text x="14" y="174">&amp; TECHNOLOGY</text>
-          <text x="14" y="248">AI / ML</text>
-          <text x="14" y="260">ENGINEERING</text>
+        <g font-family="SF Mono, monospace" font-size="8" font-weight="600" fill="rgba(0,0,255,0.5)" letter-spacing="1.1">
+          <text x="24" y="52">BOARD /</text>
+          <text x="24" y="63">LEADERSHIP /</text>
+          <text x="24" y="74">COMMERCIAL</text>
+          <text x="24" y="148">PRODUCT</text>
+          <text x="24" y="220">TECHNOLOGY</text>
+          <text x="24" y="290">AI / ML</text>
         </g>
+
         <!-- Lane dividers -->
-        <line x1="130" y1="20" x2="910" y2="20" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
-        <line x1="130" y1="115" x2="910" y2="115" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
-        <line x1="130" y1="210" x2="910" y2="210" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
-        <line x1="130" y1="305" x2="910" y2="305" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
-        <!-- Box 1: top-left - difficulty callout -->
-        <rect x="140" y="28" width="300" height="78" rx="3" fill="none" stroke="#0000FF" stroke-width="1.5"/>
-        <text x="155" y="47" font-family="Inter, sans-serif" font-size="10.5" fill="#0000FF" font-weight="600">Fully automated decision making in a</text>
-        <text x="155" y="62" font-family="Inter, sans-serif" font-size="10.5" fill="#0000FF" font-weight="600">highly regulated and dynamic field is</text>
-        <text x="155" y="77" font-family="Inter, sans-serif" font-size="10.5" fill="#0000FF" font-weight="600">extremely difficult.</text>
-        <!-- Box 2: top-right - BBFC reputation callout -->
-        <rect x="480" y="28" width="420" height="78" rx="3" fill="none" stroke="#0000FF" stroke-width="1.5"/>
-        <text x="495" y="47" font-family="Inter, sans-serif" font-size="10.5" fill="#0000FF" font-weight="600">BBFC's history comes with incredible advantages</text>
-        <text x="495" y="62" font-family="Inter, sans-serif" font-size="10.5" fill="#0000FF">but managing reputation is especially complex</text>
-        <text x="495" y="77" font-family="Inter, sans-serif" font-size="10.5" fill="#0000FF">when it comes to AI reporting.</text>
+        <line x1="120" y1="20" x2="910" y2="20" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
+        <line x1="120" y1="100" x2="910" y2="100" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
+        <line x1="120" y1="180" x2="910" y2="180" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
+        <line x1="120" y1="260" x2="910" y2="260" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
+        <line x1="120" y1="302" x2="910" y2="302" stroke="rgba(0,0,255,0.08)" stroke-width="1"/>
+
+        <!-- Primary dominant box: misalignment callout (Board lane, spans full width) -->
+        <rect x="130" y="26" width="260" height="64" rx="0" fill="none" stroke="#dc2626" stroke-width="2"/>
+        <text x="145" y="45" font-family="Inter, sans-serif" font-size="10" fill="#dc2626" font-weight="700">There is a misalignment</text>
+        <text x="145" y="59" font-family="Inter, sans-serif" font-size="10" fill="#dc2626" font-weight="700">across the stack.</text>
+
+        <!-- Box 2: difficulty callout -->
+        <rect x="410" y="26" width="240" height="64" rx="0" fill="none" stroke="#0000FF" stroke-width="1.5"/>
+        <text x="422" y="44" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF" font-weight="600">Fully automated decision making</text>
+        <text x="422" y="57" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF" font-weight="600">in a highly regulated field is</text>
+        <text x="422" y="70" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF" font-weight="600">extremely difficult.</text>
+
+        <!-- Box 3: BBFC reputation callout -->
+        <rect x="668" y="26" width="234" height="64" rx="0" fill="none" stroke="#0000FF" stroke-width="1.5"/>
+        <text x="680" y="44" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF" font-weight="600">BBFC's history creates</text>
+        <text x="680" y="57" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF">advantages but also makes</text>
+        <text x="680" y="70" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF">AI reporting more complex.</text>
+
         <!-- Middle lane: inter-dependency note -->
-        <text x="140" y="140" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a">Product, commercial, compliance and technology were all in motion at the same time --</text>
-        <text x="140" y="156" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a">if one of these altered, the others were impacted.</text>
-        <!-- Bottom lane: AI difficulty note -->
-        <text x="140" y="240" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a">Moving fast while trying to avoid reputational harm</text>
-        <text x="140" y="256" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a">is difficult and comes with perfectly natural tensions.</text>
-        <text x="140" y="280" font-family="Inter, sans-serif" font-size="10" fill="#dc2626" font-style="italic">There is no shortcut for a 100% working AI.</text>
+        <text x="130" y="128" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a">Product, commercial, compliance and technology were all in motion at the same time --</text>
+        <text x="130" y="144" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a">if one of these altered, the others were impacted.</text>
+
+        <!-- Technology lane: note -->
+        <text x="130" y="205" font-family="Inter, sans-serif" font-size="10.5" fill="#555">The entire technical stack is interdependent on product and commercial decisions.</text>
+
+        <!-- AI/ML lane: note + italic finding -->
+        <text x="130" y="284" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a">Moving fast while trying to avoid reputational harm is difficult</text>
+        <text x="130" y="298" font-family="Inter, sans-serif" font-size="10" fill="#dc2626" font-style="italic">-- and comes with perfectly natural tensions.</text>
       </svg>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
@@ -1101,49 +1119,95 @@
       <div class="label">Findings</div>
       <h2 class="heading">Leadership expectations are misaligned, preventing <strong>coherent execution</strong></h2>
       <div class="divider"></div>
-      <svg class="diagram" viewBox="0 0 920 310" preserveAspectRatio="xMidYMid meet">
+      <svg class="diagram" viewBox="0 0 920 340" preserveAspectRatio="xMidYMid meet">
         <defs>
           <marker id="arrow-blue-2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
             <path d="M 0 0 L 10 5 L 0 10 z" fill="#0000FF"/>
           </marker>
+          <marker id="arrow-red-12" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"/>
+          </marker>
         </defs>
+
+        <!-- "Lack of alignment" left-side vertical brace -->
+        <line x1="8" y1="22" x2="8" y2="255" stroke="#dc2626" stroke-width="2"/>
+        <line x1="8" y1="22" x2="18" y2="22" stroke="#dc2626" stroke-width="1.5"/>
+        <line x1="8" y1="255" x2="18" y2="255" stroke="#dc2626" stroke-width="1.5"/>
+        <text x="-138" y="10" font-family="SF Mono, monospace" font-size="8" font-weight="700" fill="#dc2626" letter-spacing="1" transform="rotate(-90)" text-anchor="middle">LACK OF ALIGNMENT</text>
+
         <!-- Lane labels left column -->
-        <g font-family="SF Mono, monospace" font-size="8.5" font-weight="600" fill="rgba(0,0,255,0.5)" letter-spacing="1.1">
-          <text x="14" y="52">BOARD /</text>
-          <text x="14" y="64">LEADERSHIP /</text>
-          <text x="14" y="76">COMMERCIAL</text>
-          <text x="14" y="148">PRODUCT</text>
-          <text x="14" y="224">TECHNOLOGY</text>
-          <text x="14" y="294">AI / ML</text>
+        <g font-family="SF Mono, monospace" font-size="8" font-weight="600" fill="rgba(0,0,255,0.5)" letter-spacing="1.1">
+          <text x="24" y="48">BOARD /</text>
+          <text x="24" y="59">LEADERSHIP /</text>
+          <text x="24" y="70">COMMERCIAL</text>
+          <text x="24" y="142">PRODUCT</text>
+          <text x="24" y="218">TECHNOLOGY</text>
+          <text x="24" y="290">AI / ML</text>
         </g>
+
         <!-- Lane dividers -->
-        <line x1="130" y1="20" x2="910" y2="20" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
-        <line x1="130" y1="100" x2="910" y2="100" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
-        <line x1="130" y1="180" x2="910" y2="180" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
-        <line x1="130" y1="260" x2="910" y2="260" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
-        <!-- Board lane: quote -->
-        <text x="145" y="48" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a">"We need 95% accuracy."</text>
-        <!-- Annotation callout: marketing/sales vs internal -->
-        <rect x="480" y="25" width="420" height="68" rx="3" fill="rgba(0,0,255,0.04)" stroke="rgba(0,0,255,0.2)" stroke-width="1"/>
-        <text x="492" y="43" font-family="Inter, sans-serif" font-size="10" fill="#555">It might work for marketing / sales to make</text>
-        <text x="492" y="57" font-family="Inter, sans-serif" font-size="10" fill="#555">communications easier, but it's very dangerous</text>
-        <text x="492" y="71" font-family="Inter, sans-serif" font-size="10" fill="#555">to use it for internal alignment.</text>
+        <line x1="120" y1="20" x2="910" y2="20" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
+        <line x1="120" y1="100" x2="910" y2="100" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
+        <line x1="120" y1="180" x2="910" y2="180" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
+        <line x1="120" y1="260" x2="910" y2="260" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
+
+        <!-- Board lane: quote (prominent) -->
+        <text x="130" y="46" font-family="Inter, sans-serif" font-size="12" fill="#1a1a1a" font-weight="500">"We need 95% accuracy."</text>
+        <!-- Annotation callout: marketing/sales vs internal (right side, blue) -->
+        <rect x="490" y="24" width="410" height="66" rx="0" fill="rgba(0,0,255,0.04)" stroke="#0000FF" stroke-width="1.2"/>
+        <text x="502" y="42" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF">It might work for marketing / sales to make</text>
+        <text x="502" y="56" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF">communications easier, but it's very dangerous</text>
+        <text x="502" y="70" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF">to use it for internal alignment.</text>
         <!-- Arrow pointing left from callout to quote -->
-        <line x1="478" y1="59" x2="380" y2="59" stroke="#0000FF" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow-blue-2)" opacity="0.5"/>
+        <line x1="488" y1="57" x2="376" y2="57" stroke="#0000FF" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrow-blue-2)" opacity="0.7"/>
+
         <!-- Product lane: "this does not exist today" -->
-        <text x="145" y="142" font-family="Inter, sans-serif" font-size="11" fill="#dc2626" font-style="italic">Product (this does not exist today)</text>
-        <!-- Lack of alignment callout box -->
-        <rect x="480" y="118" width="200" height="50" rx="3" fill="rgba(220,38,38,0.06)" stroke="rgba(220,38,38,0.3)" stroke-width="1.5"/>
-        <text x="580" y="138" font-family="SF Mono, monospace" font-size="8.5" font-weight="700" fill="#dc2626" letter-spacing="1" text-anchor="middle">LACK OF</text>
-        <text x="580" y="153" font-family="SF Mono, monospace" font-size="8.5" font-weight="700" fill="#dc2626" letter-spacing="1" text-anchor="middle">ALIGNMENT</text>
+        <text x="130" y="138" font-family="Inter, sans-serif" font-size="11" fill="#dc2626" font-weight="500">Product</text>
+        <text x="200" y="138" font-family="Inter, sans-serif" font-size="11" fill="#dc2626" font-style="italic">(this does not exist today)</text>
+
         <!-- Technology lane -->
-        <text x="145" y="218" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a">Technology</text>
-        <!-- AI/ML lane: multi-label classification circle -->
-        <text x="145" y="288" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a">AI / ML</text>
-        <line x1="265" y1="285" x2="700" y2="285" stroke="#0000FF" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow-blue-2)" opacity="0.4"/>
-        <text x="590" y="272" font-family="SF Mono, monospace" font-size="8" font-weight="600" fill="rgba(0,0,255,0.45)" letter-spacing="1">MULTI-LABEL CLASSIFICATION</text>
-        <circle cx="790" cy="285" r="28" fill="none" stroke="#0000FF" stroke-width="1.5"/>
-        <text x="790" y="290" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#0000FF" font-weight="600">AI</text>
+        <text x="130" y="218" font-family="Inter, sans-serif" font-size="11" fill="#555">Technology</text>
+
+        <!-- AI/ML lane: multi-label classification pipeline -->
+        <!-- Label -->
+        <text x="130" y="284" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a">AI / ML</text>
+        <!-- Section label above pipeline -->
+        <text x="310" y="272" font-family="SF Mono, monospace" font-size="7.5" font-weight="600" fill="rgba(0,0,255,0.45)" letter-spacing="1" text-anchor="middle">MULTI-LABEL CLASSIFICATION</text>
+        <!-- Film-frame placeholder rect -->
+        <rect x="195" y="278" width="68" height="48" rx="0" fill="none" stroke="rgba(0,0,0,0.25)" stroke-width="1.2"/>
+        <!-- Film notches top -->
+        <rect x="199" y="275" width="8" height="5" rx="0" fill="rgba(0,0,0,0.2)"/>
+        <rect x="213" y="275" width="8" height="5" rx="0" fill="rgba(0,0,0,0.2)"/>
+        <rect x="227" y="275" width="8" height="5" rx="0" fill="rgba(0,0,0,0.2)"/>
+        <rect x="241" y="275" width="8" height="5" rx="0" fill="rgba(0,0,0,0.2)"/>
+        <rect x="255" y="275" width="8" height="5" rx="0" fill="rgba(0,0,0,0.2)"/>
+        <!-- Film notches bottom -->
+        <rect x="199" y="325" width="8" height="5" rx="0" fill="rgba(0,0,0,0.2)"/>
+        <rect x="213" y="325" width="8" height="5" rx="0" fill="rgba(0,0,0,0.2)"/>
+        <rect x="227" y="325" width="8" height="5" rx="0" fill="rgba(0,0,0,0.2)"/>
+        <rect x="241" y="325" width="8" height="5" rx="0" fill="rgba(0,0,0,0.2)"/>
+        <rect x="255" y="325" width="8" height="5" rx="0" fill="rgba(0,0,0,0.2)"/>
+        <!-- Arrow: film -> AI circle -->
+        <line x1="265" y1="302" x2="322" y2="302" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-2)"/>
+        <!-- AI circle (dominant) -->
+        <circle cx="360" cy="302" r="30" fill="#0000FF"/>
+        <text x="360" y="307" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#fff" font-weight="700">AI</text>
+        <!-- Arrow: AI -> output -->
+        <line x1="392" y1="302" x2="448" y2="302" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-2)"/>
+        <!-- Output classification percentages -->
+        <text x="456" y="282" font-family="Inter, sans-serif" font-size="9.5" fill="#555">89% profanity</text>
+        <text x="456" y="295" font-family="Inter, sans-serif" font-size="9.5" fill="#555">62% nudity</text>
+        <text x="456" y="308" font-family="Inter, sans-serif" font-size="9.5" fill="#555">23% violence</text>
+        <!-- Output separator -->
+        <line x1="570" y1="278" x2="570" y2="318" stroke="rgba(0,0,0,0.15)" stroke-width="1"/>
+        <!-- Resolved labels -->
+        <text x="580" y="282" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF" font-weight="600">Yes profanity</text>
+        <text x="580" y="295" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF" font-weight="600">No nudity</text>
+        <text x="580" y="308" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF" font-weight="600">No violence</text>
+        <!-- Small bullet notes below pipeline -->
+        <text x="456" y="328" font-family="Inter, sans-serif" font-size="8.5" fill="#888">- different countries</text>
+        <text x="580" y="328" font-family="Inter, sans-serif" font-size="8.5" fill="#888">- different genres</text>
+        <text x="700" y="328" font-family="Inter, sans-serif" font-size="8.5" fill="#888">- ever-changing culture</text>
       </svg>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
@@ -1156,54 +1220,65 @@
       <div class="label">Findings</div>
       <h2 class="heading">In well-functioning teams, unrealistic goals are typically challenged early; we found little evidence of this corrective <strong>pushback</strong></h2>
       <div class="divider"></div>
-      <svg class="diagram" viewBox="0 0 920 280" preserveAspectRatio="xMidYMid meet">
+      <svg class="diagram" viewBox="0 0 920 290" preserveAspectRatio="xMidYMid meet">
         <defs>
           <marker id="arrow-blue-3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
             <path d="M 0 0 L 10 5 L 0 10 z" fill="#0000FF"/>
           </marker>
           <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#f97316"/>
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#FFA07A"/>
           </marker>
         </defs>
+
         <!-- Column headers -->
-        <g font-family="SF Mono, monospace" font-size="8.5" font-weight="600" fill="rgba(0,0,255,0.5)" letter-spacing="1.1">
-          <text x="30" y="22">WHAT HAPPENED</text>
-          <text x="385" y="22">WHAT SHOULD HAVE HAPPENED</text>
+        <g font-family="SF Mono, monospace" font-size="8" font-weight="600" letter-spacing="1.1">
+          <text x="20" y="18" fill="rgba(0,0,255,0.5)">WHAT HAPPENED</text>
+          <text x="580" y="18" fill="rgba(0,0,255,0.5)">WHAT SHOULD HAVE HAPPENED</text>
         </g>
-        <line x1="20" y1="30" x2="900" y2="30" stroke="rgba(0,0,255,0.12)" stroke-width="1"/>
+        <!-- Column separator -->
+        <line x1="540" y1="8" x2="540" y2="185" stroke="rgba(0,0,255,0.1)" stroke-width="1" stroke-dasharray="4 4"/>
+        <!-- Top divider -->
+        <line x1="10" y1="26" x2="900" y2="26" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
 
-        <!-- Row 1: What happened flow -->
-        <text x="30" y="62" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a" font-style="italic">"Leadership wants X."</text>
-        <line x1="175" y1="58" x2="238" y2="58" stroke="#0000FF" stroke-width="1.2" marker-end="url(#arrow-blue-3)" opacity="0.6"/>
-        <text x="244" y="62" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a" font-style="italic">"Let us try to build it."</text>
-        <line x1="375" y1="58" x2="425" y2="58" stroke="#0000FF" stroke-width="1.2" marker-end="url(#arrow-blue-3)" opacity="0.6"/>
-        <text x="431" y="62" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a" font-style="italic">"Ok"</text>
-        <line x1="455" y1="58" x2="510" y2="58" stroke="#0000FF" stroke-width="1.2" marker-end="url(#arrow-blue-3)" opacity="0.6"/>
-        <text x="516" y="62" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a" font-style="italic">"We built A that does B."</text>
+        <!-- ROW 1: "Based on our understanding..." -->
+        <text x="20" y="52" font-family="Inter, sans-serif" font-size="10.5" fill="#555" font-style="italic">"Based on our understanding the market wants X."</text>
+        <!-- Down arrow to row 2 -->
+        <line x1="220" y1="58" x2="220" y2="75" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-3)"/>
 
-        <!-- Row 1 label -->
-        <text x="30" y="88" font-family="SF Mono, monospace" font-size="8" fill="rgba(0,0,255,0.4)" letter-spacing="0.8">Instead this has happened.</text>
+        <!-- "Instead this has happened" label (blue) -->
+        <text x="245" y="72" font-family="Inter, sans-serif" font-size="9" fill="#0000FF" font-style="italic">Instead this has happened.</text>
+        <!-- "This should have happened" label (orange) - right column -->
+        <text x="580" y="52" font-family="Inter, sans-serif" font-size="9" fill="#FFA07A" font-style="italic">This should have happened.</text>
+        <!-- Down arrow right column -->
+        <line x1="680" y1="58" x2="680" y2="75" stroke="#FFA07A" stroke-width="1.5" marker-end="url(#arrow-orange)"/>
 
-        <line x1="20" y1="100" x2="900" y2="100" stroke="rgba(0,0,255,0.08)" stroke-width="1" stroke-dasharray="4 4"/>
+        <!-- ROW 2: "This is not possible..." (pushback response) -->
+        <text x="20" y="94" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a" font-style="italic">"This is not possible, but you can have Y.</text>
+        <text x="20" y="108" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a" font-style="italic">Does that work? And by the way what do</text>
+        <text x="20" y="122" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a" font-style="italic">you mean by ...?"</text>
+        <!-- Down arrow -->
+        <line x1="220" y1="128" x2="220" y2="145" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-3)"/>
 
-        <!-- Row 2: leadership wants X repeat -->
-        <text x="30" y="132" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a" font-style="italic">"Leadership wants X."</text>
-        <line x1="175" y1="128" x2="238" y2="128" stroke="#0000FF" stroke-width="1.2" marker-end="url(#arrow-blue-3)" opacity="0.6"/>
-        <text x="244" y="132" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a" font-style="italic">"Let us try to build it."</text>
-        <line x1="375" y1="128" x2="425" y2="128" stroke="#0000FF" stroke-width="1.2" marker-end="url(#arrow-blue-3)" opacity="0.6"/>
-        <text x="431" y="132" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a" font-style="italic">"We built A that does B."</text>
+        <!-- "Compliance will have a problem" (right col) -->
+        <rect x="558" y="80" width="332" height="54" rx="0" fill="none" stroke="#FFA07A" stroke-width="1.5"/>
+        <text x="572" y="100" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a" font-style="italic">"Compliance will have a problem here.</text>
+        <text x="572" y="116" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a" font-style="italic">Let's do C instead."</text>
 
-        <!-- Row 2: what SHOULD have happened - pushback box (shifted right to avoid overlap) -->
-        <rect x="620" y="108" width="280" height="52" rx="3" fill="none" stroke="rgba(249,115,22,0.4)" stroke-width="1.5"/>
-        <text x="634" y="127" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a" font-style="italic">"Compliance will have a problem here.</text>
-        <text x="634" y="143" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a" font-style="italic">Let's do C instead."</text>
-        <!-- Orange upward arrow: this should have happened -->
-        <line x1="760" y1="106" x2="760" y2="80" stroke="#f97316" stroke-width="1.5" marker-end="url(#arrow-orange)"/>
-        <text x="765" y="95" font-family="Inter, sans-serif" font-size="10" fill="#f97316" font-style="italic">This should have happened.</text>
+        <!-- ROW 3: "Ok let us try to build it" -->
+        <text x="20" y="162" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a" font-style="italic">"The leadership wants X."</text>
+        <line x1="175" y1="158" x2="240" y2="158" stroke="#0000FF" stroke-width="1.2" marker-end="url(#arrow-blue-3)" opacity="0.7"/>
+        <text x="248" y="162" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a" font-style="italic">"Ok let us try to build it."</text>
+        <line x1="390" y1="158" x2="440" y2="158" stroke="#0000FF" stroke-width="1.2" marker-end="url(#arrow-blue-3)" opacity="0.7"/>
+        <text x="448" y="162" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a" font-style="italic">"Ok"</text>
+        <line x1="472" y1="158" x2="522" y2="158" stroke="#0000FF" stroke-width="1.2" marker-end="url(#arrow-blue-3)" opacity="0.7"/>
+        <text x="530" y="162" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a" font-style="italic">"We built A that does B."</text>
 
-        <!-- Bottom divider + note -->
-        <line x1="20" y1="185" x2="900" y2="185" stroke="rgba(0,0,255,0.12)" stroke-width="1"/>
-        <text x="30" y="215" font-family="Inter, sans-serif" font-size="11" fill="#dc2626" font-style="italic">There is no shortcut for a 100% working AI.</text>
+        <!-- Bottom divider -->
+        <line x1="10" y1="185" x2="900" y2="185" stroke="rgba(0,0,255,0.1)" stroke-width="1"/>
+
+        <!-- Evidence section -->
+        <text x="20" y="207" font-family="SF Mono, monospace" font-size="8" font-weight="600" fill="rgba(0,0,255,0.5)" letter-spacing="1">EVIDENCE</text>
+        <text x="20" y="224" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a" font-style="italic">"Do we have a market for a 100% working AI product?"</text>
       </svg>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
@@ -1221,39 +1296,56 @@
           <marker id="arrow-blue-14" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
             <path d="M 0 0 L 10 5 L 0 10 z" fill="#0000FF"/>
           </marker>
+          <marker id="arrow-axis-14" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/>
+          </marker>
         </defs>
-        <!-- Y-axis label (horizontal above axis) -->
-        <text x="75" y="16" font-family="Inter, sans-serif" font-size="9.5" fill="#666" text-anchor="start">Impact of an error</text>
+
+        <!-- Subtle grid lines (horizontal) -->
+        <g stroke="rgba(0,0,0,0.06)" stroke-width="1">
+          <line x1="115" y1="56" x2="840" y2="56"/>
+          <line x1="115" y1="96" x2="840" y2="96"/>
+          <line x1="115" y1="136" x2="840" y2="136"/>
+          <line x1="115" y1="176" x2="840" y2="176"/>
+        </g>
+
+        <!-- Y-axis label -->
+        <text x="10" y="12" font-family="Inter, sans-serif" font-size="9" fill="#888" text-anchor="start">Impact of</text>
+        <text x="10" y="24" font-family="Inter, sans-serif" font-size="9" fill="#888" text-anchor="start">an error</text>
         <!-- Y-axis line -->
-        <line x1="115" y1="22" x2="115" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
-        <!-- Y-axis arrow tip -->
-        <polygon points="115,16 110,28 120,28" fill="#1a1a1a"/>
-        <!-- X-axis baseline -->
-        <line x1="115" y1="230" x2="800" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+        <line x1="115" y1="18" x2="115" y2="230" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow-axis-14)"/>
+        <!-- X-axis line -->
+        <line x1="115" y1="230" x2="848" y2="230" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow-axis-14)"/>
+        <!-- X-axis label -->
+        <text x="855" y="234" font-family="Inter, sans-serif" font-size="9" fill="#888">Use case</text>
 
-        <!-- Bar 1: FaceID - short -->
-        <rect x="140" y="200" width="100" height="30" fill="#3a3a3a"/>
-        <text x="190" y="248" font-family="Inter, sans-serif" font-size="10" fill="#555" text-anchor="middle">FaceID</text>
+        <!-- Bar 1: FaceID - short (30px) -->
+        <rect x="135" y="200" width="88" height="30" fill="#3a3a3a"/>
+        <text x="179" y="248" font-family="Inter, sans-serif" font-size="9.5" fill="#555" text-anchor="middle">FaceID</text>
 
-        <!-- Bar 2: Customer support applications - medium-short -->
-        <rect x="285" y="168" width="110" height="62" fill="#3a3a3a"/>
-        <text x="340" y="248" font-family="Inter, sans-serif" font-size="10" fill="#555" text-anchor="middle">Customer support</text>
-        <text x="340" y="261" font-family="Inter, sans-serif" font-size="10" fill="#555" text-anchor="middle">applications</text>
+        <!-- Bar 2: Customer support - medium-short (62px) -->
+        <rect x="263" y="168" width="90" height="62" fill="#3a3a3a"/>
+        <text x="308" y="248" font-family="Inter, sans-serif" font-size="9.5" fill="#555" text-anchor="middle">Customer support</text>
+        <text x="308" y="260" font-family="Inter, sans-serif" font-size="9.5" fill="#555" text-anchor="middle">applications</text>
 
-        <!-- Bar 3: Legal contract generation / HR systems - medium-tall -->
-        <rect x="440" y="130" width="110" height="100" fill="#3a3a3a"/>
-        <text x="495" y="248" font-family="Inter, sans-serif" font-size="10" fill="#555" text-anchor="middle">Legal contract</text>
-        <text x="495" y="261" font-family="Inter, sans-serif" font-size="10" fill="#555" text-anchor="middle">generation, HR systems</text>
+        <!-- Bar 3: Legal contract / HR - medium-tall (100px) -->
+        <rect x="393" y="130" width="90" height="100" fill="#3a3a3a"/>
+        <text x="438" y="248" font-family="Inter, sans-serif" font-size="9.5" fill="#555" text-anchor="middle">Legal contract</text>
+        <text x="438" y="260" font-family="Inter, sans-serif" font-size="9.5" fill="#555" text-anchor="middle">generation, HR</text>
 
-        <!-- Bar 4: Loan appraisal / Fraud detection - tall -->
-        <rect x="595" y="46" width="110" height="184" fill="#3a3a3a"/>
-        <text x="650" y="248" font-family="Inter, sans-serif" font-size="10" fill="#555" text-anchor="middle">Loan appraisal,</text>
-        <text x="650" y="261" font-family="Inter, sans-serif" font-size="10" fill="#555" text-anchor="middle">Fraud detection</text>
+        <!-- Bar 4: Loan appraisal / Fraud detection - tall (160px) -->
+        <rect x="523" y="70" width="90" height="160" fill="#3a3a3a"/>
+        <text x="568" y="248" font-family="Inter, sans-serif" font-size="9.5" fill="#555" text-anchor="middle">Loan appraisal,</text>
+        <text x="568" y="260" font-family="Inter, sans-serif" font-size="9.5" fill="#555" text-anchor="middle">Fraud detection</text>
 
-        <!-- "Current project" annotation: diagonal arrow from right pointing to top of bar 4 -->
-        <line x1="810" y1="120" x2="710" y2="68" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-14)"/>
-        <text x="815" y="112" font-family="Inter, sans-serif" font-size="11" fill="#0000FF" font-weight="600" text-anchor="start">Current project</text>
-        <text x="815" y="127" font-family="Inter, sans-serif" font-size="11" fill="#0000FF" font-weight="600" text-anchor="start">is somewhere here</text>
+        <!-- Bar 5: Robotic surgery / Self-driving cars - tallest (190px) -->
+        <rect x="653" y="40" width="90" height="190" fill="#3a3a3a"/>
+        <text x="698" y="248" font-family="Inter, sans-serif" font-size="9.5" fill="#555" text-anchor="middle">Robotic surgery,</text>
+        <text x="698" y="260" font-family="Inter, sans-serif" font-size="9.5" fill="#555" text-anchor="middle">self-driving cars</text>
+
+        <!-- "Current project" annotation: upward arrow from below pointing to bar 4 -->
+        <line x1="568" y1="282" x2="568" y2="235" stroke="#0000FF" stroke-width="1.8" marker-end="url(#arrow-blue-14)"/>
+        <text x="568" y="296" font-family="Inter, sans-serif" font-size="11" fill="#0000FF" font-weight="600" text-anchor="middle">Current project is somewhere here</text>
       </svg>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
@@ -1553,63 +1645,59 @@
       <div class="label">Best practices and things to avoid</div>
       <h2 class="heading">Do things that do <strong>not scale</strong></h2>
       <div class="divider"></div>
-      <svg class="diagram" viewBox="0 0 920 480" preserveAspectRatio="xMidYMid meet">
+      <svg class="diagram" viewBox="0 0 920 420" preserveAspectRatio="xMidYMid meet">
         <defs>
           <marker id="arrow-blue-26" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
             <path d="M 0 0 L 10 5 L 0 10 z" fill="#0000FF"/>
           </marker>
         </defs>
-        <!-- Sub-heading row 1 -->
-        <text x="0" y="20" font-family="Inter, sans-serif" font-size="13" fill="#1a1a1a" font-weight="400">How to build a successful apple pie brand?</text>
-        <!-- Apple pie loop: Bake an apple pie (left) -> Sell the apple pie (top) -> Get feedback (bottom right), loop back -->
+
+        <!-- ---- Loop 1: Apple pie brand ---- -->
+        <text x="0" y="18" font-family="Inter, sans-serif" font-size="12" fill="#1a1a1a" font-weight="500">How to build a successful apple pie brand?</text>
         <g font-family="Inter, sans-serif" font-size="12" fill="#0000FF" font-weight="400" text-anchor="middle">
-          <!-- Bake an apple pie -->
-          <text x="200" y="118">Bake an apple pie</text>
-          <!-- Sell the apple pie -->
-          <text x="330" y="58">Sell the apple pie</text>
-          <!-- Get feedback -->
-          <text x="338" y="175">Get feedback</text>
+          <text x="195" y="105">Bake an apple pie</text>
+          <text x="330" y="48">Sell the apple pie</text>
+          <text x="338" y="162">Get feedback</text>
         </g>
         <!-- Arc: Bake -> Sell -->
-        <path d="M 255 95 Q 270 50, 305 62" fill="none" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
+        <path d="M 250 84 Q 265 42, 300 52" fill="none" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
         <!-- Arrow: Sell -> Get feedback -->
-        <path d="M 330 68 Q 345 115, 330 155" fill="none" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
+        <path d="M 330 58 Q 346 104, 330 145" fill="none" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
         <!-- Arc: Get feedback -> Bake -->
-        <path d="M 295 178 Q 240 195, 210 128" fill="none" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
+        <path d="M 295 166 Q 238 182, 205 116" fill="none" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
         <!-- "only then" arrow to bullet list -->
-        <text x="440" y="113" font-family="Inter, sans-serif" font-size="11" fill="#0000FF" font-style="italic">only then</text>
-        <line x1="435" y1="118" x2="500" y2="118" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
-        <!-- Bullet list: apple pie brand -->
-        <text x="510" y="100" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; find a kitchen</text>
-        <text x="510" y="116" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; build a brand</text>
-        <text x="510" y="132" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; design packaging</text>
-        <text x="510" y="148" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; etc...</text>
+        <text x="428" y="100" font-family="Inter, sans-serif" font-size="11" fill="#0000FF" font-style="italic">only then</text>
+        <line x1="422" y1="106" x2="490" y2="106" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
+        <!-- Bullet list -->
+        <text x="500" y="90" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; find a kitchen</text>
+        <text x="500" y="106" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; build a brand</text>
+        <text x="500" y="122" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; design packaging</text>
+        <text x="500" y="138" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; etc...</text>
 
-        <!-- Sub-heading row 2 -->
-        <text x="0" y="270" font-family="Inter, sans-serif" font-size="13" fill="#1a1a1a" font-weight="400">How to build a successful AI project?</text>
-        <!-- AI project loop: Build a product (left) -> Sell the product (top) -> Get feedback (bottom right), loop back -->
+        <!-- Divider between loops -->
+        <line x1="0" y1="205" x2="910" y2="205" stroke="rgba(0,0,255,0.1)" stroke-width="1" stroke-dasharray="5 5"/>
+
+        <!-- ---- Loop 2: AI project ---- -->
+        <text x="0" y="228" font-family="Inter, sans-serif" font-size="12" fill="#1a1a1a" font-weight="500">How to build a successful AI project?</text>
         <g font-family="Inter, sans-serif" font-size="12" fill="#0000FF" font-weight="400" text-anchor="middle">
-          <!-- Build a product -->
-          <text x="200" y="368">Build a product</text>
-          <!-- Sell the product -->
-          <text x="330" y="308">Sell the product</text>
-          <!-- Get feedback -->
-          <text x="338" y="425">Get feedback</text>
+          <text x="195" y="316">Build a product</text>
+          <text x="330" y="258">Sell the product</text>
+          <text x="338" y="374">Get feedback</text>
         </g>
         <!-- Arc: Build -> Sell -->
-        <path d="M 255 345 Q 270 300, 305 312" fill="none" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
+        <path d="M 250 294 Q 265 252, 300 262" fill="none" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
         <!-- Arrow: Sell -> Get feedback -->
-        <path d="M 330 318 Q 345 365, 330 405" fill="none" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
+        <path d="M 330 268 Q 346 316, 330 357" fill="none" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
         <!-- Arc: Get feedback -> Build -->
-        <path d="M 295 428 Q 240 445, 210 378" fill="none" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
+        <path d="M 295 378 Q 238 394, 205 326" fill="none" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
         <!-- "only then" arrow to bullet list -->
-        <text x="440" y="363" font-family="Inter, sans-serif" font-size="11" fill="#0000FF" font-style="italic">only then</text>
-        <line x1="435" y1="368" x2="500" y2="368" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
-        <!-- Bullet list: AI project -->
-        <text x="510" y="350" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; hire more people</text>
-        <text x="510" y="366" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; build a brand</text>
-        <text x="510" y="382" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; solve deep technical problems</text>
-        <text x="510" y="398" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; etc...</text>
+        <text x="428" y="310" font-family="Inter, sans-serif" font-size="11" fill="#0000FF" font-style="italic">only then</text>
+        <line x1="422" y1="317" x2="490" y2="317" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
+        <!-- Bullet list -->
+        <text x="500" y="300" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; hire more people</text>
+        <text x="500" y="317" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; build a brand</text>
+        <text x="500" y="334" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; solve deep technical problems</text>
+        <text x="500" y="351" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; etc...</text>
       </svg>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
@@ -1668,111 +1756,104 @@
         </defs>
 
         <!-- Row labels -->
-        <text x="0" y="44" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#1a1a1a">Anti-patterns</text>
-        <text x="0" y="154" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#1a1a1a">Best practice</text>
+        <text x="0" y="38" font-family="SF Mono,monospace" font-size="8" font-weight="700" fill="rgba(220,38,38,0.7)" letter-spacing="1">ANTI-PATTERNS</text>
+        <text x="0" y="152" font-family="SF Mono,monospace" font-size="8" font-weight="700" fill="rgba(0,0,255,0.6)" letter-spacing="1">BEST PRACTICE</text>
 
-        <!-- ANTI-PATTERN ROW: pink circles -->
-        <!-- circle 1 -->
-        <circle cx="60" cy="70" r="28" fill="#fca5a5" opacity="0.7"/>
-        <text x="60" y="67" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">Starting a</text>
-        <text x="60" y="77" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">high-risk</text>
-        <text x="60" y="87" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">project</text>
-        <!-- arrow -->
-        <line x1="90" y1="70" x2="110" y2="70" stroke="#f87171" stroke-width="1.2" marker-end="url(#arr-pink)"/>
-        <!-- circle 2 -->
-        <circle cx="140" cy="70" r="22" fill="#fca5a5" opacity="0.7"/>
-        <text x="140" y="67" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">Hitting</text>
-        <text x="140" y="77" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">a wall</text>
-        <!-- arrow -->
-        <line x1="164" y1="70" x2="180" y2="70" stroke="#f87171" stroke-width="1.2" marker-end="url(#arr-pink)"/>
-        <!-- circle 3 -->
-        <circle cx="210" cy="70" r="22" fill="#fca5a5" opacity="0.7"/>
-        <text x="210" y="67" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">Pivoting</text>
-        <text x="210" y="77" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">randomly</text>
-        <!-- arrow -->
-        <line x1="234" y1="70" x2="250" y2="70" stroke="#f87171" stroke-width="1.2" marker-end="url(#arr-pink)"/>
-        <!-- circle 4 -->
-        <circle cx="280" cy="70" r="22" fill="#fca5a5" opacity="0.7"/>
-        <text x="280" y="67" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">Hitting</text>
-        <text x="280" y="77" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">a wall</text>
-        <!-- arrow -->
-        <line x1="304" y1="70" x2="320" y2="70" stroke="#f87171" stroke-width="1.2" marker-end="url(#arr-pink)"/>
-        <!-- circle 5 -->
-        <circle cx="350" cy="70" r="22" fill="#fca5a5" opacity="0.7"/>
-        <text x="350" y="67" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">Pivoting</text>
-        <text x="350" y="77" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">randomly</text>
-        <!-- arrow -->
-        <line x1="374" y1="70" x2="386" y2="70" stroke="#f87171" stroke-width="1.2" marker-end="url(#arr-pink)"/>
-        <!-- ellipsis -->
-        <text x="405" y="74" font-family="Inter,sans-serif" font-size="12" fill="#f87171" text-anchor="middle">...</text>
-        <!-- arrow -->
-        <line x1="418" y1="70" x2="430" y2="70" stroke="#f87171" stroke-width="1.2" marker-end="url(#arr-pink)"/>
-        <!-- Burnout circle (larger) -->
-        <circle cx="464" cy="70" r="28" fill="#fca5a5" opacity="0.85"/>
-        <text x="464" y="73" font-family="Inter,sans-serif" font-size="8" font-weight="600" fill="#1a1a1a" text-anchor="middle">Burnout</text>
+        <!-- Row separator -->
+        <line x1="0" y1="120" x2="510" y2="120" stroke="rgba(0,0,0,0.08)" stroke-width="1"/>
+
+        <!-- ANTI-PATTERN ROW: red-tinted circles -->
+        <circle cx="60" cy="68" r="26" fill="none" stroke="#dc2626" stroke-width="1.5" opacity="0.6"/>
+        <text x="60" y="64" font-family="Inter,sans-serif" font-size="8" fill="#dc2626" text-anchor="middle" opacity="0.9">Starting a</text>
+        <text x="60" y="74" font-family="Inter,sans-serif" font-size="8" fill="#dc2626" text-anchor="middle" opacity="0.9">high-risk</text>
+        <text x="60" y="84" font-family="Inter,sans-serif" font-size="8" fill="#dc2626" text-anchor="middle" opacity="0.9">project</text>
+        <line x1="88" y1="68" x2="104" y2="68" stroke="#dc2626" stroke-width="1.2" marker-end="url(#arr-pink)" opacity="0.7"/>
+
+        <circle cx="132" cy="68" r="20" fill="none" stroke="#dc2626" stroke-width="1.5" opacity="0.6"/>
+        <text x="132" y="65" font-family="Inter,sans-serif" font-size="8" fill="#dc2626" text-anchor="middle" opacity="0.9">Hitting</text>
+        <text x="132" y="75" font-family="Inter,sans-serif" font-size="8" fill="#dc2626" text-anchor="middle" opacity="0.9">a wall</text>
+        <line x1="154" y1="68" x2="168" y2="68" stroke="#dc2626" stroke-width="1.2" marker-end="url(#arr-pink)" opacity="0.7"/>
+
+        <circle cx="196" cy="68" r="20" fill="none" stroke="#dc2626" stroke-width="1.5" opacity="0.6"/>
+        <text x="196" y="65" font-family="Inter,sans-serif" font-size="8" fill="#dc2626" text-anchor="middle" opacity="0.9">Pivoting</text>
+        <text x="196" y="75" font-family="Inter,sans-serif" font-size="8" fill="#dc2626" text-anchor="middle" opacity="0.9">randomly</text>
+        <line x1="218" y1="68" x2="232" y2="68" stroke="#dc2626" stroke-width="1.2" marker-end="url(#arr-pink)" opacity="0.7"/>
+
+        <circle cx="260" cy="68" r="20" fill="none" stroke="#dc2626" stroke-width="1.5" opacity="0.6"/>
+        <text x="260" y="65" font-family="Inter,sans-serif" font-size="8" fill="#dc2626" text-anchor="middle" opacity="0.9">Hitting</text>
+        <text x="260" y="75" font-family="Inter,sans-serif" font-size="8" fill="#dc2626" text-anchor="middle" opacity="0.9">a wall</text>
+        <line x1="282" y1="68" x2="296" y2="68" stroke="#dc2626" stroke-width="1.2" marker-end="url(#arr-pink)" opacity="0.7"/>
+
+        <circle cx="324" cy="68" r="20" fill="none" stroke="#dc2626" stroke-width="1.5" opacity="0.6"/>
+        <text x="324" y="65" font-family="Inter,sans-serif" font-size="8" fill="#dc2626" text-anchor="middle" opacity="0.9">Pivoting</text>
+        <text x="324" y="75" font-family="Inter,sans-serif" font-size="8" fill="#dc2626" text-anchor="middle" opacity="0.9">randomly</text>
+        <line x1="346" y1="68" x2="356" y2="68" stroke="#dc2626" stroke-width="1.2" marker-end="url(#arr-pink)" opacity="0.7"/>
+
+        <text x="374" y="72" font-family="Inter,sans-serif" font-size="13" fill="#dc2626" text-anchor="middle" opacity="0.7">...</text>
+        <line x1="387" y1="68" x2="400" y2="68" stroke="#dc2626" stroke-width="1.2" marker-end="url(#arr-pink)" opacity="0.7"/>
+
+        <!-- Burnout circle (larger, filled red) -->
+        <circle cx="436" cy="68" r="26" fill="#dc2626" opacity="0.85"/>
+        <text x="436" y="72" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#fff" text-anchor="middle">Burnout</text>
 
         <!-- BEST PRACTICE ROW: blue circles -->
-        <!-- circle 1 -->
-        <circle cx="60" cy="185" r="28" fill="#0000FF"/>
-        <text x="60" y="181" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">Starting a</text>
-        <text x="60" y="191" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">high-risk</text>
-        <text x="60" y="201" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">project</text>
-        <!-- arrow -->
-        <line x1="90" y1="185" x2="110" y2="185" stroke="#0000FF" stroke-width="1.2" marker-end="url(#arr-blue-28)"/>
-        <!-- circle 2 -->
-        <circle cx="140" cy="185" r="22" fill="#0000FF"/>
-        <text x="140" y="182" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">Hitting</text>
-        <text x="140" y="192" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">a wall</text>
-        <!-- arrow -->
-        <line x1="164" y1="185" x2="180" y2="185" stroke="#0000FF" stroke-width="1.2" marker-end="url(#arr-blue-28)"/>
-        <!-- circle 3 (larger) -->
-        <circle cx="225" cy="185" r="34" fill="#0000FF"/>
-        <text x="225" y="179" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">Trying to</text>
-        <text x="225" y="189" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">solve; pre-</text>
-        <text x="225" y="199" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">agreement</text>
-        <text x="225" y="209" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">on stop-loss</text>
-        <!-- arrow -->
-        <line x1="261" y1="185" x2="279" y2="185" stroke="#0000FF" stroke-width="1.2" marker-end="url(#arr-blue-28)"/>
-        <!-- circle 4 -->
-        <circle cx="315" cy="185" r="28" fill="#0000FF"/>
-        <text x="315" y="181" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">Only pivot</text>
-        <text x="315" y="191" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">when stop-</text>
-        <text x="315" y="201" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">loss is hit</text>
+        <circle cx="60" cy="180" r="26" fill="#0000FF"/>
+        <text x="60" y="176" font-family="Inter,sans-serif" font-size="7.5" fill="#fff" text-anchor="middle">Starting a</text>
+        <text x="60" y="186" font-family="Inter,sans-serif" font-size="7.5" fill="#fff" text-anchor="middle">high-risk</text>
+        <text x="60" y="196" font-family="Inter,sans-serif" font-size="7.5" fill="#fff" text-anchor="middle">project</text>
+        <line x1="88" y1="180" x2="104" y2="180" stroke="#0000FF" stroke-width="1.2" marker-end="url(#arr-blue-28)"/>
 
-        <!-- Italic quote below best practice row -->
-        <text x="60" y="232" font-family="Inter,sans-serif" font-size="8.5" font-style="italic" fill="#0000FF">"If we don't solve this problem in 2 months, we'll pivot but until then we'll give our best to try to solve it."</text>
+        <circle cx="132" cy="180" r="20" fill="#0000FF"/>
+        <text x="132" y="177" font-family="Inter,sans-serif" font-size="7.5" fill="#fff" text-anchor="middle">Hitting</text>
+        <text x="132" y="187" font-family="Inter,sans-serif" font-size="7.5" fill="#fff" text-anchor="middle">a wall</text>
+        <line x1="154" y1="180" x2="170" y2="180" stroke="#0000FF" stroke-width="1.2" marker-end="url(#arr-blue-28)"/>
+
+        <!-- circle 3: dominant (larger, key action) -->
+        <circle cx="210" cy="180" r="32" fill="#0000FF"/>
+        <text x="210" y="174" font-family="Inter,sans-serif" font-size="7.5" fill="#fff" text-anchor="middle">Trying to</text>
+        <text x="210" y="184" font-family="Inter,sans-serif" font-size="7.5" fill="#fff" text-anchor="middle">solve; pre-</text>
+        <text x="210" y="194" font-family="Inter,sans-serif" font-size="7.5" fill="#fff" text-anchor="middle">agreement</text>
+        <text x="210" y="204" font-family="Inter,sans-serif" font-size="7.5" fill="#fff" text-anchor="middle">on stop-loss</text>
+        <line x1="244" y1="180" x2="260" y2="180" stroke="#0000FF" stroke-width="1.2" marker-end="url(#arr-blue-28)"/>
+
+        <circle cx="296" cy="180" r="26" fill="#0000FF"/>
+        <text x="296" y="176" font-family="Inter,sans-serif" font-size="7.5" fill="#fff" text-anchor="middle">Only pivot</text>
+        <text x="296" y="186" font-family="Inter,sans-serif" font-size="7.5" fill="#fff" text-anchor="middle">when stop-</text>
+        <text x="296" y="196" font-family="Inter,sans-serif" font-size="7.5" fill="#fff" text-anchor="middle">loss is hit</text>
+
+        <!-- Quote below best practice row -->
+        <text x="0" y="228" font-family="Inter,sans-serif" font-size="9" font-style="italic" fill="#0000FF">"If we don't solve this problem in 2 months, we'll pivot but until then we'll give our best to try to solve it."</text>
 
         <!-- Analogy: Stop-loss in trading (right side) -->
-        <text x="530" y="52" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#1a1a1a">Analogy: Stop-loss in trading</text>
+        <text x="534" y="38" font-family="SF Mono,monospace" font-size="8" font-weight="700" fill="#1a1a1a" letter-spacing="1">ANALOGY: STOP-LOSS IN TRADING</text>
 
         <!-- Chart axes -->
-        <line x1="540" y1="60" x2="540" y2="210" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-chart)"/>
-        <line x1="540" y1="210" x2="890" y2="210" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-chart)"/>
+        <line x1="540" y1="50" x2="540" y2="210" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-chart)"/>
+        <line x1="540" y1="210" x2="893" y2="210" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-chart)"/>
 
         <!-- Price line: rises then falls sharply -->
         <polyline points="560,190 590,170 620,155 650,130 680,110 700,100 715,95 730,90 745,88 755,90 765,95 778,105 788,125 798,150 808,175 818,190" fill="none" stroke="#0000FF" stroke-width="2"/>
 
         <!-- Stop-loss horizontal line -->
-        <line x1="540" y1="155" x2="870" y2="155" stroke="#f87171" stroke-width="1.2" stroke-dasharray="5 3"/>
-        <text x="544" y="152" font-family="Inter,sans-serif" font-size="8" fill="#f87171">Stop-loss</text>
+        <line x1="540" y1="155" x2="875" y2="155" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="5 3"/>
+        <text x="544" y="151" font-family="Inter,sans-serif" font-size="8.5" fill="#dc2626" font-weight="600">Stop-loss</text>
 
         <!-- Dot at buy and at stop-loss activation -->
         <circle cx="560" cy="190" r="4" fill="#0000FF"/>
-        <circle cx="793" cy="155" r="4" fill="#f87171"/>
+        <circle cx="793" cy="155" r="4" fill="#dc2626"/>
 
         <!-- Vertical dashed at stop-loss activation -->
-        <line x1="793" y1="155" x2="793" y2="210" stroke="#f87171" stroke-width="1" stroke-dasharray="3 3"/>
+        <line x1="793" y1="155" x2="793" y2="210" stroke="#dc2626" stroke-width="1" stroke-dasharray="3 3"/>
 
         <!-- Labels below chart -->
-        <text x="555" y="224" font-family="Inter,sans-serif" font-size="8" fill="#555" text-anchor="middle">Buy here</text>
-        <text x="793" y="224" font-family="Inter,sans-serif" font-size="8" fill="#f87171" text-anchor="middle">Stop-loss is</text>
-        <text x="793" y="234" font-family="Inter,sans-serif" font-size="8" fill="#f87171" text-anchor="middle">activated</text>
+        <text x="560" y="224" font-family="Inter,sans-serif" font-size="8.5" fill="#555" text-anchor="middle">Buy here</text>
+        <text x="793" y="224" font-family="Inter,sans-serif" font-size="8.5" fill="#dc2626" text-anchor="middle">Stop-loss</text>
+        <text x="793" y="235" font-family="Inter,sans-serif" font-size="8.5" fill="#dc2626" text-anchor="middle">activated</text>
 
-        <!-- Quote on chart -->
-        <text x="620" y="78" font-family="Inter,sans-serif" font-size="7.5" font-style="italic" fill="#555" text-anchor="middle">"We're making a bet that X will go up in</text>
-        <text x="620" y="89" font-family="Inter,sans-serif" font-size="7.5" font-style="italic" fill="#555" text-anchor="middle">price. But if we're wrong, our stop-loss</text>
-        <text x="620" y="100" font-family="Inter,sans-serif" font-size="7.5" font-style="italic" fill="#555" text-anchor="middle">should be activated and prevent us lose</text>
-        <text x="620" y="111" font-family="Inter,sans-serif" font-size="7.5" font-style="italic" fill="#555" text-anchor="middle">everything."</text>
+        <!-- Quote: positioned above the chart rise, clear of the price line -->
+        <text x="660" y="60" font-family="Inter,sans-serif" font-size="8" font-style="italic" fill="#555" text-anchor="middle">"We're making a bet that X will go up in price.</text>
+        <text x="660" y="72" font-family="Inter,sans-serif" font-size="8" font-style="italic" fill="#555" text-anchor="middle">But if we're wrong, our stop-loss prevents</text>
+        <text x="660" y="84" font-family="Inter,sans-serif" font-size="8" font-style="italic" fill="#555" text-anchor="middle">us from losing everything."</text>
       </svg>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
