@@ -382,6 +382,74 @@
   .three-col-body p { font-size: 1rem; font-weight: 300; line-height: 1.65; color: #555; }
   .three-col-body .col-note { font-size: 0.78rem; font-weight: 500; color: #1a1a1a; border: 1px solid rgba(0,0,0,0.15); padding: 6px 10px; margin-top: 10px; display: inline-block; }
 
+  /* ── Misalignment stack (slides 11 + 12) ── */
+  .misalignment-stack {
+    display: grid;
+    gap: 24px;
+    margin-top: 24px;
+    max-width: 1080px;
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .misalign-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 36px;
+    align-items: start;
+    padding: 8px 0;
+    border-top: 1px dashed rgba(0,0,0,0.08);
+  }
+  .misalign-row:first-child { border-top: none; padding-top: 0; }
+  .misalign-lane {
+    font-family: 'SF Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(0,0,255,0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding-top: 4px;
+    line-height: 1.5;
+  }
+  .misalign-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .misalign-content .box-bad {
+    padding: 16px 22px;
+  }
+  .misalign-content > p {
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.65;
+    color: #1a1a1a;
+    margin: 0;
+  }
+  .misalign-red {
+    color: #dc2626 !important;
+    font-style: italic;
+    font-weight: 500 !important;
+  }
+  .misalign-quote {
+    font-size: 1.05rem;
+    font-weight: 400;
+    font-style: italic;
+    color: #1a1a1a;
+    padding-left: 16px;
+    border-left: 2px solid #0000FF;
+    margin: 0;
+    line-height: 1.55;
+  }
+  .misalign-quote-bad {
+    border-left-color: #dc2626;
+  }
+  .diagram-small {
+    width: 100%;
+    max-width: 920px;
+    margin: 0;
+    display: block;
+  }
+
   /* ── Section header bar (slide 4 context/key-questions blocks) ── */
   .section-bar {
     font-size: 11px; font-weight: 700;
@@ -1322,64 +1390,37 @@
       <div class="label">Findings</div>
       <h2 class="heading">The programme is stuck due to structural <strong>misalignment</strong></h2>
       <div class="divider"></div>
-      <svg class="diagram" viewBox="0 0 920 330" preserveAspectRatio="xMidYMid meet">
-        <defs>
-          <marker id="arrow-blue-11" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"/>
-          </marker>
-        </defs>
 
-        <!-- "Lack of alignment" left-side vertical brace + label -->
-        <line x1="8" y1="28" x2="8" y2="302" stroke="#dc2626" stroke-width="2"/>
-        <line x1="8" y1="28" x2="18" y2="28" stroke="#dc2626" stroke-width="1.5"/>
-        <line x1="8" y1="302" x2="18" y2="302" stroke="#dc2626" stroke-width="1.5"/>
-        <text x="-165" y="10" font-family="SF Mono, monospace" font-size="8" font-weight="700" fill="#dc2626" letter-spacing="1" transform="rotate(-90) translate(-30,0)" text-anchor="middle">LACK OF ALIGNMENT</text>
+      <div class="misalignment-stack">
+        <div class="misalign-row">
+          <div class="misalign-lane">Board / Leadership / Commercial</div>
+          <div class="misalign-content">
+            <div class="box-bad">
+              <div class="box-label">DIFFICULTY</div>
+              <p>Fully automated decision making in a highly regulated and dynamic field is extremely difficult.</p>
+            </div>
+            <div class="box-bad">
+              <div class="box-label">REPUTATION RISK</div>
+              <p>BBFC's history comes with incredible advantages, but managing reputation is especially complex when it comes to AI reporting.</p>
+            </div>
+          </div>
+        </div>
 
-        <!-- Lane labels left column -->
-        <g font-family="SF Mono, monospace" font-size="8" font-weight="600" fill="rgba(0,0,255,0.5)" letter-spacing="1.1">
-          <text x="24" y="52">BOARD /</text>
-          <text x="24" y="63">LEADERSHIP /</text>
-          <text x="24" y="74">COMMERCIAL</text>
-          <text x="24" y="148">PRODUCT</text>
-          <text x="24" y="220">TECHNOLOGY</text>
-          <text x="24" y="290">AI / ML</text>
-        </g>
+        <div class="misalign-row">
+          <div class="misalign-lane">Product, Commercial &amp; Technology</div>
+          <div class="misalign-content">
+            <p>Product, commercial, compliance and technology were all in motion at the same time. If one of these altered, the others were impacted.</p>
+          </div>
+        </div>
 
-        <!-- Lane dividers -->
-        <line x1="120" y1="20" x2="910" y2="20" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
-        <line x1="120" y1="100" x2="910" y2="100" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
-        <line x1="120" y1="180" x2="910" y2="180" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
-        <line x1="120" y1="260" x2="910" y2="260" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
-        <line x1="120" y1="302" x2="910" y2="302" stroke="rgba(0,0,255,0.08)" stroke-width="1"/>
-
-        <!-- Primary dominant box: misalignment callout (Board lane, spans full width) -->
-        <rect x="130" y="26" width="260" height="64" rx="0" fill="none" stroke="#dc2626" stroke-width="2"/>
-        <text x="145" y="45" font-family="Inter, sans-serif" font-size="10" fill="#dc2626" font-weight="700">There is a misalignment</text>
-        <text x="145" y="59" font-family="Inter, sans-serif" font-size="10" fill="#dc2626" font-weight="700">across the stack.</text>
-
-        <!-- Box 2: difficulty callout -->
-        <rect x="410" y="26" width="240" height="64" rx="0" fill="none" stroke="#0000FF" stroke-width="1.5"/>
-        <text x="422" y="44" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF" font-weight="600">Fully automated decision making</text>
-        <text x="422" y="57" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF" font-weight="600">in a highly regulated field is</text>
-        <text x="422" y="70" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF" font-weight="600">extremely difficult.</text>
-
-        <!-- Box 3: BBFC reputation callout -->
-        <rect x="668" y="26" width="234" height="64" rx="0" fill="none" stroke="#0000FF" stroke-width="1.5"/>
-        <text x="680" y="44" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF" font-weight="600">BBFC's history creates</text>
-        <text x="680" y="57" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF">advantages but also makes</text>
-        <text x="680" y="70" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF">AI reporting more complex.</text>
-
-        <!-- Middle lane: inter-dependency note -->
-        <text x="130" y="128" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a">Product, commercial, compliance and technology were all in motion at the same time --</text>
-        <text x="130" y="144" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a">if one of these altered, the others were impacted.</text>
-
-        <!-- Technology lane: note -->
-        <text x="130" y="205" font-family="Inter, sans-serif" font-size="10.5" fill="#555">The entire technical stack is interdependent on product and commercial decisions.</text>
-
-        <!-- AI/ML lane: note + italic finding -->
-        <text x="130" y="284" font-family="Inter, sans-serif" font-size="10.5" fill="#1a1a1a">Moving fast while trying to avoid reputational harm is difficult</text>
-        <text x="130" y="298" font-family="Inter, sans-serif" font-size="10" fill="#dc2626" font-style="italic">-- and comes with perfectly natural tensions.</text>
-      </svg>
+        <div class="misalign-row">
+          <div class="misalign-lane">AI / ML Engineering</div>
+          <div class="misalign-content">
+            <p>Moving fast while trying to avoid reputational harm is difficult and comes with perfectly natural tensions.</p>
+            <p class="misalign-red">There is no shortcut for a 100% working AI.</p>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1391,96 +1432,55 @@
       <div class="label">Findings</div>
       <h2 class="heading">Leadership expectations are misaligned, preventing <strong>coherent execution</strong></h2>
       <div class="divider"></div>
-      <svg class="diagram" viewBox="0 0 920 340" preserveAspectRatio="xMidYMid meet">
-        <defs>
-          <marker id="arrow-blue-2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#0000FF"/>
-          </marker>
-          <marker id="arrow-red-12" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"/>
-          </marker>
-        </defs>
 
-        <!-- "Lack of alignment" left-side vertical brace -->
-        <line x1="8" y1="22" x2="8" y2="255" stroke="#dc2626" stroke-width="2"/>
-        <line x1="8" y1="22" x2="18" y2="22" stroke="#dc2626" stroke-width="1.5"/>
-        <line x1="8" y1="255" x2="18" y2="255" stroke="#dc2626" stroke-width="1.5"/>
-        <text x="-138" y="10" font-family="SF Mono, monospace" font-size="8" font-weight="700" fill="#dc2626" letter-spacing="1" transform="rotate(-90)" text-anchor="middle">LACK OF ALIGNMENT</text>
-
-        <!-- Lane labels left column -->
-        <g font-family="SF Mono, monospace" font-size="8" font-weight="600" fill="rgba(0,0,255,0.5)" letter-spacing="1.1">
-          <text x="24" y="48">BOARD /</text>
-          <text x="24" y="59">LEADERSHIP /</text>
-          <text x="24" y="70">COMMERCIAL</text>
-          <text x="24" y="142">PRODUCT</text>
-          <text x="24" y="218">TECHNOLOGY</text>
-          <text x="24" y="290">AI / ML</text>
-        </g>
-
-        <!-- Lane dividers -->
-        <line x1="120" y1="20" x2="910" y2="20" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
-        <line x1="120" y1="100" x2="910" y2="100" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
-        <line x1="120" y1="180" x2="910" y2="180" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
-        <line x1="120" y1="260" x2="910" y2="260" stroke="rgba(0,0,255,0.15)" stroke-width="1"/>
-
-        <!-- Board lane: quote (prominent) -->
-        <text x="130" y="46" font-family="Inter, sans-serif" font-size="12" fill="#1a1a1a" font-weight="500">"We need 95% accuracy."</text>
-        <!-- Annotation callout: marketing/sales vs internal (right side, blue) -->
-        <rect x="490" y="24" width="410" height="66" rx="0" fill="rgba(0,0,255,0.04)" stroke="#0000FF" stroke-width="1.2"/>
-        <text x="502" y="42" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF">It might work for marketing / sales to make</text>
-        <text x="502" y="56" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF">communications easier, but it's very dangerous</text>
-        <text x="502" y="70" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF">to use it for internal alignment.</text>
-        <!-- Arrow pointing left from callout to quote -->
-        <line x1="488" y1="57" x2="376" y2="57" stroke="#0000FF" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrow-blue-2)" opacity="0.7"/>
-
-        <!-- Product lane: "this does not exist today" -->
-        <text x="130" y="138" font-family="Inter, sans-serif" font-size="11" fill="#dc2626" font-weight="500">Product</text>
-        <text x="200" y="138" font-family="Inter, sans-serif" font-size="11" fill="#dc2626" font-style="italic">(this does not exist today)</text>
-
-        <!-- Technology lane -->
-        <text x="130" y="218" font-family="Inter, sans-serif" font-size="11" fill="#555">Technology</text>
-
-        <!-- AI/ML lane: multi-label classification pipeline -->
-        <!-- Label -->
-        <text x="130" y="284" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a">AI / ML</text>
-        <!-- Section label above pipeline -->
-        <text x="310" y="272" font-family="SF Mono, monospace" font-size="7.5" font-weight="600" fill="rgba(0,0,255,0.45)" letter-spacing="1" text-anchor="middle">MULTI-LABEL CLASSIFICATION</text>
-        <!-- Film-frame placeholder rect -->
-        <rect x="195" y="278" width="68" height="48" rx="0" fill="none" stroke="rgba(0,0,0,0.25)" stroke-width="1.2"/>
-        <!-- Film notches top -->
-        <rect x="199" y="275" width="8" height="5" rx="0" fill="rgba(0,0,0,0.2)"/>
-        <rect x="213" y="275" width="8" height="5" rx="0" fill="rgba(0,0,0,0.2)"/>
-        <rect x="227" y="275" width="8" height="5" rx="0" fill="rgba(0,0,0,0.2)"/>
-        <rect x="241" y="275" width="8" height="5" rx="0" fill="rgba(0,0,0,0.2)"/>
-        <rect x="255" y="275" width="8" height="5" rx="0" fill="rgba(0,0,0,0.2)"/>
-        <!-- Film notches bottom -->
-        <rect x="199" y="325" width="8" height="5" rx="0" fill="rgba(0,0,0,0.2)"/>
-        <rect x="213" y="325" width="8" height="5" rx="0" fill="rgba(0,0,0,0.2)"/>
-        <rect x="227" y="325" width="8" height="5" rx="0" fill="rgba(0,0,0,0.2)"/>
-        <rect x="241" y="325" width="8" height="5" rx="0" fill="rgba(0,0,0,0.2)"/>
-        <rect x="255" y="325" width="8" height="5" rx="0" fill="rgba(0,0,0,0.2)"/>
-        <!-- Arrow: film -> AI circle -->
-        <line x1="265" y1="302" x2="322" y2="302" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-2)"/>
-        <!-- AI circle (dominant) -->
-        <circle cx="360" cy="302" r="30" fill="#0000FF"/>
-        <text x="360" y="307" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#fff" font-weight="700">AI</text>
-        <!-- Arrow: AI -> output -->
-        <line x1="392" y1="302" x2="448" y2="302" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-2)"/>
-        <!-- Output classification percentages -->
-        <text x="456" y="282" font-family="Inter, sans-serif" font-size="9.5" fill="#555">89% profanity</text>
-        <text x="456" y="295" font-family="Inter, sans-serif" font-size="9.5" fill="#555">62% nudity</text>
-        <text x="456" y="308" font-family="Inter, sans-serif" font-size="9.5" fill="#555">23% violence</text>
-        <!-- Output separator -->
-        <line x1="570" y1="278" x2="570" y2="318" stroke="rgba(0,0,0,0.15)" stroke-width="1"/>
-        <!-- Resolved labels -->
-        <text x="580" y="282" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF" font-weight="600">Yes profanity</text>
-        <text x="580" y="295" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF" font-weight="600">No nudity</text>
-        <text x="580" y="308" font-family="Inter, sans-serif" font-size="9.5" fill="#0000FF" font-weight="600">No violence</text>
-        <!-- Small bullet notes below pipeline -->
-        <text x="456" y="328" font-family="Inter, sans-serif" font-size="8.5" fill="#888">- different countries</text>
-        <text x="580" y="328" font-family="Inter, sans-serif" font-size="8.5" fill="#888">- different genres</text>
-        <text x="700" y="328" font-family="Inter, sans-serif" font-size="8.5" fill="#888">- ever-changing culture</text>
-      </svg>
+      <div class="misalignment-stack misalign-quotes">
+        <div class="misalign-row">
+          <div class="misalign-lane">Board / Leadership</div>
+          <div class="misalign-content">
+            <blockquote class="misalign-quote">"We need 95% accuracy."</blockquote>
+          </div>
+        </div>
+        <div class="misalign-row">
+          <div class="misalign-lane">Product</div>
+          <div class="misalign-content">
+            <blockquote class="misalign-quote misalign-quote-bad">"It might work for marketing/sales to make communications easier, but it's very dangerous to use it for internal alignment."</blockquote>
+          </div>
+        </div>
+        <div class="misalign-row">
+          <div class="misalign-lane">Technology</div>
+          <div class="misalign-content">
+            <p>Multi-label classification at high accuracy is a fundamentally hard problem when content, culture and context all vary across territories.</p>
+          </div>
+        </div>
+        <div class="misalign-row">
+          <div class="misalign-lane">AI / ML</div>
+          <div class="misalign-content">
+            <svg class="diagram diagram-small" viewBox="0 0 920 180" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <marker id="arrow-blue-12" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#0000FF"/>
+                </marker>
+              </defs>
+              <text x="20" y="24" font-family="SF Mono, monospace" font-size="10" font-weight="600" fill="rgba(0,0,255,0.55)" letter-spacing="1.2">MULTI-LABEL CLASSIFICATION</text>
+              <!-- Film frame on left -->
+              <rect x="40" y="60" width="120" height="68" rx="4" fill="none" stroke="#0000FF" stroke-width="1.5"/>
+              <text x="100" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">Film frame</text>
+              <!-- Arrow to AI circle -->
+              <line x1="180" y1="94" x2="280" y2="94" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-12)"/>
+              <!-- AI circle -->
+              <circle cx="340" cy="94" r="48" fill="none" stroke="#0000FF" stroke-width="2"/>
+              <text x="340" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" fill="#0000FF" font-weight="500">AI</text>
+              <!-- Output labels right -->
+              <line x1="395" y1="94" x2="495" y2="94" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-12)"/>
+              <g font-family="Inter, sans-serif" font-size="14" fill="#1a1a1a">
+                <text x="515" y="68">Different countries</text>
+                <text x="515" y="98">Different genres</text>
+                <text x="515" y="128">Different cultural context</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -2809,7 +2809,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 function resetSlide(el) {
-  const selectors = '.label, .heading, .body-text, .approach-lead, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .score-cards, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary, .exec-single, .canvas-grid, .patterns-table, .team-compare, .roles-table, .dash-list, .tesla-grid, .pair-grid, .boxes-2x2, .boxes-2x2 > .box-neutral, .variation-stack, .role-stack, .box-good, .box-bad, .box-neutral, .slide-number';
+  const selectors = '.label, .heading, .body-text, .approach-lead, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .score-cards, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary, .exec-single, .canvas-grid, .patterns-table, .team-compare, .roles-table, .dash-list, .tesla-grid, .pair-grid, .boxes-2x2, .boxes-2x2 > .box-neutral, .variation-stack, .role-stack, .box-good, .box-bad, .box-neutral, .slide-number, .misalignment-stack';
   el.querySelectorAll(selectors).forEach(child => {
     gsap.set(child, { clearProps: 'all' });
     child.style.opacity = '0';
@@ -2923,6 +2923,9 @@ function animateSlideIn(el) {
 
   const threeColBody = el.querySelectorAll('.content .three-col-body');
   if (threeColBody.length) tl.to(threeColBody, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const misalignmentStack = el.querySelectorAll('.content .misalignment-stack');
+  if (misalignmentStack.length) tl.to(misalignmentStack, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
 
   const approachGrid = el.querySelectorAll('.content .approach-grid');
   if (approachGrid.length) tl.to(approachGrid, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
