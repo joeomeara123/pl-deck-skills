@@ -36,19 +36,19 @@
     background: rgba(0,0,255,0.04);
     border: 1px solid rgba(0,0,255,0.2);
     border-radius: 10px;
-    padding: 18px 24px;
+    padding: 22px 28px;
   }
   .box-bad {
     background: rgba(220,38,38,0.04);
     border: 1px solid rgba(220,38,38,0.25);
     border-radius: 10px;
-    padding: 18px 24px;
+    padding: 22px 28px;
   }
   .box-neutral {
     background: rgba(0,0,0,0.025);
     border: 1px dashed rgba(0,0,0,0.12);
     border-radius: 10px;
-    padding: 18px 24px;
+    padding: 22px 28px;
   }
   .box-good .box-label, .box-bad .box-label, .box-neutral .box-label {
     font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600;
@@ -60,7 +60,7 @@
   .box-neutral .box-label { color: rgba(0,0,255,0.55); }
   .box-good p, .box-bad p, .box-neutral p,
   .box-good li, .box-bad li, .box-neutral li {
-    font-size: 0.88rem; font-weight: 300; line-height: 1.6; color: #1a1a1a;
+    font-size: 0.92rem; font-weight: 300; line-height: 1.6; color: #1a1a1a;
   }
   .box-good ul, .box-bad ul, .box-neutral ul { list-style: none; padding-left: 0; }
   .box-good li, .box-bad li, .box-neutral li { padding: 4px 0 4px 14px; position: relative; }
@@ -87,7 +87,7 @@
     max-width: 1080px;
     opacity: 0; transform: translateY(8px);
   }
-  .pair-grid .box-good, .pair-grid .box-bad { min-height: 84px; }
+  .pair-grid .box-good, .pair-grid .box-bad { min-height: 100px; }
 
   /* ── 2x2 neutral box grid (slide 4) ── */
   .boxes-2x2 {
@@ -96,14 +96,14 @@
     grid-template-rows: auto auto;
     gap: 16px 24px;
     margin-top: 16px;
-    max-width: 1080px;
+    max-width: 920px;
     opacity: 0;
     transform: translateY(8px);
   }
-  .boxes-2x2 > .box-neutral { padding: 14px 18px; }
-  .boxes-2x2 > .box-neutral p { font-size: 0.78rem; line-height: 1.5; margin-bottom: 6px; }
+  .boxes-2x2 > .box-neutral { padding: 20px 24px; }
+  .boxes-2x2 > .box-neutral p { font-size: 0.92rem; line-height: 1.6; margin-bottom: 6px; }
   .boxes-2x2 > .box-neutral p:last-child { margin-bottom: 0; }
-  .boxes-2x2 > .box-neutral li { font-size: 0.78rem; line-height: 1.5; padding: 2px 0 2px 12px; }
+  .boxes-2x2 > .box-neutral li { font-size: 0.92rem; line-height: 1.6; padding: 2px 0 2px 12px; }
 
   /* ── Variation stack (slide 33) ── */
   .variation-stack {
@@ -113,8 +113,9 @@
     max-width: 920px;
     opacity: 0; transform: translateY(8px);
   }
+  .variation-stack .box-neutral { padding: 20px 26px; }
   .variation-stack .box-neutral p {
-    font-size: 0.85rem; line-height: 1.55; margin-bottom: 4px;
+    font-size: 0.92rem; line-height: 1.65; margin-bottom: 4px;
   }
   .variation-stack .box-neutral p:last-child { margin-bottom: 0; }
   .variation-stack .box-neutral p strong { color: #0000FF; font-weight: 600; }
@@ -127,10 +128,10 @@
     max-width: 1080px;
     opacity: 0; transform: translateY(8px);
   }
-  .role-card { padding: 16px 22px; }
+  .role-card { padding: 22px 28px; }
   .role-head {
     font-family: Inter, sans-serif;
-    font-size: 1rem; font-weight: 500;
+    font-size: 1.05rem; font-weight: 500;
     color: #0000FF;
     margin-bottom: 10px;
   }
@@ -146,7 +147,7 @@
     margin-bottom: 6px;
   }
   .role-col p {
-    font-size: 0.82rem; font-weight: 300; line-height: 1.55; color: #1a1a1a;
+    font-size: 0.92rem; font-weight: 300; line-height: 1.65; color: #1a1a1a;
     margin: 0;
   }
 
@@ -174,7 +175,7 @@
   }
   .score-cat {
     flex: 1;
-    font-size: 0.82rem; font-weight: 500; color: #1a1a1a;
+    font-size: 0.95rem; font-weight: 500; color: #1a1a1a;
   }
   .score-badge {
     font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600;
@@ -185,7 +186,7 @@
   .score-high { background: #0000FF; }
   .score-mid { background: rgba(0,0,0,0.5); }
   .score-obs {
-    font-size: 0.74rem; font-weight: 300; line-height: 1.45;
+    font-size: 0.92rem; font-weight: 300; line-height: 1.6;
     color: #555;
     margin: 0;
   }
@@ -197,7 +198,7 @@
     opacity: 0; transform: translateY(8px);
   }
   .exec-single p {
-    font-size: 0.92rem; font-weight: 300;
+    font-size: 1rem; font-weight: 300;
     line-height: 1.75; color: #1a1a1a;
     margin-bottom: 16px;
   }
@@ -361,12 +362,12 @@
   .two-col-body .col { padding-right: 24px; border-right: 1px dashed rgba(0,0,0,0.08); }
   .two-col-body .col:last-child { border-right: none; padding-right: 0; }
   .two-col-body .col-title { font-size: 12.5px; font-weight: 600; color: #1a1a1a; margin-bottom: 12px; letter-spacing: 0.02em; }
-  .two-col-body p { font-size: 0.88rem; font-weight: 300; line-height: 1.7; color: #555; }
+  .two-col-body p { font-size: 0.92rem; font-weight: 300; line-height: 1.7; color: #555; }
   .three-col-body { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 36px; margin-top: 20px; max-width: 960px; opacity: 0; transform: translateY(8px); }
   .three-col-body .col { padding-right: 20px; border-right: 1px dashed rgba(0,0,0,0.08); }
   .three-col-body .col:last-child { border-right: none; padding-right: 0; }
   .three-col-body .col-title { font-size: 12px; font-weight: 600; color: #1a1a1a; margin-bottom: 10px; letter-spacing: 0.02em; }
-  .three-col-body p { font-size: 0.82rem; font-weight: 300; line-height: 1.65; color: #555; }
+  .three-col-body p { font-size: 0.92rem; font-weight: 300; line-height: 1.65; color: #555; }
   .three-col-body .col-note { font-size: 0.78rem; font-weight: 500; color: #1a1a1a; border: 1px solid rgba(0,0,0,0.15); padding: 6px 10px; margin-top: 10px; display: inline-block; }
 
   /* ── Section header bar (slide 4 context/key-questions blocks) ── */
@@ -380,7 +381,7 @@
   .section-block { margin-bottom: 20px; }
   .section-block ul { list-style: disc; padding-left: 18px; }
   .section-block ul li {
-    font-size: 0.82rem; font-weight: 300;
+    font-size: 0.92rem; font-weight: 300;
     line-height: 1.6; color: #444;
     padding: 3px 0;
   }
@@ -389,32 +390,32 @@
   /* ── Approach grid (slide 6) ── */
   .approach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 24px; max-width: 960px; opacity: 0; transform: translateY(8px); }
   .approach-col-label { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(0,0,255,0.45); margin-bottom: 14px; }
-  .approach-text .lead { font-size: 0.88rem; font-weight: 300; line-height: 1.6; color: #1a1a1a; margin-bottom: 16px; }
+  .approach-text .lead { font-size: 0.92rem; font-weight: 300; line-height: 1.6; color: #1a1a1a; margin-bottom: 16px; }
   .approach-text ol { padding-left: 18px; margin: 0; }
-  .approach-text li { font-size: 0.83rem; font-weight: 300; color: #555; padding: 6px 0; border-bottom: 1px dashed rgba(0,0,0,0.08); line-height: 1.55; }
+  .approach-text li { font-size: 0.92rem; font-weight: 300; color: #555; padding: 6px 0; border-bottom: 1px dashed rgba(0,0,0,0.08); line-height: 1.65; }
   .approach-text li:last-child { border-bottom: none; }
   .approach-focus { border-left: 1px dashed rgba(0,0,0,0.08); padding-left: 32px; }
   .focus-table { width: 100%; border-collapse: collapse; }
   .focus-table tr { border-bottom: 1px dashed rgba(0,0,0,0.08); }
   .focus-table tr:last-child { border-bottom: none; }
-  .focus-table td { padding: 10px 0; vertical-align: top; font-size: 0.82rem; font-weight: 300; color: #555; line-height: 1.5; }
+  .focus-table td { padding: 10px 0; vertical-align: top; font-size: 0.92rem; font-weight: 300; color: #555; line-height: 1.6; }
   .focus-table td:first-child { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(0,0,255,0.45); padding-right: 18px; white-space: nowrap; width: 130px; padding-top: 12px; }
 
   /* ── Intended state grid (slide 8) ── */
   .quad-grid { display: flex; flex-direction: column; gap: 0; margin-top: 20px; max-width: 960px; opacity: 0; transform: translateY(8px); }
-  .intended-banner { background: rgba(0,0,255,0.04); border: 1px dashed rgba(0,0,255,0.15); border-radius: 4px; padding: 16px 24px; text-align: center; font-size: 0.9rem; font-weight: 400; color: #1a1a1a; line-height: 1.5; margin-bottom: 16px; }
+  .intended-banner { background: rgba(0,0,255,0.04); border: 1px dashed rgba(0,0,255,0.15); border-radius: 4px; padding: 16px 24px; text-align: center; font-size: 0.9rem; font-weight: 400; color: #1a1a1a; line-height: 1.6; margin-bottom: 16px; }
   .intended-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px dashed rgba(0,0,0,0.08); }
   .intended-col { padding: 16px 24px; border-right: 1px dashed rgba(0,0,0,0.08); }
   .intended-col:last-child { border-right: none; }
   .intended-col:first-child { padding-left: 0; }
   .quad-label { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(0,0,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
   .intended-col ul { list-style: none; padding-left: 0; margin: 0; }
-  .intended-col li { font-size: 0.82rem; font-weight: 300; color: #555; line-height: 1.55; padding: 4px 0 4px 14px; position: relative; }
+  .intended-col li { font-size: 0.92rem; font-weight: 300; color: #555; line-height: 1.65; padding: 4px 0 4px 14px; position: relative; }
   .intended-col li::before { content: "-"; position: absolute; left: 0; color: #0000FF; }
   .intended-together { border-top: 1px dashed rgba(0,0,0,0.08); padding: 14px 0 0 0; }
   .intended-together .quad-label { margin-bottom: 8px; }
   .intended-together ul { list-style: none; padding-left: 0; margin: 0; display: flex; gap: 40px; }
-  .intended-together li { font-size: 0.82rem; font-weight: 300; color: #555; line-height: 1.55; padding-left: 14px; position: relative; }
+  .intended-together li { font-size: 0.92rem; font-weight: 300; color: #555; line-height: 1.65; padding-left: 14px; position: relative; }
   .intended-together li::before { content: "-"; position: absolute; left: 0; color: #0000FF; }
 
   /* ── Cards (no boxes; dashed dividers) ── */
@@ -440,7 +441,7 @@
     margin-bottom: 8px; letter-spacing: -0.005em;
   }
   .card-body {
-    font-size: 0.85rem;
+    font-size: 0.92rem;
     font-weight: 300;
     line-height: 1.65;
     color: #666;
@@ -515,21 +516,21 @@
   /* ── Solution card with bullets ── */
   .solution-lead {
     font-family: Inter, sans-serif;
-    font-size: 0.82rem;
+    font-size: 0.92rem;
     font-weight: 400;
     color: #444;
-    line-height: 1.55;
+    line-height: 1.65;
     margin: 4px 0 12px;
   }
   .solution-bullets { list-style: none; padding: 0; margin: 0; }
   .solution-bullets li {
     font-family: Inter, sans-serif;
-    font-size: 0.78rem;
+    font-size: 0.92rem;
     font-weight: 300;
     color: #555;
     padding: 7px 0;
     border-top: 1px dashed rgba(0,0,0,0.06);
-    line-height: 1.4;
+    line-height: 1.6;
   }
   .solution-bullets li:first-child { border-top: 1px dashed rgba(0,0,0,0.08); }
 
@@ -560,9 +561,9 @@
   .outcomes-col ul { list-style: none; padding: 0; margin: 0; }
   .outcomes-col li {
     font-family: Inter, sans-serif;
-    font-size: 0.78rem; font-weight: 300;
+    font-size: 0.92rem; font-weight: 300;
     color: #555;
-    padding: 5px 0; line-height: 1.45;
+    padding: 5px 0; line-height: 1.6;
   }
 
   /* ── Mission icon block ── */
@@ -729,19 +730,19 @@
   .delivered-vs-but .col:last-child { border-right: none; padding-right: 0; }
   .delivered-vs-but .col-header { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(0,0,255,0.45); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 12px; }
   .delivered-vs-but ul { list-style: none; padding-left: 0; }
-  .delivered-vs-but li { font-size: 0.85rem; font-weight: 300; color: #555; line-height: 1.6; padding: 8px 0 8px 18px; border-bottom: 1px dashed rgba(0,0,0,0.06); position: relative; }
+  .delivered-vs-but li { font-size: 0.92rem; font-weight: 300; color: #555; line-height: 1.6; padding: 8px 0 8px 18px; border-bottom: 1px dashed rgba(0,0,0,0.06); position: relative; }
   .delivered-vs-but li::before { content: "-"; position: absolute; left: 0; color: #0000FF; }
 
   /* ── Analogy table (slide 15) ── */
   .analogy-table { width: 100%; max-width: 920px; margin-top: 24px; border-collapse: collapse; font-size: 0.85rem; opacity: 0; transform: translateY(8px); }
   .analogy-table thead th { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(0,0,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; padding: 12px 16px 12px 0; text-align: left; border-bottom: 1px dashed rgba(0,0,0,0.12); }
   .analogy-table tbody th { font-weight: 600; color: #1a1a1a; padding: 14px 24px 14px 0; vertical-align: top; width: 120px; }
-  .analogy-table tbody td { padding: 14px 24px 14px 0; color: #555; font-weight: 300; line-height: 1.6; border-bottom: 1px dashed rgba(0,0,0,0.06); }
+  .analogy-table tbody td { padding: 14px 24px 14px 0; color: #555; font-size: 0.92rem; font-weight: 300; line-height: 1.6; border-bottom: 1px dashed rgba(0,0,0,0.06); }
 
   /* ── Score table (slide 18) ── */
   .score-table { width: 100%; max-width: 960px; margin-top: 16px; border-collapse: collapse; font-size: 0.8rem; opacity: 0; transform: translateY(8px); }
   .score-table thead th { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(0,0,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; padding: 10px 12px; text-align: left; border-bottom: 1px dashed rgba(0,0,0,0.12); }
-  .score-table tbody td { padding: 10px 12px; color: #555; font-weight: 300; line-height: 1.5; border-bottom: 1px dashed rgba(0,0,0,0.06); vertical-align: top; }
+  .score-table tbody td { padding: 10px 12px; color: #555; font-size: 0.92rem; font-weight: 300; line-height: 1.6; border-bottom: 1px dashed rgba(0,0,0,0.06); vertical-align: top; }
   .score-table tbody td:first-child { font-family: 'SF Mono', monospace; font-size: 9px; color: rgba(0,0,255,0.6); width: 40px; }
   .score-table tbody td:last-child { color: #0000FF; font-weight: 500; text-align: right; width: 80px; }
 
@@ -762,7 +763,7 @@
   /* ── Slide 21: paths table ── */
   .paths-table { width: 100%; max-width: 960px; margin-top: 16px; border-collapse: collapse; font-size: 0.85rem; opacity: 0; transform: translateY(8px); }
   .paths-table thead th { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(0,0,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; padding: 12px 14px; text-align: left; border-bottom: 1px dashed rgba(0,0,0,0.12); }
-  .paths-table tbody td { padding: 16px 14px; color: #555; font-weight: 300; line-height: 1.55; border-bottom: 1px dashed rgba(0,0,0,0.06); vertical-align: top; }
+  .paths-table tbody td { padding: 16px 14px; color: #555; font-size: 0.92rem; font-weight: 300; line-height: 1.65; border-bottom: 1px dashed rgba(0,0,0,0.06); vertical-align: top; }
   .paths-table tbody td:first-child { color: #1a1a1a; font-weight: 400; }
   .paths-table tbody td strong { font-family: 'SF Mono', monospace; font-size: 11px; color: #0000FF; margin-right: 6px; }
 
@@ -773,12 +774,12 @@
   .three-bullet .bullet:last-child { border-right: none; padding-right: 0; }
   .three-bullet .bullet-num { font-family: 'SF Mono', monospace; font-size: 11px; font-weight: 600; color: #0000FF; letter-spacing: 0.1em; margin-bottom: 12px; }
   .three-bullet h3 { font-size: 0.95rem; font-weight: 500; color: #1a1a1a; margin-bottom: 8px; }
-  .three-bullet p { font-size: 0.85rem; font-weight: 300; line-height: 1.6; color: #555; }
+  .three-bullet p { font-size: 0.92rem; font-weight: 300; line-height: 1.6; color: #555; }
   .pl-quote { margin-top: 32px; padding-left: 16px; border-left: 2px solid #0000FF; font-size: 1rem; font-weight: 400; color: #1a1a1a; max-width: 720px; opacity: 0; transform: translateY(8px); }
 
   /* ── Slide 23: exec summary ── */
   .exec-summary { columns: 2; column-gap: 48px; max-width: 920px; margin-top: 16px; opacity: 0; transform: translateY(8px); }
-  .exec-summary p { font-size: 0.88rem; font-weight: 300; line-height: 1.7; color: #555; margin-bottom: 14px; break-inside: avoid; }
+  .exec-summary p { font-size: 0.92rem; font-weight: 300; line-height: 1.7; color: #555; margin-bottom: 14px; break-inside: avoid; }
 
   /* ── Slide 29: canvas grid ── */
   .canvas-grid {
@@ -793,7 +794,7 @@
     background: rgba(0,0,0,0.025);
     border: 1px dashed rgba(0,0,0,0.12);
     border-radius: 10px;
-    padding: 18px 20px;
+    padding: 22px 26px;
     min-height: 130px;
   }
   .canvas-cell .cell-label {
@@ -803,7 +804,7 @@
     margin-bottom: 8px;
   }
   .canvas-cell p {
-    font-size: 0.78rem; font-weight: 300; line-height: 1.55; color: #1a1a1a;
+    font-size: 0.92rem; font-weight: 300; line-height: 1.6; color: #1a1a1a;
   }
 
   /* ── Slide 30: patterns table ── */
@@ -811,11 +812,11 @@
   .patterns-table thead th { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 12px 16px; text-align: left; border-bottom: 1px dashed rgba(0,0,0,0.12); }
   .patterns-table thead th:first-child { color: #0000FF; }
   .patterns-table thead th:last-child { color: #dc2626; }
-  .patterns-table tbody td { padding: 14px 16px; color: #555; font-weight: 300; line-height: 1.6; border-bottom: 1px dashed rgba(0,0,0,0.06); vertical-align: top; width: 50%; }
+  .patterns-table tbody td { padding: 14px 16px; color: #555; font-size: 0.92rem; font-weight: 300; line-height: 1.6; border-bottom: 1px dashed rgba(0,0,0,0.06); vertical-align: top; width: 50%; }
 
   /* ── Slide 32: team compare ── */
   .team-compare { margin-top: 16px; max-width: 960px; opacity: 0; transform: translateY(8px); }
-  .team-row { display: grid; grid-template-columns: 1fr 1.5fr 1.5fr; gap: 24px; padding: 14px 0; border-bottom: 1px dashed rgba(0,0,0,0.06); font-size: 0.85rem; color: #555; font-weight: 300; line-height: 1.55; }
+  .team-row { display: grid; grid-template-columns: 1fr 1.5fr 1.5fr; gap: 24px; padding: 14px 0; border-bottom: 1px dashed rgba(0,0,0,0.06); font-size: 0.92rem; color: #555; font-weight: 300; line-height: 1.65; }
   .team-row.team-header { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(0,0,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 1px dashed rgba(0,0,0,0.12); }
   .team-row > div:first-child { color: #1a1a1a; font-weight: 400; }
 
@@ -825,19 +826,19 @@
   /* ── Slide 34: roles table ── */
   .roles-table { width: 100%; max-width: 960px; margin-top: 16px; border-collapse: collapse; font-size: 0.85rem; opacity: 0; transform: translateY(8px); }
   .roles-table thead th { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(0,0,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; padding: 12px 16px; text-align: left; border-bottom: 1px dashed rgba(0,0,0,0.12); }
-  .roles-table tbody td { padding: 14px 16px; color: #555; font-weight: 300; line-height: 1.55; border-bottom: 1px dashed rgba(0,0,0,0.06); vertical-align: top; }
+  .roles-table tbody td { padding: 14px 16px; color: #555; font-size: 0.92rem; font-weight: 300; line-height: 1.65; border-bottom: 1px dashed rgba(0,0,0,0.06); vertical-align: top; }
   .roles-table tbody td:first-child { color: #1a1a1a; font-weight: 400; width: 200px; }
 
   /* ── Slides 35-36: dash list ── */
   .dash-list { list-style: none; padding-left: 0; }
-  .dash-list li { font-size: 0.85rem; font-weight: 300; color: #555; padding: 6px 0 6px 16px; position: relative; line-height: 1.55; }
+  .dash-list li { font-size: 0.92rem; font-weight: 300; color: #555; padding: 6px 0 6px 16px; position: relative; line-height: 1.65; }
   .dash-list li::before { content: "-"; position: absolute; left: 0; color: #0000FF; }
 
   /* ── Slide 39: Tesla example ── */
   .tesla-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 16px; max-width: 960px; opacity: 0; transform: translateY(8px); }
-  .tesla-text .lead { font-size: 0.95rem; font-weight: 400; color: #1a1a1a; line-height: 1.55; margin-bottom: 16px; }
+  .tesla-text .lead { font-size: 0.95rem; font-weight: 400; color: #1a1a1a; line-height: 1.65; margin-bottom: 16px; }
   .tesla-steps { list-style: none; counter-reset: ts; padding-left: 0; }
-  .tesla-steps li { counter-increment: ts; font-size: 0.85rem; font-weight: 300; color: #555; padding: 8px 0 8px 30px; position: relative; line-height: 1.55; border-bottom: 1px dashed rgba(0,0,0,0.06); }
+  .tesla-steps li { counter-increment: ts; font-size: 0.92rem; font-weight: 300; color: #555; padding: 8px 0 8px 30px; position: relative; line-height: 1.65; border-bottom: 1px dashed rgba(0,0,0,0.06); }
   .tesla-steps li::before { content: counter(ts, decimal-leading-zero); position: absolute; left: 0; color: #0000FF; font-family: 'SF Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; }
   .tesla-image { border: 1px dashed rgba(0,0,0,0.12); display: flex; align-items: center; justify-content: center; min-height: 240px; }
   .tesla-placeholder span { font-family: 'SF Mono', monospace; font-size: 9px; color: rgba(0,0,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; }
@@ -1768,8 +1769,8 @@
     <canvas class="corner-canvas" id="corner-20"></canvas>
     <div class="content">
       <div class="label" style="color: rgba(255,255,255,0.55);">Findings</div>
-      <p class="body-text" style="color: rgba(255,255,255,0.9); font-size: 1.35rem; line-height: 1.55; margin-bottom: 1.5rem;">Our project began with a strong focus on model accuracy as the primary indicator of readiness.</p>
-      <p class="body-text" style="color: rgba(255,255,255,0.9); font-size: 1.35rem; line-height: 1.55;">Our investigation found that this focus masked deeper, more fundamental issues that must be resolved before accuracy can meaningfully translate into a viable product - including unclear product scope, unstable data foundations, and misaligned decision-making.</p>
+      <p class="body-text" style="color: rgba(255,255,255,0.9); font-size: 1.35rem; line-height: 1.65; margin-bottom: 1.5rem;">Our project began with a strong focus on model accuracy as the primary indicator of readiness.</p>
+      <p class="body-text" style="color: rgba(255,255,255,0.9); font-size: 1.35rem; line-height: 1.65;">Our investigation found that this focus masked deeper, more fundamental issues that must be resolved before accuracy can meaningfully translate into a viable product - including unclear product scope, unstable data foundations, and misaligned decision-making.</p>
     </div>
     <div class="slide-footer" style="color: rgba(255,255,255,0.6);">PROGRESSION LABS</div>
   </div>
