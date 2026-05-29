@@ -19,11 +19,25 @@ Orchestrates the full deck creation pipeline. Invoke child skills in order for c
 
 | Color | Hex | Use |
 |-------|-----|-----|
-| **Blue** | `#0000FF` | Step numbers, icons, labels, chart bars, diagram nodes, positive indicators |
-| **Salmon** | `#FFA07A` | Secondary accent, CTAs, warm highlights |
-| **Red** | `#dc2626` | Negative/risk indicators only |
+| **Blue** | `#0000FF` | Step numbers, icons, labels, chart bars, diagram nodes, **good / best practice / recommended path** |
+| **Red** | `#dc2626` | **Bad / anti-pattern / risk / what to avoid** |
+| **Salmon** | `#FFA07A` | Hero gradient + pixel corner only. Not used for content semantics. |
 
 **Gradient shading allowed:** Dark blue `#00008B` through `#0000FF` to light `rgba(0,0,255,0.15)` for depth.
+
+### Blue / Red as a signaling system
+
+When a slide contrasts good vs bad (best practice vs anti-pattern, recommended vs risky, what worked vs what didn't), use the system consistently:
+
+| Treatment | Good | Bad |
+|---|---|---|
+| Background tint | `rgba(0,0,255,0.04)` | `rgba(220,38,38,0.04)` |
+| Border | `1px solid rgba(0,0,255,0.2)` | `1px solid rgba(220,38,38,0.25)` |
+| Inline tag pill | Blue `#0000FF` background, white text, 9px mono uppercase | Red `#dc2626` background, white text, 9px mono uppercase |
+| Diagram stroke | `#0000FF` | `#dc2626` |
+| Text accent (sparingly) | `#0000FF` weight 600 | `#dc2626` weight 600 |
+
+Apply on slides where the structure is paired contrast (e.g. best practice / anti-pattern tables, what-happened / what-should-have-happened flows). Do not over-apply: a single-topic slide with no good/bad framing should stay neutral.
 
 ### Full 5-Color Palette (hero gradient and pixel corner ONLY)
 
@@ -192,18 +206,18 @@ Use these blueprints to structure slide content. Pick the template that matches 
 After generating every slide, verify against this checklist. Do not skip.
 
 ### Visual Quality
-- [ ] No more than 2 colors in slide content (blue + one accent). No rainbow.
+- [ ] Slide content uses brand palette only: blue, red, greys. No rainbow.
 - [ ] Step numbers ALL the same color (blue), plain text (no circles/backgrounds).
 - [ ] No em dashes in any text.
-- [ ] **No boxes.** No card backgrounds, solid borders, or border-radius. Use dashed lines only.
+- [ ] **Boxes are allowed for emphasis** (see pl-deck-components Boxes section). Use subtle tinted backgrounds (`rgba(0,0,255,0.04)` blue, `rgba(220,38,38,0.04)` red, `rgba(0,0,0,0.025)` neutral) with 8-12px border-radius and 1px solid 20% borders. Default to dashed dividers for soft grouping; reserve boxes for paired contrast or callouts.
 - [ ] Diagrams have fewer elements than limits (see pl-deck-components).
 - [ ] All SVG text at least 8px.
 - [ ] White space is generous. Nothing cramped. Less is more.
 
 ### Layout
-- [ ] Content left-aligned, top-down flow.
-- [ ] Padding: 72px top, 100px sides, 56px bottom. Content max-width 960px.
-- [ ] Card grids use vertical dashed line dividers between columns.
+- [ ] Content **vertically centred** in the slide area (`justify-content: center`), text inside left-aligned.
+- [ ] Padding: 48px top, 100px sides, 56px bottom. Content max-width 960px.
+- [ ] Card grids use vertical dashed line dividers between columns (or boxes for paired contrast).
 - [ ] Footer pinned to bottom.
 
 ### Brand Compliance
@@ -211,8 +225,8 @@ After generating every slide, verify against this checklist. Do not skip.
 - [ ] Icon wireframe strokes use `stroke: #0000FF`. Gradient fills are subtle (8-15% opacity).
 - [ ] No icon repeated on consecutive slides.
 - [ ] Labels monospace, uppercase, blue at 35% opacity.
-- [ ] Quotes have salmon left border.
-- [ ] Badges are plain colored text (no backgrounds).
+- [ ] Quotes have a blue left border (2px solid `#0000FF`), or red if the quote represents an anti-pattern.
+- [ ] Inline tag pills (`.tag-good` / `.tag-bad`) are allowed for compact good/bad labels; plain colored text is also fine for restraint.
 
 ### Diagram Quality (run on EVERY SVG diagram)
 - [ ] **5-second test**: Can a reader understand the main point in 5 seconds?

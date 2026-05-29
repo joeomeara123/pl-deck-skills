@@ -9,7 +9,9 @@ Visual components for Progression Labs deck slides. Every component follows the 
 
 ## Cards
 
-No boxes. Cards are open text blocks separated by dashed lines. In grids, vertical dashed lines divide columns.
+Default to open text blocks separated by dashed lines. Use boxes selectively when a slide needs paired contrast (good vs bad) or when a card needs to anchor a group of related elements.
+
+### Open card (default for most slides)
 
 ```css
 .card {
@@ -32,7 +34,65 @@ No boxes. Cards are open text blocks separated by dashed lines. In grids, vertic
 .card-grid .card:last-child { border-right: none; padding-right: 0; }
 ```
 
-**NEVER add backgrounds, solid borders, border-radius, or hover effects to cards.** Use dashed lines only. Less decoration = more luxury.
+## Boxes (for emphasis and paired contrast)
+
+Use boxes when:
+- A slide contrasts good vs bad (best practice vs anti-pattern, recommended vs risky)
+- A callout needs to anchor a key insight
+- A grid of cells benefits from clear visual borders (e.g., a business model canvas)
+
+Do not use boxes everywhere. Default is still open cards with dashed dividers. A deck where every card is boxed feels heavy. Reserve boxes for the moments that matter.
+
+### Box variants
+
+```css
+/* Good / best practice / recommended */
+.box-good {
+  background: rgba(0,0,255,0.04);
+  border: 1px solid rgba(0,0,255,0.2);
+  border-radius: 10px;
+  padding: 18px 24px;
+}
+
+/* Bad / anti-pattern / risk / what to avoid */
+.box-bad {
+  background: rgba(220,38,38,0.04);
+  border: 1px solid rgba(220,38,38,0.25);
+  border-radius: 10px;
+  padding: 18px 24px;
+}
+
+/* Neutral / structural — for canvas cells, role cards, generic groupings */
+.box-neutral {
+  background: rgba(0,0,0,0.025);
+  border: 1px dashed rgba(0,0,0,0.12);
+  border-radius: 10px;
+  padding: 18px 24px;
+}
+
+/* Compact tag pill — inline good/bad label */
+.tag-good, .tag-bad {
+  display: inline-block;
+  font-family: 'SF Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  color: white;
+}
+.tag-good { background: #0000FF; }
+.tag-bad { background: #dc2626; }
+```
+
+### Rules
+- Border-radius range: 8–12px. Sharper than that reads as a hard rectangle; softer reads as a button.
+- Backgrounds always at very low opacity (4% tint) so the box reads as a quiet surface, not a coloured block.
+- Borders 1px solid at 20–25% opacity. Heavier borders compete with the content.
+- Padding 18–24px inside. Less feels cramped.
+- Never combine `.box-good` and `.box-bad` styles on the same element. Pick one.
+- Do not stack a box inside a box. If you need nested grouping, the outer container should be a `.box-neutral` and the inner should be unframed text.
 
 ## SVG Diagrams
 
@@ -47,7 +107,7 @@ No boxes. Cards are open text blocks separated by dashed lines. In grids, vertic
 5. **Direction tells the story.** Top-to-bottom = hierarchy/layers. Left-to-right = process/flow. Center-outward = hub-spoke/influence. Pick one and commit.
 6. **Connectors are minimal.** Dashed lines at `rgba(0,0,255,0.15)` with subtle arrows. Never more connectors than nodes. If it looks like spaghetti, remove lines until it doesn't.
 7. **Labels inside nodes, not floating.** Text should be anchored to something. Floating labels create visual noise.
-8. **Use color to encode meaning, not decoration.** Blue = confirmed/positive. Red = problem/silo. Salmon = needs attention. Grey = unconfirmed. One color per meaning, max 3 colors per diagram.
+8. **Use color to encode meaning, not decoration.** Blue = good / recommended / what worked. Red = bad / anti-pattern / what went wrong. Grey = unconfirmed/neutral. Salmon is reserved for the hero gradient and pixel corner; do not use it in diagram nodes. One color per meaning, max 3 colors per diagram.
 9. **Ask: would a bulleted list work better?** If yes, use a bulleted list. Diagrams earn their place by showing relationships that text cannot.
 
 ### Mandatory SVG Setup

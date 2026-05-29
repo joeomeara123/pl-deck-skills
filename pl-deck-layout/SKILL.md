@@ -51,20 +51,23 @@ These files are required by the hero slide, content slide watermarks, and the pi
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: center;       /* vertically centre the content block */
   text-align: left;
-  padding: 72px 100px 56px;
+  padding: 48px 100px 56px;      /* lighter top padding so centring is balanced */
   overflow: hidden;
 }
 ```
 
-**Content is left-aligned, top-down.** Headings sit top-left, body text flows naturally. Generous whitespace between elements.
+**Content is vertically centred in the slide area; text inside stays left-aligned.** The content block (label + heading + body + components) sits in the visual middle of the slide. Headings and body text inside that block are left-aligned. Generous whitespace above and below the block.
 
 ### Exceptions
 - Title/hero slide: centered layout (override with `#slide-0 { align-items: center; justify-content: center; text-align: center; }`)
-- Contact/CTA slides: left-align the block, but center the wrapper
-- Tables/code blocks: left-align content inside a centered container
-- Multi-column layouts: center the grid, left-align within columns
+- Slides with a single dominant visual element (full-bleed diagram, large stat block): can be centred on both axes
+- Multi-column layouts: centre the grid horizontally, left-align within columns
+- Pinned content (footer, nav dots): position absolutely and bypass the flex flow
+
+### Footer position
+The footer is positioned absolutely at the bottom of the slide (`position: absolute; bottom: 28px; left: 100px;`) so vertical centering of the content block does not pull the footer up. Same applies to the prism corner accent.
 
 ### Footer pinning
 Footer always pins to bottom with `margin-top: auto` on the footer element.
