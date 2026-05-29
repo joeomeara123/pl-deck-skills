@@ -925,6 +925,28 @@
     z-index: 2; pointer-events: none;
   }
 
+  /* ── Slide number indicator (top-right corner of every content slide) ── */
+  .slide-number {
+    position: absolute;
+    top: 32px;
+    right: 36px;
+    z-index: 2;
+    pointer-events: none;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(0,0,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0;
+  }
+  /* For split-layout dividers, position inside the text half on the left */
+  .slide-split .slide-number {
+    top: 32px;
+    right: auto;
+    left: 64px;
+  }
+
   /* ── Sub-divider slides ── */
   .sub-divider .content {
     justify-content: center;
@@ -2787,7 +2809,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 function resetSlide(el) {
-  const selectors = '.label, .heading, .body-text, .approach-lead, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .score-cards, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary, .exec-single, .canvas-grid, .patterns-table, .team-compare, .roles-table, .dash-list, .tesla-grid, .pair-grid, .boxes-2x2, .boxes-2x2 > .box-neutral, .variation-stack, .role-stack, .box-good, .box-bad, .box-neutral';
+  const selectors = '.label, .heading, .body-text, .approach-lead, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .score-cards, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary, .exec-single, .canvas-grid, .patterns-table, .team-compare, .roles-table, .dash-list, .tesla-grid, .pair-grid, .boxes-2x2, .boxes-2x2 > .box-neutral, .variation-stack, .role-stack, .box-good, .box-bad, .box-neutral, .slide-number';
   el.querySelectorAll(selectors).forEach(child => {
     gsap.set(child, { clearProps: 'all' });
     child.style.opacity = '0';
@@ -2806,6 +2828,9 @@ function animateSlideIn(el) {
 
   const labels = el.querySelectorAll('.content .label');
   if (labels.length) tl.to(labels, { opacity: 1, y: 0, duration: 0.4 }, 0);
+
+  const slideNum = el.querySelectorAll('.slide-number');
+  if (slideNum.length) tl.to(slideNum, { opacity: 1, duration: 0.4 }, 0.05);
 
   const dividers = el.querySelectorAll('.content .divider');
   if (dividers.length) tl.to(dividers, { scaleX: 1, duration: 0.5 }, 0.08);
@@ -3033,6 +3058,20 @@ function initCornerCanvases() {
     window.addEventListener('resize', drawOnce);
   });
 }
+
+(function injectSlideNumbers() {
+  const all = document.querySelectorAll('.slide');
+  const total = all.length - 1; // exclude hero
+  all.forEach((slide, idx) => {
+    if (idx === 0) return; // skip hero
+    const num = document.createElement('div');
+    num.className = 'slide-number';
+    num.textContent = String(idx).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+    // For split layouts, put the number inside the text half
+    const target = slide.querySelector('.slide-text') || slide;
+    target.appendChild(num);
+  });
+})();
 
 /* ────────────────── Boot ────────────────── */
 window.addEventListener('load', () => {
