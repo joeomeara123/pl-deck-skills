@@ -1651,40 +1651,128 @@
   <div class="slide slide-content" id="slide-28">
     <canvas class="corner-canvas" id="corner-28"></canvas>
     <div class="content">
-      <div class="label">Strategy</div>
-      <h2 class="heading">Pre-agreed <strong>stop-loss</strong></h2>
+      <div class="label">Best practices and things to avoid</div>
+      <h2 class="heading">Accepting risk and using a <strong>pre-agreed stop-loss</strong></h2>
       <div class="divider"></div>
-      <svg class="diagram" viewBox="0 0 920 280" preserveAspectRatio="xMidYMid meet">
+      <svg class="diagram" viewBox="0 0 900 310" preserveAspectRatio="xMidYMid meet">
         <defs>
-          <marker id="arrow-blue-6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <marker id="arr-pink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#f87171"/>
+          </marker>
+          <marker id="arr-blue-28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
             <path d="M 0 0 L 10 5 L 0 10 z" fill="#0000FF"/>
           </marker>
+          <marker id="arr-chart" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/>
+          </marker>
         </defs>
-        <!-- Step sequence across full width -->
-        <g font-family="Inter, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">
-          <circle cx="80" cy="90" r="38" fill="none" stroke="#0000FF" stroke-width="1.5"/>
-          <text x="80" y="95">FILL: step 1</text>
-          <circle cx="240" cy="90" r="38" fill="none" stroke="#0000FF" stroke-width="1.5"/>
-          <text x="240" y="95">FILL: step 2</text>
-          <circle cx="400" cy="90" r="38" fill="none" stroke="#0000FF" stroke-width="1.5"/>
-          <text x="400" y="95">FILL: step 3</text>
-          <circle cx="560" cy="90" r="38" fill="none" stroke="#0000FF" stroke-width="1.5"/>
-          <text x="560" y="95">FILL: step 4</text>
-          <circle cx="720" cy="90" r="38" fill="none" stroke="#0000FF" stroke-width="1.5"/>
-          <text x="720" y="95">FILL: step 5</text>
-        </g>
-        <!-- Connectors with arrowheads for clear left-to-right flow -->
-        <line x1="118" y1="90" x2="202" y2="90" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-6)"/>
-        <line x1="278" y1="90" x2="362" y2="90" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-6)"/>
-        <line x1="438" y1="90" x2="522" y2="90" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-6)"/>
-        <line x1="598" y1="90" x2="682" y2="90" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-6)"/>
-        <!-- Stop-loss marker on last step -->
-        <line x1="758" y1="68" x2="758" y2="112" stroke="#dc2626" stroke-width="2" opacity="0.7"/>
-        <text x="800" y="78" font-family="SF Mono, monospace" font-size="9" fill="#dc2626" letter-spacing="1" text-anchor="start">STOP-LOSS</text>
-        <!-- Analogy section -->
-        <text x="40" y="175" font-family="SF Mono, monospace" font-size="9" font-weight="600" fill="rgba(0,0,255,0.45)" letter-spacing="1.5">ANALOGY: TRADING STOP-LOSS</text>
-        <line x1="40" y1="189" x2="880" y2="189" stroke="rgba(0,0,0,0.08)" stroke-dasharray="4 4"/>
-        <text x="40" y="215" font-family="Inter, sans-serif" font-size="11" fill="#555">FILL: analogy line</text>
+
+        <!-- Row labels -->
+        <text x="0" y="44" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#1a1a1a">Anti-patterns</text>
+        <text x="0" y="154" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#1a1a1a">Best practice</text>
+
+        <!-- ANTI-PATTERN ROW: pink circles -->
+        <!-- circle 1 -->
+        <circle cx="60" cy="70" r="28" fill="#fca5a5" opacity="0.7"/>
+        <text x="60" y="67" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">Starting a</text>
+        <text x="60" y="77" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">high-risk</text>
+        <text x="60" y="87" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">project</text>
+        <!-- arrow -->
+        <line x1="90" y1="70" x2="110" y2="70" stroke="#f87171" stroke-width="1.2" marker-end="url(#arr-pink)"/>
+        <!-- circle 2 -->
+        <circle cx="140" cy="70" r="22" fill="#fca5a5" opacity="0.7"/>
+        <text x="140" y="67" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">Hitting</text>
+        <text x="140" y="77" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">a wall</text>
+        <!-- arrow -->
+        <line x1="164" y1="70" x2="180" y2="70" stroke="#f87171" stroke-width="1.2" marker-end="url(#arr-pink)"/>
+        <!-- circle 3 -->
+        <circle cx="210" cy="70" r="22" fill="#fca5a5" opacity="0.7"/>
+        <text x="210" y="67" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">Pivoting</text>
+        <text x="210" y="77" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">randomly</text>
+        <!-- arrow -->
+        <line x1="234" y1="70" x2="250" y2="70" stroke="#f87171" stroke-width="1.2" marker-end="url(#arr-pink)"/>
+        <!-- circle 4 -->
+        <circle cx="280" cy="70" r="22" fill="#fca5a5" opacity="0.7"/>
+        <text x="280" y="67" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">Hitting</text>
+        <text x="280" y="77" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">a wall</text>
+        <!-- arrow -->
+        <line x1="304" y1="70" x2="320" y2="70" stroke="#f87171" stroke-width="1.2" marker-end="url(#arr-pink)"/>
+        <!-- circle 5 -->
+        <circle cx="350" cy="70" r="22" fill="#fca5a5" opacity="0.7"/>
+        <text x="350" y="67" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">Pivoting</text>
+        <text x="350" y="77" font-family="Inter,sans-serif" font-size="7.5" fill="#1a1a1a" text-anchor="middle">randomly</text>
+        <!-- arrow -->
+        <line x1="374" y1="70" x2="386" y2="70" stroke="#f87171" stroke-width="1.2" marker-end="url(#arr-pink)"/>
+        <!-- ellipsis -->
+        <text x="405" y="74" font-family="Inter,sans-serif" font-size="12" fill="#f87171" text-anchor="middle">...</text>
+        <!-- arrow -->
+        <line x1="418" y1="70" x2="430" y2="70" stroke="#f87171" stroke-width="1.2" marker-end="url(#arr-pink)"/>
+        <!-- Burnout circle (larger) -->
+        <circle cx="464" cy="70" r="28" fill="#fca5a5" opacity="0.85"/>
+        <text x="464" y="73" font-family="Inter,sans-serif" font-size="8" font-weight="600" fill="#1a1a1a" text-anchor="middle">Burnout</text>
+
+        <!-- BEST PRACTICE ROW: blue circles -->
+        <!-- circle 1 -->
+        <circle cx="60" cy="185" r="28" fill="#0000FF"/>
+        <text x="60" y="181" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">Starting a</text>
+        <text x="60" y="191" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">high-risk</text>
+        <text x="60" y="201" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">project</text>
+        <!-- arrow -->
+        <line x1="90" y1="185" x2="110" y2="185" stroke="#0000FF" stroke-width="1.2" marker-end="url(#arr-blue-28)"/>
+        <!-- circle 2 -->
+        <circle cx="140" cy="185" r="22" fill="#0000FF"/>
+        <text x="140" y="182" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">Hitting</text>
+        <text x="140" y="192" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">a wall</text>
+        <!-- arrow -->
+        <line x1="164" y1="185" x2="180" y2="185" stroke="#0000FF" stroke-width="1.2" marker-end="url(#arr-blue-28)"/>
+        <!-- circle 3 (larger) -->
+        <circle cx="225" cy="185" r="34" fill="#0000FF"/>
+        <text x="225" y="179" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">Trying to</text>
+        <text x="225" y="189" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">solve; pre-</text>
+        <text x="225" y="199" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">agreement</text>
+        <text x="225" y="209" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">on stop-loss</text>
+        <!-- arrow -->
+        <line x1="261" y1="185" x2="279" y2="185" stroke="#0000FF" stroke-width="1.2" marker-end="url(#arr-blue-28)"/>
+        <!-- circle 4 -->
+        <circle cx="315" cy="185" r="28" fill="#0000FF"/>
+        <text x="315" y="181" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">Only pivot</text>
+        <text x="315" y="191" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">when stop-</text>
+        <text x="315" y="201" font-family="Inter,sans-serif" font-size="7" fill="#fff" text-anchor="middle">loss is hit</text>
+
+        <!-- Italic quote below best practice row -->
+        <text x="60" y="232" font-family="Inter,sans-serif" font-size="8.5" font-style="italic" fill="#0000FF">"If we don't solve this problem in 2 months, we'll pivot but until then we'll give our best to try to solve it."</text>
+
+        <!-- Analogy: Stop-loss in trading (right side) -->
+        <text x="530" y="52" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#1a1a1a">Analogy: Stop-loss in trading</text>
+
+        <!-- Chart axes -->
+        <line x1="540" y1="60" x2="540" y2="210" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-chart)"/>
+        <line x1="540" y1="210" x2="890" y2="210" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-chart)"/>
+
+        <!-- Price line: rises then falls sharply -->
+        <polyline points="560,190 590,170 620,155 650,130 680,110 700,100 715,95 730,90 745,88 755,90 765,95 778,105 788,125 798,150 808,175 818,190" fill="none" stroke="#0000FF" stroke-width="2"/>
+
+        <!-- Stop-loss horizontal line -->
+        <line x1="540" y1="155" x2="870" y2="155" stroke="#f87171" stroke-width="1.2" stroke-dasharray="5 3"/>
+        <text x="544" y="152" font-family="Inter,sans-serif" font-size="8" fill="#f87171">Stop-loss</text>
+
+        <!-- Dot at buy and at stop-loss activation -->
+        <circle cx="560" cy="190" r="4" fill="#0000FF"/>
+        <circle cx="793" cy="155" r="4" fill="#f87171"/>
+
+        <!-- Vertical dashed at stop-loss activation -->
+        <line x1="793" y1="155" x2="793" y2="210" stroke="#f87171" stroke-width="1" stroke-dasharray="3 3"/>
+
+        <!-- Labels below chart -->
+        <text x="555" y="224" font-family="Inter,sans-serif" font-size="8" fill="#555" text-anchor="middle">Buy here</text>
+        <text x="793" y="224" font-family="Inter,sans-serif" font-size="8" fill="#f87171" text-anchor="middle">Stop-loss is</text>
+        <text x="793" y="234" font-family="Inter,sans-serif" font-size="8" fill="#f87171" text-anchor="middle">activated</text>
+
+        <!-- Quote on chart -->
+        <text x="620" y="78" font-family="Inter,sans-serif" font-size="7.5" font-style="italic" fill="#555" text-anchor="middle">"We're making a bet that X will go up in</text>
+        <text x="620" y="89" font-family="Inter,sans-serif" font-size="7.5" font-style="italic" fill="#555" text-anchor="middle">price. But if we're wrong, our stop-loss</text>
+        <text x="620" y="100" font-family="Inter,sans-serif" font-size="7.5" font-style="italic" fill="#555" text-anchor="middle">should be activated and prevent us lose</text>
+        <text x="620" y="111" font-family="Inter,sans-serif" font-size="7.5" font-style="italic" fill="#555" text-anchor="middle">everything."</text>
       </svg>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
@@ -1694,19 +1782,22 @@
   <div class="slide slide-content" id="slide-29">
     <canvas class="corner-canvas" id="corner-29"></canvas>
     <div class="content">
-      <div class="label">Strategy</div>
-      <h2 class="heading">AI business model <strong>canvas</strong></h2>
+      <div class="label">Best practices and things to avoid</div>
+      <h2 class="heading">Use the AI business model canvas to reach <strong>alignment</strong></h2>
       <div class="divider"></div>
       <div class="canvas-grid">
-        <div class="canvas-cell"><div class="cell-label">Key partners</div><p><!-- FILL --></p></div>
-        <div class="canvas-cell"><div class="cell-label">Inputs</div><p><!-- FILL --></p></div>
-        <div class="canvas-cell"><div class="cell-label">Value proposition</div><p><!-- FILL --></p></div>
-        <div class="canvas-cell"><div class="cell-label">Skills</div><p><!-- FILL --></p></div>
-        <div class="canvas-cell"><div class="cell-label">Users and buyers</div><p><!-- FILL --></p></div>
-        <div class="canvas-cell"><div class="cell-label">Resource considerations</div><p><!-- FILL --></p></div>
-        <div class="canvas-cell"><div class="cell-label">Cost structure</div><p><!-- FILL --></p></div>
-        <div class="canvas-cell"><div class="cell-label">Revenue model</div><p><!-- FILL --></p></div>
-        <div class="canvas-cell"><div class="cell-label">Risk profile</div><p><!-- FILL --></p></div>
+        <div class="canvas-cell"><div class="cell-label">Key Partners</div><p>Who do we need as partners? What are the core functions they'll provide? What risks are there from depending on those partners?</p></div>
+        <div class="canvas-cell"><div class="cell-label">Inputs</div><p>What data or inputs does the AI use? Do we have it? Can we get it? What are the ethical considerations?</p></div>
+        <div class="canvas-cell"><div class="cell-label">Value Proposition</div><p>What value does the AI create? For whom? What AI technology does this use? Why is this the right fit?</p></div>
+        <div class="canvas-cell"><div class="cell-label">Skills</div><p>What technology skills are needed? What AI skills are needed? Who will use this - "go to market"? What training is needed?</p></div>
+        <div class="canvas-cell"><div class="cell-label">Users and Buyers</div><p>Who uses the AI directly? Who decides to buy? Who are the stakeholders? What are the adoption barriers?</p></div>
+        <div class="canvas-cell"><div class="cell-label">Resource Considerations</div><p>What compute is needed? What data storage? What are the running costs? What is needed to train / re-train?</p></div>
+        <div class="canvas-cell"><div class="cell-label">Outputs</div><p>What does the AI produce? How is that used? What is the latency? What are the quality metrics?</p></div>
+        <div class="canvas-cell"><div class="cell-label">Trainers</div><p>Who provides feedback to improve the AI? Who labels data or validates outputs? How is the training loop maintained?</p></div>
+        <div class="canvas-cell"><div class="cell-label">Channels</div><p>How does the AI reach users? What integrations are needed? How is output delivered or surfaced?</p></div>
+        <div class="canvas-cell"><div class="cell-label">Costs</div><p>Training costs, Compute, Storage, Maintenance, Licensing</p></div>
+        <div class="canvas-cell"><div class="cell-label">Revenue streams</div><p>Subscription, Licensing, Transaction, Productivity savings</p></div>
+        <div class="canvas-cell"><div class="cell-label">Stakeholders</div><p>Employees, Customers, Regulators, Partners, Investors</p></div>
       </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
@@ -1716,18 +1807,34 @@
   <div class="slide slide-content" id="slide-30">
     <canvas class="corner-canvas" id="corner-30"></canvas>
     <div class="content">
-      <div class="label">Strategy</div>
-      <h2 class="heading"><strong>Best practices</strong> and anti-patterns</h2>
+      <div class="label">Best practices and things to avoid</div>
+      <h2 class="heading"><strong>Best practices</strong> and anti-patterns: Strategy</h2>
       <div class="divider"></div>
       <table class="patterns-table">
         <thead>
-          <tr><th>Best practice</th><th>Anti-pattern</th></tr>
+          <tr><th>Best practice</th><th>Anti-patterns</th></tr>
         </thead>
         <tbody>
-          <tr><td><!-- FILL --></td><td><!-- FILL --></td></tr>
-          <tr><td><!-- FILL --></td><td><!-- FILL --></td></tr>
-          <tr><td><!-- FILL --></td><td><!-- FILL --></td></tr>
-          <tr><td><!-- FILL --></td><td><!-- FILL --></td></tr>
+          <tr>
+            <td>Accepting risk, thinking about mitigations early-on, talking about risks and often, creating a document to track the riskiest assumptions.</td>
+            <td>Denying risks, not talking about them, not calling out "elephants in the room".</td>
+          </tr>
+          <tr>
+            <td>Giving the project a real chance, setting clear expectations and clear stop loss criteria.</td>
+            <td>Not giving enough time for the project to be successful, early stopping, no pre-agreed stop loss criteria.</td>
+          </tr>
+          <tr>
+            <td>Iterating very quickly, testing assumptions early on and fast, attacking the "riskiest hypothesis".</td>
+            <td>Iterating slow, testing assumptions too late, focusing on easy tasks rather than difficult problems, low impact busy work.</td>
+          </tr>
+          <tr>
+            <td>Open communication, information sharing across functions.</td>
+            <td>Secretive environment, information silos.</td>
+          </tr>
+          <tr>
+            <td>Use the AI business model canvas for alignment (iteratively).</td>
+            <td>No alignment between the functions or fixed business plan.</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -1738,10 +1845,8 @@
   <div class="slide slide-content sub-divider" id="slide-31">
     <canvas class="corner-canvas" id="corner-31"></canvas>
     <div class="content">
-      <div class="label">Appendix</div>
-      <h2 class="heading"><strong>Team</strong></h2>
-      <div class="divider"></div>
-      <p class="body-text">Best practices and things to avoid.</p>
+      <div class="label">Best practices and things to avoid</div>
+      <h2 class="heading"><strong>Appendix: Best practices and things to avoid - Team and Hiring</strong></h2>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1750,14 +1855,27 @@
   <div class="slide slide-content" id="slide-32">
     <canvas class="corner-canvas" id="corner-32"></canvas>
     <div class="content">
-      <div class="label">Team</div>
-      <h2 class="heading">Smallest possible <strong>team</strong></h2>
+      <div class="label">Best practices and things to avoid</div>
+      <h2 class="heading">Start with the <strong>smallest possible team</strong> required to prove value</h2>
       <div class="divider"></div>
+      <p class="body-text" style="font-size:0.75rem;opacity:0.6;margin-bottom:0.75rem;">The three waves of every company by Robert X. Cringely as described in his book "Accidental Empires".</p>
       <div class="team-compare">
-        <div class="team-row team-header"><div>Stage</div><div>Right shape</div><div>Wrong shape</div></div>
-        <div class="team-row"><div><!-- FILL: stage 1 --></div><div><!-- FILL --></div><div><!-- FILL --></div></div>
-        <div class="team-row"><div><!-- FILL: stage 2 --></div><div><!-- FILL --></div><div><!-- FILL --></div></div>
-        <div class="team-row"><div><!-- FILL: stage 3 --></div><div><!-- FILL --></div><div><!-- FILL --></div></div>
+        <div class="team-row team-header"><div>Wave</div><div>Role</div><div>Characteristics</div></div>
+        <div class="team-row">
+          <div><strong>Commandos</strong></div>
+          <div>The first wave: small teams of specialists who parachute in, work fast and cheap, and establish the beachhead (including team's dirty stories).</div>
+          <div>High autonomy, minimal process, ownership over outcomes, fast iteration cycles.</div>
+        </div>
+        <div class="team-row">
+          <div><strong>Infantry</strong></div>
+          <div>The second wave that arrives in large numbers to take the beachhead and expand it into a sustainable market position (scaling the company).</div>
+          <div>Process-oriented, reliable delivery, follows playbooks established by commandos.</div>
+        </div>
+        <div class="team-row">
+          <div><strong>Police</strong></div>
+          <div>The third wave that maintains order, hates change, and builds economies of scale (mature company operations).</div>
+          <div>Risk-averse, compliance-focused, optimises for stability and cost efficiency.</div>
+        </div>
       </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
