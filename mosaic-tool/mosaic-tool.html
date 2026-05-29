@@ -610,6 +610,14 @@ function render() {
   const [FR, FG, FB] = hexToRgb(state.mosaicAnchorColor);
   const [TR, TG, TB] = hexToRgb(state.mosaicEdgeColor);
   const [SUBJ_R, SUBJ_G, SUBJ_B] = hexToRgb(state.subjectColor);
+  const [AR, AG, AB] = hexToRgb(state.asciiColor);
+  // Halo opposite the glyph luminance — keeps ASCII legible when the
+  // chosen glyph color matches the block color it's drawn on.
+  const asciiLum = (0.2126 * AR + 0.7152 * AG + 0.0722 * AB) / 255;
+  const ASCII_HALO = asciiLum > 0.5
+    ? 'rgba(0, 0, 0, 0.55)'
+    : 'rgba(255, 255, 255, 0.55)';
+  const ASCII_HALO_BLUR = 2;
   const SAT = state.mosaicSat;
   const THRESHOLD = state.threshold;
   const SUBJ_ISO = state.subjectIsolation;
@@ -723,10 +731,16 @@ function render() {
 
       const charIdx = Math.floor(posHash(cellX, cellY) * ASCII_CHARSET.length);
       const char = ASCII_CHARSET[charIdx];
-      const [AR, AG, AB] = hexToRgb(state.asciiColor);
       ctx.globalAlpha = 1;
+      // Contrasting halo behind the glyph so it stays legible even when
+      // the user's glyph color matches the underlying block tone (e.g.
+      // navy glyphs on the navy end of a navy→cyan gradient).
+      ctx.shadowColor = ASCII_HALO;
+      ctx.shadowBlur = ASCII_HALO_BLUR;
       ctx.fillStyle = `rgba(${AR},${AG},${AB},${alpha * state.charAlpha})`;
       ctx.fillText(char, cellX, cellY);
+      ctx.shadowColor = 'transparent';
+      ctx.shadowBlur = 0;
     }
   }
   ctx.globalAlpha = 1;
