@@ -118,6 +118,42 @@ These are hard minimums for all body prose in deck content. If a slide cannot fi
 
 If a slide overflows with 0.92rem prose, cut content. Common trims: shorter bullet phrases, drop redundant sub-bullets, move detail to a follow-up slide, or simplify a row into a single sentence + a colored badge.
 
+## Equal-height grids
+
+Any grid with 2+ child boxes or cards must use equal-height rows. Uneven row heights make the deck look unbalanced — the eye reads jagged edges as "rough." Uniform rhythm > uneven content.
+
+```css
+/* Any multi-box grid */
+.boxes-2x2, .pair-grid, .canvas-grid, .three-bullet, .three-col-body {
+  display: grid;
+  grid-template-columns: repeat(<N>, 1fr);
+  grid-auto-rows: 1fr;          /* equal-height rows — required */
+  align-items: stretch;          /* children fill the row */
+}
+
+/* The box itself uses flex column so its content stacks normally */
+.boxes-2x2 > .box-neutral,
+.pair-grid > .box-good,
+.pair-grid > .box-bad,
+.canvas-grid > .canvas-cell {
+  display: flex;
+  flex-direction: column;
+}
+```
+
+### Rules
+- Use `grid-auto-rows: 1fr` on the parent grid, not `min-height` on each child. `1fr` distributes available height evenly across rows; `min-height` just sets a floor and still allows uneven growth.
+- When you set `1fr` row sizing, also make the child a flex column so its inner content (label + body + footer) stacks naturally and the box itself can grow to fill the row.
+- If one box has dramatically more content than the others, **trim content** rather than break the equal-height rule. (Use the legibility floor + content-trim rule above.)
+
+### Two-column or N-column layouts
+
+When two columns sit side-by-side (e.g. Method + Focus areas, Best practice + Anti-pattern), they should use the **same internal treatment** — both tables, both lists, both prose blocks. Mixing a list on the left with a table on the right reads as two unrelated halves rather than one balanced layout.
+
+Acceptable mixed treatments (rare): a body paragraph on the left + a figure/diagram on the right. The asymmetry is intentional and obvious.
+
+Not acceptable: a numbered `<ol>` on one side + a `.focus-table` on the other side of the same slide.
+
 ## SVG Diagrams
 
 **Diagrams are the most impactful visual element on a slide. A bad diagram is worse than no diagram. Follow these rules exactly.**
