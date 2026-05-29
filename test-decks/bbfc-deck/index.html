@@ -162,12 +162,11 @@
     transform: translateY(8px);
   }
   .score-card {
-    padding: 10px 14px;
+    padding: 12px 16px;
     border-bottom: 1px dashed rgba(0,0,0,0.06);
   }
   .score-head {
     display: flex; align-items: center; gap: 10px;
-    margin-bottom: 4px;
   }
   .score-num {
     font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600;
@@ -175,11 +174,11 @@
   }
   .score-cat {
     flex: 1;
-    font-size: 0.95rem; font-weight: 500; color: #1a1a1a;
+    font-size: 1rem; font-weight: 500; color: #1a1a1a;
   }
   .score-badge {
-    font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600;
-    padding: 2px 7px; border-radius: 3px; color: white;
+    font-family: 'SF Mono', monospace; font-size: 10px; font-weight: 600;
+    padding: 3px 9px; border-radius: 3px; color: white;
     letter-spacing: 0.05em;
   }
   .score-low { background: #dc2626; }
@@ -1028,17 +1027,17 @@
       <div class="boxes-2x2">
         <div class="box-neutral">
           <div class="box-label">Context</div>
-          <p>The BBFC invested significantly in two AI products: CLEARD (automated international age ratings from metadata) and MIRA (AI-driven content tagging and feature extraction). The combined vision was an end-to-end, AI-assisted classification pipeline capable of supporting multiple territories with minimal human intervention. Despite significant investment, the technology has not reached its original goals. Continuing without a reset risks further spend without resolution.</p>
+          <p>BBFC invested in two AI products, CLEARD and MIRA, to automate content classification at scale. The technology has not reached its original goals, and continuing without a reset risks further spend without resolution.</p>
         </div>
         <div class="box-neutral">
           <div class="box-label">Key questions</div>
-          <p><strong>Q1: What is the status of the project?</strong> What has actually been delivered? Is the product roadmap still viable?</p>
-          <p><strong>Q2: Why did the project not meet expectations?</strong> How does the project score across the Commercial, Product, Technology and Data &amp; AI dimensions?</p>
-          <p><strong>Q3: What's next?</strong> Should the board stop, continue or pivot the project? What does a realistic path forward look like?</p>
+          <p><strong>Q1: What is the status of the project?</strong> What has actually been delivered and is the roadmap still viable?</p>
+          <p><strong>Q2: Why did the project not meet expectations?</strong> How does it score across Commercial, Product, Technology and Data &amp; AI?</p>
+          <p><strong>Q3: What's next?</strong> What does a realistic path forward look like?</p>
         </div>
         <div class="box-neutral">
           <div class="box-label">Palindrom's investigation</div>
-          <p>Independent investigation to uncover practical blockers to the project's goals. 26 interviews with technical, product, commercial stakeholders, and domain experts over 20 business days. Findings shared weekly with David Austin.</p>
+          <p>Independent investigation to uncover practical blockers to the project's goals. 26 interviews with technical, product, commercial stakeholders, and domain experts over 20 business days.</p>
         </div>
         <div class="box-neutral">
           <div class="box-label">What this is not</div>
@@ -1046,8 +1045,8 @@
             <li>Not a market research report</li>
             <li>Not a technical architecture review</li>
             <li>Not the stop/continue/pivot decision itself</li>
-            <li>Not a definition of the final product</li>
-            <li>Not a business plan or commercial strategy</li>
+            <li>Not the final product definition</li>
+            <li>Not a business plan</li>
           </ul>
         </div>
       </div>
@@ -1672,7 +1671,6 @@
             <span class="score-cat">Market size &amp; urgency</span>
             <span class="score-badge score-high">4/5</span>
           </div>
-          <p class="score-obs">Global, structural need. Regulatory burden is real and growing. AI adoption pressure creates urgency.</p>
         </div>
         <div class="score-card">
           <div class="score-head">
@@ -1680,7 +1678,6 @@
             <span class="score-cat">Market timing</span>
             <span class="score-badge score-high">4/5</span>
           </div>
-          <p class="score-obs">Right problem at the right moment. External forces (streaming, AI, regulation) are aligned.</p>
         </div>
         <div class="score-card">
           <div class="score-head">
@@ -1688,7 +1685,6 @@
             <span class="score-cat">Customer willingness to pay</span>
             <span class="score-badge score-mid">3/5</span>
           </div>
-          <p class="score-obs">Assumed, not proven. No clear customer is defined. Does the organisation know who is actually buying from the BBFC?</p>
         </div>
         <div class="score-card">
           <div class="score-head">
@@ -1696,7 +1692,6 @@
             <span class="score-cat">Target-customer clarity</span>
             <span class="score-badge score-mid">3/5</span>
           </div>
-          <p class="score-obs">Assumed for early. Buyers or users not clearly separated.</p>
         </div>
         <div class="score-card">
           <div class="score-head">
@@ -1704,7 +1699,6 @@
             <span class="score-cat">Sales readiness</span>
             <span class="score-badge score-mid">3/5</span>
           </div>
-          <p class="score-obs">Current product is not sellable in its current form.</p>
         </div>
         <div class="score-card">
           <div class="score-head">
@@ -1712,7 +1706,6 @@
             <span class="score-cat">Pricing &amp; packaging</span>
             <span class="score-badge score-low">2/5</span>
           </div>
-          <p class="score-obs">No clear value ladder. No price point with reasonable fit content. Product access doesn't exist.</p>
         </div>
         <div class="score-card">
           <div class="score-head">
@@ -1720,7 +1713,6 @@
             <span class="score-cat">Problem clarity</span>
             <span class="score-badge score-low">2/5</span>
           </div>
-          <p class="score-obs">There is a real problem (esp. with exponential AI content growth). Product boundary is fuzzy.</p>
         </div>
         <div class="score-card">
           <div class="score-head">
@@ -1728,7 +1720,6 @@
             <span class="score-cat">User experience &amp; trust model</span>
             <span class="score-badge score-low">2/5</span>
           </div>
-          <p class="score-obs">Human in the loop not designed. Trust is assumed by model, not engineered.</p>
         </div>
         <div class="score-card">
           <div class="score-head">
@@ -1736,7 +1727,6 @@
             <span class="score-cat">Technical feasibility</span>
             <span class="score-badge score-low">2.5/5</span>
           </div>
-          <p class="score-obs">What's being attempted is technically plausible, but needs substantial amount of rework.</p>
         </div>
         <div class="score-card">
           <div class="score-head">
@@ -1744,7 +1734,6 @@
             <span class="score-cat">Unique domain expertise</span>
             <span class="score-badge score-mid">3/5</span>
           </div>
-          <p class="score-obs">The organisation is a leading authority in this space with a 100-year-old history.</p>
         </div>
       </div>
     </div>
@@ -2201,7 +2190,7 @@
       <div class="label">Best practices and things to avoid</div>
       <h2 class="heading">Start with the <strong>smallest possible team</strong> required to prove value</h2>
       <div class="divider"></div>
-      <p class="body-text" style="font-size:0.75rem;opacity:0.6;margin-bottom:0.75rem;">The three waves of every company by Robert X. Cringely as described in his book "Accidental Empires".</p>
+      <p class="body-text" style="font-size:0.92rem;margin-bottom:0.75rem;">The three waves of every company by Robert X. Cringely as described in his book "Accidental Empires".</p>
       <div class="team-compare">
         <div class="team-row team-header"><div>Wave</div><div>Role</div><div>Characteristics</div></div>
         <div class="team-row">
