@@ -17,7 +17,7 @@
     flex-direction: column;
     align-items: flex-start; justify-content: center;
     text-align: left;
-    padding: 48px 100px 80px;
+    padding: 64px 120px 96px;
     overflow: hidden;
   }
   .slide.active { display: flex; }
@@ -83,8 +83,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-auto-rows: 1fr;
-    gap: 16px 24px;
-    margin-top: 12px;
+    gap: 24px 32px;
+    margin-top: 24px;
     max-width: 1080px;
     opacity: 0; transform: translateY(8px);
   }
@@ -100,7 +100,7 @@
     grid-template-columns: 1fr 1fr;
     grid-auto-rows: 1fr;
     align-items: stretch;
-    gap: 16px 24px;
+    gap: 24px 32px;
     margin-top: 16px;
     max-width: 920px;
     opacity: 0;
@@ -310,7 +310,7 @@
     font-weight: 300;
     letter-spacing: -0.01em;
     line-height: 1.2;
-    margin-bottom: 18px;
+    margin-bottom: 32px;
     transform: translateY(20px); opacity: 0;
     max-width: 720px;
   }
@@ -320,19 +320,23 @@
   }
   .body-text {
     font-family: Inter, sans-serif;
-    font-size: 0.95rem; font-weight: 300;
+    font-size: 1rem; font-weight: 300;
     line-height: 1.7;
     color: #555;
-    max-width: 520px;
-    margin: 0 0 32px;
+    max-width: 640px;
+    margin: 0 0 40px;
     transform: translateY(14px); opacity: 0;
   }
   .divider {
     width: 40px; height: 1.5px;
     background: #0000FF;
-    margin: 0 0 24px;
+    margin: 0 0 36px;
     transform-origin: left; transform: scaleX(0);
     opacity: 0.6;
+  }
+  /* More gap between divider and the content that follows */
+  .content > .divider + * {
+    margin-top: 8px;
   }
   .agenda-list {
     list-style: none;
@@ -370,12 +374,12 @@
   .stat .stat-label { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 9px; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 8px; max-width: 140px; opacity: 0; transform: translateY(4px); }
 
   /* ── Two-column body (slides 4, 16, 27, 35) ── */
-  .two-col-body { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; gap: 48px; margin-top: 24px; max-width: 900px; opacity: 0; transform: translateY(8px); }
+  .two-col-body { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; gap: 56px; margin-top: 32px; max-width: 960px; opacity: 0; transform: translateY(8px); }
   .two-col-body .col { padding-right: 24px; border-right: 1px dashed rgba(0,0,0,0.08); display: flex; flex-direction: column; }
   .two-col-body .col:last-child { border-right: none; padding-right: 0; }
   .two-col-body .col-title { font-size: 12.5px; font-weight: 600; color: #1a1a1a; margin-bottom: 12px; letter-spacing: 0.02em; }
   .two-col-body p { font-size: 1rem; font-weight: 300; line-height: 1.7; color: #555; }
-  .three-col-body { display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: stretch; gap: 36px; margin-top: 20px; max-width: 960px; opacity: 0; transform: translateY(8px); }
+  .three-col-body { display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: stretch; gap: 44px; margin-top: 32px; max-width: 1080px; opacity: 0; transform: translateY(8px); }
   .three-col-body .col { padding-right: 20px; border-right: 1px dashed rgba(0,0,0,0.08); display: flex; flex-direction: column; }
   .three-col-body .col:last-child { border-right: none; padding-right: 0; }
   .three-col-body .col-title { font-size: 12px; font-weight: 600; color: #1a1a1a; margin-bottom: 10px; letter-spacing: 0.02em; }
@@ -385,18 +389,18 @@
   /* ── Misalignment stack (slides 11 + 12) ── */
   .misalignment-stack {
     display: grid;
-    gap: 24px;
-    margin-top: 24px;
+    gap: 32px;
+    margin-top: 36px;
     max-width: 1080px;
     opacity: 0;
     transform: translateY(8px);
   }
   .misalign-row {
     display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 36px;
+    grid-template-columns: 240px 1fr;
+    gap: 48px;
     align-items: start;
-    padding: 8px 0;
+    padding: 18px 0;
     border-top: 1px dashed rgba(0,0,0,0.08);
   }
   .misalign-row:first-child { border-top: none; padding-top: 0; }
@@ -471,8 +475,8 @@
   .approach-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 48px;
-    margin-top: 16px;
+    gap: 64px;
+    margin-top: 32px;
     max-width: 1080px;
     align-items: start;
     opacity: 0;
@@ -917,8 +921,8 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 1fr;
-    gap: 12px;
-    margin-top: 16px;
+    gap: 20px;
+    margin-top: 32px;
     max-width: 1080px;
     opacity: 0; transform: translateY(8px);
   }
