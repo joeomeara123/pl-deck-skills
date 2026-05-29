@@ -135,21 +135,21 @@
   /* ── Role stack (slide 34) ── */
   .role-stack {
     display: flex; flex-direction: column;
-    gap: 12px;
+    gap: 20px;
     margin-top: 16px;
     max-width: 1080px;
     opacity: 0; transform: translateY(8px);
   }
-  .role-card { padding: 22px 28px; }
+  .role-card { padding: 32px 36px; }
   .role-head {
     font-family: Inter, sans-serif;
-    font-size: 1.1rem; font-weight: 500;
+    font-size: 1.2rem; font-weight: 500;
     color: #0000FF;
-    margin-bottom: 10px;
+    margin-bottom: 16px;
   }
   .role-body {
     display: grid; grid-template-columns: 1fr 1fr;
-    gap: 24px;
+    gap: 32px;
   }
   .role-col-label {
     font-family: 'SF Mono', monospace;
@@ -167,14 +167,14 @@
   .score-cards {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px 32px;
+    gap: 24px 40px;
     margin-top: 12px;
     max-width: 1080px;
     opacity: 0;
     transform: translateY(8px);
   }
   .score-card {
-    padding: 18px 24px;
+    padding: 22px 28px;
     border-bottom: 1px solid rgba(0,0,0,0.08);
   }
   .score-head {
@@ -186,7 +186,7 @@
   }
   .score-cat {
     flex: 1;
-    font-size: 1.15rem; font-weight: 500; color: #1a1a1a;
+    font-size: 1.25rem; font-weight: 500; color: #1a1a1a;
   }
   .score-badge {
     font-family: 'SF Mono', monospace; font-size: 11px; font-weight: 600;
@@ -215,6 +215,55 @@
   }
   .exec-single p:last-child { margin-bottom: 0; }
   .exec-single p strong { font-weight: 500; color: #0000FF; }
+
+  /* ── Editorial 1-column prose (slides 4, 20, 22, 23) ── */
+  .editorial {
+    max-width: 720px;
+    margin: 32px 0 0;
+    opacity: 0; transform: translateY(8px);
+  }
+  .editorial p {
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 1.75;
+    color: #1a1a1a;
+    margin-bottom: 22px;
+  }
+  .editorial p:last-child { margin-bottom: 0; }
+  .editorial p strong { font-weight: 500; color: #0000FF; }
+  .editorial blockquote {
+    border-left: 2px solid #0000FF;
+    padding-left: 24px;
+    margin: 32px 0;
+    font-style: italic;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #1a1a1a;
+    line-height: 1.55;
+  }
+  .pull-quote {
+    max-width: 920px;
+    margin: 48px 0 0;
+    padding-left: 28px;
+    border-left: 3px solid #0000FF;
+    font-style: italic;
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+    font-weight: 300;
+    line-height: 1.45;
+    color: #1a1a1a;
+    opacity: 0; transform: translateY(8px);
+  }
+  .pull-quote cite {
+    display: block;
+    margin-top: 24px;
+    font-style: normal;
+    font-family: 'SF Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(0,0,255,0.55);
+  }
 
   /* ── Hero (centered override) ── */
   #slide-0 {
@@ -308,15 +357,27 @@
   }
   .heading {
     font-family: Inter, -apple-system, sans-serif;
-    font-size: clamp(1.6rem, 3.2vw, 2.6rem);
-    font-weight: 300;
-    letter-spacing: -0.01em;
-    line-height: 1.2;
-    margin-bottom: 32px;
+    font-size: clamp(2rem, 4vw, 3.6rem);
+    font-weight: 200;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 40px;
     transform: translateY(20px); opacity: 0;
     max-width: 720px;
   }
-  .heading strong { font-weight: 600; color: #0000FF; }
+  .heading strong { font-weight: 500; color: #0000FF; }
+  .heading-mega {
+    font-family: Inter, sans-serif;
+    font-size: clamp(3.6rem, 7vw, 6rem);
+    font-weight: 200;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: #1a1a1a;
+    max-width: 1080px;
+    margin-bottom: 40px;
+    opacity: 0; transform: translateY(20px);
+  }
+  .heading-mega strong { font-weight: 500; color: #0000FF; }
   .slide:not(#slide-0) .content > .heading {
     max-width: 920px;
   }
@@ -372,8 +433,17 @@
   #slide-3 .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 16px; max-width: none; }
   .stat { padding: 16px 24px; border-right: 1px dashed rgba(0,0,0,0.08); }
   .stat:last-child { border-right: none; }
-  .stat .highlight-number { font-size: 2.4rem; font-weight: 300; color: #0000FF; letter-spacing: -0.02em; opacity: 0; }
-  .stat .stat-label { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 9px; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 8px; max-width: 140px; opacity: 0; transform: translateY(4px); }
+  .stat .highlight-number { font-size: 4.5rem; font-weight: 200; line-height: 1; letter-spacing: -0.02em; color: #0000FF; opacity: 0; }
+  .stat .stat-label { font-family: 'SF Mono', monospace; font-size: 10px; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 14px; max-width: 160px; opacity: 0; transform: translateY(4px); }
+  .mega-stat {
+    font-family: Inter, sans-serif;
+    font-size: clamp(5rem, 10vw, 8rem);
+    font-weight: 200;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    color: #0000FF;
+    opacity: 0; transform: translateY(8px);
+  }
 
   /* ── Two-column body (slides 4, 16, 27, 35) ── */
   .two-col-body { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; gap: 56px; margin-top: 32px; max-width: 960px; opacity: 0; transform: translateY(8px); }
@@ -953,7 +1023,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 1fr;
-    gap: 20px;
+    gap: 24px;
     margin-top: 32px;
     max-width: 1180px;
     opacity: 0; transform: translateY(8px);
@@ -962,18 +1032,19 @@
     background: rgba(0,0,0,0.025);
     border: 1px dashed rgba(0,0,0,0.12);
     border-radius: 10px;
-    padding: 22px 26px;
-    min-height: 140px;
+    padding: 24px 28px;
+    min-height: 180px;
     display: flex; flex-direction: column;
   }
   .canvas-cell .cell-label {
-    font-family: 'SF Mono', monospace; font-size: 10px; font-weight: 600;
+    font-family: 'SF Mono', monospace;
+    font-size: 10px; font-weight: 600;
     color: rgba(0,0,255,0.55);
     text-transform: uppercase; letter-spacing: 0.1em;
     margin-bottom: 12px;
   }
   .canvas-cell p {
-    font-size: 0.95rem; font-weight: 300; line-height: 1.6; color: #1a1a1a;
+    font-size: 1rem; font-weight: 300; line-height: 1.6; color: #1a1a1a;
   }
 
   /* ── Slide 30: patterns table ── */
@@ -1083,19 +1154,32 @@
     width: 26px; height: auto; opacity: 1;
   }
   .slide-split .section-number {
-    font-family: 'SF Mono', 'Fira Code', monospace;
-    font-size: 11px; font-weight: 600;
-    color: rgba(0,0,255,0.45);
-    text-transform: uppercase; letter-spacing: 0.16em;
-    margin-bottom: 16px;
-    opacity: 0; transform: translateY(12px);
+    font-family: Inter, sans-serif;
+    font-size: clamp(7rem, 12vw, 11rem);
+    font-weight: 200;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: #1a1a1a;
+    text-transform: none;
+    margin-bottom: 24px;
+    opacity: 0; transform: translateY(20px);
+  }
+  .slide-split .section-number::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 1.5px;
+    background: #0000FF;
+    margin-top: 32px;
   }
   .slide-split .section-heading {
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    font-weight: 300;
-    letter-spacing: -0.02em;
+    font-family: Inter, sans-serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 200;
+    letter-spacing: -0.01em;
     line-height: 1.15;
-    max-width: 380px;
+    color: #1a1a1a;
+    max-width: 420px;
     opacity: 0; transform: translateY(20px);
   }
 </style>
@@ -1154,7 +1238,7 @@
   <!-- Slide 2 (section divider) -->
   <div class="slide slide-content slide-split" id="slide-2" style="--split: 40">
     <div class="slide-text">
-      <div class="section-number">SECTION 01</div>
+      <div class="section-number">01</div>
       <h2 class="section-heading">Context</h2>
       <div class="slide-footer">PROGRESSION LABS</div>
     </div>
@@ -1216,31 +1300,11 @@
       <div class="label">Context</div>
       <h2 class="heading">Why we are <strong>here</strong></h2>
       <div class="divider"></div>
-      <div class="boxes-2x2">
-        <div class="box-neutral">
-          <div class="box-label">Context</div>
-          <p>BBFC invested in two AI products, CLEARD and MIRA, to automate content classification at scale. The technology has not reached its original goals, and continuing without a reset risks further spend without resolution.</p>
-        </div>
-        <div class="box-neutral">
-          <div class="box-label">Key questions</div>
-          <p><strong>Q1: What is the status of the project?</strong> What has actually been delivered and is the roadmap still viable?</p>
-          <p><strong>Q2: Why did the project not meet expectations?</strong> How does it score across Commercial, Product, Technology and Data &amp; AI?</p>
-          <p><strong>Q3: What's next?</strong> What does a realistic path forward look like?</p>
-        </div>
-        <div class="box-neutral">
-          <div class="box-label">Palindrom's investigation</div>
-          <p>Independent investigation to uncover practical blockers to the project's goals. 26 interviews with technical, product, commercial stakeholders, and domain experts over 20 business days.</p>
-        </div>
-        <div class="box-neutral">
-          <div class="box-label">What this is not</div>
-          <ul>
-            <li>Not a market research report</li>
-            <li>Not a technical architecture review</li>
-            <li>Not the stop/continue/pivot decision itself</li>
-            <li>Not the final product definition</li>
-            <li>Not a business plan</li>
-          </ul>
-        </div>
+      <div class="editorial">
+        <p>The BBFC invested significantly in two AI products: <strong>CLEARD</strong> (automated international age ratings from metadata) and <strong>MIRA</strong> (AI-driven content tagging and feature extraction).</p>
+        <p>Despite significant investment, commercial and governance outcomes remain unclear and the technology has not reached its original goals.</p>
+        <blockquote>Continuing without a reset risks further spend without resolution.</blockquote>
+        <p>Palindrom was engaged to conduct an independent investigation across 26 interviews over 20 business days, covering Commercial, Product, Technology, and Data &amp; AI dimensions, to surface the practical blockers to the project's goals.</p>
       </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
@@ -1249,7 +1313,7 @@
   <!-- Slide 5 (section divider) -->
   <div class="slide slide-content slide-split" id="slide-5" style="--split: 40">
     <div class="slide-text">
-      <div class="section-number">SECTION 02</div>
+      <div class="section-number">02</div>
       <h2 class="section-heading">Our approach</h2>
       <div class="slide-footer">PROGRESSION LABS</div>
     </div>
@@ -1308,7 +1372,7 @@
   <!-- Slide 7 (section divider) -->
   <div class="slide slide-content slide-split" id="slide-7" style="--split: 40">
     <div class="slide-text">
-      <div class="section-number">SECTION 03</div>
+      <div class="section-number">03</div>
       <h2 class="section-heading">Initial goals</h2>
       <div class="slide-footer">PROGRESSION LABS</div>
     </div>
@@ -1363,7 +1427,7 @@
   <!-- Slide 9 (section divider) -->
   <div class="slide slide-content slide-split" id="slide-9" style="--split: 40">
     <div class="slide-text">
-      <div class="section-number">SECTION 04</div>
+      <div class="section-number">04</div>
       <h2 class="section-heading">Our findings</h2>
       <div class="slide-footer">PROGRESSION LABS</div>
     </div>
@@ -1795,27 +1859,6 @@
         </div>
         <div class="score-card">
           <div class="score-head">
-            <span class="score-num">03</span>
-            <span class="score-cat">Customer willingness to pay</span>
-            <span class="score-badge score-mid">3/5</span>
-          </div>
-        </div>
-        <div class="score-card">
-          <div class="score-head">
-            <span class="score-num">04</span>
-            <span class="score-cat">Target-customer clarity</span>
-            <span class="score-badge score-mid">3/5</span>
-          </div>
-        </div>
-        <div class="score-card">
-          <div class="score-head">
-            <span class="score-num">05</span>
-            <span class="score-cat">Sales readiness</span>
-            <span class="score-badge score-mid">3/5</span>
-          </div>
-        </div>
-        <div class="score-card">
-          <div class="score-head">
             <span class="score-num">06</span>
             <span class="score-cat">Pricing &amp; packaging</span>
             <span class="score-badge score-low">2/5</span>
@@ -1842,13 +1885,6 @@
             <span class="score-badge score-low">2.5/5</span>
           </div>
         </div>
-        <div class="score-card">
-          <div class="score-head">
-            <span class="score-num">10</span>
-            <span class="score-cat">Unique domain expertise</span>
-            <span class="score-badge score-mid">3/5</span>
-          </div>
-        </div>
       </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
@@ -1857,7 +1893,7 @@
   <!-- Slide 19 (section divider) -->
   <div class="slide slide-content slide-split" id="slide-19" style="--split: 40">
     <div class="slide-text">
-      <div class="section-number">SECTION 05</div>
+      <div class="section-number">05</div>
       <h2 class="section-heading">Moving forward</h2>
       <div class="slide-footer">PROGRESSION LABS</div>
     </div>
@@ -1874,8 +1910,10 @@
       <div class="label">Findings</div>
       <h2 class="heading">Initial <strong>focus</strong></h2>
       <div class="divider"></div>
-      <p class="body-text" style="font-size: 1.35rem; line-height: 1.65; margin-bottom: 1.5rem;">Our project began with a strong focus on model accuracy as the primary indicator of readiness.</p>
-      <p class="body-text" style="font-size: 1.35rem; line-height: 1.65;">Our investigation found that this focus masked deeper, more fundamental issues that must be resolved before accuracy can meaningfully translate into a viable product - including unclear product scope, unstable data foundations, and misaligned decision-making.</p>
+      <blockquote class="pull-quote">
+        Our project began with a strong focus on model accuracy as the primary indicator of readiness. Our investigation found that this focus masked deeper, more fundamental issues that must be resolved before accuracy can meaningfully translate into a viable product.
+        <cite>Key finding</cite>
+      </blockquote>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1924,26 +1962,14 @@
     <canvas class="corner-canvas" id="corner-22"></canvas>
     <div class="content">
       <div class="label">Moving forward</div>
-      <h2 class="heading">A viable pivot would require addressing foundational issues in scope, ownership, and success definition, not incremental improvements.</h2>
+      <h2 class="heading">Foundational <strong>issues</strong></h2>
       <div class="divider"></div>
-      <div class="three-bullet">
-        <div class="bullet">
-          <div class="bullet-num">01</div>
-          <h3>Scope</h3>
-          <p>Explicitly reset the programme. Acknowledge that CLEAR / NBA are still in the 0&rarr;1 phase. Narrow activity from "accuracy at scale" to "trust in a narrow domain". Fix the lack of strong AI product and tech leadership at companies and projects.</p>
-        </div>
-        <div class="bullet">
-          <div class="bullet-num">02</div>
-          <h3>Ownership</h3>
-          <p>Narrow the scope aggressively. One bettors, one goal. Collect minimum assumptions and prioritise them. Move away from a broad focus on accelerating our internal learning. Human-in-the-loop becomes the model.</p>
-        </div>
-        <div class="bullet">
-          <div class="bullet-num">03</div>
-          <h3>Success definition</h3>
-          <p>Redefine success metrics. Move single-number accuracy as the primary goal. Define "good" around user confidence and First-class metrics. Create a product team. Deliver a clearly bounced offering that scales access to a small pilot group. Treat this as a learning product, not a finished one.</p>
-        </div>
+      <div class="editorial">
+        <p><strong>Scope.</strong> Explicitly reset the programme. Acknowledge that CLEARD and MIRA are still in the 0-to-1 phase. Narrow activity from "accuracy at scale" to "trust in a narrow domain". Fix the lack of strong AI product and tech leadership at companies and projects.</p>
+        <p><strong>Ownership.</strong> Narrow the scope aggressively. One team, one goal. Collect minimum assumptions and prioritise them. Move away from a broad focus on accelerating internal learning. Human-in-the-loop becomes the model.</p>
+        <p><strong>Success definition.</strong> Redefine success metrics. Move away from single-number accuracy as the primary goal. Define "good" around user confidence and first-class metrics. Create a product team. Deliver a clearly bounded offering that scales access to a small pilot group. Treat this as a learning product, not a finished one.</p>
+        <blockquote>We understand AI systems, and know exactly when it works and when it does not.</blockquote>
       </div>
-      <blockquote class="pl-quote">We understand AI systems, know exactly when it works and when it does not.</blockquote>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1955,11 +1981,11 @@
       <div class="label">Executive summary</div>
       <h2 class="heading">Executive <strong>summary</strong></h2>
       <div class="divider"></div>
-      <div class="exec-single">
-        <p>The BBFC (British Board of Film Classification) invested significantly in two AI products: CLEARD (automated international age ratings from metadata) and MIRA (AI-driven content tagging and feature extraction). The combined vision was an end-to-end AI classification pipeline capable of supporting multiple territories with different regulatory requirements.</p>
+      <div class="editorial">
+        <p>The BBFC invested significantly in two AI products: CLEARD (automated international age ratings from metadata) and MIRA (AI-driven content tagging and feature extraction). The combined vision was an end-to-end AI classification pipeline capable of supporting multiple territories with different regulatory requirements.</p>
         <p>Despite significant investment, commercial and governance outcomes remain unclear, and the technology has not reached its original goals. Continuing without a clear exit milestone risks further spend without resolution.</p>
         <p>Palindrom was engaged to conduct an independent investigation to uncover the practical blockers to the project's goals.</p>
-        <p><strong>Commercial, product, and technology functions are misaligned,</strong> preventing cohesive execution. In well-functioning teams, unrealistic goals are typically challenged early; we found little evidence of this corrective pushback here. Decision-making in a high-uncertainty context lacks information and speed of execution. The ingredients of a category-defining product are present, but the organisation is acting like a scale-up before proving real product-market fit.</p>
+        <blockquote><strong>Commercial, product, and technology functions are misaligned,</strong> preventing cohesive execution. The ingredients of a category-defining product are present, but the organisation is acting like a scale-up before proving real product-market fit.</blockquote>
         <p>Our overall assessment is that deeper, more fundamental issues must be resolved before accuracy can meaningfully translate into a viable product -- including unclear product scope, unreliable data infrastructure, and misaligned decision-making. <strong>A viable pivot would require addressing foundational issues in scope, ownership, and success definition, not incremental improvements.</strong></p>
       </div>
     </div>
@@ -1969,7 +1995,7 @@
   <!-- Slide 24 (section divider) -->
   <div class="slide slide-content slide-split" id="slide-24" style="--split: 40">
     <div class="slide-text">
-      <div class="section-number">Best practices and things to avoid</div>
+      <div class="section-number">06</div>
       <h2 class="section-heading">Appendix: Best practices and things to avoid</h2>
       <div class="slide-footer">PROGRESSION LABS</div>
     </div>
@@ -2224,18 +2250,12 @@
       <h2 class="heading">Use the AI business model canvas to reach <strong>alignment</strong></h2>
       <div class="divider"></div>
       <div class="canvas-grid">
-        <div class="canvas-cell"><div class="cell-label">Key Partners</div><p>Who do we need as partners? What are the core functions they'll provide? What risks are there from depending on those partners?</p></div>
-        <div class="canvas-cell"><div class="cell-label">Inputs</div><p>What data or inputs does the AI use? Do we have it? Can we get it? What are the ethical considerations?</p></div>
-        <div class="canvas-cell"><div class="cell-label">Value Proposition</div><p>What value does the AI create? For whom? What AI technology does this use? Why is this the right fit?</p></div>
-        <div class="canvas-cell"><div class="cell-label">Skills</div><p>What technology skills are needed? What AI skills are needed? Who will use this - "go to market"? What training is needed?</p></div>
-        <div class="canvas-cell"><div class="cell-label">Users and Buyers</div><p>Who uses the AI directly? Who decides to buy? Who are the stakeholders? What are the adoption barriers?</p></div>
-        <div class="canvas-cell"><div class="cell-label">Resource Considerations</div><p>What compute is needed? What data storage? What are the running costs? What is needed to train / re-train?</p></div>
-        <div class="canvas-cell"><div class="cell-label">Outputs</div><p>What does the AI produce? How is that used? What is the latency? What are the quality metrics?</p></div>
-        <div class="canvas-cell"><div class="cell-label">Trainers</div><p>Who provides feedback to improve the AI? Who labels data or validates outputs? How is the training loop maintained?</p></div>
-        <div class="canvas-cell"><div class="cell-label">Channels</div><p>How does the AI reach users? What integrations are needed? How is output delivered or surfaced?</p></div>
-        <div class="canvas-cell"><div class="cell-label">Costs</div><p>Training costs, Compute, Storage, Maintenance, Licensing</p></div>
-        <div class="canvas-cell"><div class="cell-label">Revenue streams</div><p>Subscription, Licensing, Transaction, Productivity savings</p></div>
-        <div class="canvas-cell"><div class="cell-label">Stakeholders</div><p>Employees, Customers, Regulators, Partners, Investors</p></div>
+        <div class="canvas-cell"><div class="cell-label">Inputs and partners</div><p>What data or inputs does the AI use? Do we have it? Can we get it? Who do we need as partners, what functions do they provide, and what are the dependency risks?</p></div>
+        <div class="canvas-cell"><div class="cell-label">Value proposition</div><p>What value does the AI create? For whom? What AI technology does this use? Why is this the right fit?</p></div>
+        <div class="canvas-cell"><div class="cell-label">Capabilities and skills</div><p>What technology and AI skills are needed? Who will train and validate outputs? How is the training loop maintained?</p></div>
+        <div class="canvas-cell"><div class="cell-label">Users and channels</div><p>Who uses the AI directly? Who decides to buy? How does the AI reach users? What integrations are needed and what are the adoption barriers?</p></div>
+        <div class="canvas-cell"><div class="cell-label">Resources and costs</div><p>What compute and data storage is needed? What are the running, training and re-training costs? What are the maintenance and licensing considerations?</p></div>
+        <div class="canvas-cell"><div class="cell-label">Revenue and stakeholders</div><p>Subscription, licensing, transaction, or productivity savings. Key stakeholders: employees, customers, regulators, partners, investors.</p></div>
       </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
@@ -2525,14 +2545,6 @@
         <div class="box-bad">
           <div class="box-label">Anti-pattern</div>
           <p>Deploying AI directly to decision with no human checkpoint when error consequences are severe.</p>
-        </div>
-        <div class="box-good">
-          <div class="box-label">Best practice</div>
-          <p>Build human correction data into the training loop so the model improves over real-world usage.</p>
-        </div>
-        <div class="box-bad">
-          <div class="box-label">Anti-pattern</div>
-          <p>Treating lab accuracy as sufficient and skipping real-world edge case capture.</p>
         </div>
       </div>
     </div>
@@ -2843,7 +2855,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 function resetSlide(el) {
-  const selectors = '.label, .heading, .body-text, .approach-lead, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .score-cards, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary, .exec-single, .canvas-grid, .patterns-table, .team-compare, .roles-table, .dash-list, .tesla-grid, .pair-grid, .boxes-2x2, .boxes-2x2 > .box-neutral, .variation-stack, .role-stack, .box-good, .box-bad, .box-neutral, .slide-number, .misalignment-stack, .spike-stack, .spike-step';
+  const selectors = '.label, .heading, .heading-mega, .body-text, .approach-lead, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .score-cards, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary, .exec-single, .canvas-grid, .patterns-table, .team-compare, .roles-table, .dash-list, .tesla-grid, .pair-grid, .boxes-2x2, .boxes-2x2 > .box-neutral, .variation-stack, .role-stack, .box-good, .box-bad, .box-neutral, .slide-number, .misalignment-stack, .spike-stack, .spike-step, .editorial, .editorial blockquote, .mega-stat, .pull-quote';
   el.querySelectorAll(selectors).forEach(child => {
     gsap.set(child, { clearProps: 'all' });
     child.style.opacity = '0';
@@ -3000,6 +3012,22 @@ function animateSlideIn(el) {
 
   const execSingle = el.querySelectorAll('.content .exec-single');
   if (execSingle.length) tl.to(execSingle, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const editorialBlocks = el.querySelectorAll('.content .editorial');
+  if (editorialBlocks.length) {
+    tl.to(editorialBlocks, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+    const editorialBlockquotes = el.querySelectorAll('.content .editorial blockquote');
+    if (editorialBlockquotes.length) tl.to(editorialBlockquotes, { opacity: 1, duration: 0.5 }, 0.5);
+  }
+
+  const headingMegas = el.querySelectorAll('.content .heading-mega');
+  if (headingMegas.length) tl.to(headingMegas, { opacity: 1, y: 0, duration: 0.6 }, 0.12);
+
+  const megaStats = el.querySelectorAll('.content .mega-stat');
+  if (megaStats.length) tl.to(megaStats, { opacity: 1, y: 0, duration: 0.6 }, 0.25);
+
+  const pullQuotes = el.querySelectorAll('.content .pull-quote');
+  if (pullQuotes.length) tl.to(pullQuotes, { opacity: 1, y: 0, duration: 0.6 }, 0.35);
 
   const boxes2x2 = el.querySelectorAll('.content .boxes-2x2');
   if (boxes2x2.length) {
