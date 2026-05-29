@@ -569,24 +569,32 @@ function render() {
 
   const imageData = ctx.getImageData(0, 0, width, height);
 
-  let mask;
+  // Spatial mask — gates cell visibility.
+  // Gradient mask — drives `gradT` (anchor → edge tint flow).
+  // In `corner` mode they're the same buffer. In `whole` mode we use a
+  // uniform spatial mask but still anchor the gradient from the chosen
+  // corner so the gradient direction is preserved across the canvas.
+  let mask, gradMask;
   if (state.maskMode === 'brush') {
     ensureBrushCanvas(width, height);
     const bd = brushCtx.getImageData(0, 0, brushCanvas.width, brushCanvas.height);
     mask = { data: bd.data, width: brushCanvas.width, height: brushCanvas.height };
+    gradMask = mask;
   } else if (state.maskMode === 'whole') {
-    // Uniform "everything passes" mask — the Subject isolation filter
-    // becomes the only gate. Tiny 2x2 buffer is enough because the
-    // per-cell mask-sample lookup clamps to (maskWidth - 1).
     const buf = new Uint8ClampedArray(2 * 2 * 4);
     for (let i = 0; i < buf.length; i++) buf[i] = 255;
     mask = { data: buf, width: 2, height: 2 };
+    gradMask = buildCornerMask(width, height, state.corner, state.radius);
   } else {
     mask = buildCornerMask(width, height, state.corner, state.radius);
+    gradMask = mask;
   }
   const maskData = mask.data;
   const maskWidth = mask.width;
   const maskHeight = mask.height;
+  const gradMaskData = gradMask.data;
+  const gradMaskWidth = gradMask.width;
+  const gradMaskHeight = gradMask.height;
 
   const CELL = state.cellSize;
   const step = CELL * 2;
@@ -631,7 +639,13 @@ function render() {
       if (maskV < THRESHOLD) continue;
       const blockAlpha = Math.min(1, (maskV - THRESHOLD) / 96);
 
-      const alpha = maskV / 255;
+      // Gradient direction is driven by the gradient mask (so Whole-image
+      // mode can still flow from the chosen corner even with a uniform
+      // spatial mask). Sample at the same cell-center coords.
+      const gmx = Math.min(Math.round(cellX * gradMaskWidth / width), gradMaskWidth - 1);
+      const gmy = Math.min(Math.round(cellY * gradMaskHeight / height), gradMaskHeight - 1);
+      const gradMaskV = gradMaskData[(gmy * gradMaskWidth + gmx) * 4];
+      const alpha = gradMaskV / 255;
       // Power curve on (1 - alpha): exponent > 1 keeps gradT smaller for
       // a wider band of cells, which means the anchor color extends further
       // before transitioning toward the edge color. At exp = 1 the gradient
@@ -770,8 +784,8 @@ function syncDomFromState() {
   document.querySelectorAll('[data-corner]').forEach(b => {
     b.classList.toggle('active', b.dataset.corner === state.corner);
   });
-  $('corner-group').style.display = state.maskMode === 'corner' ? '' : 'none';
-  $('brush-group').style.display  = state.maskMode === 'brush'  ? '' : 'none';
+  $('corner-group').style.display = state.maskMode === 'brush' ? 'none' : '';
+  $('brush-group').style.display  = state.maskMode === 'brush' ? '' : 'none';
   $('canvas').style.cursor = state.maskMode === 'brush' ? 'none' : 'default';
   $('brushErase').textContent = `Erase: ${state.brushErase ? 'on' : 'off'}`;
   $('brushErase').classList.toggle('active', state.brushErase);
@@ -897,8 +911,8 @@ $('bgDir').addEventListener('change', e => {
 
 $('maskMode').addEventListener('change', e => {
   state.maskMode = e.target.value;
-  $('corner-group').style.display = state.maskMode === 'corner' ? '' : 'none';
-  $('brush-group').style.display  = state.maskMode === 'brush'  ? '' : 'none';
+  $('corner-group').style.display = state.maskMode === 'brush' ? 'none' : '';
+  $('brush-group').style.display  = state.maskMode === 'brush' ? '' : 'none';
   $('canvas').style.cursor = state.maskMode === 'brush' ? 'none' : 'default';
   if (state.maskMode !== 'brush') $('brush-preview').style.display = 'none';
   scheduleRender();
@@ -1083,8 +1097,8 @@ $('reset').addEventListener('click', () => {
   $('asciiColor').value = DEFAULTS.asciiColor;
   $('bgDir').value = DEFAULTS.bgDir;
   $('maskMode').value = DEFAULTS.maskMode;
-  $('corner-group').style.display = DEFAULTS.maskMode === 'corner' ? '' : 'none';
-  $('brush-group').style.display  = DEFAULTS.maskMode === 'brush'  ? '' : 'none';
+  $('corner-group').style.display = DEFAULTS.maskMode === 'brush' ? 'none' : '';
+  $('brush-group').style.display  = DEFAULTS.maskMode === 'brush' ? '' : 'none';
   $('canvas').style.cursor = DEFAULTS.maskMode === 'brush' ? 'crosshair' : 'default';
   $('brushErase').textContent = 'Erase: off';
   $('brushErase').classList.remove('active');
