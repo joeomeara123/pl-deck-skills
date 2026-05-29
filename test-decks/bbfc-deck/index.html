@@ -93,14 +93,19 @@
   .boxes-2x2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
+    grid-auto-rows: 1fr;
+    align-items: stretch;
     gap: 16px 24px;
     margin-top: 16px;
     max-width: 920px;
     opacity: 0;
     transform: translateY(8px);
   }
-  .boxes-2x2 > .box-neutral { padding: 20px 24px; }
+  .boxes-2x2 > .box-neutral {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 24px;
+  }
   .boxes-2x2 > .box-neutral p { font-size: 0.92rem; line-height: 1.6; margin-bottom: 6px; }
   .boxes-2x2 > .box-neutral p:last-child { margin-bottom: 0; }
   .boxes-2x2 > .box-neutral li { font-size: 0.92rem; line-height: 1.6; padding: 2px 0 2px 12px; }
@@ -387,18 +392,69 @@
   .section-block ul li strong { font-weight: 600; color: #1a1a1a; }
 
   /* ── Approach grid (slide 6) ── */
-  .approach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 24px; max-width: 960px; opacity: 0; transform: translateY(8px); }
-  .approach-col-label { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(0,0,255,0.45); margin-bottom: 14px; }
-  .approach-text .lead { font-size: 0.92rem; font-weight: 300; line-height: 1.6; color: #1a1a1a; margin-bottom: 16px; }
-  .approach-text ol { padding-left: 18px; margin: 0; }
-  .approach-text li { font-size: 0.92rem; font-weight: 300; color: #555; padding: 6px 0; border-bottom: 1px dashed rgba(0,0,0,0.08); line-height: 1.65; }
-  .approach-text li:last-child { border-bottom: none; }
-  .approach-focus { border-left: 1px dashed rgba(0,0,0,0.08); padding-left: 32px; }
-  .focus-table { width: 100%; border-collapse: collapse; }
-  .focus-table tr { border-bottom: 1px dashed rgba(0,0,0,0.08); }
-  .focus-table tr:last-child { border-bottom: none; }
-  .focus-table td { padding: 10px 0; vertical-align: top; font-size: 0.92rem; font-weight: 300; color: #555; line-height: 1.6; }
-  .focus-table td:first-child { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(0,0,255,0.45); padding-right: 18px; white-space: nowrap; width: 130px; padding-top: 12px; }
+  .approach-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-top: 16px;
+    max-width: 1080px;
+    align-items: start;
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .approach-col {
+    display: flex;
+    flex-direction: column;
+  }
+  .approach-col-label {
+    font-family: 'SF Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    color: rgba(0,0,255,0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 14px;
+  }
+  .approach-lead {
+    max-width: 920px;
+    margin-bottom: 28px;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.55;
+    color: #1a1a1a;
+    opacity: 0; transform: translateY(8px);
+  }
+  .method-table, .focus-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+  }
+  .method-table th, .focus-table th {
+    font-family: 'SF Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    color: #0000FF;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: left;
+    padding: 12px 18px 12px 0;
+    vertical-align: top;
+    width: 38%;
+    white-space: normal;
+    line-height: 1.4;
+  }
+  .method-table td, .focus-table td {
+    font-size: 0.92rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: #1a1a1a;
+    padding: 12px 0;
+    vertical-align: top;
+    border-bottom: 1px dashed rgba(0,0,0,0.08);
+  }
+  .method-table tr:last-child td, .focus-table tr:last-child td {
+    border-bottom: none;
+  }
 
   /* ── Intended state grid (slide 8) ── */
   .quad-grid { display: flex; flex-direction: column; gap: 0; margin-top: 20px; max-width: 960px; opacity: 0; transform: translateY(8px); }
@@ -1072,38 +1128,37 @@
     <canvas class="corner-canvas" id="corner-6"></canvas>
     <div class="content">
       <div class="label">Our approach</div>
-      <h2 class="heading">Palindrom was engaged to conduct an <strong>independent investigation</strong> to uncover the practical blockers to the project's goals.</h2>
+      <h2 class="heading">Our <strong>investigation</strong></h2>
       <div class="divider"></div>
+      <p class="body-text approach-lead">Palindrom was engaged to conduct an independent investigation to uncover the practical blockers to the project's goals.</p>
       <div class="approach-grid">
-        <div class="approach-text">
+        <div class="approach-col">
           <div class="approach-col-label">Method</div>
-          <p class="lead">We triangulated findings using:</p>
-          <ol>
-            <li>Stakeholder Interviews (Board/Technology Board, product teams, commercial, Dreams)</li>
-            <li>Document and artefact review (plans, architecture, roadmaps, budgets, evaluation outputs)</li>
-            <li>Technical inspection of systems (codebase walkthroughs, system architecture, deployment and infrastructure patterns)</li>
-            <li>Light experiments / sanity checks where appropriate, to validate evaluations and identify bottlenecks and requirements currently blocking what is realistically possible today and by 2026</li>
-          </ol>
+          <table class="method-table">
+            <tr><th>INTERVIEWS</th><td>Stakeholder interviews across Board, Technology Board, product teams, commercial, and Dreamio.</td></tr>
+            <tr><th>DOCUMENT REVIEW</th><td>Plans, architecture, roadmaps, budgets, evaluation outputs.</td></tr>
+            <tr><th>ARCHITECTURE INSPECTION</th><td>Codebase walkthroughs, system architecture, deployment and infrastructure patterns.</td></tr>
+            <tr><th>LIGHT EXPERIMENTS</th><td>Sanity checks where appropriate, to validate evaluations and identify bottlenecks and requirements currently blocking what is realistically possible today and by end of 2026.</td></tr>
+          </table>
         </div>
-        <div class="approach-focus">
+        <div class="approach-col">
           <div class="approach-col-label">Focus areas</div>
-          <p class="lead" style="margin-bottom:12px">We focused on the practical blockers to BBFC's goals.</p>
           <table class="focus-table">
             <tbody>
               <tr>
-                <td>Strategy &amp; Commercial</td>
+                <th>Strategy &amp; Commercial</th>
                 <td>Clear strategic goals and differentiation. Commercial readiness - Metering, billing, client and operational concerns.</td>
               </tr>
               <tr>
-                <td>Product</td>
+                <th>Product</th>
                 <td>Development practices and how they support delivery velocity.</td>
               </tr>
               <tr>
-                <td>Technology</td>
+                <th>Technology</th>
                 <td>Tech processes, TechOps. How performance is measured, whether evaluation supports scale and whether evaluation supports the goal.</td>
               </tr>
               <tr>
-                <td>Data &amp; AI</td>
+                <th>Data &amp; AI</th>
                 <td>Accuracy &amp; evaluation readiness - metadata (CLEARD) and ground truth. Data &amp; labelling quality. ML core, hybrid logic, Langflow.</td>
               </tr>
             </tbody>
@@ -2722,7 +2777,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 function resetSlide(el) {
-  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .score-cards, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary, .exec-single, .canvas-grid, .patterns-table, .team-compare, .roles-table, .dash-list, .tesla-grid, .pair-grid, .boxes-2x2, .boxes-2x2 > .box-neutral, .variation-stack, .role-stack, .box-good, .box-bad, .box-neutral';
+  const selectors = '.label, .heading, .body-text, .approach-lead, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .score-cards, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary, .exec-single, .canvas-grid, .patterns-table, .team-compare, .roles-table, .dash-list, .tesla-grid, .pair-grid, .boxes-2x2, .boxes-2x2 > .box-neutral, .variation-stack, .role-stack, .box-good, .box-bad, .box-neutral';
   el.querySelectorAll(selectors).forEach(child => {
     gsap.set(child, { clearProps: 'all' });
     child.style.opacity = '0';
