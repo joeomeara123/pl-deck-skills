@@ -180,6 +180,12 @@
   .two-col-body .col:last-child { border-right: none; padding-right: 0; }
   .two-col-body .col-title { font-size: 12.5px; font-weight: 600; color: #1a1a1a; margin-bottom: 12px; letter-spacing: 0.02em; }
   .two-col-body p { font-size: 0.88rem; font-weight: 300; line-height: 1.7; color: #555; }
+  .three-col-body { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 36px; margin-top: 20px; max-width: 960px; opacity: 0; transform: translateY(8px); }
+  .three-col-body .col { padding-right: 20px; border-right: 1px dashed rgba(0,0,0,0.08); }
+  .three-col-body .col:last-child { border-right: none; padding-right: 0; }
+  .three-col-body .col-title { font-size: 12px; font-weight: 600; color: #1a1a1a; margin-bottom: 10px; letter-spacing: 0.02em; }
+  .three-col-body p { font-size: 0.82rem; font-weight: 300; line-height: 1.65; color: #555; }
+  .three-col-body .col-note { font-size: 0.78rem; font-weight: 500; color: #1a1a1a; border: 1px solid rgba(0,0,0,0.15); padding: 6px 10px; margin-top: 10px; display: inline-block; }
 
   /* ── Section header bar (slide 4 context/key-questions blocks) ── */
   .section-bar {
@@ -1498,13 +1504,19 @@
   <div class="slide slide-content" id="slide-23">
     <canvas class="corner-canvas" id="corner-23"></canvas>
     <div class="content">
-      <div class="label">Moving forward</div>
+      <div class="label">Executive summary</div>
       <h2 class="heading">Executive <strong>summary</strong></h2>
       <div class="divider"></div>
       <div class="exec-summary">
-        <p><!-- FILL: paragraph 1 of executive summary --></p>
-        <p><!-- FILL: paragraph 2 --></p>
-        <p><!-- FILL: paragraph 3 --></p>
+        <p>The BBFC (British Board of Film Classification) invested significantly in two AI products: CLAIRE (automated international age ratings from metadata) and MRA (AI-driven content tagging and feature extraction). The combined reset was an end-to-end AI classification pipeline capable of supporting multiple territories with different regulatory requirements.</p>
+        <p>Despite significant investment, commercial and governance outcomes remain unclear, and the technology has not reached its original goals. Contributing without a clear exit milestone has continued without resolution.</p>
+        <p>Pakistan was engaged to conduct an independent investigation to uncover the practical blockers to the project's goals.</p>
+        <p>Our findings are:<br>
+        - Commercial: opportunities, product and tech, and acquisitions are misaligned, preventing cohesive execution. In well-functioning teams, unrealistic goals are typically challenged early; we found little evidence of this corrective pushback here.<br>
+        - Decision-making: decision-making in a high-uncertainty context lacks information and speed of execution.<br>
+        - We identified the ingredients of a category-defining product are given, but the organisation is acting like a scale-up before proving real product-market fit.<br>
+        - Our overall assessment is that the focus is needed deeper, more fundamental issues that must be resolved before accuracy can meaningfully translate into a viable product -- including unclear product scope, unreliable data infrastructure, and misaligned decision-making.<br>
+        - A viable pivot would require addressing foundational issues in scope, ownership, and success definition, not incremental improvements.</p>
       </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
@@ -1513,8 +1525,8 @@
   <!-- Slide 24 (section divider) -->
   <div class="slide slide-content slide-split" id="slide-24" style="--split: 40">
     <div class="slide-text">
-      <div class="section-number">SECTION 06</div>
-      <h2 class="section-heading">Appendix: best practices and things to avoid</h2>
+      <div class="section-number">Best practices and things to avoid</div>
+      <h2 class="section-heading">Appendix: Best practices and things to avoid</h2>
       <div class="slide-footer">PROGRESSION LABS</div>
     </div>
     <div class="slide-image">
@@ -1527,10 +1539,9 @@
   <div class="slide slide-content sub-divider" id="slide-25">
     <canvas class="corner-canvas" id="corner-25"></canvas>
     <div class="content">
-      <div class="label">Appendix</div>
-      <h2 class="heading"><strong>Strategy</strong></h2>
+      <div class="label">Best practices and things to avoid</div>
+      <h2 class="heading">Appendix: Best practices and things to avoid - <strong>Strategy</strong></h2>
       <div class="divider"></div>
-      <p class="body-text">Best practices and things to avoid.</p>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1539,28 +1550,66 @@
   <div class="slide slide-content" id="slide-26">
     <canvas class="corner-canvas" id="corner-26"></canvas>
     <div class="content">
-      <div class="label">Strategy</div>
-      <h2 class="heading">Things that <strong>don't scale</strong></h2>
+      <div class="label">Best practices and things to avoid</div>
+      <h2 class="heading">Do things that do <strong>not scale</strong></h2>
       <div class="divider"></div>
-      <svg class="diagram" viewBox="0 0 920 300" preserveAspectRatio="xMidYMid meet">
+      <svg class="diagram" viewBox="0 0 920 480" preserveAspectRatio="xMidYMid meet">
         <defs>
-          <marker id="arrow-blue-5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <marker id="arrow-blue-26" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
             <path d="M 0 0 L 10 5 L 0 10 z" fill="#0000FF"/>
           </marker>
         </defs>
-        <!-- Three equal-weight steps spread across full width -->
-        <g font-family="Inter, sans-serif" font-size="12" fill="#1a1a1a" font-weight="400" text-anchor="middle">
-          <circle cx="160" cy="110" r="54" fill="none" stroke="#0000FF" stroke-width="1.5"/>
-          <text x="160" y="115">Build a product</text>
-          <circle cx="460" cy="110" r="54" fill="none" stroke="#0000FF" stroke-width="1.5"/>
-          <text x="460" y="115">Get feedback</text>
-          <circle cx="760" cy="110" r="54" fill="none" stroke="#0000FF" stroke-width="1.5"/>
-          <text x="760" y="115">Sell the product</text>
+        <!-- Sub-heading row 1 -->
+        <text x="0" y="20" font-family="Inter, sans-serif" font-size="13" fill="#1a1a1a" font-weight="400">How to build a successful apple pie brand?</text>
+        <!-- Apple pie loop: Bake an apple pie (left) -> Sell the apple pie (top) -> Get feedback (bottom right), loop back -->
+        <g font-family="Inter, sans-serif" font-size="12" fill="#0000FF" font-weight="400" text-anchor="middle">
+          <!-- Bake an apple pie -->
+          <text x="200" y="118">Bake an apple pie</text>
+          <!-- Sell the apple pie -->
+          <text x="330" y="58">Sell the apple pie</text>
+          <!-- Get feedback -->
+          <text x="338" y="175">Get feedback</text>
         </g>
-        <line x1="216" y1="110" x2="404" y2="110" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-5)"/>
-        <line x1="516" y1="110" x2="704" y2="110" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-5)"/>
-        <path d="M 760 164 Q 760 240, 460 240 Q 160 240, 160 164" fill="none" stroke="#0000FF" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arrow-blue-5)"/>
-        <text x="460" y="268" text-anchor="middle" font-family="SF Mono, monospace" font-size="9" fill="rgba(0,0,255,0.45)" letter-spacing="1.5">REPEAT</text>
+        <!-- Arc: Bake -> Sell -->
+        <path d="M 255 95 Q 270 50, 305 62" fill="none" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
+        <!-- Arrow: Sell -> Get feedback -->
+        <path d="M 330 68 Q 345 115, 330 155" fill="none" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
+        <!-- Arc: Get feedback -> Bake -->
+        <path d="M 295 178 Q 240 195, 210 128" fill="none" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
+        <!-- "only then" arrow to bullet list -->
+        <text x="440" y="113" font-family="Inter, sans-serif" font-size="11" fill="#0000FF" font-style="italic">only then</text>
+        <line x1="435" y1="118" x2="500" y2="118" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
+        <!-- Bullet list: apple pie brand -->
+        <text x="510" y="100" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; find a kitchen</text>
+        <text x="510" y="116" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; build a brand</text>
+        <text x="510" y="132" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; design packaging</text>
+        <text x="510" y="148" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; etc...</text>
+
+        <!-- Sub-heading row 2 -->
+        <text x="0" y="270" font-family="Inter, sans-serif" font-size="13" fill="#1a1a1a" font-weight="400">How to build a successful AI project?</text>
+        <!-- AI project loop: Build a product (left) -> Sell the product (top) -> Get feedback (bottom right), loop back -->
+        <g font-family="Inter, sans-serif" font-size="12" fill="#0000FF" font-weight="400" text-anchor="middle">
+          <!-- Build a product -->
+          <text x="200" y="368">Build a product</text>
+          <!-- Sell the product -->
+          <text x="330" y="308">Sell the product</text>
+          <!-- Get feedback -->
+          <text x="338" y="425">Get feedback</text>
+        </g>
+        <!-- Arc: Build -> Sell -->
+        <path d="M 255 345 Q 270 300, 305 312" fill="none" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
+        <!-- Arrow: Sell -> Get feedback -->
+        <path d="M 330 318 Q 345 365, 330 405" fill="none" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
+        <!-- Arc: Get feedback -> Build -->
+        <path d="M 295 428 Q 240 445, 210 378" fill="none" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
+        <!-- "only then" arrow to bullet list -->
+        <text x="440" y="363" font-family="Inter, sans-serif" font-size="11" fill="#0000FF" font-style="italic">only then</text>
+        <line x1="435" y1="368" x2="500" y2="368" stroke="#0000FF" stroke-width="1.5" marker-end="url(#arrow-blue-26)"/>
+        <!-- Bullet list: AI project -->
+        <text x="510" y="350" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; hire more people</text>
+        <text x="510" y="366" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; build a brand</text>
+        <text x="510" y="382" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; solve deep technical problems</text>
+        <text x="510" y="398" font-family="Inter, sans-serif" font-size="11" fill="#0000FF">&#x2022; etc...</text>
       </svg>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
@@ -1570,17 +1619,28 @@
   <div class="slide slide-content" id="slide-27">
     <canvas class="corner-canvas" id="corner-27"></canvas>
     <div class="content">
-      <div class="label">Strategy</div>
-      <h2 class="heading">Run into the <strong>spike</strong></h2>
+      <div class="label">Best practices and things to avoid</div>
+      <h2 class="heading">Creating a culture where the riskiest assumptions are shared between team members and then "running into the <strong>spike</strong>"</h2>
       <div class="divider"></div>
-      <div class="two-col-body">
+      <div class="three-col-body">
         <div class="col">
-          <h3 class="col-title">By definition</h3>
-          <p><!-- FILL: explanation of running into the spike --></p>
+          <h3 class="col-title">1. Identifying risks</h3>
+          <p>By definition, all innovative projects have risks -- otherwise they would be incremental improvements and not innovative.</p>
+          <p>Risks can be:<br>
+          - market -- does the market need this?<br>
+          - tech -- can we build it given the current technical constraints?</p>
         </div>
         <div class="col">
-          <h3 class="col-title">In practice</h3>
-          <p><!-- FILL: how to apply this in team process --></p>
+          <h3 class="col-title">2. Creating a shared document about the riskiest assumptions</h3>
+          <p>This should be a living document with thought-provoking questions.</p>
+          <p>For example, here's a question from a real document:<br>
+          - Is it possible to build a real-time AI product with 0.5s latency given our data?</p>
+        </div>
+        <div class="col">
+          <h3 class="col-title">3. "Running into the spike"</h3>
+          <p>The team should validate the riskiest assumptions first instead of last.</p>
+          <p>This is an uncomfortable but necessary exercise.</p>
+          <p class="col-note">This is not a one-off but continuous</p>
         </div>
       </div>
     </div>
@@ -2225,6 +2285,9 @@ function animateSlideIn(el) {
 
   const twoColBody = el.querySelectorAll('.content .two-col-body');
   if (twoColBody.length) tl.to(twoColBody, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const threeColBody = el.querySelectorAll('.content .three-col-body');
+  if (threeColBody.length) tl.to(threeColBody, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
 
   const approachGrid = el.querySelectorAll('.content .approach-grid');
   if (approachGrid.length) tl.to(approachGrid, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
