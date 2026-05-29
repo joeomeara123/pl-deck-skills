@@ -15,12 +15,79 @@
     position: absolute; inset: 0;
     display: none;
     flex-direction: column;
-    align-items: flex-start; justify-content: flex-start;
+    align-items: flex-start; justify-content: center;
     text-align: left;
-    padding: 72px 100px 56px;
+    padding: 48px 100px 80px;
     overflow: hidden;
   }
   .slide.active { display: flex; }
+  /* The slide-footer should stay pinned to the bottom even when content is vertically centred */
+  .slide:not(#slide-0) .slide-footer {
+    position: absolute; bottom: 28px; left: 100px;
+    font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600;
+    color: rgba(0,0,0,0.35); letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .slide:not(#slide-0) .corner-canvas {
+    position: absolute; bottom: 0; right: 0;
+  }
+
+  /* ── Box utility classes (paired contrast: good/bad/neutral) ── */
+  .box-good {
+    background: rgba(0,0,255,0.04);
+    border: 1px solid rgba(0,0,255,0.2);
+    border-radius: 10px;
+    padding: 18px 24px;
+  }
+  .box-bad {
+    background: rgba(220,38,38,0.04);
+    border: 1px solid rgba(220,38,38,0.25);
+    border-radius: 10px;
+    padding: 18px 24px;
+  }
+  .box-neutral {
+    background: rgba(0,0,0,0.025);
+    border: 1px dashed rgba(0,0,0,0.12);
+    border-radius: 10px;
+    padding: 18px 24px;
+  }
+  .box-good .box-label, .box-bad .box-label, .box-neutral .box-label {
+    font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    margin-bottom: 10px;
+  }
+  .box-good .box-label { color: #0000FF; }
+  .box-bad .box-label { color: #dc2626; }
+  .box-neutral .box-label { color: rgba(0,0,255,0.55); }
+  .box-good p, .box-bad p, .box-neutral p,
+  .box-good li, .box-bad li, .box-neutral li {
+    font-size: 0.88rem; font-weight: 300; line-height: 1.6; color: #1a1a1a;
+  }
+  .box-good ul, .box-bad ul, .box-neutral ul { list-style: none; padding-left: 0; }
+  .box-good li, .box-bad li, .box-neutral li { padding: 4px 0 4px 14px; position: relative; }
+  .box-good li::before { content: "•"; position: absolute; left: 0; color: #0000FF; }
+  .box-bad li::before { content: "•"; position: absolute; left: 0; color: #dc2626; }
+  .box-neutral li::before { content: "•"; position: absolute; left: 0; color: rgba(0,0,0,0.4); }
+
+  /* Compact pill tags for inline good/bad markers */
+  .tag-good, .tag-bad {
+    display: inline-block;
+    font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    padding: 3px 8px; border-radius: 4px; color: white;
+  }
+  .tag-good { background: #0000FF; }
+  .tag-bad { background: #dc2626; }
+
+  /* Paired good/bad grid (for slides 30, 38 best-practice vs anti-pattern) */
+  .pair-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 24px;
+    margin-top: 12px;
+    max-width: 1080px;
+    opacity: 0; transform: translateY(8px);
+  }
+  .pair-grid .box-good, .pair-grid .box-bad { min-height: 84px; }
 
   /* ── Hero (centered override) ── */
   #slide-0 {
@@ -2438,7 +2505,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 function resetSlide(el) {
-  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary, .canvas-grid, .patterns-table, .team-compare, .roles-table, .dash-list, .tesla-grid';
+  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary, .canvas-grid, .patterns-table, .team-compare, .roles-table, .dash-list, .tesla-grid, .pair-grid, .box-good, .box-bad, .box-neutral';
   el.querySelectorAll(selectors).forEach(child => {
     gsap.set(child, { clearProps: 'all' });
     child.style.opacity = '0';
@@ -2537,6 +2604,15 @@ function animateSlideIn(el) {
 
   const twoColBody = el.querySelectorAll('.content .two-col-body');
   if (twoColBody.length) tl.to(twoColBody, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const pairGrid = el.querySelectorAll('.content .pair-grid');
+  if (pairGrid.length) {
+    tl.to(pairGrid, { opacity: 1, y: 0, duration: 0.5 }, 0.25);
+    const pairBoxes = el.querySelectorAll('.content .pair-grid > .box-good, .content .pair-grid > .box-bad, .content .pair-grid > .box-neutral');
+    if (pairBoxes.length) tl.to(pairBoxes, { opacity: 1, y: 0, duration: 0.5, stagger: 0.07 }, 0.4);
+  }
+  const standaloneBoxes = el.querySelectorAll('.content > .box-good, .content > .box-bad, .content > .box-neutral, .content .box-grid > .box-good, .content .box-grid > .box-bad, .content .box-grid > .box-neutral');
+  if (standaloneBoxes.length) tl.to(standaloneBoxes, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 }, 0.35);
 
   const threeColBody = el.querySelectorAll('.content .three-col-body');
   if (threeColBody.length) tl.to(threeColBody, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
