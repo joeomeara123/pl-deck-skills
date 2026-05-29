@@ -240,10 +240,17 @@
       <div class="row"><label for="grain">Pixel grain</label><span class="val" id="grain-val">0.00</span></div>
       <input type="range" id="grain" min="0" max="1" step="0.01" value="0">
 
-      <div class="row"><label for="subjectIsolation">Subject isolation</label><span class="val" id="subjectIsolation-val">0.00</span></div>
+      <div class="row" style="margin-top:6px"><label for="subjectMode">Subject filter</label></div>
+      <select id="subjectMode">
+        <option value="auto" selected>Auto (deviation from mean)</option>
+        <option value="lighter">Lighter than threshold (keep bright subject)</option>
+        <option value="darker">Darker than threshold (keep dark subject)</option>
+      </select>
+
+      <div class="row" style="margin-top:8px"><label for="subjectIsolation">Threshold</label><span class="val" id="subjectIsolation-val">0.00</span></div>
       <input type="range" id="subjectIsolation" min="0" max="1" step="0.01" value="0">
-      <button id="subjectInvert" style="margin-top:4px; width:100%; font-size:11px">↺ Invert filter</button>
-      <p style="color: var(--muted); font-size: 11px; margin: 4px 0 6px;">0 = full coverage. Higher = skip cells whose brightness matches the average background. Toggle <b>Invert</b> when the subject fills most of the frame (jellyfish, portrait close-ups) and the wrong half is rendering.</p>
+      <span id="invertWrap"><button id="subjectInvert" style="margin-top:4px; width:100%; font-size:11px">↺ Invert filter</button></span>
+      <p style="color: var(--muted); font-size: 11px; margin: 4px 0 6px;">Auto: skip cells matching the average background (Invert if subject dominates the frame). Lighter: skip cells darker than the threshold. Darker: skip cells brighter than (1 − threshold).</p>
     </div>
 
     <div class="group">
@@ -360,6 +367,10 @@ const DEFAULTS = {
   // Invert the brightness filter when the subject dominates the frame
   // (so it's close to the mean) and the background is the deviant tone.
   subjectInvert: false,
+  // Subject filter mode. 'auto' uses deviation-from-mean (with optional
+  // Invert). 'lighter' / 'darker' use absolute brightness thresholds —
+  // more reliable when subject vs background tones don't straddle the mean.
+  subjectMode: 'auto',
   // Image duotone — applied to the photo before the mosaic samples it
   duotoneStrength: 0,
   duotoneShadow: '#0943a0',
@@ -623,9 +634,11 @@ function render() {
   const SUBJ_ISO = state.subjectIsolation;
 
   // Compute mean luminance of the photo (sparse sample) so cells whose
-  // tone matches the background can be dropped. Only when the filter is on.
+  // tone matches the background can be dropped. Only when 'auto' mode is
+  // active — 'lighter' / 'darker' modes use absolute thresholds and
+  // don't need the mean.
   let meanLum = 0;
-  if (SUBJ_ISO > 0) {
+  if (SUBJ_ISO > 0 && state.subjectMode === 'auto') {
     let sum = 0, n = 0;
     const sampleStep = 8;
     for (let y = 0; y < height; y += sampleStep) {
@@ -675,13 +688,21 @@ function render() {
       // `k` = flatter, more uniform blocks. Lower `k` = strong silhouette.
       const lum = (0.2126 * ar + 0.7152 * ag + 0.0722 * ab) / 255;
 
-      // Background-suppression filter. By default, skip cells whose
-      // luminance is close to the image mean (= background). When inverted,
-      // skip cells whose luminance deviates (use this when the subject
-      // dominates the frame and lives near the mean instead).
+      // Subject filter. 'auto' uses deviation from the image mean (with
+      // optional Invert for subject-dominant images). 'lighter' / 'darker'
+      // gate on an absolute brightness threshold — more reliable when
+      // subject and background sit on the same side of the mean.
       if (SUBJ_ISO > 0) {
-        const isCloseToMean = Math.abs(lum - meanLum) < SUBJ_ISO;
-        if (state.subjectInvert ? !isCloseToMean : isCloseToMean) continue;
+        let skip;
+        if (state.subjectMode === 'lighter') {
+          skip = lum < SUBJ_ISO;
+        } else if (state.subjectMode === 'darker') {
+          skip = lum > (1 - SUBJ_ISO);
+        } else {
+          const isCloseToMean = Math.abs(lum - meanLum) < SUBJ_ISO;
+          skip = state.subjectInvert ? !isCloseToMean : isCloseToMean;
+        }
+        if (skip) continue;
       }
 
       const lit = k + (1 - k) * lum;
@@ -814,6 +835,8 @@ function syncDomFromState() {
   $('brushErase').classList.toggle('active', state.brushErase);
   $('subjectInvert').textContent = state.subjectInvert ? '✓ Invert filter: ON' : '↺ Invert filter';
   $('subjectInvert').classList.toggle('active', state.subjectInvert);
+  $('subjectMode').value = state.subjectMode || 'auto';
+  $('invertWrap').style.display = (state.subjectMode || 'auto') === 'auto' ? '' : 'none';
   updateGradientPreview();
 }
 
@@ -951,6 +974,12 @@ $('brushErase').addEventListener('click', () => {
 
 $('brushClear').addEventListener('click', () => {
   clearBrushMask();
+  scheduleRender();
+});
+
+$('subjectMode').addEventListener('change', e => {
+  state.subjectMode = e.target.value;
+  $('invertWrap').style.display = state.subjectMode === 'auto' ? '' : 'none';
   scheduleRender();
 });
 
@@ -1136,6 +1165,8 @@ $('reset').addEventListener('click', () => {
   $('brushErase').classList.remove('active');
   $('subjectInvert').textContent = '↺ Invert filter';
   $('subjectInvert').classList.remove('active');
+  $('subjectMode').value = DEFAULTS.subjectMode;
+  $('invertWrap').style.display = DEFAULTS.subjectMode === 'auto' ? '' : 'none';
   document.querySelectorAll('[data-corner]').forEach(b => {
     b.classList.toggle('active', b.dataset.corner === DEFAULTS.corner);
   });
