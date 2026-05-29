@@ -89,6 +89,76 @@
   }
   .pair-grid .box-good, .pair-grid .box-bad { min-height: 84px; }
 
+  /* ── 2x2 neutral box grid (slide 4) ── */
+  .boxes-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 16px 24px;
+    margin-top: 16px;
+    max-width: 1080px;
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .boxes-2x2 > .box-neutral { padding: 14px 18px; }
+  .boxes-2x2 > .box-neutral p { font-size: 0.78rem; line-height: 1.5; margin-bottom: 6px; }
+  .boxes-2x2 > .box-neutral p:last-child { margin-bottom: 0; }
+  .boxes-2x2 > .box-neutral li { font-size: 0.78rem; line-height: 1.5; padding: 2px 0 2px 12px; }
+
+  /* ── Score cards grid (slide 18) ── */
+  .score-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+    margin-top: 12px;
+    max-width: 1080px;
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .score-card {
+    padding: 10px 14px;
+    border-bottom: 1px dashed rgba(0,0,0,0.06);
+  }
+  .score-head {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 4px;
+  }
+  .score-num {
+    font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600;
+    color: rgba(0,0,255,0.45); letter-spacing: 0.1em;
+  }
+  .score-cat {
+    flex: 1;
+    font-size: 0.82rem; font-weight: 500; color: #1a1a1a;
+  }
+  .score-badge {
+    font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600;
+    padding: 2px 7px; border-radius: 3px; color: white;
+    letter-spacing: 0.05em;
+  }
+  .score-low { background: #dc2626; }
+  .score-high { background: #0000FF; }
+  .score-mid { background: rgba(0,0,0,0.5); }
+  .score-obs {
+    font-size: 0.74rem; font-weight: 300; line-height: 1.45;
+    color: #555;
+    margin: 0;
+  }
+
+  /* ── Single-column exec summary (slide 23) ── */
+  .exec-single {
+    max-width: 720px;
+    margin-top: 16px;
+    opacity: 0; transform: translateY(8px);
+  }
+  .exec-single p {
+    font-size: 0.92rem; font-weight: 300;
+    line-height: 1.75; color: #1a1a1a;
+    margin-bottom: 16px;
+  }
+  .exec-single p:last-child { margin-bottom: 0; }
+  .exec-single p strong { font-weight: 500; color: #0000FF; }
+
   /* ── Hero (centered override) ── */
   #slide-0 {
     align-items: center; justify-content: center; text-align: center;
@@ -666,12 +736,30 @@
   .exec-summary p { font-size: 0.88rem; font-weight: 300; line-height: 1.7; color: #555; margin-bottom: 14px; break-inside: avoid; }
 
   /* ── Slide 29: canvas grid ── */
-  .canvas-grid { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 16px; max-width: 960px; opacity: 0; transform: translateY(8px); }
-  .canvas-cell { padding: 14px 18px; border-right: 1px dashed rgba(0,0,0,0.08); border-bottom: 1px dashed rgba(0,0,0,0.08); min-height: 90px; }
-  .canvas-cell:nth-child(3n) { border-right: none; }
-  .canvas-cell:nth-last-child(-n+3) { border-bottom: none; }
-  .canvas-cell .cell-label { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(0,0,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
-  .canvas-cell p { font-size: 0.75rem; font-weight: 300; line-height: 1.5; color: #555; }
+  .canvas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+    max-width: 1080px;
+    opacity: 0; transform: translateY(8px);
+  }
+  .canvas-cell {
+    background: rgba(0,0,0,0.025);
+    border: 1px dashed rgba(0,0,0,0.12);
+    border-radius: 10px;
+    padding: 18px 20px;
+    min-height: 130px;
+  }
+  .canvas-cell .cell-label {
+    font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600;
+    color: rgba(0,0,255,0.55);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+  .canvas-cell p {
+    font-size: 0.78rem; font-weight: 300; line-height: 1.55; color: #1a1a1a;
+  }
 
   /* ── Slide 30: patterns table ── */
   .patterns-table { width: 100%; max-width: 960px; margin-top: 16px; border-collapse: collapse; font-size: 0.85rem; opacity: 0; transform: translateY(8px); }
@@ -891,45 +979,30 @@
       <div class="label">Context</div>
       <h2 class="heading">Why we are <strong>here</strong></h2>
       <div class="divider"></div>
-      <div class="two-col-body">
-        <div class="col">
-          <div class="section-block">
-            <div class="section-bar">Context</div>
-            <ul>
-              <li>The BBFC (British Board of Film Classification) invested significantly in two AI products: CLEARD (automated international age ratings from metadata) and MIRA (AI-driven content tagging and feature extraction).</li>
-              <li>The combined vision was an end-to-end, AI-assisted classification pipeline capable of supporting multiple territories with minimal human intervention.</li>
-              <li>Despite significant investment, commercial and governance outcomes remain unclear, and the technology has not reached its original goals.</li>
-              <li><strong>Continuing without a reset risks further spend without resolution.</strong></li>
-            </ul>
-          </div>
-          <div class="section-block">
-            <div class="section-bar">Key questions (the focus of our investigation)</div>
-            <ul>
-              <li><strong>Q1: What is the status of the project?</strong> What has actually been delivered? Is the product roadmap still viable?</li>
-              <li><strong>Q2: Why did the project didn't meet expectations?</strong> Why did the project end up where it is instead of reaching its original goals? How does the project score across the Commercial, Product, Technology and Data &amp; AI dimensions?</li>
-              <li><strong>Q3: What's next?</strong> Should the board stop, continue or pivot the project? What does a realistic path forward look like?</li>
-            </ul>
-          </div>
+      <div class="boxes-2x2">
+        <div class="box-neutral">
+          <div class="box-label">Context</div>
+          <p>The BBFC invested significantly in two AI products: CLEARD (automated international age ratings from metadata) and MIRA (AI-driven content tagging and feature extraction). The combined vision was an end-to-end, AI-assisted classification pipeline capable of supporting multiple territories with minimal human intervention. Despite significant investment, the technology has not reached its original goals. Continuing without a reset risks further spend without resolution.</p>
         </div>
-        <div class="col">
-          <div class="section-block">
-            <div class="section-bar">Palindrom's investigation</div>
-            <ul>
-              <li>Palindrom was engaged to conduct an independent investigation to uncover the practical blockers to the project's goals.</li>
-              <li>We conducted 26 interviews with technical, product, commercial stakeholders, and domain experts over 20 business days.</li>
-              <li>We regularly shared our findings with David Austin during our weekly meetings on Friday.</li>
-            </ul>
-          </div>
-          <div class="section-block">
-            <div class="section-bar">What this presentation is not trying to answer</div>
-            <ul>
-              <li>It is <strong>not a market research report</strong>: market validation was out of scope.</li>
-              <li>It is <strong>not a technical architecture review</strong>: while technical patterns were inspected, the focus is on strategic and organisational blockers, not detailed system redesign.</li>
-              <li>It does <strong>not make the decision for BBFC</strong>: it provides the objective information and framing needed for the Board to make an informed decision on stop/continue/pivot.</li>
-              <li>It does <strong>not define what the final product should be</strong>: multiple interpretations of the product still coexist; the report highlights this ambiguity rather than resolving it.</li>
-              <li>It is <strong>not a business plan or commercial strategy</strong>.</li>
-            </ul>
-          </div>
+        <div class="box-neutral">
+          <div class="box-label">Key questions</div>
+          <p><strong>Q1: What is the status of the project?</strong> What has actually been delivered? Is the product roadmap still viable?</p>
+          <p><strong>Q2: Why did the project not meet expectations?</strong> How does the project score across the Commercial, Product, Technology and Data &amp; AI dimensions?</p>
+          <p><strong>Q3: What's next?</strong> Should the board stop, continue or pivot the project? What does a realistic path forward look like?</p>
+        </div>
+        <div class="box-neutral">
+          <div class="box-label">Palindrom's investigation</div>
+          <p>Independent investigation to uncover practical blockers to the project's goals. 26 interviews with technical, product, commercial stakeholders, and domain experts over 20 business days. Findings shared weekly with David Austin.</p>
+        </div>
+        <div class="box-neutral">
+          <div class="box-label">What this is not</div>
+          <ul>
+            <li>Not a market research report</li>
+            <li>Not a technical architecture review</li>
+            <li>Not the stop/continue/pivot decision itself</li>
+            <li>Not a definition of the final product</li>
+            <li>Not a business plan or commercial strategy</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -1546,23 +1619,88 @@
       <div class="label">Findings</div>
       <h2 class="heading">Acting like a <strong>scale-up</strong></h2>
       <div class="divider"></div>
-      <table class="score-table">
-        <thead>
-          <tr><th>#</th><th>Category</th><th>Observation</th><th>Score</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>01</td><td>Market size &amp; urgency</td><td>Global, structural need. Regulatory burden is real and growing. AI adoption pressure creates urgency.</td><td>4/5</td></tr>
-          <tr><td>02</td><td>Market timing</td><td>Right problem at the right moment. External forces (streaming, AI, regulation) are aligned.</td><td>4/5</td></tr>
-          <tr><td>03</td><td>Customer willingness to pay</td><td>Assumed, not proven. No clear customer is defined. Does the organisation knows who is actually buying the BBFC?</td><td>3/5</td></tr>
-          <tr><td>04</td><td>Target-customer clarity</td><td>Assumed for early. Buyers or users not clearly separated.</td><td>3/5</td></tr>
-          <tr><td>05</td><td>Sales readiness</td><td>Current product is not sellable in its current form.</td><td>3/5</td></tr>
-          <tr><td>06</td><td>Pricing &amp; packaging</td><td>No clear value ladder. No price point with reasonable fit content. Product access doesn't exist.</td><td>2/5</td></tr>
-          <tr><td>07</td><td>Problem clarity</td><td>There is a real problem (esp. with exponential AI content growth). Product boundary is fuzzy.</td><td>2/5</td></tr>
-          <tr><td>08</td><td>User experience &amp; trust model</td><td>Human in the loop not designed. Trust is assumed by model, not engineered.</td><td>2/5</td></tr>
-          <tr><td>09</td><td>Technical feasibility</td><td>What's being attempted is technically plausible, but needs substantial amount of rework.</td><td>2.5/5</td></tr>
-          <tr><td>10</td><td>Unique domain expertise</td><td>The organisation is a leading authority in this space with a 100-year-old history.</td><td>3/5</td></tr>
-        </tbody>
-      </table>
+      <div class="score-cards">
+        <div class="score-card">
+          <div class="score-head">
+            <span class="score-num">01</span>
+            <span class="score-cat">Market size &amp; urgency</span>
+            <span class="score-badge score-high">4/5</span>
+          </div>
+          <p class="score-obs">Global, structural need. Regulatory burden is real and growing. AI adoption pressure creates urgency.</p>
+        </div>
+        <div class="score-card">
+          <div class="score-head">
+            <span class="score-num">02</span>
+            <span class="score-cat">Market timing</span>
+            <span class="score-badge score-high">4/5</span>
+          </div>
+          <p class="score-obs">Right problem at the right moment. External forces (streaming, AI, regulation) are aligned.</p>
+        </div>
+        <div class="score-card">
+          <div class="score-head">
+            <span class="score-num">03</span>
+            <span class="score-cat">Customer willingness to pay</span>
+            <span class="score-badge score-mid">3/5</span>
+          </div>
+          <p class="score-obs">Assumed, not proven. No clear customer is defined. Does the organisation know who is actually buying from the BBFC?</p>
+        </div>
+        <div class="score-card">
+          <div class="score-head">
+            <span class="score-num">04</span>
+            <span class="score-cat">Target-customer clarity</span>
+            <span class="score-badge score-mid">3/5</span>
+          </div>
+          <p class="score-obs">Assumed for early. Buyers or users not clearly separated.</p>
+        </div>
+        <div class="score-card">
+          <div class="score-head">
+            <span class="score-num">05</span>
+            <span class="score-cat">Sales readiness</span>
+            <span class="score-badge score-mid">3/5</span>
+          </div>
+          <p class="score-obs">Current product is not sellable in its current form.</p>
+        </div>
+        <div class="score-card">
+          <div class="score-head">
+            <span class="score-num">06</span>
+            <span class="score-cat">Pricing &amp; packaging</span>
+            <span class="score-badge score-low">2/5</span>
+          </div>
+          <p class="score-obs">No clear value ladder. No price point with reasonable fit content. Product access doesn't exist.</p>
+        </div>
+        <div class="score-card">
+          <div class="score-head">
+            <span class="score-num">07</span>
+            <span class="score-cat">Problem clarity</span>
+            <span class="score-badge score-low">2/5</span>
+          </div>
+          <p class="score-obs">There is a real problem (esp. with exponential AI content growth). Product boundary is fuzzy.</p>
+        </div>
+        <div class="score-card">
+          <div class="score-head">
+            <span class="score-num">08</span>
+            <span class="score-cat">User experience &amp; trust model</span>
+            <span class="score-badge score-low">2/5</span>
+          </div>
+          <p class="score-obs">Human in the loop not designed. Trust is assumed by model, not engineered.</p>
+        </div>
+        <div class="score-card">
+          <div class="score-head">
+            <span class="score-num">09</span>
+            <span class="score-cat">Technical feasibility</span>
+            <span class="score-badge score-low">2.5/5</span>
+          </div>
+          <p class="score-obs">What's being attempted is technically plausible, but needs substantial amount of rework.</p>
+        </div>
+        <div class="score-card">
+          <div class="score-head">
+            <span class="score-num">10</span>
+            <span class="score-cat">Unique domain expertise</span>
+            <span class="score-badge score-mid">3/5</span>
+          </div>
+          <p class="score-obs">The organisation is a leading authority in this space with a 100-year-old history.</p>
+        </div>
+      </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -1666,16 +1804,12 @@
       <div class="label">Executive summary</div>
       <h2 class="heading">Executive <strong>summary</strong></h2>
       <div class="divider"></div>
-      <div class="exec-summary">
-        <p>The BBFC (British Board of Film Classification) invested significantly in two AI products: CLAIRE (automated international age ratings from metadata) and MRA (AI-driven content tagging and feature extraction). The combined reset was an end-to-end AI classification pipeline capable of supporting multiple territories with different regulatory requirements.</p>
-        <p>Despite significant investment, commercial and governance outcomes remain unclear, and the technology has not reached its original goals. Contributing without a clear exit milestone has continued without resolution.</p>
-        <p>Pakistan was engaged to conduct an independent investigation to uncover the practical blockers to the project's goals.</p>
-        <p>Our findings are:<br>
-        - Commercial: opportunities, product and tech, and acquisitions are misaligned, preventing cohesive execution. In well-functioning teams, unrealistic goals are typically challenged early; we found little evidence of this corrective pushback here.<br>
-        - Decision-making: decision-making in a high-uncertainty context lacks information and speed of execution.<br>
-        - We identified the ingredients of a category-defining product are given, but the organisation is acting like a scale-up before proving real product-market fit.<br>
-        - Our overall assessment is that the focus is needed deeper, more fundamental issues that must be resolved before accuracy can meaningfully translate into a viable product -- including unclear product scope, unreliable data infrastructure, and misaligned decision-making.<br>
-        - A viable pivot would require addressing foundational issues in scope, ownership, and success definition, not incremental improvements.</p>
+      <div class="exec-single">
+        <p>The BBFC (British Board of Film Classification) invested significantly in two AI products: CLEARD (automated international age ratings from metadata) and MIRA (AI-driven content tagging and feature extraction). The combined vision was an end-to-end AI classification pipeline capable of supporting multiple territories with different regulatory requirements.</p>
+        <p>Despite significant investment, commercial and governance outcomes remain unclear, and the technology has not reached its original goals. Continuing without a clear exit milestone risks further spend without resolution.</p>
+        <p>Palindrom was engaged to conduct an independent investigation to uncover the practical blockers to the project's goals.</p>
+        <p><strong>Commercial, product, and technology functions are misaligned,</strong> preventing cohesive execution. In well-functioning teams, unrealistic goals are typically challenged early; we found little evidence of this corrective pushback here. Decision-making in a high-uncertainty context lacks information and speed of execution. The ingredients of a category-defining product are present, but the organisation is acting like a scale-up before proving real product-market fit.</p>
+        <p>Our overall assessment is that deeper, more fundamental issues must be resolved before accuracy can meaningfully translate into a viable product -- including unclear product scope, unreliable data infrastructure, and misaligned decision-making. <strong>A viable pivot would require addressing foundational issues in scope, ownership, and success definition, not incremental improvements.</strong></p>
       </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
@@ -2505,7 +2639,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 function resetSlide(el) {
-  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary, .canvas-grid, .patterns-table, .team-compare, .roles-table, .dash-list, .tesla-grid, .pair-grid, .box-good, .box-bad, .box-neutral';
+  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .score-cards, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary, .exec-single, .canvas-grid, .patterns-table, .team-compare, .roles-table, .dash-list, .tesla-grid, .pair-grid, .boxes-2x2, .boxes-2x2 > .box-neutral, .box-good, .box-bad, .box-neutral';
   el.querySelectorAll(selectors).forEach(child => {
     gsap.set(child, { clearProps: 'all' });
     child.style.opacity = '0';
@@ -2646,6 +2780,19 @@ function animateSlideIn(el) {
 
   const execSummary = el.querySelectorAll('.content .exec-summary');
   if (execSummary.length) tl.to(execSummary, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const execSingle = el.querySelectorAll('.content .exec-single');
+  if (execSingle.length) tl.to(execSingle, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const boxes2x2 = el.querySelectorAll('.content .boxes-2x2');
+  if (boxes2x2.length) {
+    tl.to(boxes2x2, { opacity: 1, y: 0, duration: 0.5 }, 0.25);
+    const boxes2x2Items = el.querySelectorAll('.content .boxes-2x2 > .box-neutral');
+    if (boxes2x2Items.length) tl.to(boxes2x2Items, { opacity: 1, y: 0, duration: 0.5, stagger: 0.07 }, 0.4);
+  }
+
+  const scoreCards = el.querySelectorAll('.content .score-cards');
+  if (scoreCards.length) tl.to(scoreCards, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
 
   const canvasGrid = el.querySelectorAll('.content .canvas-grid');
   if (canvasGrid.length) tl.to(canvasGrid, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
