@@ -199,25 +199,35 @@
   .section-block ul li strong { font-weight: 600; color: #1a1a1a; }
 
   /* ── Approach grid (slide 6) ── */
-  .approach-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 48px; margin-top: 24px; max-width: 920px; opacity: 0; transform: translateY(8px); }
-  .approach-text .lead { font-size: 0.95rem; font-weight: 300; line-height: 1.6; color: #1a1a1a; margin-bottom: 16px; }
-  .approach-text ul { list-style: none; padding-left: 0; }
-  .approach-text li { font-size: 0.88rem; font-weight: 300; color: #555; padding: 8px 0 8px 18px; border-bottom: 1px dashed rgba(0,0,0,0.08); position: relative; }
-  .approach-text li::before { content: "-"; position: absolute; left: 0; color: #0000FF; }
-  .approach-meta { padding-left: 24px; border-left: 1px dashed rgba(0,0,0,0.08); }
-  .approach-meta dl dt { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(0,0,255,0.45); margin-top: 16px; }
-  .approach-meta dl dt:first-child { margin-top: 0; }
-  .approach-meta dl dd { font-size: 0.85rem; font-weight: 400; color: #1a1a1a; margin-top: 4px; }
+  .approach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 24px; max-width: 960px; opacity: 0; transform: translateY(8px); }
+  .approach-col-label { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(0,0,255,0.45); margin-bottom: 14px; }
+  .approach-text .lead { font-size: 0.88rem; font-weight: 300; line-height: 1.6; color: #1a1a1a; margin-bottom: 16px; }
+  .approach-text ol { padding-left: 18px; margin: 0; }
+  .approach-text li { font-size: 0.83rem; font-weight: 300; color: #555; padding: 6px 0; border-bottom: 1px dashed rgba(0,0,0,0.08); line-height: 1.55; }
+  .approach-text li:last-child { border-bottom: none; }
+  .approach-focus { border-left: 1px dashed rgba(0,0,0,0.08); padding-left: 32px; }
+  .focus-table { width: 100%; border-collapse: collapse; }
+  .focus-table tr { border-bottom: 1px dashed rgba(0,0,0,0.08); }
+  .focus-table tr:last-child { border-bottom: none; }
+  .focus-table td { padding: 10px 0; vertical-align: top; font-size: 0.82rem; font-weight: 300; color: #555; line-height: 1.5; }
+  .focus-table td:first-child { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(0,0,255,0.45); padding-right: 18px; white-space: nowrap; width: 130px; padding-top: 12px; }
 
-  /* ── Quad grid (slide 8) ── */
-  .quad-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 0; margin-top: 24px; max-width: 920px; opacity: 0; transform: translateY(8px); }
-  .quad { padding: 20px 28px; border-bottom: 1px dashed rgba(0,0,0,0.08); border-right: 1px dashed rgba(0,0,0,0.08); }
-  .quad:nth-child(2n) { border-right: none; padding-right: 0; }
-  .quad:nth-child(n+3) { border-bottom: none; padding-bottom: 0; }
-  .quad:nth-child(2n+1) { padding-left: 0; }
-  .quad-label { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(0,0,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
-  .quad ul { list-style: none; padding-left: 0; }
-  .quad li { font-size: 0.85rem; font-weight: 300; color: #555; line-height: 1.6; padding: 4px 0; }
+  /* ── Intended state grid (slide 8) ── */
+  .quad-grid { display: flex; flex-direction: column; gap: 0; margin-top: 20px; max-width: 960px; opacity: 0; transform: translateY(8px); }
+  .intended-banner { background: rgba(0,0,255,0.04); border: 1px dashed rgba(0,0,255,0.15); border-radius: 4px; padding: 16px 24px; text-align: center; font-size: 0.9rem; font-weight: 400; color: #1a1a1a; line-height: 1.5; margin-bottom: 16px; }
+  .intended-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px dashed rgba(0,0,0,0.08); }
+  .intended-col { padding: 16px 24px; border-right: 1px dashed rgba(0,0,0,0.08); }
+  .intended-col:last-child { border-right: none; }
+  .intended-col:first-child { padding-left: 0; }
+  .quad-label { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(0,0,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+  .intended-col ul { list-style: none; padding-left: 0; margin: 0; }
+  .intended-col li { font-size: 0.82rem; font-weight: 300; color: #555; line-height: 1.55; padding: 4px 0 4px 14px; position: relative; }
+  .intended-col li::before { content: "-"; position: absolute; left: 0; color: #0000FF; }
+  .intended-together { border-top: 1px dashed rgba(0,0,0,0.08); padding: 14px 0 0 0; }
+  .intended-together .quad-label { margin-bottom: 8px; }
+  .intended-together ul { list-style: none; padding-left: 0; margin: 0; display: flex; gap: 40px; }
+  .intended-together li { font-size: 0.82rem; font-weight: 300; color: #555; line-height: 1.55; padding-left: 14px; position: relative; }
+  .intended-together li::before { content: "-"; position: absolute; left: 0; color: #0000FF; }
 
   /* ── Cards (no boxes; dashed dividers) ── */
   .card-grid {
@@ -871,24 +881,42 @@
     <canvas class="corner-canvas" id="corner-6"></canvas>
     <div class="content">
       <div class="label">Our approach</div>
-      <h2 class="heading">Our <strong>investigation</strong></h2>
+      <h2 class="heading">Palindrom was engaged to conduct an <strong>independent investigation</strong> to uncover the practical blockers to the project's goals.</h2>
       <div class="divider"></div>
       <div class="approach-grid">
         <div class="approach-text">
-          <p class="lead"><!-- FILL: lead paragraph summarising scope --></p>
-          <ul>
-            <li><!-- FILL: bullet 1 --></li>
-            <li><!-- FILL: bullet 2 --></li>
-            <li><!-- FILL: bullet 3 --></li>
-          </ul>
+          <div class="approach-col-label">Method</div>
+          <p class="lead">We triangulated findings using:</p>
+          <ol>
+            <li>Stakeholder Interviews (Board/Technology Board, product teams, commercial, Dreams)</li>
+            <li>Document and artefact review (plans, architecture, roadmaps, budgets, evaluation outputs)</li>
+            <li>Technical inspection of systems (codebase walkthroughs, system architecture, deployment and infrastructure patterns)</li>
+            <li>Light experiments / sanity checks where appropriate, to validate evaluations and identify bottlenecks and requirements currently blocking what is realistically possible today and by 2026</li>
+          </ol>
         </div>
-        <div class="approach-meta">
-          <dl>
-            <dt>Interviews</dt><dd><!-- FILL: # --></dd>
-            <dt>Documents reviewed</dt><dd><!-- FILL: # --></dd>
-            <dt>Scope</dt><dd><!-- FILL: scope summary --></dd>
-            <dt>Duration</dt><dd><!-- FILL: duration --></dd>
-          </dl>
+        <div class="approach-focus">
+          <div class="approach-col-label">Focus areas</div>
+          <p class="lead" style="margin-bottom:12px">We focused on the practical blockers to BBFC's goals.</p>
+          <table class="focus-table">
+            <tbody>
+              <tr>
+                <td>Strategy &amp; Commercial</td>
+                <td>Clear strategic goals and differentiation. Commercial readiness - Metering, billing, client and operational concerns.</td>
+              </tr>
+              <tr>
+                <td>Product</td>
+                <td>Development practices and how they support delivery velocity.</td>
+              </tr>
+              <tr>
+                <td>Technology</td>
+                <td>Tech processes, TechOps. How performance is measured, whether evaluation supports scale and whether evaluation supports the goal.</td>
+              </tr>
+              <tr>
+                <td>Data &amp; AI</td>
+                <td>Accuracy &amp; evaluation readiness - metadata (CLEARD) and ground truth. Data &amp; labelling quality. ML core, hybrid logic, Langflow.</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -913,36 +941,36 @@
     <canvas class="corner-canvas" id="corner-8"></canvas>
     <div class="content">
       <div class="label">Initial goals</div>
-      <h2 class="heading">Intended <strong>state</strong></h2>
+      <h2 class="heading">What <strong>CLEARD and MIRA</strong> were intended to be</h2>
       <div class="divider"></div>
       <div class="quad-grid">
-        <div class="quad">
-          <div class="quad-label">Use cases</div>
-          <ul>
-            <li><!-- FILL --></li>
-            <li><!-- FILL --></li>
-            <li><!-- FILL --></li>
-          </ul>
+        <div class="intended-banner">A suite of AI-enabled products to modernise content classification and support international growth.</div>
+        <div class="intended-cols">
+          <div class="intended-col">
+            <div class="quad-label">MIRA was intended to:</div>
+            <ul>
+              <li>Automatically extract and tag content features using AI</li>
+              <li>Provide richer, more complete metadata than manual tagging</li>
+              <li>Improve the robustness and scalability of downstream rating decisions</li>
+              <li>Reduce reliance on human content review over time</li>
+            </ul>
+          </div>
+          <div class="intended-col">
+            <div class="quad-label">CLEARD was intended to:</div>
+            <ul>
+              <li>Automatically generate international age ratings from metadata</li>
+              <li>Reduce time and cost for distributors launching content across territories</li>
+              <li>Enable faster, more consistent classification at scale</li>
+              <li>Operate with minimal human intervention</li>
+            </ul>
+          </div>
         </div>
-        <div class="quad">
-          <div class="quad-label">Benefits</div>
+        <div class="intended-together">
+          <div class="quad-label">Together, the vision was:</div>
           <ul>
-            <li><!-- FILL --></li>
-            <li><!-- FILL --></li>
-          </ul>
-        </div>
-        <div class="quad">
-          <div class="quad-label">Capabilities</div>
-          <ul>
-            <li><!-- FILL --></li>
-            <li><!-- FILL --></li>
-          </ul>
-        </div>
-        <div class="quad">
-          <div class="quad-label">Risks</div>
-          <ul>
-            <li><!-- FILL --></li>
-            <li><!-- FILL --></li>
+            <li>An end-to-end, AI classification pipeline</li>
+            <li>Capable of supporting multiple territories</li>
+            <li>With BBFC expertise embedded into scalable technology</li>
           </ul>
         </div>
       </div>
