@@ -105,6 +105,51 @@
   .boxes-2x2 > .box-neutral p:last-child { margin-bottom: 0; }
   .boxes-2x2 > .box-neutral li { font-size: 0.78rem; line-height: 1.5; padding: 2px 0 2px 12px; }
 
+  /* ── Variation stack (slide 33) ── */
+  .variation-stack {
+    display: flex; flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+    max-width: 920px;
+    opacity: 0; transform: translateY(8px);
+  }
+  .variation-stack .box-neutral p {
+    font-size: 0.85rem; line-height: 1.55; margin-bottom: 4px;
+  }
+  .variation-stack .box-neutral p:last-child { margin-bottom: 0; }
+  .variation-stack .box-neutral p strong { color: #0000FF; font-weight: 600; }
+
+  /* ── Role stack (slide 34) ── */
+  .role-stack {
+    display: flex; flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+    max-width: 1080px;
+    opacity: 0; transform: translateY(8px);
+  }
+  .role-card { padding: 16px 22px; }
+  .role-head {
+    font-family: Inter, sans-serif;
+    font-size: 1rem; font-weight: 500;
+    color: #0000FF;
+    margin-bottom: 10px;
+  }
+  .role-body {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .role-col-label {
+    font-family: 'SF Mono', monospace;
+    font-size: 9px; font-weight: 600;
+    color: rgba(0,0,255,0.45);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .role-col p {
+    font-size: 0.82rem; font-weight: 300; line-height: 1.55; color: #1a1a1a;
+    margin: 0;
+  }
+
   /* ── Score cards grid (slide 18) ── */
   .score-cards {
     display: grid;
@@ -2092,33 +2137,48 @@
       <div class="label">Best practices and things to avoid</div>
       <h2 class="heading"><strong>Best practices</strong> and anti-patterns: Strategy</h2>
       <div class="divider"></div>
-      <table class="patterns-table">
-        <thead>
-          <tr><th>Best practice</th><th>Anti-patterns</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Accepting risk, thinking about mitigations early-on, talking about risks and often, creating a document to track the riskiest assumptions.</td>
-            <td>Denying risks, not talking about them, not calling out "elephants in the room".</td>
-          </tr>
-          <tr>
-            <td>Giving the project a real chance, setting clear expectations and clear stop loss criteria.</td>
-            <td>Not giving enough time for the project to be successful, early stopping, no pre-agreed stop loss criteria.</td>
-          </tr>
-          <tr>
-            <td>Iterating very quickly, testing assumptions early on and fast, attacking the "riskiest hypothesis".</td>
-            <td>Iterating slow, testing assumptions too late, focusing on easy tasks rather than difficult problems, low impact busy work.</td>
-          </tr>
-          <tr>
-            <td>Open communication, information sharing across functions.</td>
-            <td>Secretive environment, information silos.</td>
-          </tr>
-          <tr>
-            <td>Use the AI business model canvas for alignment (iteratively).</td>
-            <td>No alignment between the functions or fixed business plan.</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="pair-grid">
+        <div class="box-good">
+          <div class="box-label">Best practice</div>
+          <p>Accepting risk, thinking about mitigations early-on, talking about risks and often, creating a document to track the riskiest assumptions.</p>
+        </div>
+        <div class="box-bad">
+          <div class="box-label">Anti-pattern</div>
+          <p>Denying risks, not talking about them, not calling out "elephants in the room".</p>
+        </div>
+        <div class="box-good">
+          <div class="box-label">Best practice</div>
+          <p>Giving the project a real chance, setting clear expectations and clear stop loss criteria.</p>
+        </div>
+        <div class="box-bad">
+          <div class="box-label">Anti-pattern</div>
+          <p>Not giving enough time for the project to be successful, early stopping, no pre-agreed stop loss criteria.</p>
+        </div>
+        <div class="box-good">
+          <div class="box-label">Best practice</div>
+          <p>Iterating very quickly, testing assumptions early on and fast, attacking the "riskiest hypothesis".</p>
+        </div>
+        <div class="box-bad">
+          <div class="box-label">Anti-pattern</div>
+          <p>Iterating slow, testing assumptions too late, focusing on easy tasks rather than difficult problems, low impact busy work.</p>
+        </div>
+        <div class="box-good">
+          <div class="box-label">Best practice</div>
+          <p>Open communication, information sharing across functions.</p>
+        </div>
+        <div class="box-bad">
+          <div class="box-label">Anti-pattern</div>
+          <p>Secretive environment, information silos.</p>
+        </div>
+        <div class="box-good">
+          <div class="box-label">Best practice</div>
+          <p>Use the AI business model canvas for alignment (iteratively).</p>
+        </div>
+        <div class="box-bad">
+          <div class="box-label">Anti-pattern</div>
+          <p>No alignment between the functions or fixed business plan.</p>
+        </div>
+      </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -2170,16 +2230,23 @@
       <div class="label">Team</div>
       <h2 class="heading">Experiment with the team composition, only hire when it <strong>hurts</strong></h2>
       <div class="divider"></div>
-      <table class="patterns-table patterns-table--neutral">
-        <thead>
-          <tr><th>Variation</th><th>Setup</th><th>Outcome</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>I</strong></td><td>CEO is a domain expert</td><td>CEO, AI Product Manager, AI Tech Lead, Domain experts. Strong but no in-house AI expertise.</td></tr>
-          <tr><td><strong>II</strong></td><td>Domain + business development heavy</td><td>CEO, AI Product Manager, AI Tech Lead, 1 x AI engineers, Domain experts. Balanced for early commercial traction.</td></tr>
-          <tr><td><strong>III</strong></td><td>Tech Lead is extremely strong in AI and product, has built a similar product before</td><td>CEO, AI/CTO, Domain experts. Lean team with deep technical ownership.</td></tr>
-        </tbody>
-      </table>
+      <div class="variation-stack">
+        <div class="box-neutral">
+          <div class="box-label">Variation 1</div>
+          <p><strong>Setup:</strong> CEO is a domain expert</p>
+          <p><strong>Outcome:</strong> CEO, AI Product Manager, AI Tech Lead, Domain experts. Strong but no in-house AI expertise.</p>
+        </div>
+        <div class="box-neutral">
+          <div class="box-label">Variation 2</div>
+          <p><strong>Setup:</strong> Domain + business development heavy</p>
+          <p><strong>Outcome:</strong> CEO, AI Product Manager, AI Tech Lead, 1 x AI engineers, Domain experts. Balanced for early commercial traction.</p>
+        </div>
+        <div class="box-neutral">
+          <div class="box-label">Variation 3</div>
+          <p><strong>Setup:</strong> Tech Lead is extremely strong in AI and product, has built a similar product before</p>
+          <p><strong>Outcome:</strong> CEO, AI/CTO, Domain experts. Lean team with deep technical ownership.</p>
+        </div>
+      </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -2191,28 +2258,47 @@
       <div class="label">Team</div>
       <h2 class="heading">Anti-patterns and best practices: Team members and <strong>roles</strong></h2>
       <div class="divider"></div>
-      <table class="roles-table">
-        <thead>
-          <tr><th>Role</th><th>Ideal</th><th>Anti-pattern</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>CEO / Entrepreneur-in-Residence</strong></td>
-            <td>Has run a commercially successful AI company, 0-25% equity. Tangential experience in the media industry, content moderation or equivalent.</td>
-            <td>No previous AI company or product owner of an AI product. No previous technology experience in the media industry, content moderation or equivalent.</td>
-          </tr>
-          <tr>
-            <td><strong>AI Product Manager</strong></td>
-            <td>Has used the product firsthand for a commercially successful AI company, 0-25% T. High IQ, can speak the commercial and tech languages. Tangential experience in the media industry, content moderation or equivalent.</td>
-            <td>No previous product. Only corporate experience. Tangential experience in the media industry, content moderation or equivalent.</td>
-          </tr>
-          <tr>
-            <td><strong>AI Tech Lead</strong></td>
-            <td>Has run this technology for a commercially successful AI company, 0-25% T. Expertise with AI tools; excels at ML plus all the online services that make it work. Tangential experience in the media industry, content moderation or equivalent.</td>
-            <td>Mid management tech experience. Low ownership in the media industry, content moderation or equivalent.</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="role-stack">
+        <div class="box-neutral role-card">
+          <div class="role-head">CEO / Entrepreneur-in-Residence</div>
+          <div class="role-body">
+            <div class="role-col">
+              <div class="role-col-label">What they do</div>
+              <p>Has run a commercially successful AI company, 0-25% equity. Tangential experience in the media industry, content moderation or equivalent.</p>
+            </div>
+            <div class="role-col">
+              <div class="role-col-label">Watch for</div>
+              <p>No previous AI company or product owner of an AI product. No previous technology experience in the media industry, content moderation or equivalent.</p>
+            </div>
+          </div>
+        </div>
+        <div class="box-neutral role-card">
+          <div class="role-head">AI Product Manager</div>
+          <div class="role-body">
+            <div class="role-col">
+              <div class="role-col-label">What they do</div>
+              <p>Has used the product firsthand for a commercially successful AI company, 0-25% T. High IQ, can speak the commercial and tech languages. Tangential experience in the media industry, content moderation or equivalent.</p>
+            </div>
+            <div class="role-col">
+              <div class="role-col-label">Watch for</div>
+              <p>No previous product. Only corporate experience. Tangential experience in the media industry, content moderation or equivalent.</p>
+            </div>
+          </div>
+        </div>
+        <div class="box-neutral role-card">
+          <div class="role-head">AI Tech Lead</div>
+          <div class="role-body">
+            <div class="role-col">
+              <div class="role-col-label">What they do</div>
+              <p>Has run this technology for a commercially successful AI company, 0-25% T. Expertise with AI tools; excels at ML plus all the online services that make it work. Tangential experience in the media industry, content moderation or equivalent.</p>
+            </div>
+            <div class="role-col">
+              <div class="role-col-label">Watch for</div>
+              <p>Mid management tech experience. Low ownership in the media industry, content moderation or equivalent.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -2312,25 +2398,32 @@
       <div class="label">Risk</div>
       <h2 class="heading">If the impact of error is high, mitigate classification risks by <strong>human-in-the-loop</strong></h2>
       <div class="divider"></div>
-      <table class="patterns-table">
-        <thead>
-          <tr><th class="bp-header">Best practice</th><th class="ap-header">Anti-pattern</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Use a feedback loop: Human-in-the-loop reviews AI decisions and corrects errors, improving the AI with human assistance while providing value.</td>
-            <td>Improving the AI to achieve 95%+ accuracy in the lab without human-in-the-loop.</td>
-          </tr>
-          <tr>
-            <td>Deploy to production with human review gates before acting on high-stakes AI decisions.</td>
-            <td>Deploying AI directly to decision with no human checkpoint when error consequences are severe.</td>
-          </tr>
-          <tr>
-            <td>Build human correction data into the training loop so the model improves over real-world usage.</td>
-            <td>Treating lab accuracy as sufficient and skipping real-world edge case capture.</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="pair-grid">
+        <div class="box-good">
+          <div class="box-label">Best practice</div>
+          <p>Use a feedback loop: Human-in-the-loop reviews AI decisions and corrects errors, improving the AI with human assistance while providing value.</p>
+        </div>
+        <div class="box-bad">
+          <div class="box-label">Anti-pattern</div>
+          <p>Improving the AI to achieve 95%+ accuracy in the lab without human-in-the-loop.</p>
+        </div>
+        <div class="box-good">
+          <div class="box-label">Best practice</div>
+          <p>Deploy to production with human review gates before acting on high-stakes AI decisions.</p>
+        </div>
+        <div class="box-bad">
+          <div class="box-label">Anti-pattern</div>
+          <p>Deploying AI directly to decision with no human checkpoint when error consequences are severe.</p>
+        </div>
+        <div class="box-good">
+          <div class="box-label">Best practice</div>
+          <p>Build human correction data into the training loop so the model improves over real-world usage.</p>
+        </div>
+        <div class="box-bad">
+          <div class="box-label">Anti-pattern</div>
+          <p>Treating lab accuracy as sufficient and skipping real-world edge case capture.</p>
+        </div>
+      </div>
     </div>
     <div class="slide-footer">PROGRESSION LABS</div>
   </div>
@@ -2639,7 +2732,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 function resetSlide(el) {
-  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .score-cards, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary, .exec-single, .canvas-grid, .patterns-table, .team-compare, .roles-table, .dash-list, .tesla-grid, .pair-grid, .boxes-2x2, .boxes-2x2 > .box-neutral, .box-good, .box-bad, .box-neutral';
+  const selectors = '.label, .heading, .body-text, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .score-cards, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary, .exec-single, .canvas-grid, .patterns-table, .team-compare, .roles-table, .dash-list, .tesla-grid, .pair-grid, .boxes-2x2, .boxes-2x2 > .box-neutral, .variation-stack, .role-stack, .box-good, .box-bad, .box-neutral';
   el.querySelectorAll(selectors).forEach(child => {
     gsap.set(child, { clearProps: 'all' });
     child.style.opacity = '0';
@@ -2808,6 +2901,20 @@ function animateSlideIn(el) {
 
   const rolesTable = el.querySelectorAll('.content .roles-table');
   if (rolesTable.length) tl.to(rolesTable, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const variationStack = el.querySelectorAll('.content .variation-stack');
+  if (variationStack.length) {
+    tl.to(variationStack, { opacity: 1, y: 0, duration: 0.5 }, 0.25);
+    const variationItems = el.querySelectorAll('.content .variation-stack > .box-neutral');
+    if (variationItems.length) tl.to(variationItems, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 }, 0.4);
+  }
+
+  const roleStack = el.querySelectorAll('.content .role-stack');
+  if (roleStack.length) {
+    tl.to(roleStack, { opacity: 1, y: 0, duration: 0.5 }, 0.25);
+    const roleCards = el.querySelectorAll('.content .role-stack > .role-card');
+    if (roleCards.length) tl.to(roleCards, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 }, 0.4);
+  }
 
   const dashList = el.querySelectorAll('.content .dash-list');
   if (dashList.length) tl.to(dashList, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
