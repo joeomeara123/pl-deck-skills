@@ -79,15 +79,33 @@ Load from Google Fonts: `Inter:wght@300;400;500;600;700`
 
 | Element | Size | Weight | Notes |
 |---------|------|--------|-------|
-| Section heading | clamp(1.4rem, 2.8vw, 2.2rem) | 300 | Light, clean. line-height 1.2, letter-spacing -0.01em |
+| Heading (default) | clamp(2rem, 4vw, 3.6rem) | 200 | Ultra-light, editorial. line-height 1.1, letter-spacing -0.02em |
+| **Heading mega** | clamp(3.6rem, 7vw, 6rem) | 200 | For one-quote / one-stat moment slides. line-height 1.05, letter-spacing -0.03em |
+| Section divider number | clamp(7rem, 12vw, 11rem) | 200 | The giant `01`, `02`, `03`... that anchors each section divider. Inter, not mono. |
 | Card title | 13px | 600 | |
 | **Body prose (floor)** | **1rem (16px)** | 300 | line-height ≥ 1.65, max line length ≤ 70ch. **Hard minimum** — do not shrink below this. |
 | Body emphasis / executive copy | 1.05rem | 400 | line-height 1.7 — use for executive-summary slides where the prose is the main content |
+| Editorial prose | 1.1rem | 300 | For single-column editorial slides. line-height 1.75, max-width 720px. |
+| Pull quote | clamp(1.4rem, 2.4vw, 2rem) | 300 | Italic, blue left-border 3px. For moment slides. |
+| Stat number (default) | 4.5rem | 200 | For `.highlight-number` stat blocks. line-height 1, letter-spacing -0.02em |
+| Stat number (mega) | clamp(5rem, 10vw, 8rem) | 200 | For solo-hero stat slides. line-height 0.95, letter-spacing -0.03em |
 | Table cell prose (exception) | 0.92rem (~14.7px) | 300 | Only inside multi-column tables (3+ cols) where 1rem would overflow |
-| Labels | 9px | 600 | UPPERCASE, letter-spacing 0.12em, monospace. Exempt from the prose floor (labels are tokens, not prose). |
+| Labels | 9-10px | 600 | UPPERCASE, letter-spacing 0.12em, monospace. Exempt from the prose floor (labels are tokens, not prose). |
 | CTA text | 9px | 600 | UPPERCASE, letter-spacing 0.1em |
 
-**Rules:** Headings use Inter weight 300 for clean minimalism. Keywords within headings use weight 600 + brand blue. Body text weight 300 in dark slate (#1a1a1a or #555). All labels/CTAs UPPERCASE with wide tracking. Section labels in blue at 35% opacity, monospace. Less is more. Generous room to breathe. Content max-width 960px.
+**Rules:** Headings use Inter weight 200 (ultra-light) for editorial drama. Keywords within headings use weight 500-600 + brand blue. Body prose weight 300 in dark slate (#1a1a1a). All labels/CTAs UPPERCASE with wide tracking. Section labels in blue at 35% opacity, monospace. **Hierarchy comes from scale and weight contrast — not colour or decoration.** Content max-width 960px (1080px for editorial moments).
+
+## Editorial Aesthetic
+
+The deck aims for the visual language of a frontier AI lab or serious consultancy (Anthropic / OpenAI / DeepMind / Faculty / Scale / Tomoro tier), not a generic consulting deck. Seven moves to apply:
+
+1. **Radical whitespace.** Each concept gets its own region. Margins generous, line-heights tall.
+2. **Imagery-first narrative.** Hero and section dividers lead with photography or motion. Copy explains visuals, not vice-versa.
+3. **Minimal sans-serif with weight contrast.** Inter dominates. Hierarchy is *scale and weight* — never serif, never decorative.
+4. **Restrained colour.** One brand colour (blue) used sparingly. Red only for true anti-patterns. Backgrounds neutral.
+5. **One powerful statement per section.** Punchy hero statements. Bullets give way to one core idea where possible.
+6. **Credibility through proof.** Big stats, research provenance, customer logos — not testimonials.
+7. **Systematic design.** Every element recurs. Patterns documented (`.editorial`, `.pull-quote`, `.mega-stat`, etc.) so nothing is one-off.
 
 ## Copy Rules
 

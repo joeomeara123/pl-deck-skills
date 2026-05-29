@@ -72,6 +72,94 @@ The footer is positioned absolutely at the bottom of the slide (`position: absol
 ### Footer pinning
 Footer always pins to bottom with `margin-top: auto` on the footer element.
 
+## Editorial Single-Column
+
+For slides where prose IS the content (executive summary, key findings, narrative passages), drop boxes and grids in favour of a single editorial column. Reads like a magazine spread; feels like a frontier lab.
+
+```css
+.editorial {
+  max-width: 720px;
+  margin: 32px 0 0;
+}
+.editorial p {
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: #1a1a1a;
+  margin-bottom: 22px;
+}
+.editorial p strong { font-weight: 500; color: #0000FF; }
+.editorial blockquote {
+  border-left: 2px solid #0000FF;
+  padding-left: 24px;
+  margin: 32px 0;
+  font-style: italic;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.55;
+}
+```
+
+Apply on summary / narrative / framing slides. **Never use boxes or grids inside an `.editorial` block** — the column carries the rhythm. One blockquote per slide max.
+
+## Moment Slide
+
+A single statement, centred. No supporting text, no diagram, no grid. Used to mark a turning point in the narrative (key finding, key quote, big stat).
+
+```css
+.moment-slide .content {
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 1080px;
+}
+```
+
+Inside `.moment-slide .content`, place one of:
+- `<h2 class="heading-mega">…</h2>` for a one-statement heading
+- `<blockquote class="pull-quote">…<cite>…</cite></blockquote>` for a quoted insight
+- `<div class="mega-stat">…</div>` plus one label for a hero number
+
+Nothing else. Slide breathes.
+
+## Section Divider Drama
+
+Section dividers lead with a giant typographic number (Inter ultra-light 200, 7-11rem) as the primary visual, with a thin blue rule beneath, then the section title at restrained scale. The mosaic image fills the right half.
+
+```css
+.slide-split .section-number {
+  font-family: Inter, sans-serif;
+  font-size: clamp(7rem, 12vw, 11rem);
+  font-weight: 200;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #1a1a1a;
+  text-transform: none;
+  margin-bottom: 24px;
+}
+.slide-split .section-number::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 1.5px;
+  background: #0000FF;
+  margin-top: 32px;
+}
+.slide-split .section-heading {
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 200;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+```
+
+HTML inside `.slide-text`:
+```html
+<div class="section-number">01</div>
+<h2 class="section-heading">Context</h2>
+```
+
+Number is just the digits (no `SECTION` prefix), Inter not mono. The thin blue rule under the number is the only adornment.
+
 ## Background System
 
 ### Title Slide: Animated Hero Gradient
