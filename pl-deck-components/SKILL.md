@@ -281,16 +281,9 @@ Every diagram MUST include:
 
 For copy-paste SVG templates of common diagram types (flowchart, hub-spoke, architecture stack, timeline), read `diagram-templates.md`.
 
-## Draw-On SVG Icons
+## No Emojis or Icon Fonts
 
-For the full icon library with 7 premium animated icons (gradient fill + wireframe overlay), semantic tags, and animation types, invoke `Skill(pl-deck-icons)` as Step 3 in the deck pipeline.
-
-**Rules:**
-- NEVER improvise icon paths. Always use icons from `pl-deck-icons` library.
-- Wireframe layer: `stroke: #1e5bff`, `stroke-width: 1.5`, `fill: none`
-- Gradient layer: soft translucent brand gradients at 8-15% opacity
-- Size: 48x48 viewBox, rendered at 28-40px via width/height attributes
-- NEVER use emojis. NEVER use icon fonts. Always inline SVG from the library.
+Never use emojis or icon fonts in decks. The visual language is typography, the brand blue/red, SVG diagrams, and the mosaic imagery — nothing pictographic.
 
 **CSS animation (still needed in every deck):**
 ```css

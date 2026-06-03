@@ -185,20 +185,16 @@ Establishes slide containers, backgrounds (hero gradient for title, grid+glow fo
 
 ### Step 2: Components
 **Invoke `Skill(pl-deck-components)`**
-Builds cards, SVG diagrams (with proper circles and arrow markers), tables, metrics, step numbers, blockquotes, and dividers. Does NOT place icons (that happens in Step 3).
+Builds cards, SVG diagrams (with proper circles and arrow markers), tables, metrics, step numbers, blockquotes, and dividers.
 
-### Step 3: Icons
-**Invoke `Skill(pl-deck-icons)`**
-Reads slide content (headings and body text), matches concepts to geometric abstract icons from the curated library using semantic tags, and places gradient+wireframe icons in cards and sections. Icons use the `.icon-draw` class for GSAP integration.
-
-### Step 4: Diagram Quality Pass
+### Step 3: Diagram Quality Pass
 Review every SVG diagram against the diagram quality rules in `pl-deck-components`. Each diagram must tell a clear visual story that a reader grasps in under 5 seconds. Run the Diagram Quality Checklist (below) on every diagram before proceeding.
 
-### Step 5: Animation
+### Step 4: Animation
 **Invoke `Skill(pl-deck-animate)`**
-Adds GSAP timeline choreography, slot machine number count-ups, icon draw-on animations (wireframe strokes + gradient fade-in), and transition locking.
+Adds GSAP timeline choreography, slot machine number count-ups, and transition locking.
 
-### Step 6: Imagery (if needed)
+### Step 5: Imagery (if needed)
 **Invoke `Skill(deck-imagery)`**
 Generates AI imagery with the brand's frosted-glass pixelation and ASCII overlay treatment.
 
@@ -214,7 +210,7 @@ Use these blueprints to structure slide content. Pick the template that matches 
 |-------|------|----------------|------------|
 | 0 | Hero | (logo only) | WebGL gradient, ASCII overlay |
 | 1 | Statement | "What We [Verb]" | Label, heading, body text, 3-column card grid |
-| 2 | Evidence | "[Topic] First" or "How We [Verb]" | Label, heading, body, steps with icons |
+| 2 | Evidence | "[Topic] First" or "How We [Verb]" | Label, heading, body, steps or diagram |
 | 3 | Metrics | "Measurable [Noun]" | Label, heading, body, stat grid with slot-machine numbers |
 | 4 | CTA | "Start [Verb]ing" | Label, heading, body, CTA button |
 
@@ -225,7 +221,7 @@ Use these blueprints to structure slide content. Pick the template that matches 
 | 0 | Hero | (logo only) | WebGL gradient, ASCII overlay |
 | 1 | Context | "The Challenge" | Label, heading, body, blockquote from client |
 | 2 | Diagnosis | "What We Found" | Label, heading, diagram (before state) |
-| 3 | Approach | "Our Approach" | Label, heading, steps with icons |
+| 3 | Approach | "Our Approach" | Label, heading, steps or diagram |
 | 4 | Solution | "What We Built" | Label, heading, diagram (after state), imagery |
 | 5 | Results | "The Impact" | Label, heading, stat grid with slot-machine numbers |
 | 6 | CTA | "Your Turn" | Label, heading, body, CTA button |
@@ -245,11 +241,11 @@ Use these blueprints to structure slide content. Pick the template that matches 
 
 **Statement slides:** One clear idea. Heading + body + supporting component (cards, steps, or diagram). Max 3 cards or 4 steps per slide.
 
-**Evidence slides:** Back up a claim. Steps with icons, or a before/after diagram. The fingerprint icon works well for security; agent-swarm for AI capabilities; globe-spin for reach/scale.
+**Evidence slides:** Back up a claim with numbered steps or a before/after diagram.
 
 **Metrics slides:** 3 stat columns with slot-machine count-up numbers. Each stat: one `.highlight-number` + one `.stat-label`. Keep labels under 5 words.
 
-**CTA slides:** Short heading, 1-2 sentences of body, single CTA button. Pair with rocket-ascent or concentric-target icon.
+**CTA slides:** Short heading, 1-2 sentences of body, single pill CTA button.
 
 ### Copy Patterns
 
@@ -287,9 +283,7 @@ After generating every slide, verify against this checklist. Do not skip.
 - [ ] Footer pinned to bottom.
 
 ### Brand Compliance
-- [ ] Icons are from the `pl-deck-icons` library (not improvised). Geometric/abstract, not literal pictograms.
-- [ ] Icon wireframe strokes use `stroke: #1e5bff`. Gradient fills are subtle (8-15% opacity).
-- [ ] No icon repeated on consecutive slides.
+- [ ] No emojis or icon fonts anywhere. The visual language is typography, blue/red, SVG diagrams, and mosaic imagery.
 - [ ] Labels monospace, uppercase, blue at 35% opacity.
 - [ ] Quotes have a blue left border (2px solid `#1e5bff`), or red if the quote represents an anti-pattern.
 - [ ] Inline tag pills (`.tag-good` / `.tag-bad`) are allowed for compact good/bad labels; plain colored text is also fine for restraint.
@@ -310,7 +304,6 @@ After generating every slide, verify against this checklist. Do not skip.
 - [ ] Elements initially hidden (`opacity: 0`).
 - [ ] GSAP timeline follows choreography table.
 - [ ] Stat numbers use slot-machine count-up.
-- [ ] Icons use draw-on stroke animation.
 
 ### Copy
 - [ ] No em dashes anywhere.
