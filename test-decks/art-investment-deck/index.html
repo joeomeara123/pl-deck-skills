@@ -1,0 +1,2232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artists to Watch · 2026 Art Market Outlook</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* ── Design tokens (Progression Labs system, from the case study) ── */
+  :root{
+    --pl-blue:#1e5bff; --pl-blue-hover:#0d49eb; --pl-navy:#0943a0;
+    --pl-salmon:#ffa07a; --pl-orchid:#ba55d3; --pl-sky:#60a5fa;
+    --pl-bg:#faf7f2; --pl-bg-2:#f5f5f5; --pl-bg-3:#f0f0f0; --pl-cream:#faf7f2;
+    --pl-text:#1a1a1a; --pl-text-2:rgba(0,0,0,.65); --pl-text-3:rgba(0,0,0,.45); --pl-border:rgba(0,0,0,.06);
+    --pl-red:#dc2626;
+    --pl-radius-sm:6px; --pl-radius-md:10px; --pl-radius-lg:16px; --pl-radius-pill:100px;
+    --pl-font:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --pl-mono:"SF Mono","Fira Code","Cascadia Code","Courier New",monospace;
+    --pl-ease:cubic-bezier(0.22,0.61,0.36,1); --pl-ease-snap:cubic-bezier(0.5,0,0,1);
+  }
+  html, body { width: 100%; height: 100%; overflow: hidden; font-family: Inter, -apple-system, sans-serif; background: #faf7f2; color: #1a1a1a; -webkit-font-smoothing: antialiased; }
+
+  /* ── Slide containers ── */
+  .slide {
+    position: absolute; inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start; justify-content: center;
+    text-align: left;
+    padding: 64px 120px 96px;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; }
+  /* The slide-footer should stay pinned to the bottom even when content is vertically centred */
+  .slide:not(#slide-0) .slide-footer {
+    position: absolute; bottom: 28px; left: 100px;
+    font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600;
+    color: rgba(0,0,0,0.35); letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .slide:not(#slide-0) .corner-canvas {
+    position: absolute; bottom: 0; right: 0;
+  }
+
+  /* ── Box utility classes (paired contrast: good/bad/neutral) ── */
+  .box-good {
+    background: rgba(30,91,255,0.04);
+    border: 1px solid rgba(30,91,255,0.2);
+    border-radius: 10px;
+    padding: 22px 28px;
+  }
+  .box-bad {
+    background: rgba(220,38,38,0.04);
+    border: 1px solid rgba(220,38,38,0.25);
+    border-radius: 10px;
+    padding: 22px 28px;
+  }
+  .box-neutral {
+    background: rgba(0,0,0,0.025);
+    border: 1px dashed rgba(0,0,0,0.12);
+    border-radius: 10px;
+    padding: 22px 28px;
+  }
+  .box-good .box-label, .box-bad .box-label, .box-neutral .box-label {
+    font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    margin-bottom: 10px;
+  }
+  .box-good .box-label { color: var(--pl-blue); }
+  .box-bad .box-label { color: #dc2626; }
+  .box-neutral .box-label { color: rgba(30,91,255,0.55); }
+  .box-good p, .box-bad p, .box-neutral p,
+  .box-good li, .box-bad li, .box-neutral li {
+    font-size: 1rem; font-weight: 300; line-height: 1.65; color: #1a1a1a;
+  }
+  .box-good ul, .box-bad ul, .box-neutral ul { list-style: none; padding-left: 0; }
+  .box-good li, .box-bad li, .box-neutral li { padding: 4px 0 4px 14px; position: relative; }
+  .box-good li::before { content: "•"; position: absolute; left: 0; color: var(--pl-blue); }
+  .box-bad li::before { content: "•"; position: absolute; left: 0; color: #dc2626; }
+  .box-neutral li::before { content: "•"; position: absolute; left: 0; color: rgba(0,0,0,0.4); }
+
+  /* Compact pill tags for inline good/bad markers */
+  .tag-good, .tag-bad {
+    display: inline-block;
+    font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    padding: 3px 8px; border-radius: 4px; color: white;
+  }
+  .tag-good { background: var(--pl-blue); }
+  .tag-bad { background: #dc2626; }
+
+  /* Paired good/bad grid (for slides 30, 38 best-practice vs anti-pattern) */
+  .pair-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
+    gap: 24px 32px;
+    margin-top: 24px;
+    max-width: 1180px;
+    opacity: 0; transform: translateY(8px);
+  }
+  .pair-grid .box-good, .pair-grid .box-bad { min-height: 100px; }
+  .pair-grid > .box-good, .pair-grid > .box-bad {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 26px;
+  }
+  .pair-grid > .box-good p, .pair-grid > .box-bad p { font-size: 0.95rem; line-height: 1.6; }
+
+  /* ── 2x2 neutral box grid (slide 4) ── */
+  .boxes-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
+    align-items: stretch;
+    gap: 24px 32px;
+    margin-top: 16px;
+    max-width: 920px;
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .boxes-2x2 > .box-neutral {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 24px;
+  }
+  .boxes-2x2 > .box-neutral p { font-size: 1rem; line-height: 1.65; margin-bottom: 6px; }
+  .boxes-2x2 > .box-neutral p:last-child { margin-bottom: 0; }
+  .boxes-2x2 > .box-neutral li { font-size: 1rem; line-height: 1.65; padding: 2px 0 2px 12px; }
+
+  /* ── Variation stack (slide 33) ── */
+  .variation-stack {
+    display: flex; flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+    max-width: 920px;
+    opacity: 0; transform: translateY(8px);
+  }
+  .variation-stack .box-neutral { padding: 20px 26px; }
+  .variation-stack .box-neutral p {
+    font-size: 1rem; line-height: 1.65; margin-bottom: 4px;
+  }
+  .variation-stack .box-neutral p:last-child { margin-bottom: 0; }
+  .variation-stack .box-neutral p strong { color: var(--pl-blue); font-weight: 600; }
+
+  /* ── Role stack (slide 34) ── */
+  .role-stack {
+    display: flex; flex-direction: column;
+    gap: 20px;
+    margin-top: 16px;
+    max-width: 1080px;
+    opacity: 0; transform: translateY(8px);
+  }
+  .role-card { padding: 32px 36px; }
+  .role-head {
+    font-family: Inter, sans-serif;
+    font-size: 1.2rem; font-weight: 500;
+    color: var(--pl-blue);
+    margin-bottom: 16px;
+  }
+  .role-body {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .role-col-label {
+    font-family: 'SF Mono', monospace;
+    font-size: 9px; font-weight: 600;
+    color: rgba(30,91,255,0.45);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .role-col p {
+    font-size: 1rem; font-weight: 300; line-height: 1.65; color: #1a1a1a;
+    margin: 0;
+  }
+
+  /* ── Score cards grid (slide 18) ── */
+  .score-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 40px;
+    margin-top: 12px;
+    max-width: 1080px;
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .score-card {
+    padding: 22px 28px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+  .score-head {
+    display: flex; align-items: center; gap: 16px;
+  }
+  .score-num {
+    font-family: 'SF Mono', monospace; font-size: 11px; font-weight: 600;
+    color: rgba(30,91,255,0.45); letter-spacing: 0.1em;
+  }
+  .score-cat {
+    flex: 1;
+    font-size: 1.25rem; font-weight: 500; color: #1a1a1a;
+  }
+  .score-badge {
+    font-family: 'SF Mono', monospace; font-size: 11px; font-weight: 600;
+    padding: 4px 10px; border-radius: 3px; color: white;
+    letter-spacing: 0.05em;
+  }
+  .score-low { background: #dc2626; }
+  .score-high { background: var(--pl-blue); }
+  .score-mid { background: rgba(0,0,0,0.5); }
+  .score-obs {
+    font-size: 1rem; font-weight: 300; line-height: 1.65;
+    color: #555;
+    margin: 0;
+  }
+
+  /* ── Single-column exec summary (slide 23) ── */
+  .exec-single {
+    max-width: 720px;
+    margin-top: 16px;
+    opacity: 0; transform: translateY(8px);
+  }
+  .exec-single p {
+    font-size: 1.05rem; font-weight: 300;
+    line-height: 1.75; color: #1a1a1a;
+    margin-bottom: 16px;
+  }
+  .exec-single p:last-child { margin-bottom: 0; }
+  .exec-single p strong { font-weight: 500; color: var(--pl-blue); }
+
+  /* ── Editorial 1-column prose (slides 4, 20, 22, 23) ── */
+  .editorial {
+    max-width: 720px;
+    margin: 32px 0 0;
+    opacity: 0; transform: translateY(8px);
+  }
+  .editorial p {
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 1.75;
+    color: #1a1a1a;
+    margin-bottom: 22px;
+  }
+  .editorial p:last-child { margin-bottom: 0; }
+  .editorial p strong { font-weight: 500; color: var(--pl-blue); }
+  .editorial blockquote {
+    border-left: 2px solid var(--pl-blue);
+    padding-left: 24px;
+    margin: 32px 0;
+    font-style: italic;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #1a1a1a;
+    line-height: 1.55;
+  }
+  .pull-quote {
+    max-width: 920px;
+    margin: 48px 0 0;
+    padding-left: 28px;
+    border-left: 3px solid var(--pl-blue);
+    font-style: italic;
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+    font-weight: 300;
+    line-height: 1.45;
+    color: #1a1a1a;
+    opacity: 0; transform: translateY(8px);
+  }
+  .pull-quote cite {
+    display: block;
+    margin-top: 24px;
+    font-style: normal;
+    font-family: 'SF Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(30,91,255,0.55);
+  }
+
+  /* ── Hero (centered override) ── */
+  #slide-0 {
+    align-items: center; justify-content: center; text-align: center;
+    background: linear-gradient(to top, #010104 0%, #00031a 45%, #001a6b 100%);
+  }
+  .hero-layers { position: absolute; inset: 0; z-index: 1; }
+  .hero-layers canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  #heroAscii { pointer-events: none; }
+  .hero-grain { position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0.06; mix-blend-mode: overlay; }
+  .hero-grain svg { width: 100%; height: 100%; }
+  .hero-content {
+    position: relative; z-index: 3;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    height: 100%;
+  }
+  .hero-logo { width: 64px; height: auto; filter: drop-shadow(0 0 20px rgba(255,255,255,0.2)); opacity: 0; }
+  .hero-title {
+    font-family: Inter, sans-serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: white;
+    margin-top: 32px;
+    max-width: 720px;
+    text-align: center;
+    opacity: 0;
+  }
+  .hero-subtitle {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.6);
+    margin-top: 24px;
+    opacity: 0;
+  }
+  .hero-byline {
+    position: absolute; bottom: 32px; left: 48px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 9px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.35);
+    z-index: 3;
+    opacity: 0;
+  }
+
+  .noise-overlay {
+    position: fixed; inset: 0; z-index: 2; pointer-events: none;
+    opacity: 0.03; mix-blend-mode: overlay;
+  }
+  .noise-overlay svg { width: 100%; height: 100%; }
+
+  /* ── Content slide backgrounds ── */
+  .slide:not(#slide-0) { background: #faf7f2; }
+  .slide-bg-prism {
+    position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='blur' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeGaussianBlur stdDeviation='4' /%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23blur)'%3E%3Cpath d='M 30 100 Q 65 100, 100 5 L 100 100 L 30 100 Z' fill='%23ffffff' opacity='0.7'/%3E%3Cpath d='M 30 100 Q 78 100, 100 30 L 100 100 L 30 100 Z' fill='%23e0f2fe'/%3E%3Cpath d='M 30 100 Q 88 100, 100 55 L 100 100 L 30 100 Z' fill='%2393c5fd'/%3E%3Cpath d='M 30 100 Q 95 100, 100 75 L 100 100 L 30 100 Z' fill='%2360a5fa'/%3E%3Cpath d='M 30 100 Q 100 100, 100 90 L 100 100 L 30 100 Z' fill='%2300008b'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 100% 100%;
+  }
+  .prism-pixels {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; z-index: 0;
+    mix-blend-mode: overlay;
+  }
+  .slide-grain {
+    position: absolute; inset: 0; pointer-events: none; z-index: 1;
+    opacity: 0.25; mix-blend-mode: multiply;
+    -webkit-mask-image: radial-gradient(ellipse at 100% 100%, black 0%, transparent 50%);
+    mask-image: radial-gradient(ellipse at 100% 100%, black 0%, transparent 50%);
+  }
+  .slide-grain svg { width: 100%; height: 100%; }
+  .slide-logo {
+    position: absolute; bottom: 24px; right: 24px;
+    width: 26px; height: auto; opacity: 0.9;
+    z-index: 2; pointer-events: none;
+  }
+  .content {
+    position: relative; z-index: 1;
+    max-width: 960px; width: 100%;
+    display: flex; flex-direction: column;
+    flex: 1; min-height: 0;
+  }
+
+  /* ── Typography ── */
+  .label {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 9px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: rgba(30,91,255,0.45);
+    margin-bottom: 22px;
+    transform: translateY(12px); opacity: 0;
+  }
+  /* Mono-dot eyebrow (signature site detail) */
+  .label.eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--pl-blue); }
+  .eyebrow-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--pl-blue); box-shadow: 0 0 8px rgba(30,91,255,.55);
+    animation: eyebrowPulse 2.4s var(--pl-ease) infinite;
+  }
+  @keyframes eyebrowPulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(0.7); } }
+  .heading {
+    font-family: Inter, -apple-system, sans-serif;
+    font-size: clamp(2rem, 4vw, 3.6rem);
+    font-weight: 200;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 40px;
+    transform: translateY(20px); opacity: 0;
+    max-width: 720px;
+  }
+  .heading strong { font-weight: 500; color: var(--pl-blue); }
+  .heading-mega {
+    font-family: Inter, sans-serif;
+    font-size: clamp(3.6rem, 7vw, 6rem);
+    font-weight: 200;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: #1a1a1a;
+    max-width: 1080px;
+    margin-bottom: 40px;
+    opacity: 0; transform: translateY(20px);
+  }
+  .heading-mega strong { font-weight: 500; color: var(--pl-blue); }
+  .slide:not(#slide-0) .content > .heading {
+    max-width: 920px;
+  }
+  .body-text {
+    font-family: Inter, sans-serif;
+    font-size: 1rem; font-weight: 300;
+    line-height: 1.7;
+    color: #555;
+    max-width: 640px;
+    margin: 0 0 40px;
+    transform: translateY(14px); opacity: 0;
+  }
+  .divider {
+    width: 40px; height: 1.5px;
+    background: var(--pl-blue);
+    margin: 0 0 36px;
+    transform-origin: left; transform: scaleX(0);
+    opacity: 0.6;
+  }
+  /* More gap between divider and the content that follows */
+  .content > .divider + * {
+    margin-top: 8px;
+  }
+  .agenda-list {
+    list-style: none;
+    margin-top: 32px;
+    max-width: 640px;
+  }
+  .agenda-list li {
+    display: flex; align-items: center; gap: 24px;
+    font-family: Inter, sans-serif;
+    font-size: 1.1rem; font-weight: 300;
+    color: #1a1a1a;
+    padding: 18px 0;
+    border-bottom: 1px dashed rgba(0,0,0,0.08);
+    opacity: 0; transform: translateY(8px);
+  }
+  .agenda-num {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 12px; font-weight: 600;
+    color: var(--pl-blue);
+    letter-spacing: 0.1em;
+    min-width: 40px;
+  }
+
+  /* ── Partners row (slide 3) ── */
+  .partners-row { display: flex; gap: 32px; margin: 24px 0 40px; }
+  .partner { display: flex; flex-direction: column; align-items: center; gap: 10px; opacity: 0; transform: translateY(8px); }
+  .partner img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; filter: grayscale(0.2); }
+  .partner figcaption { font-size: 11px; font-weight: 500; color: #555; letter-spacing: 0.02em; }
+
+  /* ── Stat grid (reusable: tag .stat-row with .stat-grid for an even N-up row) ── */
+  .stat-row.stat-grid { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 0; margin-top: 16px; max-width: none; }
+  .stat { padding: 16px 24px; border-right: 1px dashed rgba(0,0,0,0.08); }
+  .stat:last-child { border-right: none; }
+  .stat .highlight-number { font-size: 4.5rem; font-weight: 200; line-height: 1; letter-spacing: -0.02em; color: var(--pl-blue); opacity: 0; }
+  .stat .stat-label { font-family: 'SF Mono', monospace; font-size: 10px; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 14px; max-width: 160px; opacity: 0; transform: translateY(4px); }
+  .mega-stat {
+    font-family: Inter, sans-serif;
+    font-size: clamp(5rem, 10vw, 8rem);
+    font-weight: 200;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    color: var(--pl-blue);
+    opacity: 0; transform: translateY(8px);
+  }
+
+  /* ── Two-column body (slides 4, 16, 27, 35) ── */
+  .two-col-body { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; gap: 56px; margin-top: 32px; max-width: 960px; opacity: 0; transform: translateY(8px); }
+  .two-col-body .col { padding-right: 24px; border-right: 1px dashed rgba(0,0,0,0.08); display: flex; flex-direction: column; }
+  .two-col-body .col:last-child { border-right: none; padding-right: 0; }
+  .two-col-body .col-title { font-size: 12.5px; font-weight: 600; color: #1a1a1a; margin-bottom: 12px; letter-spacing: 0.02em; }
+  .two-col-body p { font-size: 1rem; font-weight: 300; line-height: 1.7; color: #555; }
+  .three-col-body { display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: stretch; gap: 44px; margin-top: 32px; max-width: 1080px; opacity: 0; transform: translateY(8px); }
+  .three-col-body .col { padding-right: 20px; border-right: 1px dashed rgba(0,0,0,0.08); display: flex; flex-direction: column; }
+  .three-col-body .col:last-child { border-right: none; padding-right: 0; }
+  .three-col-body .col-title { font-size: 12px; font-weight: 600; color: #1a1a1a; margin-bottom: 10px; letter-spacing: 0.02em; }
+  .three-col-body p { font-size: 1rem; font-weight: 300; line-height: 1.65; color: #555; }
+  .three-col-body .col-note { font-size: 0.78rem; font-weight: 500; color: #1a1a1a; border: 1px solid rgba(0,0,0,0.15); padding: 6px 10px; margin-top: 10px; display: inline-block; }
+
+  /* ── Spike stack (slide 27 vertical numbered layout) ── */
+  .spike-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin-top: 32px;
+    max-width: 1080px;
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .spike-step {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  .spike-num {
+    font-family: 'SF Mono', monospace;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--pl-blue);
+    letter-spacing: 0.04em;
+    padding-top: 4px;
+  }
+  .spike-content h3 {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+  }
+  .spike-content p {
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #1a1a1a;
+    margin: 0;
+  }
+  .spike-content p + p { margin-top: 6px; }
+
+  /* ── Misalignment stack (slides 11 + 12) ── */
+  .misalignment-stack {
+    display: grid;
+    gap: 32px;
+    margin-top: 36px;
+    max-width: 1080px;
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .misalign-row {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 48px;
+    align-items: start;
+    padding: 18px 0;
+    border-top: 1px dashed rgba(0,0,0,0.08);
+  }
+  .misalign-row:first-child { border-top: none; padding-top: 0; }
+  .misalign-lane {
+    font-family: 'SF Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(30,91,255,0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding-top: 4px;
+    line-height: 1.5;
+  }
+  .misalign-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .misalign-content .box-bad {
+    padding: 16px 22px;
+  }
+  .misalign-content > p {
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.65;
+    color: #1a1a1a;
+    margin: 0;
+  }
+  .misalign-red {
+    color: #dc2626 !important;
+    font-style: italic;
+    font-weight: 500 !important;
+  }
+  .misalign-quote {
+    font-size: 1.05rem;
+    font-weight: 400;
+    font-style: italic;
+    color: #1a1a1a;
+    padding-left: 16px;
+    border-left: 2px solid var(--pl-blue);
+    margin: 0;
+    line-height: 1.55;
+  }
+  .misalign-quote-bad {
+    border-left-color: #dc2626;
+  }
+  .diagram-small {
+    width: 100%;
+    max-width: 920px;
+    margin: 0;
+    display: block;
+  }
+
+  /* ── Section header bar (slide 4 context/key-questions blocks) ── */
+  .section-bar {
+    font-size: 11px; font-weight: 700;
+    color: #fff; background: var(--pl-blue);
+    padding: 6px 12px;
+    margin-bottom: 10px;
+    letter-spacing: 0.01em;
+  }
+  .section-block { margin-bottom: 20px; }
+  .section-block ul { list-style: disc; padding-left: 18px; }
+  .section-block ul li {
+    font-size: 1rem; font-weight: 300;
+    line-height: 1.65; color: #444;
+    padding: 3px 0;
+  }
+  .section-block ul li strong { font-weight: 600; color: #1a1a1a; }
+
+  /* ── Approach grid (slide 6) ── */
+  .approach-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    margin-top: 32px;
+    max-width: 1080px;
+    align-items: start;
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .approach-col {
+    display: flex;
+    flex-direction: column;
+  }
+  .approach-col-label {
+    font-family: 'SF Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    color: rgba(30,91,255,0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 14px;
+  }
+  .approach-lead {
+    max-width: 920px;
+    margin-bottom: 28px;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.55;
+    color: #1a1a1a;
+    opacity: 0; transform: translateY(8px);
+  }
+  .method-table, .focus-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+  }
+  .method-table th, .focus-table th {
+    font-family: 'SF Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--pl-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: left;
+    padding: 12px 18px 12px 0;
+    vertical-align: top;
+    width: 38%;
+    white-space: normal;
+    line-height: 1.4;
+  }
+  .method-table td, .focus-table td {
+    font-size: 0.92rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: #1a1a1a;
+    padding: 12px 0;
+    vertical-align: top;
+    border-bottom: 1px dashed rgba(0,0,0,0.08);
+  }
+  .method-table tr:last-child td, .focus-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* ── Intended state grid (slide 8) ── */
+  .quad-grid { display: flex; flex-direction: column; gap: 0; margin-top: 20px; max-width: 960px; opacity: 0; transform: translateY(8px); }
+  .intended-banner { background: rgba(30,91,255,0.04); border: 1px dashed rgba(30,91,255,0.15); border-radius: 4px; padding: 16px 24px; text-align: center; font-size: 0.9rem; font-weight: 400; color: #1a1a1a; line-height: 1.6; margin-bottom: 16px; }
+  .intended-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px dashed rgba(0,0,0,0.08); }
+  .intended-col { padding: 16px 24px; border-right: 1px dashed rgba(0,0,0,0.08); }
+  .intended-col:last-child { border-right: none; }
+  .intended-col:first-child { padding-left: 0; }
+  .quad-label { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(30,91,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+  .intended-col ul { list-style: none; padding-left: 0; margin: 0; }
+  .intended-col li { font-size: 1rem; font-weight: 300; color: #555; line-height: 1.65; padding: 4px 0 4px 14px; position: relative; }
+  .intended-col li::before { content: "-"; position: absolute; left: 0; color: var(--pl-blue); }
+  .intended-together { border-top: 1px dashed rgba(0,0,0,0.08); padding: 14px 0 0 0; }
+  .intended-together .quad-label { margin-bottom: 8px; }
+  .intended-together ul { list-style: none; padding-left: 0; margin: 0; display: flex; gap: 40px; }
+  .intended-together li { font-size: 1rem; font-weight: 300; color: #555; line-height: 1.65; padding-left: 14px; position: relative; }
+  .intended-together li::before { content: "-"; position: absolute; left: 0; color: var(--pl-blue); }
+
+  /* ── Cards (no boxes; dashed dividers) ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 12px;
+    width: 100%;
+  }
+  .card {
+    background: none; border: none;
+    border-right: 1px dashed rgba(0,0,0,0.08);
+    padding: 0 28px;
+    text-align: left;
+    transform: translateY(30px); opacity: 0;
+  }
+  .card:first-child { padding-left: 0; }
+  .card:last-child { border-right: none; padding-right: 0; }
+  .card-icon { margin-bottom: 16px; }
+  .card-title {
+    font-size: 12.5px; font-weight: 600;
+    margin-bottom: 8px; letter-spacing: -0.005em;
+  }
+  .card-body {
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.65;
+    color: #666;
+  }
+
+  /* ── Steps (plain numbers, no circles) ── */
+  .step-row { display: flex; flex-direction: column; gap: 0; margin-top: 8px; width: 100%; max-width: 720px; }
+  .step {
+    display: flex; gap: 24px; align-items: flex-start;
+    padding: 18px 0;
+    border-bottom: 1px dashed rgba(0,0,0,0.08);
+    transform: translateY(30px); opacity: 0;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: Inter, sans-serif;
+    font-size: 1.4rem; font-weight: 600;
+    color: var(--pl-blue);
+    flex-shrink: 0; line-height: 1;
+    width: 36px;
+  }
+  .step-icon { flex-shrink: 0; width: 28px; }
+  .step-content { flex: 1; }
+  .step-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .step-desc { font-size: 12.5px; line-height: 1.65; color: #666; font-weight: 300; }
+
+  /* ── Stats ── */
+  .stat-row {
+    display: flex; justify-content: flex-start;
+    gap: 0; margin-top: 16px; width: 100%;
+    max-width: 720px;
+  }
+  .stat-item {
+    flex: 1; padding: 0 24px;
+    border-right: 1px dashed rgba(0,0,0,0.08);
+    transform: translateY(16px); opacity: 0;
+  }
+  .stat-item:first-child { padding-left: 0; }
+  .stat-item:last-child { border-right: none; }
+  .highlight-number {
+    font-family: Inter, sans-serif;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    font-weight: 300; color: var(--pl-blue);
+    line-height: 1.05;
+    opacity: 0;
+  }
+  .stat-label {
+    font-family: 'SF Mono', monospace;
+    font-size: 9px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: rgba(0,0,0,0.35);
+    margin-top: 8px; max-width: 160px;
+    line-height: 1.4;
+  }
+
+  /* ── CTA ── */
+  .cta-btn {
+    display: inline-flex; align-self: flex-start; align-items: center; gap: 10px;
+    font-family: var(--pl-font);
+    font-size: 13px; font-weight: 500;
+    letter-spacing: 0.01em;
+    color: #fff; background: var(--pl-blue);
+    padding: 13px 26px;
+    border: none; cursor: pointer; border-radius: var(--pl-radius-pill);
+    text-decoration: none;
+    transform: translateY(12px); opacity: 0;
+    transition: transform 0.25s var(--pl-ease), background 0.25s var(--pl-ease);
+  }
+  .cta-btn:hover { background: var(--pl-blue-hover); transform: translateY(-2px); }
+  .cta-arrow { font-family: var(--pl-font); font-weight: 400; }
+
+  /* ── Solution card with bullets ── */
+  .solution-lead {
+    font-family: Inter, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #444;
+    line-height: 1.65;
+    margin: 4px 0 12px;
+  }
+  .solution-bullets { list-style: none; padding: 0; margin: 0; }
+  .solution-bullets li {
+    font-family: Inter, sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: #555;
+    padding: 7px 0;
+    border-top: 1px dashed rgba(0,0,0,0.06);
+    line-height: 1.65;
+  }
+  .solution-bullets li:first-child { border-top: 1px dashed rgba(0,0,0,0.08); }
+
+  /* ── Playbook diagram + outcomes ── */
+  .playbook-diagram {
+    width: 100%; max-width: 800px; margin-top: 8px;
+    transform: translateY(20px); opacity: 0;
+  }
+  .outcomes-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0; margin-top: 24px;
+    width: 100%; max-width: 800px;
+  }
+  .outcomes-col {
+    padding: 0 18px;
+    border-right: 1px dashed rgba(0,0,0,0.08);
+    transform: translateY(16px); opacity: 0;
+  }
+  .outcomes-col:first-child { padding-left: 0; }
+  .outcomes-col:last-child { border-right: none; padding-right: 0; }
+  .outcomes-col h4 {
+    font-family: 'SF Mono', monospace;
+    font-size: 9px; font-weight: 600;
+    color: rgba(30,91,255,0.45);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    margin-bottom: 12px;
+  }
+  .outcomes-col ul { list-style: none; padding: 0; margin: 0; }
+  .outcomes-col li {
+    font-family: Inter, sans-serif;
+    font-size: 1rem; font-weight: 300;
+    color: #555;
+    padding: 5px 0; line-height: 1.65;
+  }
+
+  /* ── Mission icon block ── */
+  .mission-icon-wrap {
+    margin-top: 16px;
+    transform: translateY(20px); opacity: 0;
+  }
+
+  /* ── Footer ── */
+  .footer-meta {
+    margin-top: auto;
+    font-family: 'SF Mono', monospace;
+    font-size: 8px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    color: rgba(0,0,0,0.25);
+    padding-top: 18px;
+    border-top: 1px dashed rgba(0,0,0,0.06);
+    width: 100%; max-width: 960px;
+    display: flex; justify-content: space-between;
+    position: relative; z-index: 1;
+  }
+
+  /* ── Icons (default draw-on) ── */
+  .icon-draw path, .icon-draw line, .icon-draw circle, .icon-draw rect, .icon-draw ellipse, .icon-draw polygon {
+    stroke-linecap: round; stroke-linejoin: round;
+  }
+  .icon-gradient { opacity: 0; }
+
+  /* ── Icon: agent-swarm ── */
+  .agent-orbit      { animation: agentSpin    6s linear infinite; }
+  .agent-orbit-rev  { animation: agentSpinRev 7s linear infinite; }
+  .agent-orbit-fast { animation: agentSpin    4s linear infinite; }
+  @keyframes agentSpin    { from { transform: rotate(0deg);   } to { transform: rotate(360deg); } }
+  @keyframes agentSpinRev { from { transform: rotate(360deg); } to { transform: rotate(0deg);   } }
+
+  /* ── Icon: bouncing-stack (scaled small) ── */
+  .bouncing-stack { overflow: visible; }
+  .bouncing-stack .stack { fill: none; stroke: url(#stack-grad); stroke-width: 3.5px; }
+  .bouncing-stack .stack-top { animation: bounceTop 2s cubic-bezier(0.25, 1, 0.5, 1) infinite; }
+  .bouncing-stack .stack-mid { animation: bounceMid 2s cubic-bezier(0.25, 1, 0.5, 1) infinite; }
+  @keyframes bounceTop { 0%,25%,75%,100% { transform: translateY(0); } 50% { transform: translateY(-60px); } }
+  @keyframes bounceMid { 0%,25%,75%,100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+
+  /* ── Icon: spreading-rings ── */
+  .spreading-rings { overflow: visible; }
+  .spreading-rings .ring { fill: none; stroke: url(#rings-grad); stroke-width: 3.5px; }
+  .spreading-rings .ring-1 { animation: slideLeftOuter 3s ease-in-out infinite; }
+  .spreading-rings .ring-2 { animation: slideLeftInner 3s ease-in-out infinite; }
+  .spreading-rings .ring-3 { animation: slideRightInner 3s ease-in-out infinite; }
+  .spreading-rings .ring-4 { animation: slideRightOuter 3s ease-in-out infinite; }
+  @keyframes slideLeftOuter  { 0%,15%,85%,100% { transform: translateX(0); } 50% { transform: translateX(-40px); } }
+  @keyframes slideLeftInner  { 0%,15%,85%,100% { transform: translateX(0); } 50% { transform: translateX(-14px); } }
+  @keyframes slideRightInner { 0%,15%,85%,100% { transform: translateX(0); } 50% { transform: translateX(14px); } }
+  @keyframes slideRightOuter { 0%,15%,85%,100% { transform: translateX(0); } 50% { transform: translateX(40px); } }
+
+  /* ── Icon: venn-diagram ── */
+  .venn-diagram { overflow: visible; }
+  .venn-diagram .venn { fill: none; stroke: url(#venn-grad); stroke-width: 3.5px; stroke-dasharray: 239; stroke-dashoffset: 239; }
+  .venn-diagram .circle-left   { transform-origin: 80px 85px;  transform: rotate(-90deg); animation: drawLeft   4s ease-in-out infinite; }
+  .venn-diagram .circle-right  { transform-origin: 120px 85px; transform: rotate(-90deg); animation: drawRight  4s ease-in-out infinite; }
+  .venn-diagram .circle-bottom { transform-origin: 100px 122px;transform: rotate(90deg);  animation: drawBottom 4s ease-in-out infinite; }
+  .venn-diagram .venn-center { fill: url(#venn-grad); opacity: 0; animation: fillCenter 4s ease-in-out infinite; }
+  @keyframes drawLeft   { 0%,2%  { stroke-dashoffset: 239; opacity: 0; } 4%  { opacity: 1; } 25%,75% { stroke-dashoffset: 0; opacity: 1; } 88%,100% { stroke-dashoffset: 0; opacity: 0; } }
+  @keyframes drawRight  { 0%,6%  { stroke-dashoffset: 239; opacity: 0; } 8%  { opacity: 1; } 29%,75% { stroke-dashoffset: 0; opacity: 1; } 88%,100% { stroke-dashoffset: 0; opacity: 0; } }
+  @keyframes drawBottom { 0%,10% { stroke-dashoffset: 239; opacity: 0; } 12% { opacity: 1; } 33%,75% { stroke-dashoffset: 0; opacity: 1; } 88%,100% { stroke-dashoffset: 0; opacity: 0; } }
+  @keyframes fillCenter { 0%,42% { opacity: 0; } 52%,75% { opacity: 1; } 88%,100% { opacity: 0; } }
+
+  /* ── Icon: concentric-target (inward radar) ── */
+  .icon-inward-radar .static-ring {
+    stroke-dasharray: 200; stroke-dashoffset: 200;
+    animation: drawOnRadar 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  .icon-inward-radar .center-dot {
+    transform-origin: center; transform-box: fill-box; transform: scale(0);
+    animation: dotPop 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards 0.3s;
+  }
+  .icon-inward-radar .ripple-ring {
+    transform-origin: center; transform-box: fill-box;
+    animation: rippleInward 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+  .icon-inward-radar .ripple-ring.ring-1 { animation-delay: 0s; }
+  .icon-inward-radar .ripple-ring.ring-2 { animation-delay: 1.5s; }
+  @keyframes drawOnRadar { to { stroke-dashoffset: 0; } }
+  @keyframes dotPop { to { transform: scale(1); } }
+  @keyframes rippleInward {
+    0% { transform: scale(1); opacity: 0; }
+    15% { opacity: 1; }
+    85% { transform: scale(0.15); opacity: 0.8; }
+    100% { transform: scale(0.1); opacity: 0; }
+  }
+
+  /* ── Icon: globe-spin ── */
+  .icon-globe-spin .meridian {
+    transform-origin: center; transform-box: fill-box;
+    animation: meridianSpin 8s linear infinite;
+  }
+  .icon-globe-spin .m-1 { animation-delay: 0s; }
+  .icon-globe-spin .m-2 { animation-delay: -2s; }
+  .icon-globe-spin .m-3 { animation-delay: -4s; }
+  .icon-globe-spin .m-4 { animation-delay: -6s; }
+  .icon-globe-spin .icon-gradient { opacity: 0; animation: gradientIn 0.4s ease-out forwards; }
+  @keyframes meridianSpin {
+    0%   { transform: scaleX(1); }   6.25%{ transform: scaleX(0.924); } 12.5%{ transform: scaleX(0.707); } 18.75%{ transform: scaleX(0.383); }
+    25%  { transform: scaleX(0.02); } 31.25%{ transform: scaleX(-0.383); } 37.5%{ transform: scaleX(-0.707); } 43.75%{ transform: scaleX(-0.924); }
+    50%  { transform: scaleX(-1); }  56.25%{ transform: scaleX(-0.924); } 62.5%{ transform: scaleX(-0.707); } 68.75%{ transform: scaleX(-0.383); }
+    75%  { transform: scaleX(0.02); } 81.25%{ transform: scaleX(0.383); } 87.5%{ transform: scaleX(0.707); } 93.75%{ transform: scaleX(0.924); }
+    100% { transform: scaleX(1); }
+  }
+  @keyframes gradientIn { to { opacity: 1; } }
+
+  /* ── Icon: fingerprint ── */
+  .icon-biometric-trace .fp-1 path,
+  .icon-biometric-trace .fp-2 path,
+  .icon-biometric-trace .fp-3 path,
+  .icon-biometric-trace .fp-4 path,
+  .icon-biometric-trace .fp-5 path {
+    stroke-dasharray: 100 200;
+    stroke-dashoffset: 105;
+    animation: traceAndErase 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+  .icon-biometric-trace .fp-1 path { animation-delay: 0s; }
+  .icon-biometric-trace .fp-2 path { animation-delay: 0.15s; }
+  .icon-biometric-trace .fp-3 path { animation-delay: 0.3s; }
+  .icon-biometric-trace .fp-4 path { animation-delay: 0.45s; }
+  .icon-biometric-trace .fp-5 path { animation-delay: 0.6s; }
+  @keyframes traceAndErase {
+    0%  { stroke-dashoffset: 105; opacity: 0; }
+    15% { opacity: 1; stroke-dashoffset: 60; }
+    40%,60% { stroke-dashoffset: 0; opacity: 1; }
+    85% { opacity: 1; stroke-dashoffset: -60; }
+    100%{ stroke-dashoffset: -105; opacity: 0; }
+  }
+
+  /* ── Nav dots ── */
+  .nav-dots {
+    position: fixed; right: 24px; top: 50%;
+    transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 10px;
+    z-index: 100;
+  }
+  .nav-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: rgba(0,0,0,0.12);
+    cursor: pointer; transition: all 0.3s ease;
+    border: none; padding: 0;
+  }
+  .nav-dot.active {
+    background: var(--pl-blue);
+    box-shadow: 0 0 10px rgba(30,91,255,0.3);
+    transform: scale(1.3);
+  }
+
+  @media (max-width: 1000px) {
+    .slide { padding: 40px 28px; }
+    .nav-dots { display: none; }
+    .card-grid { grid-template-columns: 1fr; }
+    .card { border-right: none; border-bottom: 1px dashed rgba(0,0,0,0.08); padding: 20px 0; }
+    .card:last-child { border-bottom: none; }
+  }
+
+  /* ── Delivered vs But (slide 10) ── */
+  .delivered-vs-but { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; align-items: stretch; gap: 48px; margin-top: 24px; max-width: 900px; opacity: 0; transform: translateY(8px); }
+  .delivered-vs-but .col { padding-right: 24px; border-right: 1px dashed rgba(0,0,0,0.08); display: flex; flex-direction: column; }
+  .delivered-vs-but .col:last-child { border-right: none; padding-right: 0; }
+  .delivered-vs-but .col-header { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(30,91,255,0.45); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 12px; }
+  .delivered-vs-but ul { list-style: none; padding-left: 0; }
+  .delivered-vs-but li { font-size: 1rem; font-weight: 300; color: #555; line-height: 1.65; padding: 8px 0 8px 18px; border-bottom: 1px dashed rgba(0,0,0,0.06); position: relative; }
+  .delivered-vs-but li::before { content: "-"; position: absolute; left: 0; color: var(--pl-blue); }
+
+  /* ── Analogy table (slide 15) ── */
+  .analogy-table { width: 100%; max-width: 920px; margin-top: 24px; border-collapse: collapse; font-size: 0.92rem; opacity: 0; transform: translateY(8px); }
+  .analogy-table thead th { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(30,91,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; padding: 12px 16px 12px 0; text-align: left; border-bottom: 1px dashed rgba(0,0,0,0.12); }
+  .analogy-table tbody th { font-weight: 600; color: #1a1a1a; padding: 14px 24px 14px 0; vertical-align: top; width: 120px; }
+  .analogy-table tbody td { padding: 14px 24px 14px 0; color: #555; font-size: 0.92rem; font-weight: 300; line-height: 1.6; border-bottom: 1px dashed rgba(0,0,0,0.06); }
+
+  /* ── Score table (slide 18) ── */
+  .score-table { width: 100%; max-width: 960px; margin-top: 16px; border-collapse: collapse; font-size: 0.8rem; opacity: 0; transform: translateY(8px); }
+  .score-table thead th { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(30,91,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; padding: 10px 12px; text-align: left; border-bottom: 1px dashed rgba(0,0,0,0.12); }
+  .score-table tbody td { padding: 10px 12px; color: #555; font-size: 0.92rem; font-weight: 300; line-height: 1.6; border-bottom: 1px dashed rgba(0,0,0,0.06); vertical-align: top; }
+  .score-table tbody td:first-child { font-family: 'SF Mono', monospace; font-size: 9px; color: rgba(30,91,255,0.6); width: 40px; }
+  .score-table tbody td:last-child { color: var(--pl-blue); font-weight: 500; text-align: right; width: 80px; }
+
+  /* ── Diagram SVG ── */
+  .diagram { width: 100%; max-width: 960px; height: auto; margin-top: 16px; opacity: 0; transform: translateY(8px); }
+  .diagram text { font-feature-settings: "tnum" 1; }
+
+
+  /* ── Slide 21: paths table ── */
+  .paths-table { width: 100%; max-width: 960px; margin-top: 16px; border-collapse: collapse; font-size: 0.92rem; opacity: 0; transform: translateY(8px); }
+  .paths-table thead th { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(30,91,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; padding: 12px 14px; text-align: left; border-bottom: 1px dashed rgba(0,0,0,0.12); }
+  .paths-table tbody td { padding: 16px 14px; color: #555; font-size: 0.92rem; font-weight: 300; line-height: 1.65; border-bottom: 1px dashed rgba(0,0,0,0.06); vertical-align: top; }
+  .paths-table tbody td:first-child { color: #1a1a1a; font-weight: 400; }
+  .paths-table tbody td strong { font-family: 'SF Mono', monospace; font-size: 11px; color: var(--pl-blue); margin-right: 6px; }
+
+  /* ── Slide 22: three-bullet + blockquote ── */
+  .three-bullet { display: grid; grid-template-columns: repeat(3, 1fr); align-items: stretch; gap: 0; margin-top: 24px; max-width: 920px; opacity: 0; transform: translateY(8px); }
+  .three-bullet .bullet { padding: 0 24px; border-right: 1px dashed rgba(0,0,0,0.08); display: flex; flex-direction: column; }
+  .three-bullet .bullet:first-child { padding-left: 0; }
+  .three-bullet .bullet:last-child { border-right: none; padding-right: 0; }
+  .three-bullet .bullet-num { font-family: 'SF Mono', monospace; font-size: 11px; font-weight: 600; color: var(--pl-blue); letter-spacing: 0.1em; margin-bottom: 12px; }
+  .three-bullet h3 { font-size: 0.95rem; font-weight: 500; color: #1a1a1a; margin-bottom: 8px; }
+  .three-bullet p { font-size: 1rem; font-weight: 300; line-height: 1.65; color: #555; }
+  .pl-quote { margin-top: 32px; padding-left: 16px; border-left: 2px solid var(--pl-blue); font-size: 1rem; font-weight: 400; color: #1a1a1a; max-width: 720px; opacity: 0; transform: translateY(8px); }
+
+  /* ── Slide 23: exec summary ── */
+  .exec-summary { columns: 2; column-gap: 48px; max-width: 920px; margin-top: 16px; opacity: 0; transform: translateY(8px); }
+  .exec-summary p { font-size: 1rem; font-weight: 300; line-height: 1.7; color: #555; margin-bottom: 14px; break-inside: avoid; }
+
+  /* ── Slide 29: canvas grid ── */
+  .canvas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 24px;
+    margin-top: 32px;
+    max-width: 1180px;
+    opacity: 0; transform: translateY(8px);
+  }
+  .canvas-cell {
+    background: rgba(0,0,0,0.025);
+    border: 1px dashed rgba(0,0,0,0.12);
+    border-radius: 10px;
+    padding: 24px 28px;
+    min-height: 180px;
+    display: flex; flex-direction: column;
+  }
+  .canvas-cell .cell-label {
+    font-family: 'SF Mono', monospace;
+    font-size: 10px; font-weight: 600;
+    color: rgba(30,91,255,0.55);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+  .canvas-cell p {
+    font-size: 1rem; font-weight: 300; line-height: 1.6; color: #1a1a1a;
+  }
+
+  /* ── Slide 30: patterns table ── */
+  .patterns-table { width: 100%; max-width: 960px; margin-top: 16px; border-collapse: collapse; font-size: 0.92rem; opacity: 0; transform: translateY(8px); }
+  .patterns-table thead th { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 12px 16px; text-align: left; border-bottom: 1px dashed rgba(0,0,0,0.12); }
+  .patterns-table thead th:first-child { color: var(--pl-blue); }
+  .patterns-table thead th:last-child { color: #dc2626; }
+  .patterns-table tbody td { padding: 14px 16px; color: #555; font-size: 0.92rem; font-weight: 300; line-height: 1.6; border-bottom: 1px dashed rgba(0,0,0,0.06); vertical-align: top; width: 50%; }
+
+  /* ── Slide 32: team compare ── */
+  .team-compare { margin-top: 16px; max-width: 960px; opacity: 0; transform: translateY(8px); }
+  .team-row { display: grid; grid-template-columns: 1fr 1.5fr 1.5fr; gap: 24px; padding: 14px 0; border-bottom: 1px dashed rgba(0,0,0,0.06); font-size: 0.92rem; color: #555; font-weight: 300; line-height: 1.65; }
+  .team-row.team-header { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(30,91,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 1px dashed rgba(0,0,0,0.12); }
+  .team-row > div:first-child { color: #1a1a1a; font-weight: 400; }
+
+  /* ── Slide 33: patterns-table--neutral (all headers blue) ── */
+  .patterns-table--neutral thead th { color: rgba(30,91,255,0.45) !important; }
+
+  /* ── Slide 34: roles table ── */
+  .roles-table { width: 100%; max-width: 960px; margin-top: 16px; border-collapse: collapse; font-size: 0.92rem; opacity: 0; transform: translateY(8px); }
+  .roles-table thead th { font-family: 'SF Mono', monospace; font-size: 9px; font-weight: 600; color: rgba(30,91,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; padding: 12px 16px; text-align: left; border-bottom: 1px dashed rgba(0,0,0,0.12); }
+  .roles-table tbody td { padding: 14px 16px; color: #555; font-size: 0.92rem; font-weight: 300; line-height: 1.65; border-bottom: 1px dashed rgba(0,0,0,0.06); vertical-align: top; }
+  .roles-table tbody td:first-child { color: #1a1a1a; font-weight: 400; width: 200px; }
+
+  /* ── Slides 35-36: dash list ── */
+  .dash-list { list-style: none; padding-left: 0; }
+  .dash-list li { font-size: 1rem; font-weight: 300; color: #555; padding: 6px 0 6px 16px; position: relative; line-height: 1.65; }
+  .dash-list li::before { content: "-"; position: absolute; left: 0; color: var(--pl-blue); }
+
+  /* ── Slide 39: Tesla example ── */
+  .tesla-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 16px; max-width: 960px; opacity: 0; transform: translateY(8px); }
+  .tesla-text .lead { font-size: 0.95rem; font-weight: 400; color: #1a1a1a; line-height: 1.65; margin-bottom: 16px; }
+  .tesla-steps { list-style: none; counter-reset: ts; padding-left: 0; }
+  .tesla-steps li { counter-increment: ts; font-size: 1rem; font-weight: 300; color: #555; padding: 8px 0 8px 30px; position: relative; line-height: 1.65; border-bottom: 1px dashed rgba(0,0,0,0.06); }
+  .tesla-steps li::before { content: counter(ts, decimal-leading-zero); position: absolute; left: 0; color: var(--pl-blue); font-family: 'SF Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; }
+  .tesla-image { border: 1px dashed rgba(0,0,0,0.12); display: flex; align-items: center; justify-content: center; min-height: 240px; }
+  .tesla-placeholder span { font-family: 'SF Mono', monospace; font-size: 9px; color: rgba(30,91,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* ── Corner canvas (prism accent on content slides) ── */
+  .corner-canvas {
+    position: absolute; bottom: 0; right: 0;
+    width: 40%; height: 50%;
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ── Slide footer ── */
+  .slide-footer {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 8px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    color: rgba(0,0,0,0.2);
+    z-index: 2; pointer-events: none;
+  }
+
+  /* ── Slide number indicator (top-right corner of every content slide) ── */
+  .slide-number {
+    position: absolute;
+    top: 32px;
+    right: 36px;
+    z-index: 2;
+    pointer-events: none;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(30,91,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0;
+  }
+  /* For split-layout dividers, position inside the text half on the left */
+  .slide-split .slide-number {
+    top: 32px;
+    right: auto;
+    left: 64px;
+  }
+
+  /* ── Sub-divider slides ── */
+  .sub-divider .content {
+    justify-content: center;
+    flex: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    align-items: flex-start;
+  }
+
+  /* ── Split-layout section divider slides ── */
+  .slide-split { flex-direction: row; padding: 0; align-items: stretch; }
+  .slide-split .slide-text {
+    flex: 0 0 calc(var(--split, 40) * 1%);
+    display: flex; flex-direction: column;
+    align-items: flex-start; justify-content: center;
+    padding: 80px 64px; position: relative;
+    background: #faf7f2;
+  }
+  .slide-split .slide-image {
+    flex: 1; background: var(--pl-navy); position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .slide-split .slide-image > img:not(.image-logo) {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block; min-height: 0;
+  }
+  .slide-split .slide-image .image-logo {
+    position: absolute; bottom: 24px; right: 24px;
+    width: 26px; height: auto; opacity: 1;
+  }
+  .slide-split .section-number {
+    font-family: Inter, sans-serif;
+    font-size: clamp(7rem, 12vw, 11rem);
+    font-weight: 200;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: #1a1a1a;
+    text-transform: none;
+    margin-bottom: 24px;
+    opacity: 0; transform: translateY(20px);
+  }
+  .slide-split .section-number::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 1.5px;
+    background: var(--pl-blue);
+    margin-top: 32px;
+  }
+  .slide-split .section-heading {
+    font-family: Inter, sans-serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 200;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    color: #1a1a1a;
+    max-width: 420px;
+    opacity: 0; transform: translateY(20px);
+  }
+</style>
+</head>
+<body>
+
+<!-- Shared SVG grain filter -->
+<svg style="position:absolute;width:0;height:0" aria-hidden="true">
+  <defs>
+    <filter id="slide-grain-f">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- hero: WebGL blue-centric gradient + ASCII + grain, all scoped inside #slide-0 -->
+
+<div class="deck">
+
+  <!-- ─────────────── SLIDE 0: HERO ─────────────── -->
+  <div class="slide active" id="slide-0">
+    <div class="hero-layers">
+      <canvas id="heroGL"></canvas>
+      <canvas id="heroAscii"></canvas>
+    </div>
+    <div class="hero-grain" aria-hidden="true">
+      <svg><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#grain)"/></svg>
+    </div>
+    <div class="hero-content">
+      <img src="logo-white.png" class="hero-logo" alt="Progression Labs">
+      <h1 class="hero-title">Artists to Watch</h1>
+      <p class="hero-subtitle">2026 Art Market Outlook</p>
+    </div>
+    <p class="hero-byline">Progression Labs · Illustrative example, not financial advice</p>
+  </div>
+
+  <!-- ─────────────── SLIDES 1-17 ─────────────── -->
+
+  <!-- Slide 1: Agenda -->
+  <div class="slide slide-content" id="slide-1">
+    <canvas class="corner-canvas" id="corner-1"></canvas>
+    <div class="content">
+      <div class="label">Table of contents</div>
+      <h2 class="heading"><strong>Agenda</strong></h2>
+      <div class="divider"></div>
+      <ol class="agenda-list">
+        <li><span class="agenda-num">01</span> The thesis</li>
+        <li><span class="agenda-num">02</span> How we select</li>
+        <li><span class="agenda-num">03</span> The 2026 picks</li>
+        <li><span class="agenda-num">04</span> Risk and allocation</li>
+        <li><span class="agenda-num">05</span> How to participate</li>
+      </ol>
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 2: Section divider 01 -->
+  <div class="slide slide-content slide-split" id="slide-2" style="--split: 42">
+    <div class="slide-text">
+      <div class="section-number">01</div>
+      <h2 class="section-heading">The thesis</h2>
+      <div class="slide-footer">PROGRESSION LABS</div>
+    </div>
+    <div class="slide-image">
+      <img src="img/section-1.png" alt="">
+      <img src="logo-white.png" class="image-logo" alt="">
+    </div>
+  </div>
+
+  <!-- Slide 3: Thesis statement -->
+  <div class="slide slide-content" id="slide-3">
+    <canvas class="corner-canvas" id="corner-3"></canvas>
+    <div class="content">
+      <div class="label eyebrow"><span class="eyebrow-dot"></span>Why art, why now</div>
+      <h1 class="heading-mega">Blue-chip art behaves <strong>unlike</strong> the markets you already own.</h1>
+      <p class="body-text">Across the past two decades, top-tier art has shown low correlation to equities and bonds. The best works are scarce by definition, and that scarcity compounds as an artist's cultural standing grows.</p>
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 4: Market context -->
+  <div class="slide slide-content" id="slide-4">
+    <canvas class="corner-canvas" id="corner-4"></canvas>
+    <div class="content">
+      <div class="label">Market context</div>
+      <h2 class="heading">A maturing global <strong>market</strong></h2>
+      <div class="divider"></div>
+      <div class="stat-row stat-grid">
+        <div class="stat">
+          <div class="highlight-number" data-target="57" data-suffix="B">0</div>
+          <div class="stat-label">Global art sales, 2024 (USD)</div>
+        </div>
+        <div class="stat">
+          <div class="highlight-number" data-target="53" data-suffix="%">0</div>
+          <div class="stat-label">Share held by US, UK and China</div>
+        </div>
+        <div class="stat">
+          <div class="highlight-number" data-target="18" data-suffix="%">0</div>
+          <div class="stat-label">Transactions completed online</div>
+        </div>
+        <div class="stat">
+          <div class="highlight-number" data-target="7" data-suffix="%">0</div>
+          <div class="stat-label">Est. long-run blue-chip return</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 5: Section divider 02 -->
+  <div class="slide slide-content slide-split" id="slide-5" style="--split: 42">
+    <div class="slide-text">
+      <div class="section-number">02</div>
+      <h2 class="section-heading">How we select</h2>
+      <div class="slide-footer">PROGRESSION LABS</div>
+    </div>
+    <div class="slide-image">
+      <img src="img/section-2.png" alt="">
+      <img src="logo-white.png" class="image-logo" alt="">
+    </div>
+  </div>
+
+  <!-- Slide 6: Selection framework -->
+  <div class="slide slide-content" id="slide-6">
+    <canvas class="corner-canvas" id="corner-6"></canvas>
+    <div class="content">
+      <div class="label">Methodology</div>
+      <h2 class="heading">Five signals we <strong>weight</strong></h2>
+      <div class="divider"></div>
+      <div class="spike-stack">
+        <div class="spike-step">
+          <div class="spike-num">01</div>
+          <div class="spike-content">
+            <h3>Institutional validation</h3>
+            <p>Museum acquisitions, biennial selections and placement in respected private collections.</p>
+          </div>
+        </div>
+        <div class="spike-step">
+          <div class="spike-num">02</div>
+          <div class="spike-content">
+            <h3>Auction momentum</h3>
+            <p>Rising sell-through rates, repeat bidding and a steady multi-year price trend.</p>
+          </div>
+        </div>
+        <div class="spike-step">
+          <div class="spike-num">03</div>
+          <div class="spike-content">
+            <h3>Gallery backing</h3>
+            <p>Representation by a blue-chip primary gallery that actively manages supply.</p>
+          </div>
+        </div>
+        <div class="spike-step">
+          <div class="spike-num">04</div>
+          <div class="spike-content">
+            <h3>Scarcity and provenance</h3>
+            <p>Limited output, a clean ownership history and strong physical condition.</p>
+          </div>
+        </div>
+        <div class="spike-step">
+          <div class="spike-num">05</div>
+          <div class="spike-content">
+            <h3>Cultural relevance</h3>
+            <p>Critical attention and alignment with a generational shift in taste.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 7: Section divider 03 -->
+  <div class="slide slide-content slide-split" id="slide-7" style="--split: 42">
+    <div class="slide-text">
+      <div class="section-number">03</div>
+      <h2 class="section-heading">The 2026 picks</h2>
+      <div class="slide-footer">PROGRESSION LABS</div>
+    </div>
+    <div class="slide-image">
+      <img src="img/section-3.png" alt="">
+      <img src="logo-white.png" class="image-logo" alt="">
+    </div>
+  </div>
+
+  <!-- Slide 8: Tier overview -->
+  <div class="slide slide-content" id="slide-8">
+    <canvas class="corner-canvas" id="corner-8"></canvas>
+    <div class="content">
+      <div class="label">Portfolio construction</div>
+      <h2 class="heading">Three <strong>tiers</strong>, three risk profiles</h2>
+      <div class="divider"></div>
+      <div class="three-col-body">
+        <div class="col">
+          <div class="col-title">Blue-chip anchors</div>
+          <p>Established names with deep markets and standing institutional demand. Lower volatility, steady appreciation.</p>
+          <span class="col-note">Lower risk</span>
+        </div>
+        <div class="col">
+          <div class="col-title">Mid-career momentum</div>
+          <p>Artists with strong gallery backing entering their peak market years. Balanced risk and upside.</p>
+          <span class="col-note">Balanced</span>
+        </div>
+        <div class="col">
+          <div class="col-title">Emerging upside</div>
+          <p>Early-market artists on a rapid critical and auction ascent. Higher risk, highest potential return.</p>
+          <span class="col-note">Higher risk</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 9: Tier 1 blue-chip -->
+  <div class="slide slide-content" id="slide-9">
+    <canvas class="corner-canvas" id="corner-9"></canvas>
+    <div class="content">
+      <div class="label">Tier one, blue-chip anchors <span class="tag-good">Lower risk</span></div>
+      <h2 class="heading">The <strong>anchors</strong></h2>
+      <div class="divider"></div>
+      <table class="roles-table">
+        <thead><tr><th>Artist</th><th>Signal</th><th>2026 thesis</th></tr></thead>
+        <tbody>
+          <tr><td>Yayoi Kusama</td><td>Record museum attendance</td><td>A global brand with a deep market and durable demand across decades of work.</td></tr>
+          <tr><td>Gerhard Richter</td><td>Limited late output</td><td>A finite supply of major canvases as the artist slows production.</td></tr>
+          <tr><td>David Hockney</td><td>Major 2025 retrospectives</td><td>Renewed institutional attention supports the top of his market.</td></tr>
+          <tr><td>Bridget Riley</td><td>Stable blue-chip base</td><td>An Op-art canon with consistent demand and low volatility.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 10: Tier 2 mid-career -->
+  <div class="slide slide-content" id="slide-10">
+    <canvas class="corner-canvas" id="corner-10"></canvas>
+    <div class="content">
+      <div class="label">Tier two, mid-career momentum</div>
+      <h2 class="heading">The <strong>movers</strong></h2>
+      <div class="divider"></div>
+      <table class="roles-table">
+        <thead><tr><th>Artist</th><th>Signal</th><th>2026 thesis</th></tr></thead>
+        <tbody>
+          <tr><td>Julie Mehretu</td><td>Museum retrospectives</td><td>Large abstractions with rising records and serious institutional weight.</td></tr>
+          <tr><td>Mark Bradford</td><td>Hauser and Wirth backing</td><td>Strong primary representation and a disciplined, well-managed market.</td></tr>
+          <tr><td>Nicolas Party</td><td>Hot secondary market</td><td>Pastel works in heavy demand, with prices climbing fast since 2019.</td></tr>
+          <tr><td>Cecily Brown</td><td>Met survey momentum</td><td>A major museum profile lifting an already liquid market.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 11: Tier 3 emerging -->
+  <div class="slide slide-content" id="slide-11">
+    <canvas class="corner-canvas" id="corner-11"></canvas>
+    <div class="content">
+      <div class="label">Tier three, emerging upside <span class="tag-bad">Higher risk</span></div>
+      <h2 class="heading">The <strong>upside</strong></h2>
+      <div class="divider"></div>
+      <table class="roles-table">
+        <thead><tr><th>Artist</th><th>Signal</th><th>2026 thesis</th></tr></thead>
+        <tbody>
+          <tr><td>Jade Fadojutimi</td><td>Youngest in Tate collection</td><td>Museum validation plus Gagosian backing behind a fast-rising market.</td></tr>
+          <tr><td>Lucy Bull</td><td>Seven-figure auctions</td><td>Rapid ascent from a tightly controlled primary supply.</td></tr>
+          <tr><td>Flora Yukhnovich</td><td>Breakout results</td><td>Rococo-inspired abstraction that cleared estimates by wide margins.</td></tr>
+          <tr><td>Matthew Wong</td><td>Posthumous scarcity</td><td>A fixed body of work meeting steadily growing collector demand.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 12: Featured pick -->
+  <div class="slide slide-content" id="slide-12">
+    <canvas class="corner-canvas" id="corner-12"></canvas>
+    <div class="content">
+      <div class="label">Featured, emerging</div>
+      <h2 class="heading">Spotlight: <strong>Jade Fadojutimi</strong></h2>
+      <div class="divider"></div>
+      <div class="editorial">
+        <p>Born in 1993, Fadojutimi became one of the <strong>youngest artists</strong> ever acquired by the Tate. Her large, high-key abstractions pair museum validation with primary representation from Gagosian.</p>
+        <p>Auction results have climbed quickly since 2021, with several works clearing seven figures against far lower estimates.</p>
+        <blockquote>Institutional demand plus constrained supply is the clearest setup for durable appreciation.</blockquote>
+        <p>The risk is real. Early-market prices can move sharply in both directions, so position sizing matters more here than anywhere else in the portfolio.</p>
+      </div>
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 13: Section divider 04 -->
+  <div class="slide slide-content slide-split" id="slide-13" style="--split: 42">
+    <div class="slide-text">
+      <div class="section-number">04</div>
+      <h2 class="section-heading">Risk and allocation</h2>
+      <div class="slide-footer">PROGRESSION LABS</div>
+    </div>
+    <div class="slide-image">
+      <img src="img/section-4.png" alt="">
+      <img src="logo-white.png" class="image-logo" alt="">
+    </div>
+  </div>
+
+  <!-- Slide 14: Do / Avoid -->
+  <div class="slide slide-content" id="slide-14">
+    <canvas class="corner-canvas" id="corner-14"></canvas>
+    <div class="content">
+      <div class="label">Discipline</div>
+      <h2 class="heading">Invest <strong>smart</strong>, avoid the traps</h2>
+      <div class="divider"></div>
+      <div class="pair-grid">
+        <div class="box-good"><div class="box-label">Do</div><p>Buy the best single work you can afford.</p></div>
+        <div class="box-bad"><div class="box-label">Avoid</div><p>Spreading the same budget across minor pieces.</p></div>
+        <div class="box-good"><div class="box-label">Do</div><p>Hold for five to ten years.</p></div>
+        <div class="box-bad"><div class="box-label">Avoid</div><p>Flipping inside a year, which the market penalises.</p></div>
+        <div class="box-good"><div class="box-label">Do</div><p>Verify provenance, condition and authenticity.</p></div>
+        <div class="box-bad"><div class="box-label">Avoid</div><p>Ignoring restoration history and gaps in ownership.</p></div>
+        <div class="box-good"><div class="box-label">Do</div><p>Diversify across the three tiers.</p></div>
+        <div class="box-bad"><div class="box-label">Avoid</div><p>Over-concentrating in one hyped name.</p></div>
+      </div>
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 15: Allocation -->
+  <div class="slide slide-content" id="slide-15">
+    <canvas class="corner-canvas" id="corner-15"></canvas>
+    <div class="content">
+      <div class="label">Portfolio shape</div>
+      <h2 class="heading">A balanced <strong>allocation</strong></h2>
+      <div class="divider"></div>
+      <div class="stat-row stat-grid">
+        <div class="stat">
+          <div class="highlight-number" data-target="50" data-suffix="%">0</div>
+          <div class="stat-label">Blue-chip anchors</div>
+        </div>
+        <div class="stat">
+          <div class="highlight-number" data-target="30" data-suffix="%">0</div>
+          <div class="stat-label">Mid-career momentum</div>
+        </div>
+        <div class="stat">
+          <div class="highlight-number" data-target="20" data-suffix="%">0</div>
+          <div class="stat-label">Emerging upside</div>
+        </div>
+      </div>
+      <p class="body-text" style="margin-top: 44px;">A common guideline keeps art at five to ten percent of total net worth, and treats the emerging tier as the part you can afford to be wrong about.</p>
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- Slide 16: Section divider 05 -->
+  <div class="slide slide-content slide-split" id="slide-16" style="--split: 42">
+    <div class="slide-text">
+      <div class="section-number">05</div>
+      <h2 class="section-heading">How to participate</h2>
+      <div class="slide-footer">PROGRESSION LABS</div>
+    </div>
+    <div class="slide-image">
+      <img src="img/section-5.png" alt="">
+      <img src="logo-black.png" class="image-logo" alt="">
+    </div>
+  </div>
+
+  <!-- Slide 17: CTA -->
+  <div class="slide slide-content" id="slide-17">
+    <canvas class="corner-canvas" id="corner-17"></canvas>
+    <div class="content">
+      <div class="label eyebrow"><span class="eyebrow-dot"></span>Next steps</div>
+      <h2 class="heading">Start building a <strong>collection</strong></h2>
+      <div class="divider"></div>
+      <p class="body-text">Set a budget and a time horizon, choose your tier mix, then buy through reputable galleries and major auction houses. Insure and store every work properly from day one.</p>
+      <a class="cta-btn" href="#">Request the full 2026 watchlist <span class="cta-arrow">&rarr;</span></a>
+    </div>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+
+  <!-- ─────────────── (end of slides) ─────────────── -->
+</div>
+
+<nav class="nav-dots"></nav>
+
+<script>
+/* ────────────────── Hero WebGL gradient ────────────────── */
+const VERTEX_SRC = `
+attribute vec2 position;
+varying vec2 vUv;
+void main() {
+  vUv = position * 0.5 + 0.5;
+  gl_Position = vec4(position, 0.0, 1.0);
+}`;
+
+const FRAGMENT_SRC = `
+precision highp float;
+uniform float uTime;
+uniform vec2 uResolution;
+varying vec2 vUv;
+
+float ssmooth(float t) { return t * t * (3.0 - 2.0 * t); }
+float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
+
+float vnoise(vec2 p) {
+  vec2 i = floor(p); vec2 f = fract(p);
+  f = f * f * (3.0 - 2.0 * f);
+  float a = hash(i); float b = hash(i + vec2(1.0, 0.0));
+  float c = hash(i + vec2(0.0, 1.0)); float d = hash(i + vec2(1.0, 1.0));
+  return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+}
+
+vec3 computeGradient(vec2 uv, float time, vec3 peakA, vec3 peakB) {
+  float gp = uv.y;
+  float n1 = vnoise(uv * 1.8 + vec2(time * 0.10, time * 0.07));
+  float n2 = vnoise(uv * 3.5 + vec2(-time * 0.08, time * 0.12));
+  float n3 = vnoise(uv * 6.0 + vec2(time * 0.15, -time * 0.06));
+  float swirl = n1 * 0.5 + n2 * 0.3 + n3 * 0.2;
+  float verticalBias = smoothstep(0.05, 0.95, gp);
+  float colorMix = clamp(verticalBias + (swirl - 0.5) * 1.0, 0.0, 1.0);
+  vec3 peak = mix(peakA, peakB, colorMix);
+  float wave = (vnoise(uv * 2.0 + vec2(time * 0.06, -time * 0.04)) - 0.5) * 0.06;
+  float protection = smoothstep(0.0, 0.25, gp);
+  gp = clamp(gp + wave * protection, 0.0, 1.0);
+  vec3 deep = peak * 0.06; vec3 mid = peak * 0.35;
+  vec3 wash = mix(peak, vec3(1.0), 0.5);
+  float t1 = smoothstep(0.00, 0.10, gp); float t2 = smoothstep(0.06, 0.24, gp);
+  float t3 = smoothstep(0.15, 0.55, gp); float t4 = smoothstep(0.45, 0.85, gp);
+  float t5 = smoothstep(0.75, 1.00, gp);
+  vec3 color = mix(vec3(0.004), deep, t1);
+  color = mix(color, mid, t2); color = mix(color, peak, t3);
+  color = mix(color, wash, t4); color = mix(color, vec3(1.0), t5);
+  return color;
+}
+
+vec3 getGradientColor(vec2 uv) {
+  // Blue-centric cycle ported from the live progressionlabs.com hero
+  // (HeroGradientGL.tsx): peakA is ALWAYS royal blue; peakB cycles through one
+  // accent at a time, returning to pure blue between each so the field reads blue.
+  vec3 cBlue        = vec3(0.000, 0.000, 1.000);
+  vec3 cTurquoise   = vec3(0.251, 0.878, 0.816);
+  vec3 cPeriwinkle  = vec3(0.749, 0.706, 0.863);
+  vec3 cBabyPink    = vec3(1.000, 0.785, 0.866);
+  vec3 cPeach       = vec3(1.000, 0.855, 0.725);
+  vec3 cLightOrange = vec3(1.000, 0.627, 0.478);
+  float progress = mod(uTime + 25.0, 50.0) / 50.0; // +25s opens on peach+blue
+  float seg = progress * 10.0;
+  int idx = int(floor(seg));
+  float t = ssmooth(seg - floor(seg));
+  vec3 fA, fB, tA, tB;
+  if (idx == 0)      { fA = cBlue; fB = cBlue;        tA = cBlue; tB = cTurquoise;   }
+  else if (idx == 1) { fA = cBlue; fB = cTurquoise;   tA = cBlue; tB = cBlue;        }
+  else if (idx == 2) { fA = cBlue; fB = cBlue;        tA = cBlue; tB = cBabyPink;    }
+  else if (idx == 3) { fA = cBlue; fB = cBabyPink;    tA = cBlue; tB = cBlue;        }
+  else if (idx == 4) { fA = cBlue; fB = cBlue;        tA = cBlue; tB = cPeach;       }
+  else if (idx == 5) { fA = cBlue; fB = cPeach;       tA = cBlue; tB = cBlue;        }
+  else if (idx == 6) { fA = cBlue; fB = cBlue;        tA = cBlue; tB = cPeriwinkle;  }
+  else if (idx == 7) { fA = cBlue; fB = cPeriwinkle;  tA = cBlue; tB = cBlue;        }
+  else if (idx == 8) { fA = cBlue; fB = cBlue;        tA = cBlue; tB = cLightOrange; }
+  else               { fA = cBlue; fB = cLightOrange; tA = cBlue; tB = cBlue;        }
+  vec3 peakA = mix(fA, tA, t); vec3 peakB = mix(fB, tB, t);
+  return computeGradient(uv, uTime, peakA, peakB);
+}
+
+void main() {
+  vec3 smoothColor = getGradientColor(vUv);
+  float blockPx = 32.0;
+  vec2 grid = uResolution / blockPx;
+  vec2 cellId = floor(vUv * grid);
+  vec2 pixelUv = cellId / grid;
+  float colOffset = hash(vec2(cellId.x, 0.0)) * 0.035;
+  pixelUv.y += colOffset;
+  vec3 pixelColor = getGradientColor(pixelUv);
+  float diag = (vUv.x + 1.0 - vUv.y) * 0.5;
+  float shimmerPos = fract(uTime * 0.25);
+  float shimmerDist = abs(diag - shimmerPos);
+  shimmerDist = min(shimmerDist, 1.0 - shimmerDist);
+  float shimmerMask = exp(-shimmerDist * shimmerDist * 120.0) * 0.6;
+  vec3 finalColor = mix(smoothColor, pixelColor, shimmerMask);
+  gl_FragColor = vec4(finalColor, 1.0);
+}`;
+
+function initHeroGL() {
+  const canvas = document.getElementById('heroGL');
+  if (!canvas) return;
+  const gl = canvas.getContext('webgl');
+  if (!gl) { console.warn('WebGL not supported'); return; }
+
+  let cssW = 0, cssH = 0;
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio, 2);
+    cssW = canvas.offsetWidth;
+    cssH = canvas.offsetHeight;
+    canvas.width = cssW * dpr;
+    canvas.height = cssH * dpr;
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function compile(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+      console.error('Shader compile error:', gl.getShaderInfoLog(s));
+      return null;
+    }
+    return s;
+  }
+  const vs = compile(gl.VERTEX_SHADER, VERTEX_SRC);
+  const fs = compile(gl.FRAGMENT_SHADER, FRAGMENT_SRC);
+  if (!vs || !fs) return;
+  const prog = gl.createProgram();
+  gl.attachShader(prog, vs);
+  gl.attachShader(prog, fs);
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+    console.error('Program link error:', gl.getProgramInfoLog(prog));
+    return;
+  }
+  gl.useProgram(prog);
+
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, -1,1, 1,-1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+
+  const uTime = gl.getUniformLocation(prog, 'uTime');
+  const uRes = gl.getUniformLocation(prog, 'uResolution');
+  const start = performance.now();
+
+  function render() {
+    const t = (performance.now() - start) / 1000;
+    gl.uniform1f(uTime, t);
+    gl.uniform2f(uRes, cssW, cssH);
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+    requestAnimationFrame(render);
+  }
+  requestAnimationFrame(render);
+}
+
+/* ────────────────── Prism pixel overlay ────────────────── */
+function initPrismPixels() {
+  const BS = 40;
+  const CHARS = '0123456789@#$%&*+=?<>{}[]/\\|LABS';
+  const seed = (x, y) => { const h = Math.sin(x * 127.1 + y * 311.7) * 43758.5453123; return h - Math.floor(h); };
+  const smoothstep = (e0, e1, x) => { const t = Math.max(0, Math.min(1, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); };
+  const pixelColors = [
+    [0, 0, 139], [255, 160, 122], [185, 233, 121], [64, 224, 208], [219, 112, 180],
+  ];
+  function getCycleColor(time) {
+    const totalCycle = 12;
+    const p = (time % totalCycle) / totalCycle;
+    const idx = Math.floor(p * pixelColors.length);
+    const t = smoothstep(0, 1, (p * pixelColors.length) - idx);
+    const c1 = pixelColors[idx % pixelColors.length];
+    const c2 = pixelColors[(idx + 1) % pixelColors.length];
+    return c1.map((v, i) => Math.round(v + (c2[i] - v) * t));
+  }
+
+  document.querySelectorAll('.prism-pixels').forEach(canvas => {
+    const ctx = canvas.getContext('2d');
+    const startTime = performance.now() / 1000;
+    let w = 0, h = 0;
+
+    function resize() {
+      const d = devicePixelRatio || 1;
+      w = canvas.parentElement.clientWidth;
+      h = canvas.parentElement.clientHeight;
+      canvas.width = w * d; canvas.height = h * d;
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx.setTransform(d, 0, 0, d, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function render() {
+      const pw = canvas.parentElement.clientWidth;
+      const ph = canvas.parentElement.clientHeight;
+      if (pw > 0 && ph > 0 && (pw !== w || ph !== h)) { resize(); }
+      if (w === 0 || h === 0) { requestAnimationFrame(render); return; }
+
+      const [r, g, b] = [0, 0, 139];
+      ctx.clearRect(0, 0, w, h);
+
+      const cols = Math.ceil(w / BS), rows = Math.ceil(h / BS);
+      const fadeRadius = 0.24, maxAlpha = 0.7;
+      const diagonal = Math.sqrt(w * w + h * h);
+      const maxDist = diagonal * fadeRadius;
+
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const cx = (col + 0.5) * BS, cy = (row + 0.5) * BS;
+          const dist = Math.sqrt((w - cx) ** 2 + (h - cy) ** 2);
+          const t = dist / maxDist;
+          if (t >= 1.2) continue;
+
+          let blockAlpha;
+          if (t <= 1.0) { blockAlpha = smoothstep(1, 0, t) * maxAlpha; }
+          else { blockAlpha = (1.2 - t) * 0.15 * maxAlpha; }
+          blockAlpha *= (0.85 + seed(col + 700, row + 700) * 0.15);
+          if (blockAlpha < 0.02) continue;
+
+          ctx.fillStyle = `rgba(${r},${g},${b},${blockAlpha})`;
+          ctx.fillRect(col * BS, row * BS, BS, BS);
+
+          if (blockAlpha > 0.08 && seed(col, row) < 0.25) {
+            const ch = CHARS[Math.floor(seed(col + 100, row + 100) * CHARS.length)];
+            ctx.fillStyle = `rgba(${r},${g},${b},${blockAlpha * 0.4})`;
+            ctx.font = '500 ' + (BS * 0.4) + 'px "Inter", sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText(ch, cx, cy);
+          }
+        }
+      }
+      requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
+  });
+}
+
+/* ────────────────── Navigation + animation ────────────────── */
+let currentSlide = 0;
+let isAnimating = false;
+const slides = document.querySelectorAll('.slide');
+const dotsContainer = document.querySelector('.nav-dots');
+
+slides.forEach((_, i) => {
+  const dot = document.createElement('button');
+  dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+  dot.addEventListener('click', () => goToSlide(i));
+  dotsContainer.appendChild(dot);
+});
+const dots = document.querySelectorAll('.nav-dot');
+
+function goToSlide(idx) {
+  if (isAnimating || idx < 0 || idx >= slides.length || idx === currentSlide) return;
+  isAnimating = true;
+  resetSlide(slides[idx]);
+  slides[currentSlide].classList.remove('active');
+  slides[idx].classList.add('active');
+  dots[currentSlide].classList.remove('active');
+  dots[idx].classList.add('active');
+  currentSlide = idx;
+  animateSlideIn(slides[idx]);
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+    e.preventDefault();
+    goToSlide(currentSlide + 1);
+  }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    goToSlide(currentSlide - 1);
+  }
+});
+
+function resetSlide(el) {
+  const selectors = '.label, .heading, .heading-mega, .body-text, .approach-lead, .card, .stat-item, .step, .cta-btn, .highlight-number, .hero-logo, .hero-title, .hero-subtitle, .cta-side, .mission-icon-wrap, .playbook-diagram, .outcomes-col, .agenda-list li, .section-number, .section-heading, .partner, .stat, .stat .highlight-number, .stat .stat-label, .two-col-body, .approach-grid, .quad-grid, .delivered-vs-but, .analogy-table, .score-table, .score-cards, .diagram, .paths-table, .three-bullet, .pl-quote, .exec-summary, .exec-single, .canvas-grid, .patterns-table, .team-compare, .roles-table, .dash-list, .tesla-grid, .pair-grid, .boxes-2x2, .boxes-2x2 > .box-neutral, .variation-stack, .role-stack, .box-good, .box-bad, .box-neutral, .slide-number, .misalignment-stack, .spike-stack, .spike-step, .editorial, .editorial blockquote, .mega-stat, .pull-quote';
+  el.querySelectorAll(selectors).forEach(child => {
+    gsap.set(child, { clearProps: 'all' });
+    child.style.opacity = '0';
+  });
+  el.querySelectorAll('.divider').forEach(d => {
+    gsap.set(d, { clearProps: 'all' });
+    d.style.transform = 'scaleX(0)';
+  });
+}
+
+function animateSlideIn(el) {
+  const tl = gsap.timeline({
+    defaults: { ease: 'power3.out' },
+    onComplete: () => { isAnimating = false; }
+  });
+
+  const labels = el.querySelectorAll('.content .label');
+  if (labels.length) tl.to(labels, { opacity: 1, y: 0, duration: 0.4 }, 0);
+
+  const slideNum = el.querySelectorAll('.slide-number');
+  if (slideNum.length) tl.to(slideNum, { opacity: 1, duration: 0.4 }, 0.05);
+
+  const dividers = el.querySelectorAll('.content .divider');
+  if (dividers.length) tl.to(dividers, { scaleX: 1, duration: 0.5 }, 0.08);
+
+  const headings = el.querySelectorAll('.content .heading');
+  if (headings.length) tl.to(headings, { opacity: 1, y: 0, duration: 0.6 }, 0.12);
+
+  const sectionNums = el.querySelectorAll('.section-number');
+  if (sectionNums.length) tl.to(sectionNums, { opacity: 1, y: 0, duration: 0.4 }, 0);
+
+  const sectionHeadings = el.querySelectorAll('.section-heading');
+  if (sectionHeadings.length) tl.to(sectionHeadings, { opacity: 1, y: 0, duration: 0.6 }, 0.12);
+
+  const bodyText = el.querySelectorAll('.content .body-text');
+  if (bodyText.length) tl.to(bodyText, { opacity: 1, y: 0, duration: 0.5 }, 0.2);
+
+  const cards = el.querySelectorAll('.content .card');
+  if (cards.length) tl.to(cards, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 }, 0.3);
+
+  const steps = el.querySelectorAll('.content .step');
+  if (steps.length) tl.to(steps, { opacity: 1, y: 0, duration: 0.6, stagger: 0.12 }, 0.3);
+
+  const stats = el.querySelectorAll('.content .stat-item');
+  if (stats.length) tl.to(stats, { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 }, 0.3);
+
+  const cta = el.querySelectorAll('.content .cta-btn');
+  if (cta.length) tl.to(cta, { opacity: 1, y: 0, duration: 0.5 }, '-=0.2');
+
+  const ctaSide = el.querySelectorAll('.content .cta-side');
+  if (ctaSide.length) tl.to(ctaSide, { opacity: 1, y: 0, duration: 0.6 }, '-=0.3');
+
+  const missionIcon = el.querySelectorAll('.content .mission-icon-wrap');
+  if (missionIcon.length) tl.to(missionIcon, { opacity: 1, y: 0, duration: 0.7 }, 0.4);
+
+  const playbookDiagram = el.querySelectorAll('.content .playbook-diagram');
+  if (playbookDiagram.length) tl.to(playbookDiagram, { opacity: 1, y: 0, duration: 0.7 }, 0.3);
+
+  const outcomesCols = el.querySelectorAll('.content .outcomes-col');
+  if (outcomesCols.length) tl.to(outcomesCols, { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 }, 0.55);
+
+  const logo = el.querySelectorAll('.hero-content .hero-logo');
+  if (logo.length) tl.to(logo, { opacity: 1, scale: 1, duration: 0.8 }, 0);
+
+  const heroTitle = el.querySelectorAll('.hero-content .hero-title');
+  if (heroTitle.length) tl.to(heroTitle, { opacity: 1, duration: 0.7 }, 0.3);
+
+  const heroSubtitle = el.querySelectorAll('.hero-content .hero-subtitle');
+  if (heroSubtitle.length) tl.to(heroSubtitle, { opacity: 1, duration: 0.5 }, 0.6);
+
+  const heroByline = el.querySelectorAll('.hero-byline');
+  if (heroByline.length) tl.to(heroByline, { opacity: 1, duration: 0.5 }, 0.8);
+
+  const agendaItems = el.querySelectorAll('.content .agenda-list li');
+  if (agendaItems.length) tl.to(agendaItems, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 }, 0.5);
+
+  const partners = el.querySelectorAll('.content .partner');
+  if (partners.length) tl.to(partners, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }, 0.35);
+
+  const statBlocks = el.querySelectorAll('.content .stat');
+  if (statBlocks.length) {
+    // reveal the stat containers
+    tl.to(statBlocks, { opacity: 1, duration: 0.01 }, 0.55);
+    // animate the numbers inside each .stat
+    el.querySelectorAll('.content .stat .highlight-number').forEach((numEl, i) => {
+      tl.to(numEl, { opacity: 1, duration: 0.4 }, 0.55 + i * 0.08);
+      const target = parseInt(numEl.dataset.target, 10);
+      const suffix = numEl.dataset.suffix || '';
+      const obj = { val: 0 };
+      tl.to(obj, {
+        val: target, duration: 1.6, ease: 'power2.out',
+        onUpdate() { numEl.textContent = Math.floor(obj.val) + suffix; }
+      }, 0.55 + i * 0.08);
+    });
+    el.querySelectorAll('.content .stat .stat-label').forEach((lbl, i) => {
+      tl.to(lbl, { opacity: 1, y: 0, duration: 0.4 }, 0.7 + i * 0.08);
+    });
+  }
+
+  const twoColBody = el.querySelectorAll('.content .two-col-body');
+  if (twoColBody.length) tl.to(twoColBody, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const pairGrid = el.querySelectorAll('.content .pair-grid');
+  if (pairGrid.length) {
+    tl.to(pairGrid, { opacity: 1, y: 0, duration: 0.5 }, 0.25);
+    const pairBoxes = el.querySelectorAll('.content .pair-grid > .box-good, .content .pair-grid > .box-bad, .content .pair-grid > .box-neutral');
+    if (pairBoxes.length) tl.to(pairBoxes, { opacity: 1, y: 0, duration: 0.5, stagger: 0.07 }, 0.4);
+  }
+  const standaloneBoxes = el.querySelectorAll('.content > .box-good, .content > .box-bad, .content > .box-neutral, .content .box-grid > .box-good, .content .box-grid > .box-bad, .content .box-grid > .box-neutral');
+  if (standaloneBoxes.length) tl.to(standaloneBoxes, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 }, 0.35);
+
+  const threeColBody = el.querySelectorAll('.content .three-col-body');
+  if (threeColBody.length) tl.to(threeColBody, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const spikeStack = el.querySelectorAll('.content .spike-stack');
+  if (spikeStack.length) {
+    tl.to(spikeStack, { opacity: 1, y: 0, duration: 0.5 }, 0.25);
+    const spikeSteps = el.querySelectorAll('.content .spike-step');
+    if (spikeSteps.length) tl.to(spikeSteps, { opacity: 1, y: 0, duration: 0.45, stagger: 0.1 }, 0.35);
+  }
+
+  const misalignmentStack = el.querySelectorAll('.content .misalignment-stack');
+  if (misalignmentStack.length) tl.to(misalignmentStack, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const approachGrid = el.querySelectorAll('.content .approach-grid');
+  if (approachGrid.length) tl.to(approachGrid, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const quadGrid = el.querySelectorAll('.content .quad-grid');
+  if (quadGrid.length) tl.to(quadGrid, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const deliveredVsBut = el.querySelectorAll('.content .delivered-vs-but');
+  if (deliveredVsBut.length) tl.to(deliveredVsBut, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const analogyTable = el.querySelectorAll('.content .analogy-table');
+  if (analogyTable.length) tl.to(analogyTable, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const scoreTable = el.querySelectorAll('.content .score-table');
+  if (scoreTable.length) tl.to(scoreTable, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const diagrams = el.querySelectorAll('.content .diagram');
+  if (diagrams.length) tl.to(diagrams, { opacity: 1, y: 0, duration: 0.7 }, 0.3);
+
+  const pathsTable = el.querySelectorAll('.content .paths-table');
+  if (pathsTable.length) tl.to(pathsTable, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const threeBullet = el.querySelectorAll('.content .three-bullet');
+  if (threeBullet.length) tl.to(threeBullet, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const plQuote = el.querySelectorAll('.content .pl-quote');
+  if (plQuote.length) tl.to(plQuote, { opacity: 1, y: 0, duration: 0.5 }, 0.5);
+
+  const execSummary = el.querySelectorAll('.content .exec-summary');
+  if (execSummary.length) tl.to(execSummary, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const execSingle = el.querySelectorAll('.content .exec-single');
+  if (execSingle.length) tl.to(execSingle, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const editorialBlocks = el.querySelectorAll('.content .editorial');
+  if (editorialBlocks.length) {
+    tl.to(editorialBlocks, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+    const editorialBlockquotes = el.querySelectorAll('.content .editorial blockquote');
+    if (editorialBlockquotes.length) tl.to(editorialBlockquotes, { opacity: 1, duration: 0.5 }, 0.5);
+  }
+
+  const headingMegas = el.querySelectorAll('.content .heading-mega');
+  if (headingMegas.length) tl.to(headingMegas, { opacity: 1, y: 0, duration: 0.6 }, 0.12);
+
+  const megaStats = el.querySelectorAll('.content .mega-stat');
+  if (megaStats.length) tl.to(megaStats, { opacity: 1, y: 0, duration: 0.6 }, 0.25);
+
+  const pullQuotes = el.querySelectorAll('.content .pull-quote');
+  if (pullQuotes.length) tl.to(pullQuotes, { opacity: 1, y: 0, duration: 0.6 }, 0.35);
+
+  const boxes2x2 = el.querySelectorAll('.content .boxes-2x2');
+  if (boxes2x2.length) {
+    tl.to(boxes2x2, { opacity: 1, y: 0, duration: 0.5 }, 0.25);
+    const boxes2x2Items = el.querySelectorAll('.content .boxes-2x2 > .box-neutral');
+    if (boxes2x2Items.length) tl.to(boxes2x2Items, { opacity: 1, y: 0, duration: 0.5, stagger: 0.07 }, 0.4);
+  }
+
+  const scoreCards = el.querySelectorAll('.content .score-cards');
+  if (scoreCards.length) tl.to(scoreCards, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const canvasGrid = el.querySelectorAll('.content .canvas-grid');
+  if (canvasGrid.length) tl.to(canvasGrid, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const patternsTable = el.querySelectorAll('.content .patterns-table');
+  if (patternsTable.length) tl.to(patternsTable, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const teslaGrid = el.querySelectorAll('.content .tesla-grid');
+  if (teslaGrid.length) tl.to(teslaGrid, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const teamCompare = el.querySelectorAll('.content .team-compare');
+  if (teamCompare.length) tl.to(teamCompare, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const rolesTable = el.querySelectorAll('.content .roles-table');
+  if (rolesTable.length) tl.to(rolesTable, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+
+  const variationStack = el.querySelectorAll('.content .variation-stack');
+  if (variationStack.length) {
+    tl.to(variationStack, { opacity: 1, y: 0, duration: 0.5 }, 0.25);
+    const variationItems = el.querySelectorAll('.content .variation-stack > .box-neutral');
+    if (variationItems.length) tl.to(variationItems, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 }, 0.4);
+  }
+
+  const roleStack = el.querySelectorAll('.content .role-stack');
+  if (roleStack.length) {
+    tl.to(roleStack, { opacity: 1, y: 0, duration: 0.5 }, 0.25);
+    const roleCards = el.querySelectorAll('.content .role-stack > .role-card');
+    if (roleCards.length) tl.to(roleCards, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 }, 0.4);
+  }
+
+  const dashList = el.querySelectorAll('.content .dash-list');
+  if (dashList.length) tl.to(dashList, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+}
+
+/* ────────────────── Corner canvas prism (content slides) ────────────────── */
+function initCornerCanvases() {
+  const BS = 40;
+  const CHARS = '0123456789@#$%&*+=?<>{}[]/\\|LABS';
+  const seed = (x, y) => { const h = Math.sin(x * 127.1 + y * 311.7) * 43758.5453123; return h - Math.floor(h); };
+  const smoothstep = (e0, e1, x) => { const t = Math.max(0, Math.min(1, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); };
+  const r = 0, g = 0, b = 139;
+
+  document.querySelectorAll('.corner-canvas').forEach(canvas => {
+    const ctx = canvas.getContext('2d');
+    let w = 0, h = 0;
+
+    function resize() {
+      const d = devicePixelRatio || 1;
+      const parent = canvas.parentElement;
+      w = parent.clientWidth * 0.4;
+      h = parent.clientHeight * 0.5;
+      canvas.width = w * d; canvas.height = h * d;
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx.setTransform(d, 0, 0, d, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function drawOnce() {
+      if (w === 0 || h === 0) return;
+      ctx.clearRect(0, 0, w, h);
+      const cols = Math.ceil(w / BS), rows = Math.ceil(h / BS);
+      const fadeRadius = 0.55, maxAlpha = 0.65;
+      const diagonal = Math.sqrt(w * w + h * h);
+      const maxDist = diagonal * fadeRadius;
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const cx = (col + 0.5) * BS, cy = (row + 0.5) * BS;
+          const dist = Math.sqrt((w - cx) ** 2 + (h - cy) ** 2);
+          const t = dist / maxDist;
+          if (t >= 1.2) continue;
+          let blockAlpha;
+          if (t <= 1.0) { blockAlpha = smoothstep(1, 0, t) * maxAlpha; }
+          else { blockAlpha = (1.2 - t) * 0.15 * maxAlpha; }
+          blockAlpha *= (0.85 + seed(col + 700, row + 700) * 0.15);
+          if (blockAlpha < 0.02) continue;
+          ctx.fillStyle = `rgba(${r},${g},${b},${blockAlpha})`;
+          ctx.fillRect(col * BS, row * BS, BS, BS);
+          if (blockAlpha > 0.08 && seed(col, row) < 0.25) {
+            const ch = CHARS[Math.floor(seed(col + 100, row + 100) * CHARS.length)];
+            ctx.fillStyle = `rgba(${r},${g},${b},${blockAlpha * 0.4})`;
+            ctx.font = '500 ' + (BS * 0.4) + 'px "Inter", sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText(ch, cx, cy);
+          }
+        }
+      }
+    }
+    drawOnce();
+    window.addEventListener('resize', drawOnce);
+  });
+}
+
+(function injectSlideNumbers() {
+  const all = document.querySelectorAll('.slide');
+  const total = all.length - 1; // exclude hero
+  all.forEach((slide, idx) => {
+    if (idx === 0) return; // skip hero
+    const num = document.createElement('div');
+    num.className = 'slide-number';
+    num.textContent = String(idx).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+    // For split layouts, put the number inside the text half
+    const target = slide.querySelector('.slide-text') || slide;
+    target.appendChild(num);
+  });
+})();
+
+/* Small black Progression logo, bottom-right on content slides (same spot as the
+   divider .image-logo). Hero has its own centred logo; dividers carry .image-logo. */
+(function injectCornerLogos() {
+  document.querySelectorAll('.slide').forEach((slide, idx) => {
+    if (idx === 0) return;                                   // skip hero
+    if (slide.classList.contains('slide-split')) return;     // dividers already have .image-logo
+    const img = document.createElement('img');
+    img.className = 'slide-logo';
+    img.src = 'logo-black.png';
+    img.alt = '';
+    slide.appendChild(img);
+  });
+})();
+
+/* ────────────────── Boot ────────────────── */
+/* ────────────────── Hero ASCII overlay (shimmer-only, ported from live AsciiOverlay.tsx) ────────────────── */
+function initHeroAscii() {
+  const canvas = document.getElementById('heroAscii');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  const CHARS = '0123456789@#$%&*+=?<>{}[]/\\|LABS';
+  const BLOCK = 32, FILL = 0.4, FONT = 12;
+  let w = 0, h = 0, grid = [], resizeTimer = null;
+  function initGrid() {
+    w = canvas.offsetWidth; h = canvas.offsetHeight;
+    if (w === 0 || h === 0) return;
+    const dpr = Math.min(window.devicePixelRatio, 2);
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    grid = [];
+    const cols = Math.ceil(w / BLOCK), rows = Math.ceil(h / BLOCK);
+    for (let cy = 0; cy < rows; cy++) {
+      for (let cx = 0; cx < cols; cx++) {
+        if (Math.random() < FILL) {
+          grid.push({ cx, cy, ch: CHARS[Math.floor(Math.random() * CHARS.length)], b: Math.random() * 0.5 + 0.5 });
+        }
+      }
+    }
+  }
+  initGrid();
+  window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(initGrid, 120); });
+  const start = performance.now();
+  function render() {
+    if (w === 0 || h === 0) { initGrid(); requestAnimationFrame(render); return; }
+    const time = (performance.now() - start) / 1000;
+    ctx.clearRect(0, 0, w, h);
+    ctx.font = '500 ' + FONT + 'px "Inter", sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    for (let i = 0; i < grid.length; i++) {
+      const c = grid[i];
+      const vUvX = (c.cx + 0.5) * BLOCK / w;
+      const vUvY = (c.cy + 0.5) * BLOCK / h;
+      const px = vUvX * w;
+      const py = h - (vUvY * h);
+      const diag = (vUvX + 1.0 - vUvY) * 0.5;
+      const shimmerPos = (time * 0.25) % 1.0;
+      let sd = Math.abs(diag - shimmerPos);
+      sd = Math.min(sd, 1.0 - sd);
+      const mask = Math.exp(-sd * sd * 120.0) * 0.6;
+      if (mask > 0.01) {
+        ctx.fillStyle = 'rgba(255,255,255,' + Math.min(mask * c.b, 1.0) + ')';
+        ctx.fillText(c.ch, px, py);
+      }
+    }
+    requestAnimationFrame(render);
+  }
+  requestAnimationFrame(render);
+}
+
+window.addEventListener('load', () => {
+  initHeroGL();
+  initHeroAscii();
+  initPrismPixels();
+  initCornerCanvases();
+  setTimeout(() => { animateSlideIn(slides[0]); }, 200);
+});
+</script>
+</body>
+</html>

@@ -51,100 +51,211 @@ These files are required by the hero slide, content slide watermarks, and the pi
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: center;       /* vertically centre the content block */
   text-align: left;
-  padding: 72px 100px 56px;
+  padding: 48px 100px 56px;      /* lighter top padding so centring is balanced */
   overflow: hidden;
 }
 ```
 
-**Content is left-aligned, top-down.** Headings sit top-left, body text flows naturally. Generous whitespace between elements.
+**Content is vertically centred in the slide area; text inside stays left-aligned.** The content block (label + heading + body + components) sits in the visual middle of the slide. Headings and body text inside that block are left-aligned. Generous whitespace above and below the block.
 
 ### Exceptions
 - Title/hero slide: centered layout (override with `#slide-0 { align-items: center; justify-content: center; text-align: center; }`)
-- Contact/CTA slides: left-align the block, but center the wrapper
-- Tables/code blocks: left-align content inside a centered container
-- Multi-column layouts: center the grid, left-align within columns
+- Slides with a single dominant visual element (full-bleed diagram, large stat block): can be centred on both axes
+- Multi-column layouts: centre the grid horizontally, left-align within columns
+- Pinned content (footer, nav dots): position absolutely and bypass the flex flow
+
+### Footer position
+The footer is positioned absolutely at the bottom of the slide (`position: absolute; bottom: 28px; left: 100px;`) so vertical centering of the content block does not pull the footer up. Same applies to the prism corner accent.
 
 ### Footer pinning
 Footer always pins to bottom with `margin-top: auto` on the footer element.
 
+## Editorial Single-Column
+
+For slides where prose IS the content (executive summary, key findings, narrative passages), drop boxes and grids in favour of a single editorial column. Reads like a magazine spread; feels like a frontier lab.
+
+```css
+.editorial {
+  max-width: 720px;
+  margin: 32px 0 0;
+}
+.editorial p {
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: #1a1a1a;
+  margin-bottom: 22px;
+}
+.editorial p strong { font-weight: 500; color: #1e5bff; }
+.editorial blockquote {
+  border-left: 2px solid #1e5bff;
+  padding-left: 24px;
+  margin: 32px 0;
+  font-style: italic;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.55;
+}
+```
+
+Apply on summary / narrative / framing slides. **Never use boxes or grids inside an `.editorial` block** — the column carries the rhythm. One blockquote per slide max.
+
+## Moment Slide
+
+A single statement, centred. No supporting text, no diagram, no grid. Used to mark a turning point in the narrative (key finding, key quote, big stat).
+
+```css
+.moment-slide .content {
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 1080px;
+}
+```
+
+Inside `.moment-slide .content`, place one of:
+- `<h2 class="heading-mega">…</h2>` for a one-statement heading
+- `<blockquote class="pull-quote">…<cite>…</cite></blockquote>` for a quoted insight
+- `<div class="mega-stat">…</div>` plus one label for a hero number
+
+Nothing else. Slide breathes.
+
+## Section Divider Drama
+
+Section dividers are a split layout: a giant typographic number (Inter ultra-light 200, 7-11rem) with a thin blue rule beneath and the section title at restrained scale on the light text half, and a full-bleed **real image** on the right half.
+
+```css
+.slide-split { flex-direction: row; padding: 0; align-items: stretch; }
+.slide-split .slide-text {
+  flex: 0 0 calc(var(--split, 42) * 1%);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 80px 64px; background: var(--pl-bg);
+}
+.slide-split .slide-image {
+  flex: 1; position: relative; overflow: hidden;
+  background: var(--pl-navy);            /* fallback behind the image */
+  display: flex; align-items: center; justify-content: center;
+}
+.slide-split .slide-image > img:not(.image-logo) {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.slide-split .slide-image .image-logo {
+  position: absolute; bottom: 24px; right: 24px; width: 26px; height: auto;
+}
+.slide-split .section-number {
+  font-family: Inter, sans-serif; font-size: clamp(7rem, 12vw, 11rem);
+  font-weight: 200; letter-spacing: -0.04em; line-height: 1; color: var(--pl-text);
+  margin-bottom: 24px;
+}
+.slide-split .section-number::after {
+  content: ""; display: block; width: 60px; height: 1.5px;
+  background: var(--pl-blue); margin-top: 32px;
+}
+.slide-split .section-heading {
+  font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 200;
+  letter-spacing: -0.01em; line-height: 1.15;
+}
+```
+
+HTML:
+```html
+<div class="slide slide-content slide-split" style="--split: 42">
+  <div class="slide-text">
+    <div class="section-number">01</div>
+    <h2 class="section-heading">Context</h2>
+    <div class="slide-footer">PROGRESSION LABS</div>
+  </div>
+  <div class="slide-image">
+    <img src="img/section-1.png" alt="">
+    <img src="logo-white.png" class="image-logo" alt="">
+  </div>
+</div>
+```
+
+**Imagery.** The right half is a real image (mosaic-treated brand photography, e.g. octopus / jellyfish / flowers), not a flat gradient. `object-fit: cover` fills the panel. Copy the chosen images into the deck's `img/` dir as `section-N.png`.
+
+**Logo colour rule (important).** The `.image-logo` must stay legible against the image: use `logo-white.png` on dark images (most underwater photography) and `logo-black.png` on light images (e.g. pale flowers on a white background). Both files are copied into the deck dir at Step 0. Judge by the image's background luminance, not its subject.
+
+**Imagery library.** A curated set of brand mosaics lives in `~/.claude/skills/assets/imagery/`. Pick divider images from here (copy the chosen ones into the deck's `img/` as `section-N.png`); generate new ones with the `deck-imagery` skill only if you need something off-catalog. Each row's logo colour is the luminance call, pre-made:
+
+| File | Subject | Background | Logo |
+|---|---|---|---|
+| `octopus.png` | Octopus, pale on steel-blue | dark | `logo-white.png` |
+| `jellyfish-full.png` | Full-body jellyfish (iconic) | dark | `logo-white.png` |
+| `jellyfish-nettle.png` | Sea-nettle jellyfish, dramatic | near-black | `logo-white.png` |
+| `jellyfish-bell.png` | Jellyfish bell | dark | `logo-white.png` |
+| `jellyfish-starry.png` | Jellyfish on a starry field | dark | `logo-white.png` |
+| `jellyfish-bokeh.png` | Jellyfish, soft bokeh | dark | `logo-white.png` |
+| `school-of-fish.png` | Shoal of fish | dark | `logo-white.png` |
+| `flower-cobalt.png` | Vivid cobalt-blue flower | light | `logo-black.png` |
+| `flower-pale.png` | Pale blue flower | light | `logo-black.png` |
+
+All are mosaic-treated (frosted pixel + dot) blue-family brand imagery. The two flowers are the only light-background options (good for closing / forward-looking sections); the rest are dark.
+
+Number is just the digits (no `SECTION` prefix), Inter not mono. The thin blue rule under the number is the only adornment.
+
 ## Background System
 
-### Title Slide: Animated Hero Gradient
+### Title Slide: Blue-Centric WebGL Hero (ported from progressionlabs.com)
 
-The title slide uses the brand's signature 4-layer canvas stack. This is the only slide with a dark/gradient background.
+The title slide is the live site's signature **animated hero**, ported from `HeroGradientGL.tsx` + `AsciiOverlay.tsx` in the `progression-labs-dev/websiteplab` repo. It is a layered stack inside `#slide-0`: a WebGL gradient + an ASCII overlay + film grain, with the logo and title on top.
 
-**Architecture:**
-1. **WebGL gradient** — animated 5-color cycling with diagonal shimmer pixel reveal
-2. **Film grain** (SVG feTurbulence) — `mix-blend-mode: overlay`, 3% opacity, NOT a canvas
-3. **Content** — logo centered on top (z-index 3)
+**It is blue-centric — NOT the old 5-colour cycle and NOT a flat gradient.** In the shader `peakA` is ALWAYS royal blue `#0000FF`; `peakB` cycles through one accent at a time (turquoise `#40E0D0`, baby-pink `#FFC8DD`, peach `#FFDAB9`, periwinkle `#BFB4DC`, light-orange `#FFA07A`), **returning to pure blue between each accent** so the field always reads blue. 10 segments over 50s; a `+25s` phase offset opens on **peach + blue**. 32px pixel blocks revealed by a diagonal shimmer. The hero shader blue is pure `#0000FF` (the live value), distinct from the content UI blue `var(--pl-blue) #1e5bff`.
 
-**Title slide layout:**
-- CSS fallback gradient on `#slide-0` (visible if WebGL fails)
-- Hero gradient canvas stack (z-index 1, covers the CSS fallback when WebGL works)
-- White `logo-white.png` centered, 64px wide, `drop-shadow(0 0 20px rgba(255,255,255,0.2))` (z-index 3)
-- **Logo only on title slide** — no title text, no subtitle, no wordmark
-- Footer: monospace meta in `rgba(255,255,255,0.25)` (optional)
-- Parent slide: `position: absolute; inset: 0` (NOT relative)
+**Layer stack (all inside `#slide-0`, which is `position:absolute; inset:0`):**
+1. `<canvas id="heroGL">` — WebGL gradient (z-index 1). Raw WebGL, no Three.js; **shimmer-only** (strip the website's mouse-reveal uniforms for decks).
+2. `<canvas id="heroAscii">` — ASCII overlay (z-index 1, `pointer-events:none`). Canvas 2D.
+3. `.hero-grain` — SVG feTurbulence grain (z-index 2, `mix-blend-mode:overlay`, ~6%).
+4. `.hero-content` — white `logo-white.png` (64px) centred + optional title/subtitle (z-index 3); `.hero-byline` bottom-left.
 
-**HTML structure:**
+**HTML:**
 ```html
-<!-- CRITICAL: slide-0 MUST have class="slide active" so WebGL canvas has non-zero
-     dimensions at init time. Without this, the shader fails silently on Safari. -->
 <div class="slide active" id="slide-0">
   <div class="hero-layers">
     <canvas id="heroGL"></canvas>
+    <canvas id="heroAscii"></canvas>
+  </div>
+  <div class="hero-grain" aria-hidden="true">
+    <svg><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#grain)"/></svg>
   </div>
   <div class="hero-content">
     <img src="logo-white.png" alt="Progression Labs" class="hero-logo">
+    <h1 class="hero-title">Deck title</h1>
+    <p class="hero-subtitle">Subtitle</p>
   </div>
 </div>
 ```
 
-**Hero CSS:**
-```css
-/* CSS fallback gradient — visible if WebGL fails, covered by canvas when it works */
-#slide-0 {
-  background: linear-gradient(to top, #020008 0%, #0a0028 30%, #1a0040 60%, #2a1050 80%, #1a0830 100%);
-}
+**Hero CSS:** `#slide-0` keeps a dark fallback (`background: linear-gradient(to top,#010104 0%,#00031a 45%,#001a6b 100%)`) visible until WebGL paints. Then: `.hero-layers{position:absolute;inset:0;z-index:1}`, `.hero-layers canvas{position:absolute;inset:0;width:100%;height:100%}`, `#heroAscii{pointer-events:none}`, `.hero-grain{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.06;mix-blend-mode:overlay}`.
 
-.hero-layers { position: absolute; inset: 0; z-index: 1; }
-.hero-layers canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-#heroAscii { pointer-events: none; }
-.hero-content {
-  position: relative; z-index: 3;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  height: 100%;
-}
-.hero-logo { width: 64px; height: auto; filter: drop-shadow(0 0 20px rgba(255,255,255,0.2)); }
-/* Grain: SVG feTurbulence overlay, NOT a canvas */
-.noise-overlay { position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: 0.03; mix-blend-mode: overlay; }
-.noise-overlay svg { width: 100%; height: 100%; }
+**Shader colour cycle** (replace `getGradientColor`; set `float blockPx = 32.0`):
+```glsl
+vec3 cBlue=vec3(0.,0.,1.); vec3 cTurquoise=vec3(.251,.878,.816);
+vec3 cPeriwinkle=vec3(.749,.706,.863); vec3 cBabyPink=vec3(1.,.785,.866);
+vec3 cPeach=vec3(1.,.855,.725); vec3 cLightOrange=vec3(1.,.627,.478);
+float progress = mod(uTime + 25.0, 50.0) / 50.0;       // opens on peach+blue
+float seg = progress * 10.0; int idx = int(floor(seg)); float t = ssmooth(seg - floor(seg));
+// peakA ALWAYS cBlue; peakB: blue→turquoise→blue→babyPink→blue→peach→blue→periwinkle→blue→lightOrange
 ```
+The dark-mode 5-zone luminance ramp in `computeGradient` and the shimmer in `main()` are unchanged from the live dark path.
 
-**Grain HTML (place at top of body, outside slides):**
-```html
-<div class="noise-overlay" aria-hidden="true">
-  <svg><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#grain)"/></svg>
-</div>
-```
+**ASCII overlay:** Canvas 2D, 32px grid matching `blockPx`, 40% fill, white `500 12px Inter`, char set `0123456789@#$%&*+=?<>{}[]/\|LABS`, alpha = `shimmerMask * brightness(0.5–1.0)`, `py = height - vUvY*height`, shimmer `fract(time*0.25)` with gaussian `exp(-d²*120)*0.6`. Strip the mouse path — shimmer-only for decks.
 
-For the full WebGL shader code and pixel corner code, read these supporting files:
-- `hero-shader.md` — WebGL vertex/fragment shader (copy-paste)
-- `pixel-corner.md` — Animated pixel corner accent for content slides
+Logo + title are white on the blue field. (The live site's title is a bottom-left headline; decks centre the logo + a short title.)
+
+For the animated pixel-corner accent used on content slides (a separate, optional detail), read `pixel-corner.md`.
 
 ### Content Slides: Prism Gradient + Grain + Pixel Overlay
 
-Content slides use `#fafafa` background with three layered effects in the bottom-right corner:
+Content slides use the warm cream `#faf7f2` (`var(--pl-bg)`) background with three layered effects in the bottom-right corner:
 1. **Prism gradient** — SVG bezier curves creating a light-dispersion fan
 2. **Pixel overlay** — Canvas 2D color-cycling pixel blocks with `mix-blend-mode: overlay`
 3. **Grain texture** — SVG feTurbulence with `mix-blend-mode: multiply`
 
 ```css
 .slide:not(#slide-0) {
-  background: #fafafa;
+  background: #faf7f2;
   position: absolute;
   inset: 0;
 }
@@ -197,7 +308,7 @@ Content slides use `#fafafa` background with three layered effects in the bottom
   <div class="slide-bg-prism"></div>
   <canvas class="prism-pixels"></canvas>
   <div class="slide-grain"><svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#slide-grain-f)"/></svg></div>
-  <img src="logo-white.png" class="slide-logo" alt="">
+  <!-- .slide-logo (black, bottom-right) is auto-injected on content slides; see Slide Logo Watermark -->
   <div class="content">
     <!-- slide content here -->
   </div>
@@ -208,32 +319,28 @@ The `.content` div sits above backgrounds at `position: relative; z-index: 1; ma
 
 ### Slide Logo Watermark
 
-Small white logo in the bottom-right corner of every content slide, sitting within the pixel overlay area:
+Small **black** Progression logo in the bottom-right corner of every content slide — same position and size as the divider `.image-logo`. (Content slides are the light cream `#faf7f2`, so the corner logo is black for legibility; the dark hero and dark divider images use the white logo.)
 
 ```css
 .slide-logo {
   position: absolute;
-  bottom: 28px;
-  right: 32px;
-  width: 20px;
+  bottom: 24px;
+  right: 24px;
+  width: 26px;
   height: auto;
-  opacity: 0.8;
+  opacity: 0.9;
   z-index: 2;
   pointer-events: none;
 }
 ```
 
-```html
-<img src="logo-white.png" class="slide-logo" alt="">
-```
-
-Add this element to every content slide, after the grain div.
+Inject it via JS on load (don't hand-add to every slide): for each `.slide`, skip the hero (idx 0) and skip `.slide-split` dividers (they already carry `.image-logo` on the image), then append `<img class="slide-logo" src="logo-black.png" alt="">`.
 
 ## Logo Placement
 
 **Title slide:** White `logo-white.png`, 64px wide, centered, on gradient. Logo only (no text).
 
-**Content slides:** Corner watermark embedded in the pixel corner accent canvas, 26px wide, positioned 2 block widths inward from corner origin.
+**Content slides:** Black `logo-black.png` watermark, 26px wide, bottom-right at `24px / 24px` (same spot as the divider `.image-logo`), auto-injected via JS. The animated pixel-corner accent canvas sits behind it.
 
 **Fixed badge (optional):** Top-left company name, fixed position:
 ```css
@@ -249,7 +356,7 @@ Add this element to every content slide, after the grain div.
 }
 ```
 ```html
-<div class="company-badge">Progression <span style="color: #0000FF;">Labs</span></div>
+<div class="company-badge">Progression <span style="color: #1e5bff;">Labs</span></div>
 ```
 
 ## Navigation Dots
@@ -278,8 +385,8 @@ Fixed right-side dots with intersection observer (or slide index tracking):
   padding: 0;
 }
 .nav-dot.active {
-  background: #0000FF;
-  box-shadow: 0 0 10px rgba(0,0,255,0.3);
+  background: #1e5bff;
+  box-shadow: 0 0 10px rgba(30,91,255,0.3);
   transform: scale(1.3);
 }
 ```

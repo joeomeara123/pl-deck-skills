@@ -11,7 +11,27 @@ Orchestrates the full deck creation pipeline. Invoke child skills in order for c
 
 **Company:** Progression Labs
 **Positioning:** AI consultancy helping companies integrate AI solutions
-**Aesthetic:** Light-first, technical-minimalist with generative art influences
+**Aesthetic:** Light-first, technical-minimalist with generative art influences, grounded in the live Progression Labs site design system.
+
+## Design Tokens
+
+Every deck opens its `<style>` with this `:root` block (taken from the live Progression Labs site / case study). Reference `var(--pl-*)` instead of raw hex so the whole system stays consistent and re-skinnable.
+
+```css
+:root{
+  --pl-blue:#1e5bff; --pl-blue-hover:#0d49eb; --pl-navy:#0943a0;
+  --pl-salmon:#ffa07a; --pl-orchid:#ba55d3; --pl-sky:#60a5fa;
+  --pl-bg:#faf7f2; --pl-bg-2:#f5f5f5; --pl-bg-3:#f0f0f0; --pl-cream:#faf7f2;
+  --pl-text:#1a1a1a; --pl-text-2:rgba(0,0,0,.65); --pl-text-3:rgba(0,0,0,.45); --pl-border:rgba(0,0,0,.06);
+  --pl-red:#dc2626;
+  --pl-radius-sm:6px; --pl-radius-md:10px; --pl-radius-lg:16px; --pl-radius-pill:100px;
+  --pl-font:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --pl-mono:"SF Mono","Fira Code","Cascadia Code","Courier New",monospace;
+  --pl-ease:cubic-bezier(0.22,0.61,0.36,1); --pl-ease-snap:cubic-bezier(0.5,0,0,1);
+}
+```
+
+The WebGL hero shader and prism-pixel corner are generative art and keep their own 5-colour palette (not tokenised). Everything else references the tokens.
 
 ## Color System
 
@@ -19,13 +39,27 @@ Orchestrates the full deck creation pipeline. Invoke child skills in order for c
 
 | Color | Hex | Use |
 |-------|-----|-----|
-| **Blue** | `#0000FF` | Step numbers, icons, labels, chart bars, diagram nodes, positive indicators |
-| **Salmon** | `#FFA07A` | Secondary accent, CTAs, warm highlights |
-| **Red** | `#dc2626` | Negative/risk indicators only |
+| **Blue** | `#1e5bff` (`var(--pl-blue)`) | Step numbers, icons, labels, chart bars, diagram nodes, **good / best practice / recommended path**. Hover/active `#0d49eb`. This is the live-site royal blue (replaced the older electric `#0000FF`). |
+| **Red** | `#dc2626` | **Bad / anti-pattern / risk / what to avoid** |
+| **Salmon** | `#ffa07a` | Hero gradient + pixel corner only. Not used for content semantics. |
 
-**Gradient shading allowed:** Dark blue `#00008B` through `#0000FF` to light `rgba(0,0,255,0.15)` for depth.
+**Gradient shading allowed:** Deep navy `#0943a0` (`var(--pl-navy)`) through blue `#1e5bff` to light `rgba(30,91,255,0.15)` for depth.
 
-### Full 5-Color Palette (hero gradient and pixel corner ONLY)
+### Blue / Red as a signaling system
+
+When a slide contrasts good vs bad (best practice vs anti-pattern, recommended vs risky, what worked vs what didn't), use the system consistently:
+
+| Treatment | Good | Bad |
+|---|---|---|
+| Background tint | `rgba(30,91,255,0.04)` | `rgba(220,38,38,0.04)` |
+| Border | `1px solid rgba(30,91,255,0.2)` | `1px solid rgba(220,38,38,0.25)` |
+| Inline tag pill | Blue `#1e5bff` background, white text, 9px mono uppercase | Red `#dc2626` background, white text, 9px mono uppercase |
+| Diagram stroke | `#1e5bff` | `#dc2626` |
+| Text accent (sparingly) | `#1e5bff` weight 600 | `#dc2626` weight 600 |
+
+Apply on slides where the structure is paired contrast (e.g. best practice / anti-pattern tables, what-happened / what-should-have-happened flows). Do not over-apply: a single-topic slide with no good/bad framing should stay neutral.
+
+### Full 5-Color Palette (pixel corner accent ONLY)
 
 | Color | Hex |
 |-------|-----|
@@ -35,7 +69,7 @@ Orchestrates the full deck creation pipeline. Invoke child skills in order for c
 | Turquoise | `#40E0D0` |
 | Blue | `#0000FF` |
 
-These 5 colors cycle in the hero gradient WebGL shader and the pixel corner animation. They are NEVER used in slide body content.
+These 5 colors cycle in the animated pixel-corner accent on content slides. They are NEVER used in flat slide body content. The **title slide** uses the live blue-centric WebGL hero (see pl-deck-layout, Title Slide): royal blue throughout, with one accent at a time (peach, light-orange, turquoise, periwinkle, baby-pink) returning to blue between each, plus an ASCII overlay and film grain. The hero shader blue is pure `#0000FF` (the live value); the content UI blue is `#1e5bff`.
 
 **NEVER do this:**
 - Steps in different colors (1=orchid, 2=blue, 3=salmon)
@@ -46,13 +80,21 @@ These 5 colors cycle in the hero gradient WebGL shader and the pixel corner anim
 
 | Role | Value |
 |------|-------|
-| Background | `#fafafa` |
+| Background | `#faf7f2` (`var(--pl-bg)`) — warm cream, matching the live site's content sections (`--exp-bg`). `#f5f5f5`/`#f0f0f0` for deeper surfaces. |
 | Text primary | `#1a1a1a` |
-| Text secondary | `#555` / `#666` |
-| Text tertiary | `rgba(0,0,0,0.35)` |
+| Text secondary | `rgba(0,0,0,0.65)` (`var(--pl-text-2)`) |
+| Text tertiary | `rgba(0,0,0,0.45)` (`var(--pl-text-3)`) |
 | Border | `rgba(0,0,0,0.06)` |
 | Card surface | `rgba(0,0,0,0.012)` |
-| Section labels | `rgba(0,0,255,0.45)` |
+| Section labels | `rgba(30,91,255,0.45)` |
+
+## Signature Details
+
+Three recurring details from the live site. Use them sparingly for polish.
+
+- **Mono-dot eyebrow.** The small mono label above a heading can lead with a pulsing blue dot. `.label.eyebrow { display:inline-flex; align-items:center; gap:9px; }` + `.eyebrow-dot { width:6px; height:6px; border-radius:50%; background:var(--pl-blue); box-shadow:0 0 8px rgba(30,91,255,.55); animation:eyebrowPulse 2.4s var(--pl-ease) infinite; }` (`@keyframes eyebrowPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.7)}}`). Use on 1-2 hero-adjacent slides, not every slide.
+- **Pill CTA.** Buttons are pills, not rectangles: `border-radius:var(--pl-radius-pill); padding:13px 26px; font:500 13px var(--pl-font); letter-spacing:.01em; color:#fff; background:var(--pl-blue);` hover `var(--pl-blue-hover)`. Sentence case, not uppercase. Add `align-self:flex-start` inside a column flex so the pill hugs its content.
+- **Radii + easing.** Cards/boxes use `var(--pl-radius-md)` (10px); buttons `var(--pl-radius-pill)`. Transitions use `var(--pl-ease)`.
 
 ## Typography
 
@@ -65,19 +107,53 @@ Load from Google Fonts: `Inter:wght@300;400;500;600;700`
 
 | Element | Size | Weight | Notes |
 |---------|------|--------|-------|
-| Section heading | clamp(1.4rem, 2.8vw, 2.2rem) | 300 | Light, clean. line-height 1.2, letter-spacing -0.01em |
-| Card title | 12.5px | 600 | |
-| Body / subtitle | 0.88rem | 300 | line-height 1.7, max-width 520px, color #94a3b8 |
-| Labels | 9px | 600 | UPPERCASE, letter-spacing 0.12em, monospace |
+| Heading (default) | clamp(2rem, 4vw, 3.6rem) | 200 | Ultra-light, editorial. line-height 1.1, letter-spacing -0.02em |
+| **Heading mega** | clamp(3.6rem, 7vw, 6rem) | 200 | For one-quote / one-stat moment slides. line-height 1.05, letter-spacing -0.03em |
+| Section divider number | clamp(7rem, 12vw, 11rem) | 200 | The giant `01`, `02`, `03`... that anchors each section divider. Inter, not mono. |
+| Card title | 13px | 600 | |
+| **Body prose (floor)** | **1rem (16px)** | 300 | line-height ≥ 1.65, max line length ≤ 70ch. **Hard minimum** — do not shrink below this. |
+| Body emphasis / executive copy | 1.05rem | 400 | line-height 1.7 — use for executive-summary slides where the prose is the main content |
+| Editorial prose | 1.1rem | 300 | For single-column editorial slides. line-height 1.75, max-width 720px. |
+| Pull quote | clamp(1.4rem, 2.4vw, 2rem) | 300 | Italic, blue left-border 3px. For moment slides. |
+| Stat number (default) | 4.5rem | 200 | For `.highlight-number` stat blocks. line-height 1, letter-spacing -0.02em |
+| Stat number (mega) | clamp(5rem, 10vw, 8rem) | 200 | For solo-hero stat slides. line-height 0.95, letter-spacing -0.03em |
+| Table cell prose (exception) | 0.92rem (~14.7px) | 300 | Only inside multi-column tables (3+ cols) where 1rem would overflow |
+| Labels | 9-10px | 600 | UPPERCASE, letter-spacing 0.12em, monospace. Exempt from the prose floor (labels are tokens, not prose). |
 | CTA text | 9px | 600 | UPPERCASE, letter-spacing 0.1em |
 
-**Rules:** Headings use Inter weight 300 for clean minimalism. Keywords within headings use weight 600 + brand blue. Body text weight 300 in muted slate (#94a3b8). All labels/CTAs UPPERCASE with wide tracking. Section labels in blue at 35% opacity, monospace. Less is more. Keep everything compact and small; each slide should feel like it has generous room to breathe. Content max-width 960px.
+**Rules:** Headings use Inter weight 200 (ultra-light) for editorial drama. Keywords within headings use weight 500-600 + brand blue. Body prose weight 300 in dark slate (#1a1a1a). All labels/CTAs UPPERCASE with wide tracking. Section labels in blue at 35% opacity, monospace. **Hierarchy comes from scale and weight contrast — not colour or decoration.** Content max-width 960px (1080px for editorial moments).
+
+## Editorial Aesthetic
+
+The deck aims for the visual language of a frontier AI lab or serious consultancy (Anthropic / OpenAI / DeepMind / Faculty / Scale / Tomoro tier), not a generic consulting deck. Seven moves to apply:
+
+1. **Radical whitespace.** Each concept gets its own region. Margins generous, line-heights tall.
+2. **Imagery-first narrative.** Hero and section dividers lead with photography or motion. Copy explains visuals, not vice-versa.
+3. **Minimal sans-serif with weight contrast.** Inter dominates. Hierarchy is *scale and weight* — never serif, never decorative.
+4. **Restrained colour.** One brand colour (blue) used sparingly. Red only for true anti-patterns. Backgrounds neutral.
+5. **One powerful statement per section.** Punchy hero statements. Bullets give way to one core idea where possible.
+6. **Credibility through proof.** Big stats, research provenance, customer logos — not testimonials.
+7. **Systematic design.** Every element recurs. Patterns documented (`.editorial`, `.pull-quote`, `.mega-stat`, etc.) so nothing is one-off.
 
 ## Copy Rules
 
 - **No em dashes.** They read as AI-generated. Use periods, semicolons, or restructure. If a parenthetical aside is needed, use actual parentheses or a comma pair.
 - Headings under 10 words.
 - Body text must be specific, not generic filler.
+- **If a slide does not fit comfortably with 1rem prose, trim content, not size.** Shrinking type below the floor is a brand violation. Cut bullets, simplify rows, or split across slides.
+
+## Slide Numbering
+
+Every content slide shows a small `NN / TT` indicator (current slide / total content slides) so it can be referenced quickly during a walkthrough.
+
+| Property | Value |
+|---|---|
+| Position | Top-right, 32px from top, 36px from right (standard slides). For split-layout dividers, top-left of the text half, 32px / 64px. |
+| Font | SF Mono, 10px, weight 600, letter-spacing 0.12em, uppercase |
+| Colour | `rgba(30,91,255,0.45)` (brand blue at 45% opacity, matching the section label) |
+| Format | Zero-padded: `01 / 39`, `04 / 39`, `39 / 39`. Hero (slide 0) does NOT show a number. |
+| Injection | Inject via a single JS function on page load; do not hand-add markup. |
+| Animation | Fade in at offset 0.05 of the slide-in timeline (just behind the label). |
 
 ## Logo
 
@@ -94,10 +170,14 @@ Load from Google Fonts: `Inter:wght@300;400;500;600;700`
 Execute these skills in order. Each skill handles one domain.
 
 ### Step 0: Assets
-Copy logo files into the deck output directory before writing any HTML:
+Copy logo files into the deck output directory before writing any HTML, and pick section-divider imagery from the curated library:
 ```bash
 cp ~/.claude/skills/assets/logo-white.png ~/.claude/skills/assets/logo-black.png <deck-directory>/
+# Divider imagery — choose from the library (catalog + logo-colour per image in pl-deck-layout):
+mkdir -p <deck-directory>/img
+cp ~/.claude/skills/assets/imagery/octopus.png <deck-directory>/img/section-1.png   # repeat per section, renaming section-N.png
 ```
+The imagery library (`~/.claude/skills/assets/imagery/`) holds the brand mosaics: octopus, jellyfish (5 variants), school-of-fish, and two blue flowers. Dark images take `logo-white.png`; the light flowers take `logo-black.png`.
 
 ### Step 1: Layout and Structure
 **Invoke `Skill(pl-deck-layout)`**
@@ -192,27 +272,27 @@ Use these blueprints to structure slide content. Pick the template that matches 
 After generating every slide, verify against this checklist. Do not skip.
 
 ### Visual Quality
-- [ ] No more than 2 colors in slide content (blue + one accent). No rainbow.
+- [ ] Slide content uses brand palette only: blue, red, greys. No rainbow.
 - [ ] Step numbers ALL the same color (blue), plain text (no circles/backgrounds).
 - [ ] No em dashes in any text.
-- [ ] **No boxes.** No card backgrounds, solid borders, or border-radius. Use dashed lines only.
+- [ ] **Boxes are allowed for emphasis** (see pl-deck-components Boxes section). Use subtle tinted backgrounds (`rgba(30,91,255,0.04)` blue, `rgba(220,38,38,0.04)` red, `rgba(0,0,0,0.025)` neutral) with 8-12px border-radius and 1px solid 20% borders. Default to dashed dividers for soft grouping; reserve boxes for paired contrast or callouts.
 - [ ] Diagrams have fewer elements than limits (see pl-deck-components).
 - [ ] All SVG text at least 8px.
 - [ ] White space is generous. Nothing cramped. Less is more.
 
 ### Layout
-- [ ] Content left-aligned, top-down flow.
-- [ ] Padding: 72px top, 100px sides, 56px bottom. Content max-width 960px.
-- [ ] Card grids use vertical dashed line dividers between columns.
+- [ ] Content **vertically centred** in the slide area (`justify-content: center`), text inside left-aligned.
+- [ ] Padding: 48px top, 100px sides, 56px bottom. Content max-width 960px.
+- [ ] Card grids use vertical dashed line dividers between columns (or boxes for paired contrast).
 - [ ] Footer pinned to bottom.
 
 ### Brand Compliance
 - [ ] Icons are from the `pl-deck-icons` library (not improvised). Geometric/abstract, not literal pictograms.
-- [ ] Icon wireframe strokes use `stroke: #0000FF`. Gradient fills are subtle (8-15% opacity).
+- [ ] Icon wireframe strokes use `stroke: #1e5bff`. Gradient fills are subtle (8-15% opacity).
 - [ ] No icon repeated on consecutive slides.
 - [ ] Labels monospace, uppercase, blue at 35% opacity.
-- [ ] Quotes have salmon left border.
-- [ ] Badges are plain colored text (no backgrounds).
+- [ ] Quotes have a blue left border (2px solid `#1e5bff`), or red if the quote represents an anti-pattern.
+- [ ] Inline tag pills (`.tag-good` / `.tag-bad`) are allowed for compact good/bad labels; plain colored text is also fine for restraint.
 
 ### Diagram Quality (run on EVERY SVG diagram)
 - [ ] **5-second test**: Can a reader understand the main point in 5 seconds?
